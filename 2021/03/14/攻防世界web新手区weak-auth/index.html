@@ -6,25 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>攻防世界web新手区disabled_button | Hexo</title>
+  <title>攻防世界web新手区weak_auth | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第五题，题目提示按键不能用   F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled  删除disabled，按钮就可以按了   得到flag">
+  <meta name="description" content="第六题，弱密码   直接burpsuite抓包，发现密码并没有加密  直接发到intruder，导入弱密码  因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显  得到flag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界web新手区disabled_button">
-<meta property="og:url" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/index.html">
+<meta property="og:title" content="攻防世界web新手区weak_auth">
+<meta property="og:url" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="第五题，题目提示按键不能用   F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled  删除disabled，按钮就可以按了   得到flag">
+<meta property="og:description" content="第六题，弱密码   直接burpsuite抓包，发现密码并没有加密  直接发到intruder，导入弱密码  因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显  得到flag">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG">
-<meta property="og:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button2.PNG">
-<meta property="og:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button3.PNG">
-<meta property="og:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button4.PNG">
-<meta property="og:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button5.PNG">
-<meta property="article:published_time" content="2021-03-13T14:22:02.000Z">
-<meta property="article:modified_time" content="2021-03-13T14:28:55.984Z">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth2.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth3.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth4.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth5.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth6.PNG">
+<meta property="article:published_time" content="2021-03-14T11:19:41.000Z">
+<meta property="article:modified_time" content="2021-03-14T11:35:08.341Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG">
+<meta name="twitter:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -166,35 +167,37 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-攻防世界web新手区disabled-button" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-攻防世界web新手区weak-auth" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      攻防世界web新手区disabled_button
+      攻防世界web新手区weak_auth
     </h1>
   
 
         
-        <a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
+        <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" class="archive-article-date">
+  	<time datetime="2021-03-14T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第五题，题目提示按键不能用</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG" class="" title="disabled_button1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button2.PNG" class="" title="disabled_button2.PNG">
-<p>F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button3.PNG" class="" title="disabled_button3.PNG">
-<p>删除disabled，按钮就可以按了</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button4.PNG" class="" title="disabled_button4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button5.PNG" class="" title="disabled_button5.PNG">
+        <p>第六题，弱密码</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG" class="" title="weak_auth1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth2.PNG" class="" title="weak_auth2.PNG">
+<p>直接burpsuite抓包，发现密码并没有加密</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth3.PNG" class="" title="weak_auth3.PNG">
+<p>直接发到intruder，导入弱密码</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth4.PNG" class="" title="weak_auth4.PNG">
+<p>因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth5.PNG" class="" title="weak_auth5.PNG">
 <p>得到flag</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth6.PNG" class="" title="weak_auth6.PNG">
 
       
 
@@ -274,7 +277,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,18 +291,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          攻防世界web新手区weak_auth
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">攻防世界web新手区cookie</div>
+    <a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">攻防世界web新手区disabled_button</div>
       <i class="icon-circle-right"></i>
     </a>
   
