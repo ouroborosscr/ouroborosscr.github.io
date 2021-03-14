@@ -158,6 +158,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-攻防世界web新手区command-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">攻防世界web新手区command_execution</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" class="archive-article-date">
+  	<time datetime="2021-03-14T13:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第十一题 题目提示ping功能没写waf<br>百度了一下，waf是WEB应用安全防火墙，防各种渗透的，并没有什么有用的提示<br>先看题</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution1.PNG" class="" title="command_execution1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution2.PNG" class="" title="command_execution2.PNG">
+<p>题目是一个ping功能<br>随便打个127.0.0.1，发现竟然有回显</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution8.PNG" class="" title="command_execution8.PNG">
+<p>尝试运用指令拼接（一行运行多条指令，可以用&amp;或;）<br>输入127.0.0.1；ls<br>发现回显多了一个index.php，说明可以拼接</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution9.PNG" class="" title="command_execution9.PNG">
+<p>补充知识：cd ..可以返回上级目录<br>不断增加cd ..;的数量直到根目录</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution3.PNG" class="" title="command_execution3.PNG">
+<p>直接用find指令，搜文件</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution4.PNG" class="" title="command_execution4.PNG">
+<p>出来一大堆文件，页面搜索flag.</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution5.PNG" class="" title="command_execution5.PNG">
+<p>看见flag.txt的位置，然后直接cat获取文件</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution6.PNG" class="" title="command_execution6.PNG">
+<p>得到flag</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution7.PNG" class="" title="command_execution7.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-攻防世界web新手区webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -788,71 +866,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-攻防世界web新手区view-source" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/">攻防世界web新手区view-source</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/" class="archive-article-date">
-  	<time datetime="2021-03-12T00:27:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一题，右键没用，打不开控制台</p>
-<img src="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/view_source1.PNG" class="" title="view_source1">
-<p>没什么技术含量，F12</p>
-<img src="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/view_source3.PNG" class="" title="view_source3">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/">展开全文 >></a>
         </p>
       
 
