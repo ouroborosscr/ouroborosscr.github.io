@@ -6,27 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>攻防世界web新手区simple_php | Hexo</title>
+  <title>攻防世界web新手区get_post | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第六题，考php   首先，读php。读取a和b两个数据， 先说a：方法一如果a的值等于0，且a不为0（这里要用到php的弱语言属性）值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等尝试一下，可以得到一半flag    方法二让a等于一个并未赋值的cc为空，所以在比较时数值为0，但是c存在，所以自己后面也是true   然后再说b：is_numeric()的意思是判断是否">
+  <meta name="description" content="第八题 考get和post两种提交形式    先在地址栏传a&#x3D;1，这是get提交显示要在get传a&#x3D;1的基础上用post传b&#x3D;2   法一：开heakbar，打开post，url复制到上面，在下面传b&#x3D;2法二：burpsuite或者抓包，在所有请求后面写b&#x3D;2   得到flag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="攻防世界web新手区simple_php">
-<meta property="og:url" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/index.html">
+<meta property="og:title" content="攻防世界web新手区get_post">
+<meta property="og:url" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="第六题，考php   首先，读php。读取a和b两个数据， 先说a：方法一如果a的值等于0，且a不为0（这里要用到php的弱语言属性）值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等尝试一下，可以得到一半flag    方法二让a等于一个并未赋值的cc为空，所以在比较时数值为0，但是c存在，所以自己后面也是true   然后再说b：is_numeric()的意思是判断是否">
+<meta property="og:description" content="第八题 考get和post两种提交形式    先在地址栏传a&#x3D;1，这是get提交显示要在get传a&#x3D;1的基础上用post传b&#x3D;2   法一：开heakbar，打开post，url复制到上面，在下面传b&#x3D;2法二：burpsuite或者抓包，在所有请求后面写b&#x3D;2   得到flag">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php2.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php3.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php4.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php5.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php7.PNG">
-<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php6.PNG">
-<meta property="article:published_time" content="2021-03-14T11:55:07.000Z">
-<meta property="article:modified_time" content="2021-03-14T12:22:22.319Z">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG">
+<meta property="og:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG">
+<meta property="article:published_time" content="2021-03-14T12:25:42.000Z">
+<meta property="article:modified_time" content="2021-03-14T12:36:11.137Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG">
+<meta name="twitter:image" content="http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -168,39 +166,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-攻防世界web新手区simple-php" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-攻防世界web新手区get-post" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      攻防世界web新手区simple_php
+      攻防世界web新手区get_post
     </h1>
   
 
         
-        <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:55:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+        <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" class="archive-article-date">
+  	<time datetime="2021-03-14T12:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第六题，考php</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG" class="" title="simple_php1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php2.PNG" class="" title="simple_php2.PNG">
-<p>首先，读php。<br>读取a和b两个数据，</p>
-<p>先说a：<br>方法一<br>如果a的值等于0，且a不为0<br>（这里要用到php的弱语言属性）<br>值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等<br>尝试一下，可以得到一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php3.PNG" class="" title="simple_php3.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php4.PNG" class="" title="simple_php4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php5.PNG" class="" title="simple_php5.PNG">
-<p>方法二<br>让a等于一个并未赋值的c<br>c为空，所以在比较时数值为0，但是c存在，所以自己后面也是true</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php7.PNG" class="" title="simple_php7.PNG">
+        <p>第八题 考get和post两种提交形式</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG" class="" title="get_post1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG" class="" title="get_post2.PNG">
 
-<p>然后再说b：<br>is_numeric()的意思是判断是否为数字，是为true<br>所以后面的代码先判断b是否为数字，是的话则跳出程序<br>之后的if($b&gt;1234)再判断是否大于1234<br>还是考的弱语言<br>让b=2222a<br>读入的时候自动存为字符串，但是进行比较时会自动转成数字并消去后面的a（比较时根据最左边的数据来判断转成什么类型，所以a2222就不行，会转成字符串然后转成0）<br>得到后面的一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php6.PNG" class="" title="simple_php6.PNG">
+<p>先在地址栏传a=1，这是get提交<br>显示要在get传a=1的基础上用post传b=2</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG" class="" title="get_post3.PNG">
+
+<p>法一：<br>开heakbar，打开post，url复制到上面，在下面传b=2<br>法二：<br>burpsuite或者抓包，在所有请求后面写b=2</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG" class="" title="get_post4.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG" class="" title="get_post5.PNG">
+<p>得到flag</p>
+
       
 
       
@@ -279,7 +276,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -293,18 +290,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          攻防世界web新手区get_post
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">攻防世界web新手区weak_auth</div>
+    <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">攻防世界web新手区simple_php</div>
       <i class="icon-circle-right"></i>
     </a>
   
