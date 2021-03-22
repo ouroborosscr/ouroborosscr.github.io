@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://example.com/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep6.PNG">
 <meta property="og:image" content="http://example.com/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep1.PNG">
 <meta property="article:published_time" content="2021-03-22T11:09:01.000Z">
-<meta property="article:modified_time" content="2021-03-22T12:20:02.025Z">
+<meta property="article:modified_time" content="2021-03-22T12:37:12.673Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.PNG">
@@ -210,7 +210,7 @@
 <p>之后，就没思路了……</p>
 <p>还好这时这道题突然崩了，然后看见群里有人反馈他做完题后不小心rm -rf / *<br>了一下,把一开始的静态环境弄炸了(夺笋呐)</p>
 <p>等恢复（换成靶机）的这段时间里想到了用shell<br>（刚刚的phpinfo（）顺便得到了是linux系统）<br>然后就搜了一下让php实现shell的方法<br>最常见的是以下三种函数：<br>1.system<br>2.exec<br>3.passthru<br>但都太长了，根本不可能使用（因为还要加上;a)(其实后来想想，exec或许可以)</p>
-<p>之后我找到了一种最简便的方法————``(用反斜杠括起来)<br>然后我尝试了len=-1&amp;nep=echo <code>ls</code>;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
+<p>之后我找到了一种最简便的方法——``(用反引号括起来)<br>然后我尝试了len=-1&amp;nep=echo `ls`;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
 <img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep3.PNG" class="" title="nep3.PNG">
 
 <p>回显显示了一个文件nepctf.php<br>先尝试打开它</p>
@@ -218,9 +218,9 @@
 <p>发现是个空白页<br>那么flag很有可能在这个文件里</p>
 <h2 id="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"><a href="#为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）" class="headerlink" title="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"></a>为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）</h2><p>首先想到的是限制字符的shell<br>因此搜到了这个————<br><a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3316599.html">http://www.bubuko.com/infodetail-3316599.html</a></p>
 <img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep9.PNG" class="" title="nep9.PNG">
-<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补上<code>;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量) 这都有13个字符了，直接超标 所以实际上我只能用4字符的方法 而四字符的方法，是通过\号实现shell转译，来实现多行的输入 再通过&gt; v，以及*v来倒叙读取这些代码来运行 但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的 但我不会python，所以只能用burpsuite实现一次性输入 事实上，因为我看不到回显的缘故，我甚至不知道每次的</code>是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
+<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补` `;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量)<br>这都有13个字符了，直接超标<br>所以实际上我只能用4字符的方法<br>而四字符的方法，是通过\号实现shell转译，来实现多行的输入<br>再通过&gt; v，以及*v来倒叙读取这些代码来运行<br>但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的<br>但我不会python，所以只能用burpsuite实现一次性输入<br>事实上，因为我看不到回显的缘故，我甚至不知道每次的``是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
 <hr>
-<p>正确方法！！！<br>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo <code>cat n*</code>;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=<code>cp 1 n*</code>;a(相当于把n*文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
+<h2 id="正确方法！！！"><a href="#正确方法！！！" class="headerlink" title="正确方法！！！"></a>正确方法！！！</h2><p>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo `cat n<em>`;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=`cp 1 n*`;a(相当于把n</em>文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
 <img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep4.PNG" class="" title="nep4.PNG">
 <p>然后ls一下，看见1文件已被创立</p>
 <img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep5.PNG" class="" title="nep5.PNG">
