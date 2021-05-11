@@ -158,6 +158,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"><a href="#dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="headerlink" title="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"></a>dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法</h2><p>因为一些原因，我尝试在windows上安装dirsearch<br>网上的安装教程全都是一毛一样的，不知道是谁复制谁的。</p>
+<p>总的来说就是先从<br><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>上下载zip，解压<br>或者直接git clone <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
+<p>仅说了需要python3的环境<br>然后cd到dirsearch-master，输入python dirsearch.py -u &lt;网址&gt;<br>就行了，像这样</p>
+
+
+<p>而我的实际操作中，是这样的——</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG" class="" title="2.PNG">
+
+<p>会报错“Traceback (most recent call last):……”</p>
+<p>然后我在网上找了好久，终于找到了一篇不一样的博客（CSDN是该管管了，垃圾指针无限递归问题）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic">https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic</a></p>
+<p>这个博客说需要用pip安装一些帮助文件</p>
+<p>然后我搜偶到了这个————<br><a target="_blank" rel="noopener" href="https://pip-cn.readthedocs.io/en/latest/installing.html">https://pip-cn.readthedocs.io/en/latest/installing.html</a><br>结论：Python 2.5在 v1.3.1版本后, Python 2.4在v1.1版本后，安装python后会自动安装pip<br>所以pip本身的安装不用管了</p>
+<p>在尝试了pip install chardet &amp; pip install certifi后，发现还是和原来一样的报错</p>
+<p>然后搜到了这个——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43978056/article/details/105940157">https://blog.csdn.net/weixin_43978056/article/details/105940157</a></p>
+<p>再回去看报错，发现缺少的是“urllib3”</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG" class="" title="6.PNG">
+<p>直接pip install urllib3</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG" class="" title="3.PNG">
+
+<p>再尝试，发现这次缺的是cryptography</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG" class="" title="4.PNG">
+<p>继续pip install cryptography</p>
+<p>再尝试，才成功开始扫目录</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG" class="" title="5.PNG">
+
+<p>所以以后遇到“Traceback (most recent call last):……”的问题，都可以尝试这样解决</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-bugku-web-web8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -809,79 +898,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-攻防世界web新手区simple-js" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>十二题 考js</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js1.PNG" class="" title="simple_js1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js2.PNG" class="" title="simple_js2.PNG">
-<p>一打开，只有一个输password的地方<br>随便输一下<br>显示：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>查看页面源代码，发现有一个JavaScript</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js3.PNG" class="" title="simple_js3.PNG">
-<p>走一遍程序，发现……<br>他喵的不管怎么走都只会输出：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>至于后面的\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30根本没有用</p>
-<p>然后去手工把这一串十六进制码先ascii转码，再Unicode转码，得出一段乱码，根据一开始题目提示Flag格式为 Cyberpeace{xxxxxxxxx}，加上前后<br>验证……<br>成功了……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">展开全文 >></a>
         </p>
       
 
