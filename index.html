@@ -313,6 +313,19 @@
       
         <p>hate_php<br>打开以后，是一段php代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]))&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="variable">$code</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">&quot;/[A-Za-z0-9_$@]+/&quot;</span>,<span class="variable">$code</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;fighting!&#x27;</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开始解读：<br>GET方式接受code<br>若code非空，则<code>$code = $_GET[&#39;code&#39;];</code><br>preg_match(，)前一个参数是个正则表达式，后一个为要验证的字符串<br>正则表达式<code>&quot;/[A-Za-z0-9_$@]+/&quot;</code>的意思是：A到Z，a到z，0到9，加上”_””$””@”这几个字符。<br>凡是有这些字符的code直接die<br>然后才会php运行code（eval）</p>
+<p>如果没有后面那几个字符的限制，可以尝试“异或绕过”</p>
+
+<p>然后通过<code>$</code>拼接指令（比如上例的构造phpinfo())</p>
+<p>也可以尝试“取反绕过”<br>?code=$<em>=~%98%9A%8B%B9%93%9E%98;$</em>();<br>（上面的url都是一些不可见字符，但是取反（~）后却是：“getFlag”）</p>
+<p>所以这里只能用“通配符”<br>这里首先要说明，linux的所有指令都存储在文件夹里<br>比如常用的“cat”指令<br>也可以用/bin/cat来代替<br>然后就是linux的指令以及文件，可以用通配符*和？来代替<br>前者可代替不限字数的字符，后者代替一个字符<br>（但是代替有个前提，搜索结果唯一或可以同时操作）<br>所以/bin/cat 可以用/***/***代替<br>然后就是盲猜flag在/flag文件夹下<br>构造payload:<code>code=?&gt;&lt;?=`/???/??? /????`?&gt;</code>（就算不猜，也可以猜字符位数然后试？的个数，还有文件的层数）<br>搜索得到flag</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/1.PNG" class="" title="1.PNG">
+
+
+
+
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/v01cano/p/11736722.html">https://www.cnblogs.com/v01cano/p/11736722.html</a><br>还有这个大神：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob</a><br>还有这个是整理的最全的，附带例题：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8107#toc-11">https://xz.aliyun.com/t/8107#toc-11</a></p>
 
       
 
