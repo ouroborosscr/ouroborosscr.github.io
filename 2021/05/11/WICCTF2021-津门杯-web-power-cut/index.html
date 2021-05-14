@@ -8,15 +8,22 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>WICCTF2021(津门杯)web_power_cut | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="我因为这道题，学会了一个特别好用的“目录扫描”插件——dirsearch 说题目：首先，打开页面是一句话——   然后用dirsearch扫描，发现swp备份文件   文件直接打开是乱码需要用linux恢复 打开kali，vim -r index.php.swp再次打开，是php的代码   读代码（抽时间补） 最后payload：log&#x3D;O:6:&quot;weblog&quot;:1:&amp;#123">
+<meta property="og:type" content="article">
 <meta property="og:title" content="WICCTF2021(津门杯)web_power_cut">
 <meta property="og:url" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我因为这道题，学会了一个特别好用的“目录扫描”插件——dirsearch 说题目：首先，打开页面是一句话——   然后用dirsearch扫描，发现swp备份文件   文件直接打开是乱码需要用linux恢复 打开kali，vim -r index.php.swp再次打开，是php的代码   读代码（抽时间补） 最后payload：log&#x3D;O:6:&quot;weblog&quot;:1:&amp;#123">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/1.PNG">
+<meta property="og:image" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/2.PNG">
+<meta property="og:image" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/3.PNG">
+<meta property="og:image" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/4.PNG">
 <meta property="article:published_time" content="2021-05-11T12:47:31.000Z">
-<meta property="article:modified_time" content="2021-05-11T12:47:31.877Z">
+<meta property="article:modified_time" content="2021-05-12T15:42:54.732Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -178,7 +185,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>我因为这道题，学会了一个特别好用的“目录扫描”插件——dirsearch</p>
+<p>说题目：<br>首先，打开页面是一句话——</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/1.PNG" class="" title="1.PNG">
+
+<p>然后用dirsearch扫描，发现swp备份文件</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/2.PNG" class="" title="2.PNG">
+
+<p>文件直接打开是乱码<br>需要用linux恢复</p>
+<p>打开kali，<code>vim -r index.php.swp</code><br>再次打开，是php的代码</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/3.PNG" class="" title="3.PNG">
+
+<p>读代码（抽时间补）</p>
+<p>最后payload：<br><code>log=O:6:&quot;weblog&quot;:1:&#123;s:10:&quot;weblogfile&quot;;s:5:&quot;/flflagag&quot;;&#125;</code><br>得到flag</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/4.PNG" class="" title="4.PNG">
       
 
       
