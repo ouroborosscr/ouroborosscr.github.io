@@ -158,6 +158,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">嵌套的反序化问题</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2021-07-11T13:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>嵌套的反序化问题</p>
+<p>（源于我做题时的一个疑问）</p>
+<p>直接说结果：<br>如果一个序列类似：<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>这种“类中有类”的格式，进行unserialize反序化操作，<br>是否合法？反序化外层后，字符串中的“O:4:”evil”:1:{s:4:”hint”;N;}”是否也会反序化（还是保留）？<br>答案：合法，并且所有O开头的内容都会被反序化。（相当于先反序化最外层，再逐个检索所有的实参和形参的位置，若其本来格式还可以反序化，则继续反序化，直到没有可以反序化的为止）</p>
+<p>下面进行大体的解释：<br>为了方便解释，整个解释都会以下面的两个类为基础——</p>
+<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan1.PNG" class="" title="fan1.PNG">
+
+<p>首先，php并不支持“类的嵌套”，也就是说下图这种格式是不合法的，所以我说的“嵌套”其实只是反序化比较像在class里构建了一个class——</p>
+<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan2.PNG" class="" title="fan2.PNG">
+
+<p>这里就要先纠正我以前一个误区——<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;i:456}<br>这句话反序化以后并不是等价于class User这个类，<br>它单纯等价于new User(username=123,password=456);的过程<br>所以O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>其实等价于new User(username=123,password=(new evil));(或者更标准的是new User(123,new evil);)，这样就会好理解很多。</p>
+<p>但是使用的时候，需要实现某一个需要反序化的部分“整个替换”</p>
+<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用。<br>参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-大佬的博客整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -189,6 +263,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.gem-love.com/">颖奇L’Amore(Y1ng)</a></p>
 <p><a target="_blank" rel="noopener" href="https://npfs06.top/">npfs</a></p>
 <p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/mp/homepage?__biz=MzIxMDYyNTk3Nw==&hid=1&sn=64117416f2cf3add067dc892c079749c&scene=18#wechat_redirect">白帽100安全攻防实验室(他的wp有些没有放到主页里面，需要手机查看微信公众号的“消息”)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.wlhhlc.top/">南方先生（南神）</a></p>
 
       
 
@@ -812,74 +887,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/04/26/bugku-web-web4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-bugku-web-web3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web3/">bugku_web_web3</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/26/bugku-web-web3/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h2><p>打开以后发现有一些php代码</p>
-<img src="/2021/04/26/bugku-web-web3/web3.1.PNG" class="" title="web3.1.PNG">
-<img src="/2021/04/26/bugku-web-web3/web3.2.PNG" class="" title="web3.2.PNG">
-<p>逐行解读<br>读入一个参数名为what的数据，存入变量$what中<br>先输出$what<br>然后判断$what是否等于字符串’flag’<br>如果等于，则输出flag</p>
-<p>所以直接在url行里（我这里用的harkbar）加上/?what=flag<br>得到flag</p>
-<img src="/2021/04/26/bugku-web-web3/web3.3.PNG" class="" title="web3.3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web3/">展开全文 >></a>
         </p>
       
 
