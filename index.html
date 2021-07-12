@@ -158,6 +158,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-web41-newphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/bugku-web-web41-newphp/">bugku-web-web41-newphp</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/11/bugku-web-web41-newphp/" class="archive-article-date">
+  	<time datetime="2021-07-11T13:50:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>newphp(web41)<br>这道题卡了很久，主要是在纠结一个弱智的问题：在序列里放一个序列，能不能一次性反序化了（以及其格式问题）。</p>
+<p>先说题目。<br>初始界面，读代码——</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/1.PNG" class="" title="1.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/2.PNG" class="" title="2.PNG">
+<p>从上往下简单解读一下：<br>1.evil类：<br>    建一个公有的$hint<br>    construct 构造函数,读取传入的值给hint赋值<br>    destruct 析构函数，判断hint的值，若是则输出base64加密后的文件内容<br>    wakeup函数，unserialize()后调用，判断hint，换值（需要绕过）<br>2.User类：<br>    构造的时候接收两个值(username,password)，并分别赋值<br>3.write，read<br>    分别是把字符串中的*换成\0\0\0（一换三）和\0\0\0换成*(三换一)<br>4.主函数<br>    post方式接收username和password<br>    创建一个User的对象，序列化后赋给$a<br>    简单判断后<br>    对write和read函数处理过的$a进行反序化还原</p>
+<p>思路：<br>利用write和read进行字符串逃逸<br>这里只需要利用read就够了。<br>举个简单的例子：<br>字符串O:4:”User”:2:{s:8:”username”;s:3:”\0\0\0”;s:8:”password”;s:2:”12”}<br>在经历read函数变换后变成O:4:”User”:2:{s:8:”username”;s:3:”*“;s:8:”password”;s:2:”12”}<br>字符串内容（长度）虽然变了，但是前面要读取的字符串长度还是3，就会多往后读两位，导致引号（“）不闭合，这样明显就会造成代码错误。<br>而这是如果我们利用”\0\0\0”的数量来控制要“消去”的东西，然后在后面人为加一个引号(“)就可以实现加入自己相加的东西。<br>很明显，这里需要我们触发evil类，这里就要用到“序列嵌套”的东西，也就是我一开始说的最纠结的东西，可以参考另一篇——<a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/</a><br>简单来说，就是把<br>s:8:”username”<br>s:3:”\0\0\0”<br>s:8:”password”<br>s:2:”12”<br>四个部分的任意一个完全替换成O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}就可以在反序化的时候触发evil类。<br>主要的难点是去掉前面的s<br>因为有两个传入点（username和password）<br>所以我们用username传\0\0\0，用password传O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
+<p>我先改造了一下原来的代码，用123做了测试——</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/3.PNG" class="" title="3.PNG">
+<p>得到序列为O:4:”User”:2:{s:8:”username”;s:3:”123”;s:8:”password”;s:41:”O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}”;}<br>这里只需要替换123为多个“\0\0\0”使前面的数字增大，目的是把;s:8:”password”;s:41:”给包括(主要是“s:41:”，相当于换上面所说的第三四部分)，和后面的引号闭合。<br>因为是2换1，所以只能在后面加一个没用的字符a，用8个“\0\0\0”来换。<br>得到payload——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/4.PNG" class="" title="4.PNG">
+<p>输入后发现还需要绕过最开始的判断，把1改成2（类似于数组绕过）（不太确定）——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}<br>得到一串base64加密码</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/5.PNG" class="" title="5.PNG">
+<p>也可以多此一举的加上password（更严格的换第四部分）<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;s:8:”password”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/6.PNG" class="" title="6.PNG">
+
+<p>解码base64得到一个网址，打开以后是一个ssrf，直接file:///flag就行了</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/7.PNG" class="" title="7.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/8.PNG" class="" title="8.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/9.PNG" class="" title="9.PNG">
+
+<p>然后补充一下，在学ssrf的时候，发现了一个视频感觉真的不错——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1">https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1</a><br>虽然是一个学生做的，但是普通话很标准并且不拖拉（这很重要，机构的老师不是一口台湾方言就是语速慢的要死，很容易睡着），提前准备过不至于不知道讲什么，从原理来讲述，也讲的很全面，属于好看不火进不了搜索首页的那种（不愧是b站）</p>
+<p>再有就是涅普科技的视频——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VA411u7Tg?p=8">https://www.bilibili.com/video/BV1VA411u7Tg?p=8</a><br>缺点是明显感觉准备不充分（语速，进度，不熟练讲课等方面），不过推荐的方法很实用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/bugku-web-web41-newphp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -189,7 +273,7 @@
 
 <p>这里就要先纠正我以前一个误区——<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;i:456}<br>这句话反序化以后并不是等价于class User这个类，<br>它单纯等价于new User(username=123,password=456);的过程<br>所以O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>其实等价于new User(username=123,password=(new evil));(或者更标准的是new User(123,new evil);)，这样就会好理解很多。</p>
 <p>但是使用的时候，需要实现某一个需要反序化的部分“整个替换”</p>
-<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用。<br>参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
+<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用，参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
 
       
 
@@ -264,6 +348,16 @@
 <p><a target="_blank" rel="noopener" href="https://npfs06.top/">npfs</a></p>
 <p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/mp/homepage?__biz=MzIxMDYyNTk3Nw==&hid=1&sn=64117416f2cf3add067dc892c079749c&scene=18#wechat_redirect">白帽100安全攻防实验室(他的wp有些没有放到主页里面，需要手机查看微信公众号的“消息”)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.wlhhlc.top/">南方先生（南神）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42880719">mumuzi（ctfshow）套神</a><br>（下图左边这位名叫“套不起壳组不成队要被虐爆，惨惨”的大佬）</p>
+<img src="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/1.jpeg" class="" title="1.jpeg">
+
+
+<p><a href=""></a></p>
+<p><a href=""></a></p>
+<p><a href=""></a></p>
+<p><a href=""></a></p>
+<p><a href=""></a></p>
+<p><a href=""></a></p>
 
       
 
@@ -844,81 +938,9 @@
 
 
   
-    <article id="post-bugku-web-web4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web4/">bugku_web_web4</a>
-    </h1>
-  
-
-        
-        <a href="/2021/04/26/bugku-web-web4/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h2><p>和web3的代码很像，唯一的区别是把Get改成Post</p>
-<img src="/2021/04/26/bugku-web-web4/web4.1.PNG" class="" title="web4.1.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.2.PNG" class="" title="web4.2.PNG">
-
-<p>简单，打开hackbar，启用post，填上what=flag，得到flag</p>
-<img src="/2021/04/26/bugku-web-web4/web4.3.PNG" class="" title="web4.3.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.4.PNG" class="" title="web4.4.PNG">
-
-<p>如果没有hackbar，还可以用burpsuite抓包后在会后面加上一行：what=flag<br>效果是一样的。<br>其实这就是get和post的区别（原理）<br>一个是在url后面加参数（header里），一个是在数据包里加参数（params里）</p>
-<img src="/2021/04/26/bugku-web-web4/web4.5.PNG" class="" title="web4.5.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
