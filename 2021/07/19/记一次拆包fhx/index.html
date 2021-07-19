@@ -6,25 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法 | Hexo</title>
+  <title>记一次拆包fhx | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法因为一些原因，我尝试在windows上安装dirsearch网上的安装教程全都是一毛一样的，不知道是谁复制谁的。 总的来说就是先从https:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch上下载zip，解压或者直接git clone https:&#x2F;">
+  <meta name="description" content="以前的经历，新方法出现后我就删掉了，在这里做个备份，以供自己未来参考 这贴包括一部分技术介绍，最简便教程可以移步——简易fhx教程（最简单步骤贴）_伊甸园的骄傲wiki_伊甸园的骄傲 _Gamekee游戏攻略百科（不过还是希望看一下，你会发现真没你想的那么高深） 环境所限，希望大家自己看看就行，别大肆宣传 相比于国内另外几个游戏，说实话这个游戏的fhx是最没技术含量的。（下面两段以及免责是吹水，单">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法">
-<meta property="og:url" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="记一次拆包fhx">
+<meta property="og:url" content="http://example.com/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法因为一些原因，我尝试在windows上安装dirsearch网上的安装教程全都是一毛一样的，不知道是谁复制谁的。 总的来说就是先从https:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch上下载zip，解压或者直接git clone https:&#x2F;">
+<meta property="og:description" content="以前的经历，新方法出现后我就删掉了，在这里做个备份，以供自己未来参考 这贴包括一部分技术介绍，最简便教程可以移步——简易fhx教程（最简单步骤贴）_伊甸园的骄傲wiki_伊甸园的骄傲 _Gamekee游戏攻略百科（不过还是希望看一下，你会发现真没你想的那么高深） 环境所限，希望大家自己看看就行，别大肆宣传 相比于国内另外几个游戏，说实话这个游戏的fhx是最没技术含量的。（下面两段以及免责是吹水，单">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG">
-<meta property="og:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG">
-<meta property="og:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG">
-<meta property="og:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG">
-<meta property="og:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG">
-<meta property="article:published_time" content="2021-05-11T11:44:11.000Z">
-<meta property="article:modified_time" content="2021-05-11T12:06:03.357Z">
+<meta property="article:published_time" content="2021-07-19T11:37:10.000Z">
+<meta property="article:modified_time" content="2021-07-19T11:40:10.614Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -166,14 +160,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-记一次拆包fhx" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法
+      记一次拆包fhx
     </h1>
   
 
@@ -186,41 +180,39 @@
 
 
 
-<a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+<a href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/" class="archive-article-date">
+  	<time datetime="2021-07-19T11:37:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"><a href="#dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="headerlink" title="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"></a>dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法</h2><p>因为一些原因，我尝试在windows上安装dirsearch<br>网上的安装教程全都是一毛一样的，不知道是谁复制谁的。</p>
-<p>总的来说就是先从<br><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>上下载zip，解压<br>或者直接git clone <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
-<p>仅说了需要python3的环境<br>然后cd到dirsearch-master，输入python dirsearch.py -u &lt;网址&gt;<br>就行了，像这样</p>
-
-
-<p>而我的实际操作中，是这样的——</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG" class="" title="2.PNG">
-
-<p>会报错“Traceback (most recent call last):……”</p>
-<p>然后我在网上找了好久，终于找到了一篇不一样的博客（CSDN是该管管了，垃圾指针无限递归问题）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic">https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic</a></p>
-<p>这个博客说需要用pip安装一些帮助文件</p>
-<p>然后我又搜到了这个————<br><a target="_blank" rel="noopener" href="https://pip-cn.readthedocs.io/en/latest/installing.html">https://pip-cn.readthedocs.io/en/latest/installing.html</a><br>结论：Python 2.5在 v1.3.1版本后, Python 2.4在v1.1版本后，安装python后会自动安装pip<br>所以pip本身的安装不用管了</p>
-<p>在尝试了pip install chardet &amp; pip install certifi后，发现还是和原来一样的报错</p>
-<p>然后搜到了这个——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43978056/article/details/105940157">https://blog.csdn.net/weixin_43978056/article/details/105940157</a></p>
-<p>再回去看报错，发现缺少的是“urllib3”</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG" class="" title="6.PNG">
-<p>直接pip install urllib3</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG" class="" title="3.PNG">
-
-<p>再尝试，发现这次缺的是cryptography</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG" class="" title="4.PNG">
-<p>继续pip install cryptography</p>
-<p>再尝试，才成功开始扫目录</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG" class="" title="5.PNG">
-
-<p>所以以后遇到“Traceback (most recent call last):……”的问题，都可以尝试这样解决</p>
+        <p>以前的经历，新方法出现后我就删掉了，在这里做个备份，以供自己未来参考</p>
+<p>这贴包括一部分技术介绍，最简便教程可以移步——<br>简易fhx教程（最简单步骤贴）_伊甸园的骄傲wiki_伊甸园的骄傲 _Gamekee游戏攻略百科<br>（不过还是希望看一下，你会发现真没你想的那么高深）</p>
+<p>环境所限，希望大家自己看看就行，别大肆宣传</p>
+<p>相比于国内另外几个游戏，说实话这个游戏的fhx是最没技术含量的。（下面两段以及免责是吹水，单纯找步骤的人可以略过）</p>
+<p>参考碧蓝是需要读代码把FALSE改成true，少前是对定期数据加密的解密，双生是靠替换密码加密以及代码审计找到官方留的后门。<br>这个是最简单的（不然也不可能让我这个啥也不会的菜鸡一天就干出来）</p>
+<p>这个游戏只需要单纯的——“换图”<br>（就算提取图片也并没有到加密的难度，简单密码学入门的话可以先不看答案当一道ctf题做一下，看不懂这句话请自动略过当我没说）</p>
+<p>好嘞，下面是喜闻乐见的“免责”环节：（找步骤的人可以略过整个免责环节）<br>    1.首先，如果我的文章侵犯了您的合法权益，请务必联系攻略组，我马上就删。严正声明：仅供用于学习关于安卓编程最弱智基础以及unity3d的最基础入门，严禁用作商业用途，后果自负！（我也会在题后进行简单的技术讨论，为大佬们开发更加简易的方法做个铺垫，以及起到互相学习的目的）<br>    2.因为改包本来就存在风险，更何况还涉及封装，所以请谨慎对待（主要是我也不确定有什么风险，毕竟我又菜又没经验）<br>    3.建议不要使用别人给的apk，原因有二，首先，这并不像一个文件式补丁包那样很轻易的就能人工审查出问题（木马，病毒），这种二次封装好的apk很容易报“风险”，但一般人会忽视直接安装，也有些二次封装软件为了成功安装而强制把比较危险的东西加载成看起来安全的样子，即使手机检测也未必能检测出来，这就给个别另有所图的人留下可乘之机。所以最安全的软件只有官网和出自自己之手的。其次，整这玩意真挺简单的，又不需要读代码改参数，也没有加密，就是动动手指的事。因此，我大概不会发布我的apk（更大的原因是我更希望这个游戏能平安运营到几年后，毕竟游戏公司也不是闲的才花两倍的钱拿一倍的立绘，包括现在我也是希望热度别这么快就下去了，大家互相体谅，各个论坛也平和一点，都挺无奈的）。<br>    4.补充：因为普通立绘和限定立绘的存储方式不同，以及现在游戏还不涉及限定立绘，所以限定立绘部分先不考虑（其实那部分是个人就能轻松做到）。<br>    5.可能：不排除大更新后需要重新来一遍的可能。这甚至可能会导致每次大更新都要重新下载apk。（主要是我也不确定）</p>
+<p>ok，咱们开始——（写完发现前两段还是吹水，步骤可以跳到“下面我就直接说步骤了：“那里）</p>
+<p>步骤可以参考这位大佬的图（我觉得写得挺好的，简单易懂）——</p>
+<p>看不懂也没关系，这并不是什么高深的东西，其实fhx一共分为简单的四步——<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>2.把国服apk的（快递）下过来，拆开包。<br>3.把日服的图片扔进国服的包，然后把包封上口。<br>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>（相当于什么都没说）</p>
+<p>下面我就直接说步骤了：（下面括号里为技术讨论，大家自行略过就行）<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>这一步我就替大家做了（但是提的不全）——<br><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/17/rad/">https://ouroborosscr.github.io/2021/07/17/rad/</a><br>我随便找了个云盘上发了个文件夹，直接下来就好了（建议放到手机的“我的手机/Download”文件下，别放根目录（Android））<br>我也不用云盘了，太麻烦，直接上传到我的博客了，博客上有些多余的东西，也没什么意思，大家自动忽略就行（只要github不倒闭，这玩意就不会封）<br>（关于这部分，这个文件和apk不一样，一眼就能看出是图片，也可以随便解包查看内容，内容也不多，随便一个大佬就能看出有没有问题，所以安全性可以保证，当然最安全的还是自己制作）</p>
+<p>（也可以自己提取，并不难，就是有点麻烦，已经下载好的同学请自动略过跳到第二步）<br>现在介绍的就是我制作上面那个文件夹的过程：想办法下载一个日服的安装包（比如从apkssr），下载下来是这样的（你会得到两个文件——xxx.apk和xxx.obb<br>在手机上重命名xxx.obb为xxx.zip,然后在手机上解压缩（注意：重命名和解压缩必须在手机上，电脑上会解不出东西）</p>
+<p>打开解压缩的文件夹，打开assets/ResEX文件，里面一大堆xxx.aab文件就包含立绘了<br>根据编号找到自己要替换的文件，复制到别的文件夹里（建议在Download文件下）</p>
+<p>以下是我自己对比得出的需要替换的文件名（非常不全）：<br>格式为st_img_xxxxxxxxxx.abb的文件：（中间的xxxxxxxxxx替换成下面的数字）<br>11100004_1<br>11100004_2<br>11100006_2<br>11101006_2<br>11200003_1<br>11200003_2<br>11200006_1（但我觉得hx版好看）<br>11200006_2<br>11201003_1<br>11201003_2<br>11201004_2（过分！）<br>11202001_2<br>11300002_1<br>11300002_2（其实不修也不会想成那个吧）<br>11300003_1<br>11300003_2（修了好看，不修有点奇怪）<br>11300004_1<br>11300004_2<br>11300005_1<br>11300005_2<br>11301003_1<br>11301003_2<br>11301004_2（所以说，hx的标准一直都挺迷的）<br>11301005_1<br>11301005_2<br>格式为m_l2d_xxxxxxxx.abb的文件：<br>11100004<br>11101004<br>11202001<br>11300002</p>
+<p>11300003<br>11300004<br>11300005<br>11300004<br>11300005<br>11301003<br>11301004<br>（感谢nga的大佬指出我统计的错误）</p>
+<p>（题外话：对比了一晚上，一开始我还觉得hx的挺多的，从那么多文件里就只有这么几个要换，对比半天才能找出一个，官方真的很良心了）<br>（三阶形态因为就算拆包，图也对比不出来什么（下文技术讨论阶段会说原因），所以我仅靠自己的记忆列举了一下，如果有缺的请评论通知我）<br>（另外，我和另一个攻略组成员商量了一下，制作图鉴的时候把这个编号加上去，以后大家可以直接通过gamekee的图鉴搜索功能来获取立绘编号，便于大家直接提取和替换）</p>
+<p>2.把国服apk的（快递）下过来，拆开包。<br>这里需要用一个名叫“mt管理器”的软件，很难受的是——这个软件似乎是要钱的（20块钱三个月的会员）<br>（我一开始也尝试过用git上免费的apktool和uber-apksigner，奈何技术不行，绕不过证书验证，希望有大佬可以指点，下文技术讨论部分细说）<br>软件建议在官网下载——<br>MT管理器 (lanzoui.com)<br>（因为这种软件乱下载的话，十个里有九个有问题，甚至有把木马放到最外层一眼就能解出来的，甚至不排除“马中马”的可能）<br>下载以后点左上角“三”，点“安装包提取”，选择游戏，点“提取安装包”，提取完后点“定位”，就到了下图3的样子</p>
+<p>3.把日服的图片扔进国服的包，然后把包封上口。<br>点击apk，点击“查看”，打开asstes/ResEx文件夹，右边打开已经下载好的red文件（如果存在了download文件夹下，就点三下上面的”…”，点击打开”sdcard/download“就行了（似乎是个内存穿梭？），变成这个样子。</p>
+<p>点击右上角的三个竖点，点击”全选“，右边的文件就变蓝了，长按随便一个文件，点击”添加“，等会就行了</p>
+<p>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>然后左边翻到最上面点的“..”两下，退到apk界面，点击你的apk，发现”校验不通过“字样（这是由于证书签名被消除造成的）<br>点击“功能”，直接点击“去除签名校验”（这个功能自带签名，不要多此一举去签名）<br>（括号里可以略过，这就是使用这个软件的原因，单纯的v1，v2签都可以自己造（免费软件），但是这只能办到安装，打开游戏后会有证书验证造成你的软件闪退，现在我只发现这个软件可以绕过这些，如果有别的方法，希望大佬指点，下文技术讨论细说）<br>注意！！这里要关闭“使用加强版”，这个app真的不兼容<br>然后就可以安装了（要先把原软件卸载）（安那个带sign字样的，別安成原包了）<br>（注意，别用修改过的apk操作，第二次我在这里卡了将近一个小时（直接影响了发布时间），有兴趣可以读一下帮助文件，就明白原理了介绍 - MT管理器 (binmt.cc)，亲测：换成原装apk立马就通过了）</p>
+<p>效果图（官服废号，别来找我加好友）</p>
+<p>最后一点题外话：虽然这个封装的很弱智（盲猜是官方故意留下的后门？）害得我前两天都没怎么上过号，大号还维持在第一天的九级，完全远离了第一梯队，要替换的图也是我一个个人工绕过+对照的（一开始开文档统计确实容易被人拿去带节奏，被大佬提醒以后我就关了，给大家道个歉，我不该贪图省事的），就冲这费的功夫，你们要是不给我个成品号就太说不过去了。<br>ok，单纯想制作fhx软件的朋友们，你们已经可以退出网页开始游戏了。</p>
+<p>下面我们来点“好玩的”——简单的技术讨论，start！！<br>首先是立绘提取问题，官方直接用unity3d设计的立绘，所以图片就是所有的aab文件，感谢官方只是用添零来防提取，我一开始也是抱着学习“安卓安全”的想法去做的，其实拆这玩意还真的挺好玩的——<br>比如明明是日服，却看到一个图片名叫“juqingbaoxiang”，是的，就是拼音，并不是英文的“Story treasure chest”<br>还有，我挺好奇“xiaolizi”是啥，难道后面还有“fugui”吗？<br>开玩笑的，当时我以为是“栗子”，结果打开一看，竟然是一堆光晶碎片，所以，是“小粒子”<br>还有，为什么“shendan_shala”是山和天空啊！玄学命名法<br>另外就是，千万不要去看三阶的图片，因为你会看到你的lp们碎成一堆的诡异景象（辣眼睛）。是的，有几个关节能动就切几刀，特别是那种很多缕头发都在晃动的，简直的密恐的地狱，游戏越良心，碎的越彻底，从这方面讲，这游戏是真的良心——这也是我为什么没法通过对比得出哪些三阶立绘被hx的原因<br>还有就是偶尔会看见，一堆肉块杂乱的摆在图上（其实是装备的图片，但是连着肉那一部分，比如臂铠就是从肩到胳膊肘的部分）</p>
+<p>其实这个修改或许真的不是最优解，甚至是最差解也说不定，主要是我能力有限，权当抛砖引玉了吧，其实如果是该apk，利用太极之类的软件去完成两个apk拼接可能更好一些？没办法，我只会白嫖别人的拼接，真不会制作，希望有大佬能试着研究一下？</p>
+<p>关于这个过程中遇到的几个难点，就不得不提“证书签名”了（没办法，技术不过硬，连这种小问题都会被拦住）<br>单纯的拆包只用换zip再解压就行了，但是那就破坏了签名文件，我的理解，“签名文件”就相当于快递的封口贴纸，zip解压缩就是“暴力拆邮件”会破坏封纸（记载着包的信息和里面所有东西的位置），还会把里面的东西弄乱，导致再封起来的时候没法还原成原状。<br>这就导致zip文件改完后没法还原成apk的情况（当然能改文件名，但是根本没法下载）<br>所以要小心翼翼的把封纸完整的撕下来，等包装的时候再改一改贴上。<br>这里我一开始用的github上的apktool，终于算是能还原成可安装文件了。<br>但是安装的时候出了问题——签名不匹配。（过不了华为的初步检测）<br>然后我又用github上的uber-signer签的名（后来发现apktool也可以签名，甚至可以自造私钥签名）<br>终于可以点击“立刻安装”了，可是安好后却显示“没有证书”，就被华为直接删掉了。（我查了查，好像是2018年开始的，华为手机会对签名进行简答备案和验证，真麻烦！）<br>最后还是咨询了一些大佬推荐我用“mt管理器”，我发现这玩意是真方便！所有前几个软件在java环境下命令行运行的功能全被整理成了按键，所有功能一键搞定，据说制作者做这个软件的时候还是高中生，甚至还运营着论坛（MT论坛 - MT官网_MT管理器论坛_MT管理器_MT管理器教程_MT最新版本 (binmt.cc)），膜拜大佬！！bin大佬，yyds！！！<br>这才发现原来我只签了v1，没签v2。<br>据说apktool也能签v2，但我实在没弄明白，加上那个似乎没法私签？（还请明白的大佬指教）所以直接用“mt管理器”签了，好歹算是成功安装了。<br>终于打开游戏，但又遇到一个问题——闪退。<br>经过一些简单的修复和简单的审查内存以后，我发现闪退的时间点几乎都是第二个画面的时候，加上网上查了些资料，发现可能是在验证证书了。<br>还好发现了去证书验证功能，去看了帮助文件，似乎并不是真正的去除，而是把原证书逆向以后再签成新证书，这个功能是apktool没有的，现在我只知道mt管理器有这个功能，如果有逆向大佬可以手动逆向出来，或者有类似的处理软件，请务必不吝赐教，告诉我思路，提前谢谢大佬们！</p>
 
       
 
@@ -300,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -314,18 +306,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          WICCTF2021(津门杯)web_hate_php
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/04/26/bugku-web-web8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">bugku_web_web8</div>
+    <a href="/2021/07/17/rad/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rad</div>
       <i class="icon-circle-right"></i>
     </a>
   
