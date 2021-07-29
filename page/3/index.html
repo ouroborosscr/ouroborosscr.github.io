@@ -158,6 +158,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-攻防世界web新手区webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">攻防世界web新手区webshell</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" class="archive-article-date">
+  	<time datetime="2021-03-14T13:37:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第十题 webshell</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell1.PNG" class="" title="webshell1">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell2.PNG" class="" title="webshell2">
+<p>一开始告知电脑里有一个php是这样的：《?php @eval($_POST[‘shell’])》（防止php运行所以改成了中文符号）</p>
+<p>查了一下，感觉这个解释最好：</p>
+<p>这是一个典型的后门程序，首先我解释一下eval函数的作用，</p>
+<p>//eval — 把字符串作为PHP代码执行<br>eval(‘echo 123;’);//输出123<br>也就是说，所有的字符串放入到eval当中，eval会把字符串解析为php代码来进行执行，那么结合$_POST[‘shell’]的话，只要使用post传输时在name为posha的值中写入任何字符串，都可以当做php代码来执行，这个时候就有点可怕了，比如写入一段循环删除整站代码等等。</p>
+<p>所以意思就是在url上加/?shell=xxxx(指令)就可以执行</p>
+<p>所以直接打开中国蚁剑<br>复制网址<br>链接密码写shell（相当于传值时的形参）</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell3.PNG" class="" title="webshell3">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell4.PNG" class="" title="webshell4">
+<p>发现flag.txt文件，打开，得到flag</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell5.PNG" class="" title="webshell5">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-攻防世界web新手区xff-referer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -982,94 +1081,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-catalog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/catalog/">catalog</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/catalog/" class="archive-article-date">
-  	<time datetime="2021-03-12T00:26:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.[攻防世界]<br>    -<a href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/" title="web新手区view-source">web新手区view-source</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/" title="web新手区robots">web新手区robots</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/" title="web新手区backup">web新手区backup</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" title="web新手区cookie">web新手区cookie</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" title="web新手区disabled-button">web新手区disabled-button</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" title="web新手区weak-auth">web新手区weak-auth</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" title="web新手区simple-php">web新手区simple-php</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" title="web新手区get-post">web新手区get-post</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" title="web新手区xff-referer">web新手区xff-referer</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" title="web新手区webshell">web新手区webshell</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" title="web新手区command-execution">web新手区command-execution</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" title="web新手区simple-js">web新手区simple-js</a><br>2.[ctfhub]<br>    -<br>    -<br>3.[bugku]<br>    -web<br>    -<a href="/2021/04/26/bugku-web-web1/" title="web1">web1</a><br>    -<a href="/2021/04/26/bugku-web-web2/" title="web2">web2</a><br>    -<a href="/2021/04/26/bugku-web-web3/" title="web3">web3</a><br>    -<a href="/2021/04/26/bugku-web-web4/" title="web4">web4</a><br>    -<a href="/2021/04/26/bugku-web-web5/" title="web5">web5</a><br>    -<a href="/2021/04/26/bugku-web-web6/" title="web6">web6</a><br>    -<a href="/2021/04/26/bugku-web-web7/" title="web7">web7</a><br>    -<a href="/2021/04/26/bugku-web-web8/" title="web8">web8</a><br>    -<br>4.[NepNep Winter-CAMP(涅普冬令营)]<br>    -web<br>    -<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" title="涅普冬令营web篇little-trick">涅普冬令营web篇little-trick</a><br>    -</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/catalog/">展开全文 >></a>
         </p>
       
 
