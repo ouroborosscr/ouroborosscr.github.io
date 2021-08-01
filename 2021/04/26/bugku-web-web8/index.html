@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>bugku_web_web8 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="web7打开以后又是php代码   解读一下：包含flag.php文件读入一个参数为hello的数据（REQUEST相当于get+post）eval( “var_dump($a);”);————检测是否为php语句，若是则执行show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面">
+  <meta name="description" content="web8打开以后又是php代码   解读一下：包含flag.php文件读入一个参数为hello的数据（REQUEST相当于get+post）eval( “var_dump($a);”);————检测是否为php语句，若是则执行show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bugku_web_web8">
 <meta property="og:url" content="http://example.com/2021/04/26/bugku-web-web8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="web7打开以后又是php代码   解读一下：包含flag.php文件读入一个参数为hello的数据（REQUEST相当于get+post）eval( “var_dump($a);”);————检测是否为php语句，若是则执行show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面">
+<meta property="og:description" content="web8打开以后又是php代码   解读一下：包含flag.php文件读入一个参数为hello的数据（REQUEST相当于get+post）eval( “var_dump($a);”);————检测是否为php语句，若是则执行show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/04/26/bugku-web-web8/web8.1.PNG">
 <meta property="og:image" content="http://example.com/2021/04/26/bugku-web-web8/web8.2.PNG">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/2021/04/26/bugku-web-web8/web8.4.PNG">
 <meta property="og:image" content="http://example.com/2021/04/26/bugku-web-web8/web8.5.PNG">
 <meta property="article:published_time" content="2021-04-26T12:51:03.000Z">
-<meta property="article:modified_time" content="2021-05-11T13:36:32.437Z">
+<meta property="article:modified_time" content="2021-07-31T13:49:33.276Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/04/26/bugku-web-web8/web8.1.PNG">
@@ -195,7 +195,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h2 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h2><p>打开以后又是php代码</p>
+<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>打开以后又是php代码</p>
 <img src="/2021/04/26/bugku-web-web8/web8.1.PNG" class="8.1.PNG">
 <img src="/2021/04/26/bugku-web-web8/web8.2.PNG" class="8.2.PNG">
 <p>解读一下：<br>包含flag.php文件<br>读入一个参数为hello的数据（REQUEST相当于get+post）<br>eval( “var_dump($a);”);————检测是否为php语句，若是则执行<br>show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面上）</p>
@@ -208,8 +208,8 @@
 <p>然后用hello= `tac flag.php`，却能输出flag（相当于cat的“反序输出”，但只是“行之间反序”）</p>
 <img src="/2021/04/26/bugku-web-web8/web8.4.PNG" class="8.4.PNG">
 
-<p>这里主要是被show_source(<strong>FILE</strong>);所影响</p>
-<p>个人理解，不知道我说的对不对：<br>因为show_source(<strong>FILE</strong>);相当于识别原本就是“高亮”的代码，并进行“高亮输出”。<br>而在linux中，cat指令所输出的数据是“不高亮的”，所以没法被高亮识别，而大部分输出包括tac的输出都是“高亮的”，所以被识别了，才会显示<br>（参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gatieme/article/details/50988902%EF%BC%89">https://blog.csdn.net/gatieme/article/details/50988902）</a></p>
+
+<p>为什么用tac而不是cat：因为那个php文件带有<?php和后面的?>，正序输出会被网页当做php代码运行（结果为空），但是<?php 和?>不在同一行，所以tac反序输出使其不闭合，才可以显示其字符串的形式</p>
 <p>这样就得到了flag</p>
 <p>当然还有一种注入的方法，通过闭合前面以及注释掉后面来输出flag</p>
 <img src="/2021/04/26/bugku-web-web8/web8.5.PNG" class="8.5.PNG">
