@@ -158,6 +158,719 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-WICCTF2021-津门杯-web-power-cut" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/">WICCTF2021(津门杯)web_power_cut</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/" class="archive-article-date">
+  	<time datetime="2021-05-11T12:47:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我因为这道题，学会了一个特别好用的“目录扫描”插件——dirsearch</p>
+<p>说题目：<br>首先，打开页面是一句话——</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/1.PNG" class="" title="1.PNG">
+
+<p>然后用dirsearch扫描，发现swp备份文件</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/2.PNG" class="" title="2.PNG">
+
+<p>文件直接打开是乱码<br>需要用linux恢复</p>
+<p>打开kali，<code>vim -r index.php.swp</code><br>再次打开，是php的代码</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/3.PNG" class="" title="3.PNG">
+
+<p>代码主体：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">logger</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$logFile</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$initMsg</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$exitMsg</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$file</span></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// initialise variables</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;initMsg=<span class="string">&quot;#--session started--#\n&quot;</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;exitMsg=<span class="string">&quot;#--session end--#\n&quot;</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;logFile =  <span class="variable">$file</span>;</span><br><span class="line">        readfile(<span class="keyword">$this</span>-&gt;logFile);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$fd</span>=fopen(<span class="keyword">$this</span>-&gt;logFile,<span class="string">&quot;a+&quot;</span>);</span><br><span class="line">        fwrite(<span class="variable">$fd</span>,<span class="variable">$msg</span>.<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        fclose(<span class="variable">$fd</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;this is destruct&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">weblog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$weblogfile</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$flag</span>=<span class="string">&quot;system(&#x27;cat /flag&#x27;)&quot;</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$flag</span>&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// self::waf($this-&gt;filepath);</span></span><br><span class="line">        <span class="variable">$obj</span> = <span class="keyword">new</span> logger(<span class="keyword">$this</span>-&gt;weblogfile);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">waf</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$str</span>=preg_replace(<span class="string">&quot;/[&lt;&gt;*#&#x27;|?\n ]/&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$str</span>);</span><br><span class="line">        <span class="variable">$str</span>=str_replace(<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="variable">$str</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$str</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;this is destruct&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$log</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;log&#x27;</span>];</span><br><span class="line"><span class="variable">$log</span> = preg_replace(<span class="string">&quot;/[&lt;&gt;*#&#x27;|?\n ]/&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$log</span>);</span><br><span class="line"><span class="variable">$log</span> = str_replace(<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="variable">$log</span>);</span><br><span class="line"><span class="variable">$log_unser</span> = unserialize(<span class="variable">$log</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>读代码（抽时间补）</p>
+<p>最后payload：<br><code>log=O:6:&quot;weblog&quot;:1:&#123;s:10:&quot;weblogfile&quot;;s:5:&quot;/flflagag&quot;;&#125;</code><br>得到flag</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/4.PNG" class="" title="4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-WICCTF2021-津门杯-web-hate-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">WICCTF2021(津门杯)web_hate_php</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/" class="archive-article-date">
+  	<time datetime="2021-05-11T12:40:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hate_php<br>打开以后，是一段php代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]))&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="variable">$code</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">&quot;/[A-Za-z0-9_$@]+/&quot;</span>,<span class="variable">$code</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;fighting!&#x27;</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开始解读：<br>GET方式接受code<br>若code非空，则<code>$code = $_GET[&#39;code&#39;];</code><br>preg_match(，)前一个参数是个正则表达式，后一个为要验证的字符串<br>正则表达式<code>&quot;/[A-Za-z0-9_$@]+/&quot;</code>的意思是：A到Z，a到z，0到9，加上”_””$””@”这几个字符。<br>凡是有这些字符的code直接die<br>然后才会php运行code（eval）</p>
+<p>如果没有后面那几个字符的限制，可以尝试“异或绕过”</p>
+
+<p>然后通过<code>$</code>拼接指令（比如上例的构造phpinfo())</p>
+<p>也可以尝试“取反绕过”<br>?code=$<em>=~%98%9A%8B%B9%93%9E%98;$</em>();<br>（上面的url都是一些不可见字符，但是取反（~）后却是：“getFlag”）</p>
+<p>所以这里只能用“通配符”<br>这里首先要说明，linux的所有指令都存储在文件夹里<br>比如常用的“cat”指令<br>也可以用/bin/cat来代替<br>然后就是linux的指令以及文件，可以用通配符*和？来代替<br>前者可代替不限字数的字符，后者代替一个字符<br>（但是代替有个前提，搜索结果唯一或可以同时操作）<br>所以/bin/cat 可以用/***/***代替<br>然后就是盲猜flag在/flag文件夹下<br>构造payload:<code>code=?&gt;&lt;?=`/???/??? /????`?&gt;</code>（就算不猜，也可以猜字符位数然后试？的个数，还有文件的层数）<br>搜索得到flag</p>
+<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/1.PNG" class="" title="1.PNG">
+
+
+
+
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/v01cano/p/11736722.html">https://www.cnblogs.com/v01cano/p/11736722.html</a><br>还有这个大神：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob</a><br>还有这个是整理的最全的，附带例题：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8107#toc-11">https://xz.aliyun.com/t/8107#toc-11</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"><a href="#dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="headerlink" title="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"></a>dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法</h2><p>因为一些原因，我尝试在windows上安装dirsearch<br>网上的安装教程全都是一毛一样的，不知道是谁复制谁的。</p>
+<p>总的来说就是先从<br><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>上下载zip，解压<br>或者直接git clone <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
+<p>仅说了需要python3的环境<br>然后cd到dirsearch-master，输入python dirsearch.py -u &lt;网址&gt;<br>就行了，像这样</p>
+
+
+<p>而我的实际操作中，是这样的——</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG" class="" title="2.PNG">
+
+<p>会报错“Traceback (most recent call last):……”</p>
+<p>然后我在网上找了好久，终于找到了一篇不一样的博客（CSDN是该管管了，垃圾指针无限递归问题）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic">https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic</a></p>
+<p>这个博客说需要用pip安装一些帮助文件</p>
+<p>然后我又搜到了这个————<br><a target="_blank" rel="noopener" href="https://pip-cn.readthedocs.io/en/latest/installing.html">https://pip-cn.readthedocs.io/en/latest/installing.html</a><br>结论：Python 2.5在 v1.3.1版本后, Python 2.4在v1.1版本后，安装python后会自动安装pip<br>所以pip本身的安装不用管了</p>
+<p>在尝试了pip install chardet &amp; pip install certifi后，发现还是和原来一样的报错</p>
+<p>然后搜到了这个——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43978056/article/details/105940157">https://blog.csdn.net/weixin_43978056/article/details/105940157</a></p>
+<p>再回去看报错，发现缺少的是“urllib3”</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG" class="" title="6.PNG">
+<p>直接pip install urllib3</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG" class="" title="3.PNG">
+
+<p>再尝试，发现这次缺的是cryptography</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG" class="" title="4.PNG">
+<p>继续pip install cryptography</p>
+<p>再尝试，才成功开始扫目录</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG" class="" title="5.PNG">
+
+<p>所以以后遇到“Traceback (most recent call last):……”的问题，都可以尝试这样解决</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/bugku-web-web8/">bugku_web_web8</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/04/26/bugku-web-web8/" class="archive-article-date">
+  	<time datetime="2021-04-26T12:51:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>打开以后又是php代码</p>
+<img src="/2021/04/26/bugku-web-web8/web8.1.PNG" class="8.1.PNG">
+<img src="/2021/04/26/bugku-web-web8/web8.2.PNG" class="8.2.PNG">
+<p>解读一下：<br>包含flag.php文件<br>读入一个参数为hello的数据（REQUEST相当于get+post）<br>eval( “var_dump($a);”);————检测是否为php语句，若是则执行<br>show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面上）</p>
+<p>所以这道题涉及到了php语句的问题，那方法就会很多了</p>
+<p>我首先想到的是用shell（盲猜是linux系统）</p>
+<p>直接hello= `cat flag.php`(两边是用的“反引号”（键盘左上角那个），相当于把里面的内容当shell使用，自从有一次被限制字数后，就再也不用system（）了)</p>
+<p>虽然显示有103个字符，但是没法输出。</p>
+<img src="/2021/04/26/bugku-web-web8/web8.3.PNG" class="8.3.PNG">
+
+<p>然后用hello= `tac flag.php`，却能输出flag（相当于cat的“反序输出”，但只是“行之间反序”）</p>
+<img src="/2021/04/26/bugku-web-web8/web8.4.PNG" class="8.4.PNG">
+
+
+<p>为什么用tac而不是cat：因为那个php文件带有<?php和后面的?>，正序输出会被网页当做php代码运行（结果为空），但是<?php 和?>不在同一行，所以tac反序输出使其不闭合，才可以显示其字符串的形式</p>
+<p>这样就得到了flag</p>
+<p>当然还有一种注入的方法，通过闭合前面以及注释掉后面来输出flag</p>
+<img src="/2021/04/26/bugku-web-web8/web8.5.PNG" class="8.5.PNG">
+
+<p>当然还有一种思路是用?hello=get_file_contents(‘flag.php’)或者?hello=file(‘flag.php)，直接把文件内容写入hello，然后输出，但是这种方法被封了（似乎是权限给的不够，当然，如果权限够的话，甚至可以用cp指令，然后读文件，但是尝试后发现返回null说明不行）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/bugku-web-web8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/bugku-web-web7/">bugku_web_web7</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/04/26/bugku-web-web7/" class="archive-article-date">
+  	<time datetime="2021-04-26T12:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h2><p>打开以后发现一直在刷新，提示是停到某个特殊网页（panda）就能拿到flag</p>
+<img src="/2021/04/26/bugku-web-web7/web7.1.PNG" class="7.1.PNG">
+<img src="/2021/04/26/bugku-web-web7/web7.2.PNG" class="7.2.PNG">
+
+<p>直接打开burpsuite，抓包后发给“重发器”（repeater），不断刷，直到刷出带flag的页面为止</p>
+<img src="/2021/04/26/bugku-web-web7/web7.3.PNG" class="7.3.PNG">
+
+<p>（其实我是直接发给了intruder，让它自动发送，然后通过回显的字数不同找到带flag的网页（字数最多））</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/bugku-web-web7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/bugku-web-web6/">bugku_web_web6</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/04/26/bugku-web-web6/" class="archive-article-date">
+  	<time datetime="2021-04-26T12:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h2><p>打开以后除了弹窗什么都没有</p>
+<img src="/2021/04/26/bugku-web-web6/web6.1.PNG" class="6.1.PNG">
+<img src="/2021/04/26/bugku-web-web6/web6.2.PNG" class="6.2.PNG">
+<p>直接F12，拉到最底下发现注释看着比较像unicode的格式</p>
+<img src="/2021/04/26/bugku-web-web6/web6.3.PNG" class="6.3.PNG">
+
+
+<p>网上随便找一个解码器，得到flag</p>
+<img src="/2021/04/26/bugku-web-web6/web6.4.PNG" class="6.4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/bugku-web-web6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/bugku-web-web5/">bugku_web_web5</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/04/26/bugku-web-web5/" class="archive-article-date">
+  	<time datetime="2021-04-26T11:30:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h2><p>题目提示“矛盾”<br>打开以后，还是几行代码</p>
+<img src="/2021/04/26/bugku-web-web5/web5.1.PNG" class="" title="web5.1.PNG">
+<img src="/2021/04/26/bugku-web-web5/web5.2.PNG" class="" title="web5.2.PNG">
+<p>解读一下：<br>is_number（）是判断变量是否为数字，前面加”!”则是“取非”<br>所以如果$num不是数字，则会运行下面的代码<br>然后输出$num<br>然后再验证如果$num等于1<br>则输出flag</p>
+<p>这代码似乎是矛盾的。<br>这里用到了php的弱类型特性<br>php中判断等于有”==”和”===”两种<br>前者只比较数值，而后者比较数值和类型</p>
+<p>而当字符串和数字做”==”比较时，是把字符串转换成数字，规则为（我的理解）：从第一个字符开始，逐个读入数字，直到碰到非数字字符为止，如果第一个字符非数字，则值为0</p>
+<p>所以只要在url后面加个/?num=1a，就可以的，得到flag</p>
+<img src="/2021/04/26/bugku-web-web5/web5.3.PNG" class="" title="web5.3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/bugku-web-web5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-web4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -402,718 +1115,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/04/26/bugku-web-web2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web1/">bugku_web_web1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web1/" class="archive-article-date">
-  	<time datetime="2021-04-26T10:02:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>web1</p>
-<img src="/2021/04/26/bugku-web-web1/web1.1.PNG" class="" title="web1.1.PNG">
-
-
-<p>第一题，没什么技术含量，F12搞定（就是那个滑稽太辣眼睛）</p>
-<img src="/2021/04/26/bugku-web-web1/web1.2.PNG" class="" title="web1.2.PNG">
-<img src="/2021/04/26/bugku-web-web1/web1.3.PNG" class="" title="web1.3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-涅普冬令营web篇little-trick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">涅普冬令营web篇little_trick</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" class="archive-article-date">
-  	<time datetime="2021-03-22T11:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>little_trick<br>web的第一道题<br>打开以后是php的代码</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.PNG" class="" title="nep2.PNG">
-<p>解读一下这段代码<br>1.先用GET接收两个变量，变量名为nep，len<br>2.判断这两个变量，若判断为真，则执行eval（）函数，否则，输出too long 结束<br>3.总之就是不能让它输出too long呗<br>所以先分析一下这里涉及的四个函数intval（）、strlen（）、eval（）、substr（）</p>
-<p>intval（$len）：这个函数的意思是取$len的十进制数值（比如十六进制、八进制变成十进制，10abc——&gt;10，abc10——&gt;0），intval（$len）&lt;8我们暂时可以直接当成$len&lt;8。</p>
-<p>strlen（）：相当于c++的strlen，就是计算字符长度</p>
-<p>eval（）：把括号里的文字作为php代码运行</p>
-<p>substr（$nep,0,$len）:就是从$nep中截取字符段，第二个数字表示从第几位开始截取，0的意思是从第一个字开始，后面的$len意思是截取多少个字符（但是这个量分正负，正数就是从正向开始截取几个字符，负数就是从最后数少截取几个字符）</p>
-<p>所以通篇读下来就是$len&lt;=7,字符串$nep长度&lt;=12<br>然后从$nep中截取$len个字符并运行。<br>那么似乎只能截取7个字符，那$nep再长没用<br>没什么思路，所以从绕过两个字数限制开始吧。</p>
-<p>首先搜了一下绕过intval（）的<br>发现了这篇文章<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43536759/article/details/106785184">https://blog.csdn.net/weixin_43536759/article/details/106785184</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep8.PNG" class="" title="nep8.PNG">
-<p>其中列出了溢出和一个“var_dump(intval(‘0xa’+1)) //int(11)数值形式输入(此漏洞php7被修复)”这样的漏洞<br>试验了一下，都没用</p>
-<p>但是，我前面说过，$len在substr（$nep,0,$len）函数中是可以取负值的。<br>所以我试了一下传入len=-1，因为这样会舍弃$nep的最后一个字符，所以我需要在nep最后加一个“废字符”（这里用a）<br>所以最后的传值就是len=-1&amp;nep=phpinfo();a（顺便看一下php的配置）<br>效果如下：</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.5.PNG" class="" title="nep2.5.PNG">
-
-<p>这之后发现php版本大于7，怪不得前面那个漏洞用不了。</p>
-<p>到这，对len的绕过算是结束了，可运行php代码的数量扩充到了12（但是要补一个废字符a，所以相当于11）<br>strlen（）我是实在没找到能绕过的地方，就此作罢。</p>
-<p>之后，就没思路了……</p>
-<p>还好这时这道题突然崩了，然后看见群里有人反馈他做完题后不小心rm -rf / *<br>了一下,把一开始的静态环境弄炸了(夺笋呐)</p>
-<p>等恢复（换成靶机）的这段时间里想到了用shell<br>（刚刚的phpinfo（）顺便得到了是linux系统）<br>然后就搜了一下让php实现shell的方法<br>最常见的是以下三种函数：<br>1.system<br>2.exec<br>3.passthru<br>但都太长了，根本不可能使用（因为还要加上;a)(其实后来想想，exec或许可以)</p>
-<p>之后我找到了一种最简便的方法——``(用反引号括起来)<br>然后我尝试了len=-1&amp;nep=echo `ls`;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep3.PNG" class="" title="nep3.PNG">
-
-<p>回显显示了一个文件nepctf.php<br>先尝试打开它</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep7.PNG" class="" title="nep7.PNG">
-<p>发现是个空白页<br>那么flag很有可能在这个文件里</p>
-<h2 id="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"><a href="#为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）" class="headerlink" title="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"></a>为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）</h2><p>首先想到的是限制字符的shell<br>因此搜到了这个————<br><a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3316599.html">http://www.bubuko.com/infodetail-3316599.html</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep9.PNG" class="" title="nep9.PNG">
-<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补` `;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量)<br>这都有13个字符了，直接超标<br>所以实际上我只能用4字符的方法<br>而四字符的方法，是通过\号实现shell转译，来实现多行的输入<br>再通过&gt; v，以及*v来倒叙读取这些代码来运行<br>但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的<br>但我不会python，所以只能用burpsuite实现一次性输入<br>事实上，因为我看不到回显的缘故，我甚至不知道每次的``是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
-<hr>
-<h2 id="正确方法！！！"><a href="#正确方法！！！" class="headerlink" title="正确方法！！！"></a>正确方法！！！</h2><p>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo `cat n*`;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=`cp 1 n*`;a(相当于把n*文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep4.PNG" class="" title="nep4.PNG">
-<p>然后ls一下，看见1文件已被创立</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep5.PNG" class="" title="nep5.PNG">
-<p>然后访问1文件，得到flag</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep6.PNG" class="" title="nep6.PNG">
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep1.PNG" class="" title="nep1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区simple-js" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>十二题 考js</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js1.PNG" class="" title="simple_js1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js2.PNG" class="" title="simple_js2.PNG">
-<p>一打开，只有一个输password的地方<br>随便输一下<br>显示：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>查看页面源代码，发现有一个JavaScript</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js3.PNG" class="" title="simple_js3.PNG">
-<p>走一遍程序，发现……<br>他喵的不管怎么走都只会输出：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>至于后面的\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30根本没有用</p>
-<p>然后去手工把这一串十六进制码先ascii转码，再Unicode转码，得出一段乱码，根据一开始题目提示Flag格式为 Cyberpeace{xxxxxxxxx}，加上前后<br>验证……<br>成功了……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区command-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">攻防世界web新手区command_execution</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十一题 题目提示ping功能没写waf<br>百度了一下，waf是WEB应用安全防火墙，防各种渗透的，并没有什么有用的提示<br>先看题</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution1.PNG" class="" title="command_execution1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution2.PNG" class="" title="command_execution2.PNG">
-<p>题目是一个ping功能<br>随便打个127.0.0.1，发现竟然有回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution8.PNG" class="" title="command_execution8.PNG">
-<p>尝试运用指令拼接（一行运行多条指令，可以用&amp;或;）<br>输入127.0.0.1；ls<br>发现回显多了一个index.php，说明可以拼接</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution9.PNG" class="" title="command_execution9.PNG">
-<p>补充知识：cd ..可以返回上级目录<br>不断增加cd ..;的数量直到根目录</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution3.PNG" class="" title="command_execution3.PNG">
-<p>直接用find指令，搜文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution4.PNG" class="" title="command_execution4.PNG">
-<p>出来一大堆文件，页面搜索flag.</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution5.PNG" class="" title="command_execution5.PNG">
-<p>看见flag.txt的位置，然后直接cat获取文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution6.PNG" class="" title="command_execution6.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution7.PNG" class="" title="command_execution7.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">攻防世界web新手区webshell</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:37:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十题 webshell</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell1.PNG" class="" title="webshell1">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell2.PNG" class="" title="webshell2">
-<p>一开始告知电脑里有一个php是这样的：《?php @eval($_POST[‘shell’])》（防止php运行所以改成了中文符号）</p>
-<p>查了一下，感觉这个解释最好：</p>
-<p>这是一个典型的后门程序，首先我解释一下eval函数的作用，</p>
-<p>//eval — 把字符串作为PHP代码执行<br>eval(‘echo 123;’);//输出123<br>也就是说，所有的字符串放入到eval当中，eval会把字符串解析为php代码来进行执行，那么结合$_POST[‘shell’]的话，只要使用post传输时在name为posha的值中写入任何字符串，都可以当做php代码来执行，这个时候就有点可怕了，比如写入一段循环删除整站代码等等。</p>
-<p>所以意思就是在url上加/?shell=xxxx(指令)就可以执行</p>
-<p>所以直接打开中国蚁剑<br>复制网址<br>链接密码写shell（相当于传值时的形参）</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell3.PNG" class="" title="webshell3">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell4.PNG" class="" title="webshell4">
-<p>发现flag.txt文件，打开，得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell5.PNG" class="" title="webshell5">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区xff-referer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">攻防世界web新手区xff_referer</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:49:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第九题，考xff和referer</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer1.PNG" class="" title="xff_referer1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer2.PNG" class="" title="xff_referer2.PNG">
-<p>百度了一下</p>
-<p>XFF是header请求头中的一个参数<br>是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>代表了HTTP的请求端真实的IP。</p>
-<p>其形式为X-Forwarded-For: client1, proxy1, proxy2, proxy3（一定要加:后的空格）//浏览器IP，第一个代理服务器，第二个三个四个等等</p>
-<p>下面这个博客对各种xff进行了补充：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43221560/article/details/108019509">https://blog.csdn.net/weixin_43221560/article/details/108019509</a></p>
-<p>Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
-<p>其形式为referer: xxxx.xxxx(url)</p>
-<p>然后开始做题<br>题木说要来自123.123.123.123<br>所以抓包<br>加一行X-Forwarded-For: 123.123.123.123</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer3.PNG" class="" title="xff_referer3.PNG">
-<p>显示要来自谷歌<br>所以加一行referer:<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com</a><br>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer4.PNG" class="" title="xff_referer4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区get-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">攻防世界web新手区get_post</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第八题 考get和post两种提交形式</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG" class="" title="get_post1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG" class="" title="get_post2.PNG">
-
-<p>先在地址栏传a=1，这是get提交<br>显示要在get传a=1的基础上用post传b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG" class="" title="get_post3.PNG">
-
-<p>法一：<br>开heakbar，打开post，url复制到上面，在下面传b=2<br>法二：<br>burpsuite或者抓包，在所有请求后面写b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG" class="" title="get_post4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG" class="" title="get_post5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">展开全文 >></a>
         </p>
       
 
