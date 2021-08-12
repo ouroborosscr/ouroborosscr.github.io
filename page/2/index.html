@@ -57,7 +57,7 @@
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 	        
-				<li><a href="/null">一些笔记</a></li>
+				<li><a href="/">一些笔记</a></li>
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 	        
@@ -145,7 +145,7 @@
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 		        
-					<li style="width: 25%"><a href="/null">一些笔记</a></li>
+					<li style="width: 25%"><a href="/">一些笔记</a></li>
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 		        
@@ -164,14 +164,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-bugku-web-文件包含" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-文件上传" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">bugku-web-文件包含</a>
+      <a class="article-title" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">bugku-web-文件上传</a>
     </h1>
   
 
@@ -179,39 +179,27 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="archive-article-date">
-  	<time datetime="2021-07-31T15:07:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="archive-article-date">
+  	<time datetime="2021-08-11T03:28:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>主要是利用file协议和php协议，算是内网渗透？</p>
-<p>打开后发现一个超链接</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/1.PNG" class="" title="1.PNG">
-<p>点击后发现url行为file=show.php</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/2.PNG" class="" title="2.PNG">
-<p>可能是通过file来包含并读取文件</p>
-<p>这种题有一个思路是可以用php://input的方法传入木马，然后连接的</p>
-<p>可以在url行传一个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;114.67.246.176:15309&#x2F;index.php?file&#x3D;php:&#x2F;&#x2F;input</span><br></pre></td></tr></table></figure>
-<p>然后在post行传</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
-<p>就可以看php的配置了，然后根据配置来判断可以使用什么协议<br>这才是真正用来学习的题，不过被禁掉了，这道题的学习意义就降了不少</p>
-<p>只能盲注了，可以通过file协议，然后盲猜文件名为/flag<br>然后传值<a target="_blank" rel="noopener" href="http://114.67.246.176:15309/index.php?file=file:///flag">http://114.67.246.176:15309/index.php?file=file:///flag</a><br>得到flag<br>file:///是协议头</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/3.PNG" class="" title="3.PNG">
+        <p>这道题只能靠猜，因为只有长传木马成功才能看到源码</p>
+<p>源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">global_filter();</span><br><span class="line">if ((stripos($_FILES[&quot;file&quot;][&quot;type&quot;],&#39;image&#39;)!&#x3D;&#x3D; False) &amp;&amp; ($_FILES[&quot;file&quot;][&quot;size&quot;] &lt; 10*1024*1024))&#123;</span><br><span class="line">	if ($_FILES[&quot;file&quot;][&quot;error&quot;] &#x3D;&#x3D; 0)&#123;</span><br><span class="line">		$file_ext &#x3D;  substr($_FILES[&quot;file&quot;][&quot;name&quot;], strrpos($_FILES[&quot;file&quot;][&quot;name&quot;], &#39;.&#39;)+1);</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext);</span><br><span class="line">        $allowexts &#x3D; array(&#39;jpg&#39;,&#39;gif&#39;,&#39;jpeg&#39;,&#39;bmp&#39;,&#39;php4&#39;);</span><br><span class="line">        if(!in_array($file_ext,$allowexts))&#123;</span><br><span class="line">            die(&quot;give me a image file not a php&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">		$_FILES[&quot;file&quot;][&quot;name&quot;]&#x3D;&quot;bugku&quot;.date(&#39;dHis&#39;).&quot;_&quot;.rand(1000,9999).&quot;.&quot;.$file_ext;</span><br><span class="line"></span><br><span class="line">	    if (file_exists(&quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]))&#123;</span><br><span class="line">	    	echo $_FILES[&quot;file&quot;][&quot;name&quot;] . &quot; already exists. &lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	    &#125;</span><br><span class="line">	    else&#123;</span><br><span class="line">	    	if (!file_exists(&#39;.&#x2F;upload&#x2F;&#39;))&#123;</span><br><span class="line">	    		mkdir (&quot;.&#x2F;upload&#x2F;&quot;);</span><br><span class="line">                system(&quot;chmod 777 &#x2F;var&#x2F;www&#x2F;html&#x2F;upload&quot;);</span><br><span class="line">	    	&#125;</span><br><span class="line">	    	move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]);</span><br><span class="line">                echo &quot;Upload Success&lt;br&gt;&quot;;</span><br><span class="line">                $filepath &#x3D; &quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">	      	echo &quot;Stored in: &quot; .&quot;&lt;a href&#x3D;&#39;&quot; . $filepath . &quot;&#39; target&#x3D;&#39;_blank&#39;&gt;&quot; . $filepath . &quot;&lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">	if($_FILES[&quot;file&quot;][&quot;size&quot;] &gt; 0)&#123;</span><br><span class="line">		echo &quot;You was catched! :) &lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>也可以通过php://filter的方法：php://filter/read=convert.base64-encode/resource=[文件名]，作用是读取文件源码</p>
-<p>所以传值<a target="_blank" rel="noopener" href="http://114.67.246.176:15309/index.php?file=php://filter/read=convert.base64-encode/resource=index.php">http://114.67.246.176:15309/index.php?file=php://filter/read=convert.base64-encode/resource=index.php</a><br>得到一些base64编码的内容</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/4.PNG" class="" title="4.PNG">
-<p>解码后得到源代码——</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/5.PNG" class="" title="5.PNG">
 
-<p>内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">﻿&lt;html&gt;</span><br><span class="line">    &lt;title&gt;Bugku-web&lt;&#x2F;title&gt;</span><br><span class="line">    </span><br><span class="line">&lt;?php</span><br><span class="line">	error_reporting(0);</span><br><span class="line">	if(!$_GET[file])&#123;echo &#39;&lt;a href&#x3D;&quot;.&#x2F;index.php?file&#x3D;show.php&quot;&gt;click me? no&lt;&#x2F;a&gt;&#39;;&#125;</span><br><span class="line">	$file&#x3D;$_GET[&#39;file&#39;];</span><br><span class="line">	if(strstr($file,&quot;..&#x2F;&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;))&#123;</span><br><span class="line">		echo &quot;Oh no!&quot;;</span><br><span class="line">		exit();</span><br><span class="line">	&#125;</span><br><span class="line">	include($file); </span><br><span class="line">&#x2F;&#x2F;flag:flag&#123;92ec309be49aa3cb00a355b2074ef9b0&#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-<p>得到flag<br>顺便发现确实对input过滤了</p>
+<p>因此使用burp抓包后的改动为：<br>Content-Type: multipart/form-data;<br>multipart中的部分字母改成大写的。</p>
+<p>文件的的Content-Type: application/octet-stream，改成image/jpeg</p>
+<p>文件后缀名改成php4</p>
+<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/2.PNG" class="" title="2.PNG">
 
+<p>连上蚁剑，得到flag</p>
+<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/3.PNG" class="" title="3.PNG">
+<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/4.PNG" class="" title="4.PNG">
       
 
       
@@ -223,7 +211,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">展开全文 >></a>
         </p>
       
 
@@ -275,14 +263,14 @@
     </section>
   
   
-    <article id="post-bugku-web-源代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-decrypt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">bugku-web-源代码</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-decrypt/">bugku-web-decrypt</a>
     </h1>
   
 
@@ -290,25 +278,22 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:51:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-decrypt/" class="archive-article-date">
+  	<time datetime="2021-08-10T14:42:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后提示“看看源代码？”<br>打开源代码后发现这个代码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;%66%75%6e%63%74%69%6f%6e%20%63%68%65%63%6b%53%75%62%6d%69%74%28%29%7b%76%61%72%20%61%3d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%70%61%73%73%77%6f%72%64%22%29%3b%69%66%28%22%75%6e%64%65%66%69%6e%65%64%22%21%3d%74%79%70%65%6f%66%20%61%29%7b%69%66%28%22%36%37%64%37%30%39%62%32%62&#39;;</span><br><span class="line">var p2 &#x3D; &#39;%61%61%36%34%38%63%66%36%65%38%37%61%37%31%31%34%66%31%22%3d%3d%61%2e%76%61%6c%75%65%29%72%65%74%75%72%6e%21%30%3b%61%6c%65%72%74%28%22%45%72%72%6f%72%22%29%3b%61%2e%66%6f%63%75%73%28%29%3b%72%65%74%75%72%6e%21%31%7d%7d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%6c%65%76%65%6c%51%75%65%73%74%22%29%2e%6f%6e%73%75%62%6d%69%74%3d%63%68%65%63%6b%53%75%62%6d%69%74%3b&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;%35%34%61%61%32&#39; + p2));</span><br></pre></td></tr></table></figure>
+        <p>提示是一串字符，base64解码发现解不出来东西</p>
+<img src="/2021/08/10/bugku-web-decrypt/1.PNG" class="" title="1.PNG">
 
-<p>url解码后为——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;function checkSubmit()&#123;var a&#x3D;document.getElementById(&quot;password&quot;);if(&quot;undefined&quot;!&#x3D;typeof a)&#123;if(&quot;67d709b2b&#39;;</span><br><span class="line">var p2 &#x3D; &#39;aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)return!0;alert(&quot;Error&quot;);a.focus();return!1&#125;&#125;document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;54aa2&#39; + p2));</span><br></pre></td></tr></table></figure>
-<p>unescape()的作用是解码<br>拼接后就是——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">eval(</span><br><span class="line">function checkSubmit()</span><br><span class="line">&#123;</span><br><span class="line">	var a&#x3D;document.getElementById(&quot;password&quot;);</span><br><span class="line">	if(&quot;undefined&quot;!&#x3D;typeof a)</span><br><span class="line">	&#123;</span><br><span class="line">		if(&quot;67d709b2b54aa2aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)</span><br><span class="line">		return!0;</span><br><span class="line">		alert(&quot;Error&quot;);</span><br><span class="line">		a.focus();</span><br><span class="line">		return!1</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>下载附件发现是一个函数，貌似是base64产生的方法，所以只要逆序产出就行</p>
+<p>写一个python脚本就好(第一次做的时候写的脚本，直接贴上来了)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import hashlib</span><br><span class="line">test_str &#x3D; &#39;hello world!&#39;</span><br><span class="line"># 编码</span><br><span class="line">#encode_str &#x3D; base64.encodebytes(test_str.encode(&#39;utf8&#39;))  # b&#39;aGVsbG8gd29ybGQh\n&#39;</span><br><span class="line">#print(encode_str.decode())  # 默认以utf8解码，结果 aGVsbG8gd29ybGQh</span><br><span class="line"># 解码</span><br><span class="line">encode_str&#x3D;&#39;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA&#x3D;&#39;.encode(&#39;utf8&#39;)</span><br><span class="line">decode_str &#x3D; base64.decodebytes(encode_str)  # b&#39;hello world!&#39;</span><br><span class="line">print(decode_str.decode())  # 默认以utf8解码，结果 hello world!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a&#x3D;&#39;ISCC&#39;</span><br><span class="line">m &#x3D; hashlib.md5()</span><br><span class="line">m.update(a.encode(&#39;utf-8&#39;))</span><br><span class="line">print(m.hexdigest())</span><br><span class="line">len1&#x3D;len(decode_str.decode())</span><br><span class="line">print(len1)</span><br><span class="line">str10&#x3D;m.hexdigest()</span><br><span class="line">x&#x3D;0</span><br><span class="line">i&#x3D;1</span><br><span class="line">char1&#x3D;&#39;&#39;</span><br><span class="line">while(i&lt;&#x3D;32):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">i&#x3D;1</span><br><span class="line">x&#x3D;0</span><br><span class="line">while(i&lt;&#x3D;6):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">print(char1)</span><br><span class="line"></span><br><span class="line">str1&#x3D;decode_str.decode()</span><br><span class="line"></span><br><span class="line">a&#x3D;range(38)</span><br><span class="line"></span><br><span class="line">d&#x3D;&#39;&#39;</span><br><span class="line"></span><br><span class="line">for i in a:</span><br><span class="line">    b&#x3D;ord(str1[i])</span><br><span class="line">    c&#x3D;ord(char1[i])</span><br><span class="line">    if((b-c&gt;&#x3D;48 and b-c&lt;&#x3D;57) or (b-c&gt;&#x3D;97 and b-c&lt;&#x3D;122)):</span><br><span class="line">        e&#x3D;b-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line">    else:</span><br><span class="line">        e&#x3D;b+128-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line"></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#48-57</span><br><span class="line">#97-122</span><br></pre></td></tr></table></figure>
 
-<p>简单来说就是传值若等于67d709b2b54aa2aa648cf6e87a7114f1，就返回flag</p>
-<p>然后输进去就得到flag</p>
-<img src="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/1.PNG" class="" title="1.PNG">
+<p>得到flag（我的脚本写的不太好，前面的Flag:会变形，自己换一下就行）</p>
 
       
 
@@ -321,7 +306,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-decrypt/">展开全文 >></a>
         </p>
       
 
@@ -373,14 +358,14 @@
     </section>
   
   
-    <article id="post-bugku-web-社工-伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-点login咋没反应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">bugku-web-社工-伪造</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">bugku-web-点login咋没反应</a>
     </h1>
   
 
@@ -388,25 +373,26 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/" class="archive-article-date">
+  	<time datetime="2021-08-10T14:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这道题虽然既没技术含量（玩家角度），又骗金币，不过还挺好玩的</p>
-<p>打开后让输入qq号</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/1.PNG" class="" title="1.PNG">
-<p>放心输入就行，这个的功能就是抓取你的qq头像和昵称</p>
-<p>进去后发现一个“人”在线，因为装了最基础的ai，所以可以和她聊天</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/2.PNG" class="" title="2.PNG">
-<p>问flag会告知只会发给“男朋友”<br>原题思路是：根据上面的qq号找到她的男朋友，换成她男朋友的头像和昵称，然后清除浏览器缓存（这步很重要），重新抓取自己的qq号（直接输那个男朋友的qq不行，不信可以试试），然后问flag就行。</p>
-<p>但是比较难受的就是，那个号主早就改名了，而这个ai认不出新名字（是的，她只认名字，为那些被坑去换头像的默哀）<br>所以现在还需要改成那个账号最早的名字“小bug”</p>
-<p>另外就是改完qq名字以后（特别是改完头像），qq自己会有一个审核过程，所以清缓存也抓取不到的不要着急。<br>如果你真的遇到当天qq在整顿，全网不允许改名那种极特殊情况，那么很遗憾，金币白花了。</p>
-<p>另外就是一个小彩蛋，输入的内容有字数限制——</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/3.PNG" class="" title="3.PNG">
+        <p>查看源代码，发现admin.css有个提示</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/1.PNG" class="" title="1.PNG">
+
+<p>输入后发现源码</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/2.PNG" class="" title="2.PNG">
+
+
+
+<p>反序化验证，自己写个php：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$KEY&#x3D;&#39;ctf.bugku.com&#39;;</span><br><span class="line">echo serialize($KEY);</span><br></pre></td></tr></table></figure>
+<p>得到<code>s:13:&quot;ctf.bugku.com&quot;;</code><br>然后加到cookie里就行</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/3.PNG" class="" title="3.PNG">
       
 
       
@@ -418,7 +404,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">展开全文 >></a>
         </p>
       
 
@@ -470,14 +456,14 @@
     </section>
   
   
-    <article id="post-bugku-web-头等舱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-各种绕过哟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">bugku-web-头等舱</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/">bugku-web-各种绕过哟</a>
     </h1>
   
 
@@ -485,16 +471,23 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:13:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/" class="archive-article-date">
+  	<time datetime="2021-08-10T13:24:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>头等舱=flag在header<br>没意思，开burp两分钟，得flag五秒钟</p>
-<img src="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/1.PNG" class="" title="1.PNG">
+        <p>打开以后是php代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(&#39;flag.php&#39;);</span><br><span class="line">$_GET[&#39;id&#39;] &#x3D; urldecode($_GET[&#39;id&#39;]);</span><br><span class="line">$flag &#x3D; &#39;flag&#123;xxxxxxxxxxxxxxxxxx&#125;&#39;;</span><br><span class="line">if (isset($_GET[&#39;uname&#39;]) and isset($_POST[&#39;passwd&#39;])) &#123;</span><br><span class="line">    if ($_GET[&#39;uname&#39;] &#x3D;&#x3D; $_POST[&#39;passwd&#39;])</span><br><span class="line"></span><br><span class="line">        print &#39;passwd can not be uname.&#39;;</span><br><span class="line"></span><br><span class="line">    else if (sha1($_GET[&#39;uname&#39;]) &#x3D;&#x3D;&#x3D; sha1($_POST[&#39;passwd&#39;])&amp;($_GET[&#39;id&#39;]&#x3D;&#x3D;&#39;margin&#39;))</span><br><span class="line"></span><br><span class="line">        die(&#39;Flag: &#39;.$flag);</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">        print &#39;sorry!&#39;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>参考前面的md5撞库——<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" title="前女友（web24）">前女友（web24）</a></p>
+<p>这里也可以用数组绕过：?uname[]=1&amp;id=margin<br>post：passwd[]=2<br>得到flag</p>
+<img src="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/1.PNG" class="" title="1.PNG">
+
+<p>我一开始也想尝试sha1撞库，虽然有是有，但是hash能达到撞库级别的都是非常庞大的数据，没法通过url来传，所以只能用数组了。</p>
+
       
 
       
@@ -506,7 +499,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/">展开全文 >></a>
         </p>
       
 
@@ -558,14 +551,14 @@
     </section>
   
   
-    <article id="post-bugku-web-变量1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-程序员本地网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">bugku-web-变量1</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/">bugku-web-程序员本地网站</a>
     </h1>
   
 
@@ -573,26 +566,18 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/" class="archive-article-date">
+  	<time datetime="2021-08-10T12:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后是php代码</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/1.PNG" class="" title="1.PNG">
+        <p>xff，和前面的referer一样，应该放在最前面，没什么技术含量</p>
+<p>就是在头部加一个<code>X-Forwarded-For:127.0.0.1</code></p>
+<p>得到flag</p>
 
-<p>逐行解释<br>第三行：包含flag1.php<br>第四行：接收一个args变量，若非空，则运行<br>第五行：给$args赋值（并没有用，只是为了让新手看着更直观）<br>第六行：利用正则表达式匹配，若不匹配，则程序直接die<br>第九行：输出$$args(eval没有用)</p>
-<p>关于正则表达式，网上这个解释感觉非常好——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;^\w+$&#x2F; 两个&#x2F; &#x2F; 表明正则表达式的开始与结束 ^开始字符，$结束字符 \w 包含【a-z,A-Z,_,0-9】中的字符，+代表可以有一个，或多个\w </span><br><span class="line"> 总的加起来意思是 以[a-z,A-Z,_,0-9]中的其中一个字符开始，中间可以有任意个[a-z,A-Z,_,0-9]字符，最后再以[a-z,A-Z,_,0-9]中的一个字符结束 比如适合的有：a,a09,a_01,001 不适合的有a-5，@12，￥12，中文字符，这些都不在[a-z,A-Z,_,0-9]范围里面</span><br></pre></td></tr></table></figure>
-<p>相当于传入的值只能是大小写字母或数字，字符只能是“_”<br>所以不能传入别的字符，不能传shell了</p>
-<p>另外推荐一个比较好的正则表达式网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
-<p>然后就是了解到：超全局变量——<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.variables.superglobals.php">https://www.php.net/manual/zh/language.variables.superglobals.php</a></p>
-<p>这里用到$GLOBALS</p>
-<p>所以传值?args=GLOBALS,得到flag</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/2.PNG" class="" title="2.PNG">
       
 
       
@@ -604,7 +589,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/">展开全文 >></a>
         </p>
       
 
@@ -656,14 +641,14 @@
     </section>
   
   
-    <article id="post-bugku-web-eval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-md5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-eval/">bugku-web-eval</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-md5/">bugku-web-md5</a>
     </h1>
   
 
@@ -671,27 +656,16 @@
         
 
 
-<a href="/2021/07/31/bugku-web-eval/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:34:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-md5/" class="archive-article-date">
+  	<time datetime="2021-08-10T12:14:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开题目，看见php代码</p>
-<img src="/2021/07/31/bugku-web-eval/1.PNG" class="" title="1.PNG">
-<p>简单来说就是通过request方式获取一个hello的参数（相当于get和post结合，所以get或post都可以）<br>以php的方式运行var_dump($a)<br>因为这句话本来就是php语句，所以这个eval没什么用，<br>eval( “var_dump($a);”);  相当于 var_dump($a);</p>
-<p>然后就试着传入有关shell的参数就行</p>
-<p>这里可以用system()<br>不过我这里用的反引号``</p>
-<p>传一个?hello=`ls`,发现有回显</p>
-<img src="/2021/07/31/bugku-web-eval/2.PNG" class="" title="2.PNG">
-
-<p>逐步回退到根目录，然后cat读取flag</p>
-<img src="/2021/07/31/bugku-web-eval/3.PNG" class="" title="3.PNG">
-<img src="/2021/07/31/bugku-web-eval/4.PNG" class="" title="4.PNG">
-
-<p>关于一开始这道题没法用cat这能用tac的问题，可以参考我很早以前写的博客（关于前面的步骤也更详细一些）——<a href="/2021/04/26/bugku-web-web8/" title="web8">web8</a></p>
+        <p>评论区：凑数题，没意思，这题不给源代码，md5碰撞就好好出碰撞的题阿，整个0e的真的小儿科了，硬猜是有多无聊</p>
+<p>前面的<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" title="前女友（web24）">前女友（web24）</a><br>讲的很清楚<br>随便找一个0e的md5碰撞就行<br>浪费金币</p>
 
       
 
@@ -704,7 +678,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-eval/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-md5/">展开全文 >></a>
         </p>
       
 
@@ -756,14 +730,14 @@
     </section>
   
   
-    <article id="post-bugku-web-bp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-你从哪里来" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-bp/">bugku-web-bp</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">bugku-web-你从哪里来</a>
     </h1>
   
 
@@ -771,15 +745,18 @@
         
 
 
-<a href="/2021/07/31/bugku-web-bp/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:24:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/" class="archive-article-date">
+  	<time datetime="2021-08-10T12:10:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最没意思的题，纯字典爆破<br>zxc123</p>
+        <p>没什么意思<br>bp抓包，在头部加一个<code>referer:https://www.google.com/</code></p>
+<img src="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/1.PNG" class="" title="1.PNG">
+
+<p>说实话这道题有点太靠后了，应该放到最前面</p>
 
       
 
@@ -792,7 +769,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-bp/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">展开全文 >></a>
         </p>
       
 
@@ -844,14 +821,14 @@
     </section>
   
   
-    <article id="post-bugku-web-本地管理员" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-login1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/">bugku-web-本地管理员</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-login1/">bugku-web-login1</a>
     </h1>
   
 
@@ -859,26 +836,25 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/" class="archive-article-date">
-  	<time datetime="2021-07-31T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-login1/" class="archive-article-date">
+  	<time datetime="2021-08-10T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>主要考的ip伪造</p>
-<p>打开页面，随便输密码，发现ip被记录(再次输入就没用了)</p>
-<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/4.PNG" class="" title="4.PNG">
+        <p>打开以后是一个登录系统</p>
+<p>用admin试一试，发现不行</p>
+<p>根据题目提示：SQL约束攻击<br>比如想这道题，我们在创建sql表的时候，都会固定每个表中元素的最大长度，一般编写php也会配合这一长度进行长度过滤，而未过滤的话就会存在sql约束漏洞的攻击<br>可以传入远超sql长度的字符，而sql会自动截取自身的最大字符，从而实现重复注册</p>
+<p>比如我输入admin，会显示“已注册”</p>
+<img src="/2021/08/10/bugku-web-login1/2.PNG" class="" title="2.PNG">
 
-<p>不着急，先打开源码，发现最后面跟了一个注释，base64解码，应该就是登录密码</p>
-<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/2.PNG" class="" title="2.PNG">
+<p>但是输入admin后面加很多空格，则会注入成功</p>
+<img src="/2021/08/10/bugku-web-login1/3.PNG" class="" title="3.PNG">
 
-<p>盲猜登录用户名为admin<br>抓包后改成admin和密码test123</p>
-<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/3.PNG" class="" title="3.PNG">
-<p>但是现在ip被记录，无法识别<br>在数据包的头部添加xff参数，随便输一个ip(不能是以前用过的ip，我这里直接用127.0.0.1了)<br>得到flag</p>
-<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/5.PNG" class="" title="5.PNG">
+<p>然后再在登录界面输入注册的用户名和密码就好</p>
+<img src="/2021/08/10/bugku-web-login1/4.PNG" class="" title="4.PNG">
       
 
       
@@ -890,7 +866,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-login1/">展开全文 >></a>
         </p>
       
 
@@ -942,14 +918,14 @@
     </section>
   
   
-    <article id="post-bugku-web-网站被黑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-前女友" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/">bugku-web-网站被黑</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/">bugku-web-前女友</a>
     </h1>
   
 
@@ -957,22 +933,28 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/" class="archive-article-date">
-  	<time datetime="2021-07-31T09:56:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" class="archive-article-date">
+  	<time datetime="2021-08-10T11:41:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开，发现一个黑页</p>
-<img src="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/1.PNG" class="" title="1.PNG">
-<p>扫一下目录，发现shell.php<del>（等扫描的过程中建议可以玩玩页面的光追，感觉可以玩一年）</del></p>
-<img src="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/2.PNG" class="" title="2.PNG">
-<p>打开发现一个输密码的界面</p>
-<img src="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/3.PNG" class="" title="3.PNG">
-<p>最后没什么意思，就是用字典爆破密码（还以为需要连接木马什么的，浪费时间），密码hack，直接得flag</p>
-<img src="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/4.PNG" class="" title="4.PNG">
+        <p>打开后是一个没什么意思的冷笑话</p>
+<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/1.PNG" class="" title="1.PNG">
+<p>f12后发现一个链接，点开后发现php源码</p>
+<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/3.PNG" class="" title="3.PNG">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]) &amp;&amp; isset($_GET[&#39;v3&#39;]))&#123;</span><br><span class="line">    $v1 &#x3D; $_GET[&#39;v1&#39;];</span><br><span class="line">    $v2 &#x3D; $_GET[&#39;v2&#39;];</span><br><span class="line">    $v3 &#x3D; $_GET[&#39;v3&#39;];</span><br><span class="line">    if($v1 !&#x3D; $v2 &amp;&amp; md5($v1) &#x3D;&#x3D; md5($v2))&#123;</span><br><span class="line">        if(!strcmp($v3, $flag))&#123;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>首先解决这玩意——<code>strcmp($v3, $flag)</code>,没有人能猜出flag的内容，所以数组绕过，传值<code>v3[]=3</code></p>
+<p>然后就是典型的md5碰撞</p>
+<p>方法一：数组绕过<br>令：v1,v2都是数组，然后赋不同值（<code>$v1 != $v2</code>）。因为数组状态下<code>md5()</code>函数会自动返回null<br>所以传值：?v1[]=1&amp;v2[]=2&amp;v3[]=3<br>得到flag</p>
+<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/4.PNG" class="" title="4.PNG">
+
+<p>方法二：md5碰撞<br>有很多字符串加密后回以0e开头，而php的弱等比的是第一个非数字的字符，所以可以用来利用。<br>随便找两个构造payload：?v1=s1502113478a&amp;v2=s1091221200a&amp;v3[]=3<br>得到flag</p>
+<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/5.PNG" class="" title="5.PNG">
       
 
       
@@ -984,7 +966,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/">展开全文 >></a>
         </p>
       
 
@@ -1036,14 +1018,14 @@
     </section>
   
   
-    <article id="post-bugku-web-game1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-字符？正则？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-game1/">bugku-web-game1</a>
+      <a class="article-title" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">bugku-web-字符？正则？</a>
     </h1>
   
 
@@ -1051,23 +1033,20 @@
         
 
 
-<a href="/2021/07/31/bugku-web-game1/" class="archive-article-date">
-  	<time datetime="2021-07-31T09:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/" class="archive-article-date">
+  	<time datetime="2021-08-10T11:16:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>点进去后是一个游戏</p>
-<img src="/2021/07/31/bugku-web-game1/4.PNG" class="" title="4.PNG">
-<p>完全没有思路的话可以把游戏打到三千分通关</p>
-<p>标准做法是：打开burp抓包，迅速在游戏中gg，抓到游戏结束的返回包</p>
-
-<p>发现score和sign的参数都在变化<br>将sign的参数去掉前面的zM和后面的==后base64解码，发现就是score的参数</p>
-<img src="/2021/07/31/bugku-web-game1/2.PNG" class="" title="2.PNG">
-<p>所以把score参数改为随意大于3000的数，base64加密后前面加zM后面加==，得到flag</p>
-<img src="/2021/07/31/bugku-web-game1/3.PNG" class="" title="3.PNG">
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">highlight_file(&#39;2.php&#39;);</span><br><span class="line">$key&#x3D;&#39;flag&#123;********************************&#125;&#39;;</span><br><span class="line">$IM&#x3D; preg_match(&quot;&#x2F;key.*key.&#123;4,7&#125;key:\&#x2F;.\&#x2F;(.*key)[a-z][[:punct:]]&#x2F;i&quot;, trim($_GET[&quot;id&quot;]), $match);</span><br><span class="line">if( $IM )&#123; </span><br><span class="line">  die(&#39;key is: &#39;.$key);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>关于正则表达式，建议用这个网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br>(可以现场看各种字符是什么意思，虽然是纯英文界面)<br>关于<code>/key.*key.&#123;4,7&#125;key:\/.\/(.*key)[a-z][[:punct:]]/i</code>的解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.                                  匹配除 &quot;\n&quot; 之外的任何单个字符</span><br><span class="line"></span><br><span class="line">*                                 匹配它前面的表达式0次或多次，等价于&#123;0,&#125;</span><br><span class="line"></span><br><span class="line">&#123;4,7&#125;                           最少匹配 4 次且最多匹配 7 次，结合前面的 . 也就是匹配 4 到 7 个任意字符</span><br><span class="line"></span><br><span class="line">\&#x2F;                                匹配 &#x2F; ，这里的 \ 是为了转义</span><br><span class="line"></span><br><span class="line">[a-z]                           匹配所有小写字母</span><br><span class="line"></span><br><span class="line">[:punct:]                     匹配任何标点符号</span><br><span class="line"></span><br><span class="line">&#x2F;i                                表示不分大小写</span><br></pre></td></tr></table></figure>
+<p>所以我随便配了一个：key1key1234key:/1/1keya!</p>
+<p>得到flag</p>
+<img src="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/1.PNG" class="" title="1.PNG">
       
 
       
@@ -1079,7 +1058,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-game1/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">展开全文 >></a>
         </p>
       
 
@@ -1133,7 +1112,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 

