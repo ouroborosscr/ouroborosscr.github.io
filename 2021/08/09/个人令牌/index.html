@@ -16,7 +16,7 @@
 <meta property="og:description" content="关于2021年8月13日后git不接受账号密码修改的应对今天上传博客的时候，我在配置好ssh的情况下被要求输入账号和密码，并且接到这样一条邮件—— 123You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-09T07:48:05.000Z">
-<meta property="article:modified_time" content="2021-08-09T08:46:43.116Z">
+<meta property="article:modified_time" content="2021-08-13T08:08:27.918Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -195,9 +195,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，我在配置好ssh的情况下被要求输入账号和密码，并且接到这样一条邮件——</p>
+<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，<del>我在配置好ssh的情况下被要求输入账号和密码，并且</del>接到这样一条邮件——</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;2.9.0.windows.1.</span><br><span class="line"></span><br><span class="line">Basic authentication using a password to Git is deprecated and will soon no longer work. Visit https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information around suggested workarounds and removal dates.</span><br></pre></td></tr></table></figure>
-<p>意思是以后这种方法将会被弃用，原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）<br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
+<p>意思是以后这种方法将会被弃用，<del>原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）</del><br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
 <p>了解到需要“个人访问令牌”，那就顺着流程做——<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
 <p>其中，权限只选中repo就够了。</p>
 <p>跟着流程创建完之后，<code>git --verdion</code>检查一下自己git的版本，如果低于2.29，就下一个最新版安装——<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2">https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2</a></p>
