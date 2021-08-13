@@ -575,7 +575,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后发现是yipi界面，直接搜“yipi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
+        <p>打开后发现是yapi界面，直接搜“yapi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
 <img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
 <img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
 <img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
@@ -753,7 +753,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>学到了新姿势<br>首先是源码——</p>
+<img src="/2021/08/04/buu-easyweb/1.PNG" class="" title="1.PNG">
+
+<p>关于escapeshellarg，网上所有的漏洞都是和escapeshellcmd共同使用时产生的，当时被这个卡了很久。</p>
+<p>后来出hint说“管理员访问过这个文件”，我想到的是find可以根据时间列出文件名，但是放到cat就不适用。</p>
+<img src="/2021/08/04/buu-easyweb/4.PNG" class="" title="4.PNG">
+
+<p>还是最后看了套神的wp才明白</p>
+<p>直接找nginx的日志，发现flag文件的名字</p>
+<img src="/2021/08/04/buu-easyweb/2.PNG" class="" title="2.PNG">
+
+<p>然后找flag，打开源代码查看就行</p>
+<img src="/2021/08/04/buu-easyweb/3.PNG" class="" title="3.PNG">
+
+
+<p>还是不够细心，把“访问”当成了“打开”</p>
+
       
 
       
