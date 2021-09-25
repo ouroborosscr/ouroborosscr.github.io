@@ -164,6 +164,315 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-记一次拆包fhx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/">记一次拆包fhx</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/" class="archive-article-date">
+  	<time datetime="2021-07-19T11:37:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以前的经历，新方法出现后我就删掉了，在这里做个备份，以供自己未来参考</p>
+<p>这贴包括一部分技术介绍，最简便教程可以移步——<br>简易fhx教程（最简单步骤贴）_伊甸园的骄傲wiki_伊甸园的骄傲 _Gamekee游戏攻略百科<br>（不过还是希望看一下，你会发现真没你想的那么高深）</p>
+<p>环境所限，希望大家自己看看就行，别大肆宣传</p>
+<p>相比于国内另外几个游戏，说实话这个游戏的fhx是最没技术含量的。（下面两段以及免责是吹水，单纯找步骤的人可以略过）</p>
+<p>参考碧蓝是需要读代码把FALSE改成true，少前是对定期数据加密的解密，双生是靠替换密码加密以及代码审计找到官方留的后门。<br>这个是最简单的（不然也不可能让我这个啥也不会的菜鸡一天就干出来）</p>
+<p>这个游戏只需要单纯的——“换图”<br>（就算提取图片也并没有到加密的难度，简单密码学入门的话可以先不看答案当一道ctf题做一下，看不懂这句话请自动略过当我没说）</p>
+<p>好嘞，下面是喜闻乐见的“免责”环节：（找步骤的人可以略过整个免责环节）<br>    1.首先，如果我的文章侵犯了您的合法权益，请务必联系攻略组，我马上就删。严正声明：仅供用于学习关于安卓编程最弱智基础以及unity3d的最基础入门，严禁用作商业用途，后果自负！（我也会在题后进行简单的技术讨论，为大佬们开发更加简易的方法做个铺垫，以及起到互相学习的目的）<br>    2.因为改包本来就存在风险，更何况还涉及封装，所以请谨慎对待（主要是我也不确定有什么风险，毕竟我又菜又没经验）<br>    3.建议不要使用别人给的apk，原因有二，首先，这并不像一个文件式补丁包那样很轻易的就能人工审查出问题（木马，病毒），这种二次封装好的apk很容易报“风险”，但一般人会忽视直接安装，也有些二次封装软件为了成功安装而强制把比较危险的东西加载成看起来安全的样子，即使手机检测也未必能检测出来，这就给个别另有所图的人留下可乘之机。所以最安全的软件只有官网和出自自己之手的。其次，整这玩意真挺简单的，又不需要读代码改参数，也没有加密，就是动动手指的事。因此，我大概不会发布我的apk（更大的原因是我更希望这个游戏能平安运营到几年后，毕竟游戏公司也不是闲的才花两倍的钱拿一倍的立绘，包括现在我也是希望热度别这么快就下去了，大家互相体谅，各个论坛也平和一点，都挺无奈的）。<br>    4.补充：因为普通立绘和限定立绘的存储方式不同，以及现在游戏还不涉及限定立绘，所以限定立绘部分先不考虑（其实那部分是个人就能轻松做到）。<br>    5.可能：不排除大更新后需要重新来一遍的可能。这甚至可能会导致每次大更新都要重新下载apk。（主要是我也不确定）</p>
+<p>ok，咱们开始——（写完发现前两段还是吹水，步骤可以跳到“下面我就直接说步骤了：“那里）</p>
+<p>步骤可以参考这位大佬的图（我觉得写得挺好的，简单易懂）——</p>
+<p>看不懂也没关系，这并不是什么高深的东西，其实fhx一共分为简单的四步——<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>2.把国服apk的（快递）下过来，拆开包。<br>3.把日服的图片扔进国服的包，然后把包封上口。<br>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>（相当于什么都没说）</p>
+<p>下面我就直接说步骤了：（下面括号里为技术讨论，大家自行略过就行）<br>1.把日服的apk（快递）下过来，拆开包，拿出图片。<br>这一步我就替大家做了（但是提的不全）——<br><a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/17/rad/">https://ouroborosscr.github.io/2021/07/17/rad/</a><br>我随便找了个云盘上发了个文件夹，直接下来就好了（建议放到手机的“我的手机/Download”文件下，别放根目录（Android））<br>我也不用云盘了，太麻烦，直接上传到我的博客了，博客上有些多余的东西，也没什么意思，大家自动忽略就行（只要github不倒闭，这玩意就不会封）<br>（关于这部分，这个文件和apk不一样，一眼就能看出是图片，也可以随便解包查看内容，内容也不多，随便一个大佬就能看出有没有问题，所以安全性可以保证，当然最安全的还是自己制作）</p>
+<p>（也可以自己提取，并不难，就是有点麻烦，已经下载好的同学请自动略过跳到第二步）<br>现在介绍的就是我制作上面那个文件夹的过程：想办法下载一个日服的安装包（比如从apkssr），下载下来是这样的（你会得到两个文件——xxx.apk和xxx.obb<br>在手机上重命名xxx.obb为xxx.zip,然后在手机上解压缩（注意：重命名和解压缩必须在手机上，电脑上会解不出东西）</p>
+<p>打开解压缩的文件夹，打开assets/ResEX文件，里面一大堆xxx.aab文件就包含立绘了<br>根据编号找到自己要替换的文件，复制到别的文件夹里（建议在Download文件下）</p>
+<p>以下是我自己对比得出的需要替换的文件名（非常不全）：<br>格式为st_img_xxxxxxxxxx.abb的文件：（中间的xxxxxxxxxx替换成下面的数字）<br>11100004_1<br>11100004_2<br>11100006_2<br>11101006_2<br>11200003_1<br>11200003_2<br>11200006_1（但我觉得hx版好看）<br>11200006_2<br>11201003_1<br>11201003_2<br>11201004_2（过分！）<br>11202001_2<br>11300002_1<br>11300002_2（其实不修也不会想成那个吧）<br>11300003_1<br>11300003_2（修了好看，不修有点奇怪）<br>11300004_1<br>11300004_2<br>11300005_1<br>11300005_2<br>11301003_1<br>11301003_2<br>11301004_2（所以说，hx的标准一直都挺迷的）<br>11301005_1<br>11301005_2<br>格式为m_l2d_xxxxxxxx.abb的文件：<br>11100004<br>11101004<br>11202001<br>11300002</p>
+<p>11300003<br>11300004<br>11300005<br>11300004<br>11300005<br>11301003<br>11301004<br>（感谢nga的大佬指出我统计的错误）</p>
+<p>（题外话：对比了一晚上，一开始我还觉得hx的挺多的，从那么多文件里就只有这么几个要换，对比半天才能找出一个，官方真的很良心了）<br>（三阶形态因为就算拆包，图也对比不出来什么（下文技术讨论阶段会说原因），所以我仅靠自己的记忆列举了一下，如果有缺的请评论通知我）<br>（另外，我和另一个攻略组成员商量了一下，制作图鉴的时候把这个编号加上去，以后大家可以直接通过gamekee的图鉴搜索功能来获取立绘编号，便于大家直接提取和替换）</p>
+<p>2.把国服apk的（快递）下过来，拆开包。<br>这里需要用一个名叫“mt管理器”的软件，很难受的是——这个软件似乎是要钱的（20块钱三个月的会员）<br>（我一开始也尝试过用git上免费的apktool和uber-apksigner，奈何技术不行，绕不过证书验证，希望有大佬可以指点，下文技术讨论部分细说）<br>软件建议在官网下载——<br>MT管理器 (lanzoui.com)<br>（因为这种软件乱下载的话，十个里有九个有问题，甚至有把木马放到最外层一眼就能解出来的，甚至不排除“马中马”的可能）<br>下载以后点左上角“三”，点“安装包提取”，选择游戏，点“提取安装包”，提取完后点“定位”，就到了下图3的样子</p>
+<p>3.把日服的图片扔进国服的包，然后把包封上口。<br>点击apk，点击“查看”，打开asstes/ResEx文件夹，右边打开已经下载好的red文件（如果存在了download文件夹下，就点三下上面的”…”，点击打开”sdcard/download“就行了（似乎是个内存穿梭？），变成这个样子。</p>
+<p>点击右上角的三个竖点，点击”全选“，右边的文件就变蓝了，长按随便一个文件，点击”添加“，等会就行了</p>
+<p>4.最后在封口上面签两个名，顺便撕掉收件信息就行了。<br>然后左边翻到最上面点的“..”两下，退到apk界面，点击你的apk，发现”校验不通过“字样（这是由于证书签名被消除造成的）<br>点击“功能”，直接点击“去除签名校验”（这个功能自带签名，不要多此一举去签名）<br>（括号里可以略过，这就是使用这个软件的原因，单纯的v1，v2签都可以自己造（免费软件），但是这只能办到安装，打开游戏后会有证书验证造成你的软件闪退，现在我只发现这个软件可以绕过这些，如果有别的方法，希望大佬指点，下文技术讨论细说）<br>注意！！这里要关闭“使用加强版”，这个app真的不兼容<br>然后就可以安装了（要先把原软件卸载）（安那个带sign字样的，別安成原包了）<br>（注意，别用修改过的apk操作，第二次我在这里卡了将近一个小时（直接影响了发布时间），有兴趣可以读一下帮助文件，就明白原理了介绍 - MT管理器 (binmt.cc)，亲测：换成原装apk立马就通过了）</p>
+<p>效果图（官服废号，别来找我加好友）</p>
+<p>最后一点题外话：虽然这个封装的很弱智（盲猜是官方故意留下的后门？）害得我前两天都没怎么上过号，大号还维持在第一天的九级，完全远离了第一梯队，要替换的图也是我一个个人工绕过+对照的（一开始开文档统计确实容易被人拿去带节奏，被大佬提醒以后我就关了，给大家道个歉，我不该贪图省事的），就冲这费的功夫，你们要是不给我个成品号就太说不过去了。<br>ok，单纯想制作fhx软件的朋友们，你们已经可以退出网页开始游戏了。</p>
+<p>下面我们来点“好玩的”——简单的技术讨论，start！！<br>首先是立绘提取问题，官方直接用unity3d设计的立绘，所以图片就是所有的aab文件，感谢官方只是用添零来防提取，我一开始也是抱着学习“安卓安全”的想法去做的，其实拆这玩意还真的挺好玩的——<br>比如明明是日服，却看到一个图片名叫“juqingbaoxiang”，是的，就是拼音，并不是英文的“Story treasure chest”<br>还有，我挺好奇“xiaolizi”是啥，难道后面还有“fugui”吗？<br>开玩笑的，当时我以为是“栗子”，结果打开一看，竟然是一堆光晶碎片，所以，是“小粒子”<br>还有，为什么“shendan_shala”是山和天空啊！玄学命名法<br>另外就是，千万不要去看三阶的图片，因为你会看到你的lp们碎成一堆的诡异景象（辣眼睛）。是的，有几个关节能动就切几刀，特别是那种很多缕头发都在晃动的，简直的密恐的地狱，游戏越良心，碎的越彻底，从这方面讲，这游戏是真的良心——这也是我为什么没法通过对比得出哪些三阶立绘被hx的原因<br>还有就是偶尔会看见，一堆肉块杂乱的摆在图上（其实是装备的图片，但是连着肉那一部分，比如臂铠就是从肩到胳膊肘的部分）</p>
+<p>其实这个修改或许真的不是最优解，甚至是最差解也说不定，主要是我能力有限，权当抛砖引玉了吧，其实如果是该apk，利用太极之类的软件去完成两个apk拼接可能更好一些？没办法，我只会白嫖别人的拼接，真不会制作，希望有大佬能试着研究一下？</p>
+<p>关于这个过程中遇到的几个难点，就不得不提“证书签名”了（没办法，技术不过硬，连这种小问题都会被拦住）<br>单纯的拆包只用换zip再解压就行了，但是那就破坏了签名文件，我的理解，“签名文件”就相当于快递的封口贴纸，zip解压缩就是“暴力拆邮件”会破坏封纸（记载着包的信息和里面所有东西的位置），还会把里面的东西弄乱，导致再封起来的时候没法还原成原状。<br>这就导致zip文件改完后没法还原成apk的情况（当然能改文件名，但是根本没法下载）<br>所以要小心翼翼的把封纸完整的撕下来，等包装的时候再改一改贴上。<br>这里我一开始用的github上的apktool，终于算是能还原成可安装文件了。<br>但是安装的时候出了问题——签名不匹配。（过不了华为的初步检测）<br>然后我又用github上的uber-signer签的名（后来发现apktool也可以签名，甚至可以自造私钥签名）<br>终于可以点击“立刻安装”了，可是安好后却显示“没有证书”，就被华为直接删掉了。（我查了查，好像是2018年开始的，华为手机会对签名进行简答备案和验证，真麻烦！）<br>最后还是咨询了一些大佬推荐我用“mt管理器”，我发现这玩意是真方便！所有前几个软件在java环境下命令行运行的功能全被整理成了按键，所有功能一键搞定，据说制作者做这个软件的时候还是高中生，甚至还运营着论坛（MT论坛 - MT官网_MT管理器论坛_MT管理器_MT管理器教程_MT最新版本 (binmt.cc)），膜拜大佬！！bin大佬，yyds！！！<br>这才发现原来我只签了v1，没签v2。<br>据说apktool也能签v2，但我实在没弄明白，加上那个似乎没法私签？（还请明白的大佬指教）所以直接用“mt管理器”签了，好歹算是成功安装了。<br>终于打开游戏，但又遇到一个问题——闪退。<br>经过一些简单的修复和简单的审查内存以后，我发现闪退的时间点几乎都是第二个画面的时候，加上网上查了些资料，发现可能是在验证证书了。<br>还好发现了去证书验证功能，去看了帮助文件，似乎并不是真正的去除，而是把原证书逆向以后再签成新证书，这个功能是apktool没有的，现在我只知道mt管理器有这个功能，如果有逆向大佬可以手动逆向出来，或者有类似的处理软件，请务必不吝赐教，告诉我思路，提前谢谢大佬们！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-rad" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/17/rad/">rad</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/17/rad/" class="archive-article-date">
+  	<time datetime="2021-07-17T05:10:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/download/rad.zip">点击下载</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/17/rad/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web41-newphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/bugku-web-web41-newphp/">bugku-web-web41-newphp</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/11/bugku-web-web41-newphp/" class="archive-article-date">
+  	<time datetime="2021-07-11T13:50:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>newphp(web41)<br>这道题卡了很久，主要是在纠结一个弱智的问题：在序列里放一个序列，能不能一次性反序化了（以及其格式问题）。</p>
+<p>先说题目。<br>初始界面，读代码——</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/1.PNG" class="" title="1.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/2.PNG" class="" title="2.PNG">
+<p>从上往下简单解读一下：<br>1.evil类：<br>    建一个公有的$hint<br>    construct 构造函数,读取传入的值给hint赋值<br>    destruct 析构函数，判断hint的值，若是则输出base64加密后的文件内容<br>    wakeup函数，unserialize()后调用，判断hint，换值（需要绕过）<br>2.User类：<br>    构造的时候接收两个值(username,password)，并分别赋值<br>3.write，read<br>    分别是把字符串中的*换成\0\0\0（一换三）和\0\0\0换成*(三换一)<br>4.主函数<br>    post方式接收username和password<br>    创建一个User的对象，序列化后赋给$a<br>    简单判断后<br>    对write和read函数处理过的$a进行反序化还原</p>
+<p>思路：<br>利用write和read进行字符串逃逸<br>这里只需要利用read就够了。<br>举个简单的例子：<br>字符串O:4:”User”:2:{s:8:”username”;s:3:”\0\0\0”;s:8:”password”;s:2:”12”}<br>在经历read函数变换后变成O:4:”User”:2:{s:8:”username”;s:3:”*“;s:8:”password”;s:2:”12”}<br>字符串内容（长度）虽然变了，但是前面要读取的字符串长度还是3，就会多往后读两位，导致引号（“）不闭合，这样明显就会造成代码错误。<br>而这是如果我们利用”\0\0\0”的数量来控制要“消去”的东西，然后在后面人为加一个引号(“)就可以实现加入自己相加的东西。<br>很明显，这里需要我们触发evil类，这里就要用到“序列嵌套”的东西，也就是我一开始说的最纠结的东西，可以参考另一篇——<a target="_blank" rel="noopener" href="https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">https://ouroborosscr.github.io/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/</a><br>简单来说，就是把<br>s:8:”username”<br>s:3:”\0\0\0”<br>s:8:”password”<br>s:2:”12”<br>四个部分的任意一个完全替换成O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}就可以在反序化的时候触发evil类。<br>主要的难点是去掉前面的s<br>因为有两个传入点（username和password）<br>所以我们用username传\0\0\0，用password传O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
+<p>我先改造了一下原来的代码，用123做了测试——</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/3.PNG" class="" title="3.PNG">
+<p>得到序列为O:4:”User”:2:{s:8:”username”;s:3:”123”;s:8:”password”;s:41:”O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}”;}<br>这里只需要替换123为多个“\0\0\0”使前面的数字增大，目的是把;s:8:”password”;s:41:”给包括(主要是“s:41:”，相当于换上面所说的第三四部分)，和后面的引号闭合。<br>因为是2换1，所以只能在后面加一个没用的字符a，用8个“\0\0\0”来换。<br>得到payload——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:1:{s:4:”hint”;s:8:”hint.php”;}</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/4.PNG" class="" title="4.PNG">
+<p>输入后发现还需要绕过最开始的判断，把1改成2（类似于数组绕过）（不太确定）——<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}<br>得到一串base64加密码</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/5.PNG" class="" title="5.PNG">
+<p>也可以多此一举的加上password（更严格的换第四部分）<br>username=\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&amp;password=a”;s:8:”password”;O:4:”evil”:2:{s:4:”hint”;s:8:”hint.php”;}</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/6.PNG" class="" title="6.PNG">
+
+<p>解码base64得到一个网址，打开以后是一个ssrf，直接file:///flag就行了</p>
+<img src="/2021/07/11/bugku-web-web41-newphp/7.PNG" class="" title="7.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/8.PNG" class="" title="8.PNG">
+<img src="/2021/07/11/bugku-web-web41-newphp/9.PNG" class="" title="9.PNG">
+
+<p>然后补充一下，在学ssrf的时候，发现了一个视频感觉真的不错——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1">https://www.bilibili.com/video/BV1wK411V7KM/?spm_id_from=333.788.recommend_more_video.1</a><br>虽然是一个学生做的，但是普通话很标准并且不拖拉（这很重要，机构的老师不是一口台湾方言就是语速慢的要死，很容易睡着），提前准备过不至于不知道讲什么，从原理来讲述，也讲的很全面，属于好看不火进不了搜索首页的那种（不愧是b站）</p>
+<p>再有就是涅普科技的视频——<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VA411u7Tg?p=8">https://www.bilibili.com/video/BV1VA411u7Tg?p=8</a><br>缺点是明显感觉准备不充分（语速，进度，不熟练讲课等方面），不过推荐的方法很实用。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/bugku-web-web41-newphp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -914,297 +1223,9 @@
     </section>
   
   
-    <article id="post-bugku-web-web6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web6/">bugku_web_web6</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web6/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h2><p>打开以后除了弹窗什么都没有</p>
-<img src="/2021/04/26/bugku-web-web6/web6.1.PNG" class="6.1.PNG">
-<img src="/2021/04/26/bugku-web-web6/web6.2.PNG" class="6.2.PNG">
-<p>直接F12，拉到最底下发现注释看着比较像unicode的格式</p>
-<img src="/2021/04/26/bugku-web-web6/web6.3.PNG" class="6.3.PNG">
-
-
-<p>网上随便找一个解码器，得到flag</p>
-<img src="/2021/04/26/bugku-web-web6/web6.4.PNG" class="6.4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web5/">bugku_web_web5</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web5/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:30:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h2><p>题目提示“矛盾”<br>打开以后，还是几行代码</p>
-<img src="/2021/04/26/bugku-web-web5/web5.1.PNG" class="" title="web5.1.PNG">
-<img src="/2021/04/26/bugku-web-web5/web5.2.PNG" class="" title="web5.2.PNG">
-<p>解读一下：<br>is_number（）是判断变量是否为数字，前面加”!”则是“取非”<br>所以如果$num不是数字，则会运行下面的代码<br>然后输出$num<br>然后再验证如果$num等于1<br>则输出flag</p>
-<p>这代码似乎是矛盾的。<br>这里用到了php的弱类型特性<br>php中判断等于有”==”和”===”两种<br>前者只比较数值，而后者比较数值和类型</p>
-<p>而当字符串和数字做”==”比较时，是把字符串转换成数字，规则为（我的理解）：从第一个字符开始，逐个读入数字，直到碰到非数字字符为止，如果第一个字符非数字，则值为0</p>
-<p>所以只要在url后面加个/?num=1a，就可以的，得到flag</p>
-<img src="/2021/04/26/bugku-web-web5/web5.3.PNG" class="" title="web5.3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web4/">bugku_web_web4</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web4/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h2><p>和web3的代码很像，唯一的区别是把Get改成Post</p>
-<img src="/2021/04/26/bugku-web-web4/web4.1.PNG" class="" title="web4.1.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.2.PNG" class="" title="web4.2.PNG">
-
-<p>简单，打开hackbar，启用post，填上what=flag，得到flag</p>
-<img src="/2021/04/26/bugku-web-web4/web4.3.PNG" class="" title="web4.3.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.4.PNG" class="" title="web4.4.PNG">
-
-<p>如果没有hackbar，还可以用burpsuite抓包后在会后面加上一行：what=flag<br>效果是一样的。<br>其实这就是get和post的区别（原理）<br>一个是在url后面加参数（header里），一个是在数据包里加参数（params里）</p>
-<img src="/2021/04/26/bugku-web-web4/web4.5.PNG" class="" title="web4.5.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
     </nav>
   
 

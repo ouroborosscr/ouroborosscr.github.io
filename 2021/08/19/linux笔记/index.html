@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>linux笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/3/index.html">
+  <meta name="description" content="参考网页：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s?__biz&#x3D;Mzg2NTAzMTExNg&#x3D;&#x3D;&amp;mid&#x3D;2247483879&amp;idx&#x3D;1&amp;sn&#x3D;96181b566c35679e48db6bd26fb59a2c&amp;chksm&#x3D;ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux笔记">
+<meta property="og:url" content="http://example.com/2021/08/19/linux%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考网页：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s?__biz&#x3D;Mzg2NTAzMTExNg&#x3D;&#x3D;&amp;mid&#x3D;2247483879&amp;idx&#x3D;1&amp;sn&#x3D;96181b566c35679e48db6bd26fb59a2c&amp;chksm&#x3D;ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2f">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-19T02:36:27.000Z">
+<meta property="article:modified_time" content="2021-08-19T02:40:07.274Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,328 +166,341 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-linux笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      linux笔记
+    </h1>
+  
+
+        
+        
+
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+
+
+<a href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-08-19T02:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考网页：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd">https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA">https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA</a></p>
+<p>解压：tar -zxvf (包名)<br>新建文件夹：mkdir (文件名)<br>ls：-ll(查看详细信息)<br>-al（查看全部文件，包括隐藏文件）<br>ls / :查看根目录</p>
+<p>linux中，没有错误（包括没有回显）就是成功的（linux中没有错误就是成功）</p>
+<p>以下是对这些目录的解释：<br>*<br>/bin：bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p>
+<p>/boot： 这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+<p>/dev ： dev是Device(设备)的缩写, 存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。<br>*<br>/etc： 这个目录用来存放所有的系统管理所需要的配置文件和子目录。<br>*<br>/home：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p>
+<p>/lib：这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。<br>*<br>/lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。(存放突然关机的文件)</p>
+<p>/media：linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
+<p>/mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。<br>*<br>/opt：这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+<p>/proc：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>*<br>/root：该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+<p>/sbin：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p>
+<p>/srv：该目录存放一些服务启动之后需要提取的数据。</p>
+<p>/sys：这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
+<p>/tmp：这个目录是用来存放一些临时文件的。<br>*<br>/usr：这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p>
+<p>/usr/bin： 系统用户使用的应用程序。</p>
+<p>/usr/sbin： 超级用户使用的比较高级的管理程序和系统守护程序。</p>
+<p>/usr/src： 内核源代码默认的放置目录。<br>*<br>/var：这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+<p>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。<br>*<br>/www: 与服务器相关的资源</p>
+<p>绝对路径：</p>
+<p>路径的写法，由根目录 / 写起，例如：/usr/share/doc 这个目录。</p>
+<p>相对路径：</p>
+<p>路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成：cd ../man 这就是相对路径的写法啦！</p>
+<p>几个常见的处理目录的命令吧：</p>
+<p>ls: 列出目录</p>
+<p>cd：切换目录</p>
+<p>pwd：显示目前的目录（可以看到绝对路径，用来确定位置）</p>
+<p>mkdir：创建一个新的目录</p>
+<p>rmdir：删除一个空的目录</p>
+<p>cp: 复制文件或目录</p>
+<p>rm: 移除文件或目录</p>
+<p>mv: 移动文件与目录，或修改文件与目录的名称</p>
+<p>你可以使用 man [命令] 来查看各个命令的使用文档，如 ：man cp。</p>
+<hr>
+<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>选项与参数：</p>
+<p>-a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</p>
+<p>-l ：长数据串列出，包含文件的属性与权限等等数据；(常用)<br>(合起来：-al）</p>
+<hr>
+<h2 id="pwd-显示目前所在的目录"><a href="#pwd-显示目前所在的目录" class="headerlink" title="pwd ( 显示目前所在的目录 )"></a>pwd ( 显示目前所在的目录 )</h2><p>pwd 是 Print Working Directory 的缩写，也就是显示目前所在目录的命令。</p>
+<p>[root@kuangshen kuangstudy]#pwd [-P]<br>选项与参数：-P ：显示出确实的路径，而非使用连接(link) 路径。</p>
+<p>mkdir （创建新目录）</p>
+<p>如果想要创建新的目录的话，那么就使用mkdir (make directory)吧。</p>
+<hr>
+<h2 id="mkdir-mp-目录名称"><a href="#mkdir-mp-目录名称" class="headerlink" title="mkdir [-mp] 目录名称"></a>mkdir [-mp] 目录名称</h2><p>选项与参数：</p>
+<p>-m ：配置文件的权限喔！直接配置，不需要看默认权限 (umask) 的脸色～</p>
+<p>-p ：帮助你直接将所需要的目录(包含上一级目录)递归创建起来！</p>
+<hr>
+<h2 id="rmdir-删除空的目录"><a href="#rmdir-删除空的目录" class="headerlink" title="rmdir ( 删除空的目录 )"></a>rmdir ( 删除空的目录 )</h2><p>语法：</p>
+<p>rmdir [-p] 目录名称<br>选项与参数：-p ：连同上一级『空的』目录也一起删除</p>
+<hr>
+<h2 id="cp-复制文件或目录"><a href="#cp-复制文件或目录" class="headerlink" title="cp ( 复制文件或目录 )"></a>cp ( 复制文件或目录 )</h2><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)</span><br><span class="line">[root@www ~]# cp [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
+<p>选项与参数：</p>
+<p>-a：相当於 -pdr 的意思，至於 pdr 请参考下列说明；(常用)</p>
+<p>-p：连同文件的属性一起复制过去，而非使用默认属性(备份常用)；</p>
+<p>-d：若来源档为连结档的属性(link file)，则复制连结档属性而非文件本身；</p>
+<p>-r：递归持续复制，用於目录的复制行为；(常用)</p>
+<p>-f：为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次；</p>
+<p>-i：若目标档(destination)已经存在时，在覆盖时会先询问动作的进行(常用)</p>
+<p>-l：进行硬式连结(hard link)的连结档创建，而非复制文件本身。</p>
+<p>-s：复制成为符号连结档 (symbolic link)，亦即『捷径』文件；</p>
+<p>-u：若 destination 比 source 旧才升级 destination ！</p>
+<p>rm ( 移除文件或目录 )</p>
+<h2 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h2><h2 id="rm-fir-文件或目录"><a href="#rm-fir-文件或目录" class="headerlink" title="rm [-fir] 文件或目录"></a>rm [-fir] 文件或目录</h2><p>选项与参数：</p>
+<p>-f ：就是 force 的意思，忽略不存在的文件，不会出现警告信息；</p>
+<p>-i ：互动模式，在删除前会询问使用者是否动作</p>
+<p>-r ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！</p>
+<h1 id="尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）"><a href="#尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）" class="headerlink" title="尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）"></a>尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）</h1><hr>
+<h2 id="mv-移动文件与目录，或修改名称"><a href="#mv-移动文件与目录，或修改名称" class="headerlink" title="mv  ( 移动文件与目录，或修改名称 )"></a>mv  ( 移动文件与目录，或修改名称 )</h2><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# mv [-fiu] source destination</span><br><span class="line">[root@www ~]# mv [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
+<p>选项与参数：</p>
+<p>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</p>
+<p>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</p>
+<p>-u ：若目标文件已经存在，且 source 比较新，才会升级 (update)</p>
+<hr>
+<h2 id="使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组"><a href="#使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组" class="headerlink" title="使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组"></a>使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组</h2><p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等：</p>
+<p>当为[ d ]则是目录</p>
+<p>当为[ - ]则是文件；</p>
+<p>若是[ l ]则表示为链接文档 ( link file )；</p>
+<p>若是[ b ]则表示为装置文件里面的可供储存的接口设备 ( 可随机存取装置 )；</p>
+<p>若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标 ( 一次性读取装置 )。</p>
+<p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
+<p>其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。</p>
+<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
+<p>修改文件属性</p>
+<p>1、chgrp：更改文件属组</p>
+<p>chgrp [-R] 属组名 文件名<br>-R：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上-R的参数，那么该目录下的所有文件的属组都会更改。</p>
+<p>2、chown：更改文件属主，也可以同时更改文件属组</p>
+<p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>3、chmod：更改文件9个属性</p>
+<p>chmod [-R] xyz 文件或目录<br>Linux文件属性有两种设置方法，一种是数字，一种是符号。</p>
+<p>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</p>
+<p>先复习一下刚刚上面提到的数据：文件的权限字符为：『-rwxrwxrwx』， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
+<p>r:4     w:2         x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为：[-rwxrwx—] 分数则是：</p>
+<p>owner = rwx = 4+2+1 = 7</p>
+<p>group = rwx = 4+2+1 = 7</p>
+<p>others= — = 0+0+0 = 0</p>
+<p>chmod 770 filename<br>可以自己下去多进行测试！</p>
+<hr>
+<h2 id="文件内容查看（都可以用来打开文件）"><a href="#文件内容查看（都可以用来打开文件）" class="headerlink" title="文件内容查看（都可以用来打开文件）"></a>文件内容查看（都可以用来打开文件）</h2><p>概述</p>
+<p>Linux系统中使用以下命令来查看文件的内容：</p>
+<p>cat 由第一行开始显示文件内容</p>
+<p>tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</p>
+<p>nl  显示的时候，顺道输出行号！</p>
+<p>more 一页一页的显示文件内容</p>
+<p>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</p>
+<p>head 只看头几行</p>
+<p>tail 只看尾巴几行</p>
+<h2 id="你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。"><a href="#你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。" class="headerlink" title="你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。"></a>你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。</h2><h2 id="cat-由第一行开始显示文件内容"><a href="#cat-由第一行开始显示文件内容" class="headerlink" title="cat 由第一行开始显示文件内容"></a>cat 由第一行开始显示文件内容</h2><p>语法：</p>
+<p>cat [-AbEnTv]<br>选项与参数：</p>
+<p>-A ：相当於 -vET 的整合选项，可列出一些特殊字符而不是空白而已；</p>
+<p>-b ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</p>
+<p>-E ：将结尾的断行字节 $ 显示出来；</p>
+<p>-n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</p>
+<p>-T ：将 [tab] 按键以 ^I 显示出来；</p>
+<p>-v ：列出一些看不出来的特殊字符</p>
+<hr>
+<h2 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h2><p>tac与cat命令刚好相反，文件内容从最后一行开始显示，可以看出 tac 是 cat 的倒着写</p>
+<hr>
+<h2 id="nl-显示行号"><a href="#nl-显示行号" class="headerlink" title="nl  显示行号"></a>nl  显示行号</h2><p>语法：</p>
+<p>nl [-bnw] 文件<br>选项与参数：</p>
+<p>-b ：指定行号指定的方式，主要有两种：-b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；-b t ：如果有空行，空的那一行不要列出行号(默认值)；</p>
+<p>-n ：列出行号表示的方法，主要有三种：-n ln ：行号在荧幕的最左方显示；-n rn ：行号在自己栏位的最右方显示，且不加 0 ；-n rz ：行号在自己栏位的最右方显示，且加 0 ；</p>
+<p>-w ：行号栏位的占用的位数。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>：管道符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+</tr>
+<tr>
+<td>grep：查找文件中符合条件的字符串（和管道符共用很好用）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"><a href="#确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！" class="headerlink" title="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"></a>确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！</h2><h1 id="查看firewall服务状态"><a href="#查看firewall服务状态" class="headerlink" title="查看firewall服务状态"></a>查看firewall服务状态</h1><p>systemctl status firewalld</p>
+<h1 id="开启、重启、关闭、firewalld-service服务"><a href="#开启、重启、关闭、firewalld-service服务" class="headerlink" title="开启、重启、关闭、firewalld.service服务"></a>开启、重启、关闭、firewalld.service服务</h1><h1 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h1><p>service firewalld start</p>
+<h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><p>service firewalld restart</p>
+<h1 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h1><p>service firewalld stop</p>
+<h1 id="查看防火墙规则"><a href="#查看防火墙规则" class="headerlink" title="查看防火墙规则"></a>查看防火墙规则</h1><p>firewall-cmd –list-all    # 查看全部信息<br>firewall-cmd –list-ports  # 只看端口信息</p>
+<h1 id="开启端口"><a href="#开启端口" class="headerlink" title="开启端口"></a>开启端口</h1><p>开端口命令：firewall-cmd –zone=public –add-port=80/tcp –permanent<br>重启防火墙：systemctl restart firewalld.service</p>
+<p>命令含义：<br>–zone #作用域<br>–add-port=80/tcp  #添加端口，格式为：端口/通讯协议<br>–permanent   #永久生效，没有此参数重启后失效</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/19/linux%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
 
-<a href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/">bugku-web-程序员本地网站</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+<nav id="article-nav">
+  
+    <a href="/2021/08/26/%E7%A5%A5%E4%BA%91%E6%9D%AF2021-%E5%B1%82%E5%B1%82%E7%A9%BF%E9%80%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          祥云杯2021_层层穿透
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">bugku-web-闪电十六鞭</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<a href="/2021/08/10/bugku-web-md5/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:14:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-md5/">bugku-web-md5</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+        
+    </div>
+</aside>
 
 
-<a href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:10:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">bugku-web-你从哪里来</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/10/bugku-web-login1/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-login1/">bugku-web-login1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:41:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/">bugku-web-前女友</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:16:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">bugku-web-字符？正则？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/" class="archive-article-date">
-  	<time datetime="2021-08-09T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">bugku-web-聪明的php</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:59:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">bugku-web-速度要快</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">bugku-web-秋名山车神</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/">bugku-web-成绩查询</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="extend next" rel="next" href="/archives/page/4/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
           </div>
         </div>
       </div>
@@ -516,8 +533,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

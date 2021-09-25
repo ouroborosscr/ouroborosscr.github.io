@@ -16,7 +16,7 @@
 <meta property="og:description" content="sql这玩意，语法也不难，但是特别容易忘，这已经是我第三次从零开始学习sql注入了，做点笔记，希望别那么快又忘了。 参考视频：deelmind大佬的sql注入教程https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Ab4y1k7e7（舟长赛高）  1.找可能的注入点不止需要get输入的地方可能被数据库录入，连数据包的各个参数都有可能被数据库录入，所以可以改变所有的参数，逐个进行测试">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-26T12:25:02.000Z">
-<meta property="article:modified_time" content="2021-07-29T12:21:58.923Z">
+<meta property="article:modified_time" content="2021-08-25T02:37:05.986Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -204,7 +204,7 @@
 <p>时间盲注（time）（特征：网页加载了一段时间）：<br>例：id=3’ AND (SELECT 7586 FROM (SELECT(SLEEP(5)))ljtK) AND ‘NBox’=’NBox</p>
 <p>布尔盲注（boolean）：<br>例：id=3’ AND 3931=3931 AND ‘IMwH’=’IMwH</p>
 <hr>
-<h2 id="3-nmap简单使用："><a href="#3-nmap简单使用：" class="headerlink" title="3.nmap简单使用："></a>3.nmap简单使用：</h2><p>扫描：<br>python sqlmap.py -u “[url]” -random-agent(一般扫描)（后参数可省略）<br>如果有自己写的tamper（这里用safedog.py代替）扫描：<br>python sqlmap.py -u “[url]” -random-agent –tamper = safedog.py</p>
+<h2 id="3-sqlmap简单使用："><a href="#3-sqlmap简单使用：" class="headerlink" title="3.sqlmap简单使用："></a>3.sqlmap简单使用：</h2><p>扫描：<br>python sqlmap.py -u “[url]” -random-agent(一般扫描)（后参数可省略）<br>如果有自己写的tamper（这里用safedog.py代替）扫描：<br>python sqlmap.py -u “[url]” -random-agent –tamper = safedog.py</p>
 <p>比较好使的sqlmap中文参考手册：<a href="/download/sqlmap%E6%89%8B%E5%86%8C.jpeg">点击下载</a></p>
 <p>查看所有数据库：<br>python sqlmap.py -u “[url]” –dbs</p>
 <p>查看某数据库的所有表（库名用security代替）：<br>python sqlmap.py -u “[url]” -D security –tables</p>
