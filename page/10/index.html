@@ -164,6 +164,203 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-攻防世界web新手区xff-referer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">攻防世界web新手区xff_referer</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" class="archive-article-date">
+  	<time datetime="2021-03-14T12:49:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第九题，考xff和referer</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer1.PNG" class="" title="xff_referer1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer2.PNG" class="" title="xff_referer2.PNG">
+<p>百度了一下</p>
+<p>XFF是header请求头中的一个参数<br>是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>代表了HTTP的请求端真实的IP。</p>
+<p>其形式为X-Forwarded-For: client1, proxy1, proxy2, proxy3（一定要加:后的空格）//浏览器IP，第一个代理服务器，第二个三个四个等等</p>
+<p>下面这个博客对各种xff进行了补充：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43221560/article/details/108019509">https://blog.csdn.net/weixin_43221560/article/details/108019509</a></p>
+<p>Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
+<p>其形式为referer: xxxx.xxxx(url)</p>
+<p>然后开始做题<br>题木说要来自123.123.123.123<br>所以抓包<br>加一行X-Forwarded-For: 123.123.123.123</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer3.PNG" class="" title="xff_referer3.PNG">
+<p>显示要来自谷歌<br>所以加一行referer:<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com</a><br>得到flag</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer4.PNG" class="" title="xff_referer4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-攻防世界web新手区get-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">攻防世界web新手区get_post</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" class="archive-article-date">
+  	<time datetime="2021-03-14T12:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第八题 考get和post两种提交形式</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG" class="" title="get_post1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG" class="" title="get_post2.PNG">
+
+<p>先在地址栏传a=1，这是get提交<br>显示要在get传a=1的基础上用post传b=2</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG" class="" title="get_post3.PNG">
+
+<p>法一：<br>开heakbar，打开post，url复制到上面，在下面传b=2<br>法二：<br>burpsuite或者抓包，在所有请求后面写b=2</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG" class="" title="get_post4.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG" class="" title="get_post5.PNG">
+<p>得到flag</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-攻防世界web新手区simple-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -873,9 +1070,10 @@
 
 
 <p>-<a href="/2021/08/08/xman2021-easyssti/" title="easyssti">easyssti</a><br>-<a href="/2021/08/08/xman2021-easyphp/" title="easyphp">easyphp</a></p>
-<p>7.DASCTF秋季挑战赛（2021）<br>-<a href="/2021/09/25/hellouser/" title="hellouser">hellouser</a><br>-<a href="/2021/10/05/xxc/" title="xxc">xxc</a></p>
-<p>8.sqlilab</p>
+<p>7.DASCTF秋季挑战赛（2021）<br>-<a href="/2021/09/25/hellouser/" title="hellouser">hellouser</a><br>-<a href="/2021/10/05/xxc/" title="xxc">xxc</a><br>-<a href="/2021/10/07/ctfmanage/" title="ctfmanage">ctfmanage</a></p>
+<p>8.sqlilab<br>-<a href="#">Post not found: sql-labs sql-labs</a><br>-<a href="/2021/09/25/hellouser/" title="hellouser">hellouser</a></p>
 <p>9.uploadlabs</p>
+<p>10.第一届鹤城杯（2021）<br>-<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" title="鹤城杯">鹤城杯</a></p>
 
       
 
@@ -889,182 +1087,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/12/catalog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-scr1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/scr1/">scr1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/scr1/" class="archive-article-date">
-  	<time datetime="2021-03-11T23:37:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="/2021/03/12/scr1/strings.jpg" class="" title="scr1">
-<img src="/2021/03/12/scr1/binwalk,foremost,dd.png" class="" title="scr2">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/scr1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-scr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/scr/">scr</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/12/scr/" class="archive-article-date">
-  	<time datetime="2021-03-11T23:26:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="image/scr/strings.jpg" alt="scr"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/12/scr/">展开全文 >></a>
         </p>
       
 
