@@ -164,6 +164,226 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-涅普冬令营web篇little-trick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">涅普冬令营web篇little_trick</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" class="archive-article-date">
+  	<time datetime="2021-03-22T11:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>little_trick<br>web的第一道题<br>打开以后是php的代码</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.PNG" class="" title="nep2.PNG">
+<p>解读一下这段代码<br>1.先用GET接收两个变量，变量名为nep，len<br>2.判断这两个变量，若判断为真，则执行eval（）函数，否则，输出too long 结束<br>3.总之就是不能让它输出too long呗<br>所以先分析一下这里涉及的四个函数intval（）、strlen（）、eval（）、substr（）</p>
+<p>intval（$len）：这个函数的意思是取$len的十进制数值（比如十六进制、八进制变成十进制，10abc——&gt;10，abc10——&gt;0），intval（$len）&lt;8我们暂时可以直接当成$len&lt;8。</p>
+<p>strlen（）：相当于c++的strlen，就是计算字符长度</p>
+<p>eval（）：把括号里的文字作为php代码运行</p>
+<p>substr（$nep,0,$len）:就是从$nep中截取字符段，第二个数字表示从第几位开始截取，0的意思是从第一个字开始，后面的$len意思是截取多少个字符（但是这个量分正负，正数就是从正向开始截取几个字符，负数就是从最后数少截取几个字符）</p>
+<p>所以通篇读下来就是$len&lt;=7,字符串$nep长度&lt;=12<br>然后从$nep中截取$len个字符并运行。<br>那么似乎只能截取7个字符，那$nep再长没用<br>没什么思路，所以从绕过两个字数限制开始吧。</p>
+<p>首先搜了一下绕过intval（）的<br>发现了这篇文章<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43536759/article/details/106785184">https://blog.csdn.net/weixin_43536759/article/details/106785184</a></p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep8.PNG" class="" title="nep8.PNG">
+<p>其中列出了溢出和一个“var_dump(intval(‘0xa’+1)) //int(11)数值形式输入(此漏洞php7被修复)”这样的漏洞<br>试验了一下，都没用</p>
+<p>但是，我前面说过，$len在substr（$nep,0,$len）函数中是可以取负值的。<br>所以我试了一下传入len=-1，因为这样会舍弃$nep的最后一个字符，所以我需要在nep最后加一个“废字符”（这里用a）<br>所以最后的传值就是len=-1&amp;nep=phpinfo();a（顺便看一下php的配置）<br>效果如下：</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.5.PNG" class="" title="nep2.5.PNG">
+
+<p>这之后发现php版本大于7，怪不得前面那个漏洞用不了。</p>
+<p>到这，对len的绕过算是结束了，可运行php代码的数量扩充到了12（但是要补一个废字符a，所以相当于11）<br>strlen（）我是实在没找到能绕过的地方，就此作罢。</p>
+<p>之后，就没思路了……</p>
+<p>还好这时这道题突然崩了，然后看见群里有人反馈他做完题后不小心rm -rf / *<br>了一下,把一开始的静态环境弄炸了(夺笋呐)</p>
+<p>等恢复（换成靶机）的这段时间里想到了用shell<br>（刚刚的phpinfo（）顺便得到了是linux系统）<br>然后就搜了一下让php实现shell的方法<br>最常见的是以下三种函数：<br>1.system<br>2.exec<br>3.passthru<br>但都太长了，根本不可能使用（因为还要加上;a)(其实后来想想，exec或许可以)</p>
+<p>之后我找到了一种最简便的方法——``(用反引号括起来)<br>然后我尝试了len=-1&amp;nep=echo `ls`;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep3.PNG" class="" title="nep3.PNG">
+
+<p>回显显示了一个文件nepctf.php<br>先尝试打开它</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep7.PNG" class="" title="nep7.PNG">
+<p>发现是个空白页<br>那么flag很有可能在这个文件里</p>
+<h2 id="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"><a href="#为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）" class="headerlink" title="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"></a>为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）</h2><p>首先想到的是限制字符的shell<br>因此搜到了这个————<br><a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3316599.html">http://www.bubuko.com/infodetail-3316599.html</a></p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep9.PNG" class="" title="nep9.PNG">
+<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补` `;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量)<br>这都有13个字符了，直接超标<br>所以实际上我只能用4字符的方法<br>而四字符的方法，是通过\号实现shell转译，来实现多行的输入<br>再通过&gt; v，以及*v来倒叙读取这些代码来运行<br>但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的<br>但我不会python，所以只能用burpsuite实现一次性输入<br>事实上，因为我看不到回显的缘故，我甚至不知道每次的``是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
+<hr>
+<h2 id="正确方法！！！"><a href="#正确方法！！！" class="headerlink" title="正确方法！！！"></a>正确方法！！！</h2><p>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo `cat n*`;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=`cp 1 n*`;a(相当于把n*文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep4.PNG" class="" title="nep4.PNG">
+<p>然后ls一下，看见1文件已被创立</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep5.PNG" class="" title="nep5.PNG">
+<p>然后访问1文件，得到flag</p>
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep6.PNG" class="" title="nep6.PNG">
+<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep1.PNG" class="" title="nep1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-攻防世界web新手区simple-js" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
+  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>十二题 考js</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js1.PNG" class="" title="simple_js1.PNG">
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js2.PNG" class="" title="simple_js2.PNG">
+<p>一打开，只有一个输password的地方<br>随便输一下<br>显示：</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
+<p>查看页面源代码，发现有一个JavaScript</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js3.PNG" class="" title="simple_js3.PNG">
+<p>走一遍程序，发现……<br>他喵的不管怎么走都只会输出：</p>
+<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
+<p>至于后面的\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30根本没有用</p>
+<p>然后去手工把这一串十六进制码先ascii转码，再Unicode转码，得出一段乱码，根据一开始题目提示Flag格式为 Cyberpeace{xxxxxxxxx}，加上前后<br>验证……<br>成功了……</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-攻防世界web新手区command-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -904,202 +1124,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区backup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/">攻防世界web新手区backup</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/" class="archive-article-date">
-  	<time datetime="2021-03-13T13:47:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第三题</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup1.PNG" class="" title="backup1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup2.PNG" class="" title="backup2.PNG">
-<p>由题目说是“备份文件”</p>
-<p>方法一：<br>百度得到：如果网站存在备份文件，常见的备份文件后缀名有：“.git” 、“.svn”、“ .swp”“.~”、“.bak”、“.bash_history”、“.bkf” 所以可以尝试在URL后面，依次输入常见的文件备份扩展名。</p>
-<p>输入index.php.bak时，得到一个文件，用记事本打开，得到flag</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup3.PNG" class="" title="backup3.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup4.PNG" class="" title="backup4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup5.PNG" class="" title="backup5.PNG">
-
-<p>方法二：<br>burpsuite扫描，直接出来</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/backup6.PNG" class="" title="backup6.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAbackup/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区robots" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/">攻防世界web新手区robots</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/" class="archive-article-date">
-  	<time datetime="2021-03-13T13:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第二题</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots1.PNG" class="" title="robots1.PNG">
-<p>首先，题目提示是robots协议<br>百度了一下：</p>
-<p>robots协议也叫robots.txt（统一小写）是一种存放于网站根目录下的ASCII编码的文本文件，它通常告诉网络搜索引擎的漫游器（又称网络蜘蛛），此网站中的哪些内容是不应被搜索引擎的漫游器获取的，哪些是可以被漫游器获取的。因为一些系统中的URL是大小写敏感的，所以robots.txt的文件名应统一为小写。robots.txt应放置于网站的根目录下。如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。</p>
-<p>得到可能有robots.txt文件，并在根目录下<br>试一试：</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots2.PNG" class="" title="robots2.PNG">
-
-<p>获得了这个文件，显示有一个f1ag_1s_h3re.php的文件<br>在根目录下试一试：</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/robots3.PNG" class="" title="robots3.PNG">
-<p>获得flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BArobots/">展开全文 >></a>
         </p>
       
 
