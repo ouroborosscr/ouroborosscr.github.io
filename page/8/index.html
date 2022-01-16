@@ -164,6 +164,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-game1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/31/bugku-web-game1/">bugku-web-game1</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/31/bugku-web-game1/" class="archive-article-date">
+  	<time datetime="2021-07-31T09:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>点进去后是一个游戏</p>
+<img src="/2021/07/31/bugku-web-game1/4.PNG" class="" title="4.PNG">
+<p>完全没有思路的话可以把游戏打到三千分通关</p>
+<p>标准做法是：打开burp抓包，迅速在游戏中gg，抓到游戏结束的返回包</p>
+
+<p>发现score和sign的参数都在变化<br>将sign的参数去掉前面的zM和后面的==后base64解码，发现就是score的参数</p>
+<img src="/2021/07/31/bugku-web-game1/2.PNG" class="" title="2.PNG">
+<p>所以把score参数改为随意大于3000的数，base64加密后前面加zM后面加==，得到flag</p>
+<img src="/2021/07/31/bugku-web-game1/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/31/bugku-web-game1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-社工-初步收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1092,105 +1187,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/11/bugku-web-web41-newphp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">嵌套的反序化问题</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-07-11T13:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>嵌套的反序化问题</p>
-<p>（源于我做题时的一个疑问）</p>
-<p>直接说结果：<br>如果一个序列类似：<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>这种“类中有类”的格式，进行unserialize反序化操作，<br>是否合法？反序化外层后，字符串中的“O:4:”evil”:1:{s:4:”hint”;N;}”是否也会反序化（还是保留）？<br>答案：合法，并且所有O开头的内容都会被反序化。（相当于先反序化最外层，再逐个检索所有的实参和形参的位置，若其本来格式还可以反序化，则继续反序化，直到没有可以反序化的为止）</p>
-<p>下面进行大体的解释：<br>为了方便解释，整个解释都会以下面的两个类为基础——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan1.PNG" class="" title="fan1.PNG">
-
-<p>首先，php并不支持“类的嵌套”，也就是说下图这种格式是不合法的，所以我说的“嵌套”其实只是反序化比较像在class里构建了一个class——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan2.PNG" class="" title="fan2.PNG">
-
-<p>这里就要先纠正我以前一个误区——<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;i:456}<br>这句话反序化以后并不是等价于class User这个类，<br>它单纯等价于new User(username=123,password=456);的过程<br>所以O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>其实等价于new User(username=123,password=(new evil));(或者更标准的是new User(123,new evil);)，这样就会好理解很多。</p>
-<p>但是使用的时候，需要实现某一个需要反序化的部分“整个替换”</p>
-<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用，参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">展开全文 >></a>
         </p>
       
 

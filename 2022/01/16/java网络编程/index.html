@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>java网络编程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/9/index.html">
+  <meta name="description" content="javaweb 网页编程 B&#x2F;S网络编程 TCP&#x2F;IP C&#x2F;S 网络通信协议TCP&#x2F;IP模型：OSI七层架构：   Fiddler，burpsuite是应用层：抓HTTP包wireshark貌似是直接抓物理层，然后把每一层分出来。但是不能改包和发包 ip1.127.0.0.1（localhost）2.分类：    ip地址分类： ipv4&#x2F;ipv6        ipv4:四个字节组成，每个字节0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java网络编程">
+<meta property="og:url" content="http://example.com/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="javaweb 网页编程 B&#x2F;S网络编程 TCP&#x2F;IP C&#x2F;S 网络通信协议TCP&#x2F;IP模型：OSI七层架构：   Fiddler，burpsuite是应用层：抓HTTP包wireshark貌似是直接抓物理层，然后把每一层分出来。但是不能改包和发包 ip1.127.0.0.1（localhost）2.分类：    ip地址分类： ipv4&#x2F;ipv6        ipv4:四个字节组成，每个字节0">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-16T10:21:32.000Z">
+<meta property="article:modified_time" content="2022-01-16T12:16:41.988Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,46 +166,86 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-嵌套的反序化问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-java网络编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">嵌套的反序化问题</a>
+    <h1 class="article-title" itemprop="name">
+      java网络编程
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-07-11T13:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+
+
+<a href="/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2022-01-16T10:21:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>嵌套的反序化问题</p>
-<p>（源于我做题时的一个疑问）</p>
-<p>直接说结果：<br>如果一个序列类似：<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>这种“类中有类”的格式，进行unserialize反序化操作，<br>是否合法？反序化外层后，字符串中的“O:4:”evil”:1:{s:4:”hint”;N;}”是否也会反序化（还是保留）？<br>答案：合法，并且所有O开头的内容都会被反序化。（相当于先反序化最外层，再逐个检索所有的实参和形参的位置，若其本来格式还可以反序化，则继续反序化，直到没有可以反序化的为止）</p>
-<p>下面进行大体的解释：<br>为了方便解释，整个解释都会以下面的两个类为基础——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan1.PNG" class="" title="fan1.PNG">
+        <p>javaweb 网页编程 B/S<br>网络编程 TCP/IP C/S</p>
+<p>网络通信协议<br>TCP/IP模型：<br>OSI七层架构：</p>
 
-<p>首先，php并不支持“类的嵌套”，也就是说下图这种格式是不合法的，所以我说的“嵌套”其实只是反序化比较像在class里构建了一个class——</p>
-<img src="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/fan2.PNG" class="" title="fan2.PNG">
 
-<p>这里就要先纠正我以前一个误区——<br>O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;i:456}<br>这句话反序化以后并不是等价于class User这个类，<br>它单纯等价于new User(username=123,password=456);的过程<br>所以O:4:”User”:2:{s:8:”username”;i:123;s:8:”password”;O:4:”evil”:1:{s:4:”hint”;N;}}<br>其实等价于new User(username=123,password=(new evil));(或者更标准的是new User(123,new evil);)，这样就会好理解很多。</p>
-<p>但是使用的时候，需要实现某一个需要反序化的部分“整个替换”</p>
-<p>比如O:4:”User”:2:{s:2:”p1”;i:p2;s:2:”p3”;i:p4}<br>想要把O:4:”evil”:1:{s:4:”hint”;N;}替换上去，让其触发evil类，<br>能替换的部分分别为——<br>s:2:”p1”<br>i:p2<br>s:2:”p3”<br>i:p4<br>不能有多余的s或i残留，所以最好在字符逃逸漏洞中使用，参考——<a target="_blank" rel="noopener" href="https://blog.csdn.net/dengyu810/article/details/103213750">https://blog.csdn.net/dengyu810/article/details/103213750</a></p>
+<p>Fiddler，burpsuite是应用层：抓HTTP包<br>wireshark貌似是直接抓物理层，然后把每一层分出来。但是不能改包和发包</p>
+<p>ip<br>1.127.0.0.1（localhost）<br>2.分类：<br>    ip地址分类： ipv4/ipv6<br>        ipv4:四个字节组成，每个字节0~255，一共42亿（30亿都在北美，亚洲只有4亿，在2011年就用尽了）（说法：美国甚至能给饮水机分配ip）<br>        ipv6:128位。8个无符号整数。<br>    公网（互联网）/私网（局域网）：<br>        内网ip：192.168.xx.xx、172.16.xx.xx、10.xx.xx.xx</p>
+<pre><code>ABCD类地址
+域名：去搜www.a.com的域名，相似的价格都能到90多万（越短越贵，早些时候有抢注域名的，中文结尾的一般便宜）
+</code></pre>
+<p>java:查ip：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">InetAddress.getLOcalHost(); &#x2F;&#x2F;查本机ip及用户名</span><br><span class="line">InetAddress.getByName(&quot;www.baidu.com&quot;);</span><br></pre></td></tr></table></figure>
 
+<p>端口：<br>0~65535<br>分为TCP和UDP端口（各有65536个，互相不影响）<br>分类：<br>    共有端口：0-1023（尽量不要用）<br>        21:ftp<br>        22:ssh<br>        23:Telent:远程监听<br>        80:http<br>        443:https<br>    程序注册端口：1024-49151，分配给用户或程序<br>        Tomcat：8080<br>        MYSQL：3306<br>        Oracle：1521<br>    动态、私有端口：49152-65535</p>
+<p>指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano #查询所有端口</span><br><span class="line">netstat -ano|findstr &quot;5900&quot; #查询所有5900端口</span><br><span class="line">tasklist|findstr &quot;8696&quot; #查看指定端口的进程</span><br></pre></td></tr></table></figure>
+<p>java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new InetSocketAddress(&quot;127.0.0.1&quot;,8080);</span><br></pre></td></tr></table></figure>
+
+<p>通信协议：<br>速率，传输码率，代码结构，传输控制……<br>TCP/IP协议簇<br>重要：<br>    TCP：用户传输协议（需要交互）<br>    UDP：用户数据报协议（不需要回包）</p>
+<p>出名协议：<br>    TCP<br>    IP：网络互连协议</p>
+<p>TCP/UDP<br>TCP：打电话<br>    连接、稳定<br>    三次握手（建立连接）（ABA），四次挥手（断开连接）（ABBA）<br>    客户端、服务端<br>    传输完成，释放连接，效率低<br>UDP：发短信<br>    不连接、不稳定<br>    客户端、服务端：没有明确界限<br>    不管有没有准备好，都可以发给对方<br>    DDOS攻击：向对方无限发包，造成端口堵塞（占据所有端口）</p>
+<p>TCP实现聊天（JVAV）<br>client：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;连接：</span><br><span class="line">            Socket socket &#x3D; new Socket(serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送消息，io流：</span><br><span class="line">            OutputStream os &#x3D; socket.getOutputStream();</span><br><span class="line">            os.write(&quot;你好&quot;.getBytes());</span><br><span class="line">        &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源：……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>server:(有用的代码只有中间带注释的几行)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ServerSocket serverSocket&#x3D;null;</span><br><span class="line">        Socket socket&#x3D;null;</span><br><span class="line">        InputStream is&#x3D;null;</span><br><span class="line">        ByteArrayOutputStream baos&#x3D;null;</span><br><span class="line">        try &#123;</span><br><span class="line">            serverSocket &#x3D; new ServerSocket(9999);</span><br><span class="line">            &#x2F;&#x2F;等待客户端连接过来</span><br><span class="line">            socket &#x3D; serverSocket.accept();</span><br><span class="line">            &#x2F;&#x2F;读取客户端的消息</span><br><span class="line">            is &#x3D; socket.getInputStream();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;管道流</span><br><span class="line">            baos&#x3D;new ByteArrayOutputStream();</span><br><span class="line">            byte[] buffer&#x3D;new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;is.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                baos.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(baos.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源（最好加if(baos&#x2F;is&#x2F;socket&#x2F;serverSocker!&#x3D;null))</span><br><span class="line">            try &#123;</span><br><span class="line">                baos.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                is.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                serverSocket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件上传：<br>client</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;连接：</span><br><span class="line">            Socket socket &#x3D; new Socket(serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送消息，io流：</span><br><span class="line">            OutputStream os &#x3D; socket.getOutputStream();</span><br><span class="line">            &#x2F;&#x2F;文件流</span><br><span class="line">            FileInputStream fis&#x3D;new FileInputStream(new File(&quot;scr&quot;));</span><br><span class="line">            &#x2F;&#x2F;写出文件</span><br><span class="line">            byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;fis.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                os.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源：……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.*;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ServerSocket serverSocket&#x3D;null;</span><br><span class="line">        Socket socket&#x3D;null;</span><br><span class="line">        InputStream is&#x3D;null;</span><br><span class="line">        try &#123;</span><br><span class="line">            serverSocket &#x3D; new ServerSocket(9999);</span><br><span class="line">            &#x2F;&#x2F;等待客户端连接过来</span><br><span class="line">            socket &#x3D; serverSocket.accept();</span><br><span class="line">            &#x2F;&#x2F;读取客户端的消息</span><br><span class="line">            is &#x3D; socket.getInputStream();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;文件输出</span><br><span class="line">            FileOutputStream fos&#x3D; new FileOutputStream(new File(&quot;receive&quot;));</span><br><span class="line">            byte[] buffer&#x3D;new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;is.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                fos.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源（最好加if(baos&#x2F;is&#x2F;socket&#x2F;serverSocker!&#x3D;null))</span><br><span class="line">            try &#123;</span><br><span class="line">                is.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -210,16 +254,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/16/picoctf%E5%88%B7%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">picoctf刷题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -238,6 +341,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -262,954 +375,6 @@
 
     </section>
   
-  
-    <article id="post-大佬的博客整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬的博客整理</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:54:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为一些原因（如点击量不足），很多大佬的博客无法通过百度和谷歌的方法搜索得到，故在此整理我见过的一些大佬的博客主页，以便自己今后方便查阅</p>
-<p><a target="_blank" rel="noopener" href="http://www.snowywar.top/?author=1">马猴烧酒雪殇</a></p>
-<p><a href ="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NTA0MzgxNQ==&action=getalbum&album_id=1791837685947367425&scene=173&from_msgid=2247484330&from_itemidx=1&count=3&nolastread=1#wechat_redirect">宸极实验室</a></p>
-<p><a href ="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzMTc1MjExOQ==&action=getalbum&album_id=1345842232737316865&scene=173&from_msgid=2247494993&from_itemidx=1&count=3&nolastread=1#wechat_redirect">ChaMd5安全团队</a></p>
-<p><a target="_blank" rel="noopener" href="https://ha1c9on.top/">HA1C9ON</a></p>
-<p><a target="_blank" rel="noopener" href="http://oriole.fun/">Oriole</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51078229">huamanggg</a></p>
-<p><a target="_blank" rel="noopener" href="https://public.zsxq.com/groups/824215518412.html">Nu1L</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Anton__1">H3h3QAQ</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.gem-love.com/">颖奇L’Amore(Y1ng)</a></p>
-<p><a target="_blank" rel="noopener" href="https://npfs06.top/">npfs</a></p>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/mp/homepage?__biz=MzIxMDYyNTk3Nw==&hid=1&sn=64117416f2cf3add067dc892c079749c&scene=18#wechat_redirect">白帽100安全攻防实验室(他的wp有些没有放到主页里面，需要手机查看微信公众号的“消息”)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.wlhhlc.top/">南方先生（南神）</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42880719">mumuzi（ctfshow）套神</a><br>（下图左边这位名叫“套不起壳组不成队要被虐爆，惨惨”的大佬）（并不是）</p>
-<img src="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/1.jpeg" class="" title="1.jpeg">
-
-
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae">Amherstieae（贝塔）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.d1a0.cn/">大周</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/">yu22x（羽）</a></p>
-<p><a target="_blank" rel="noopener" href="https://lazzzaro.github.io/">Lazzaro（la）</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.frankli.site/">frank</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464">Firebasky</a></p>
-<p><a target="_blank" rel="noopener" href="https://hellohy.top/">浅浅淡淡（hellohy）</a></p>
-<p><a target="_blank" rel="noopener" href="https://y4tacker.blog.csdn.net/">Y4tacker</a></p>
-<p><a target="_blank" rel="noopener" href="http://blog.y4tacker.top/">Y4tacker（新）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/erR0Ratao/">atao</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/user-home-876323.htm">ScUpax0s</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/WFC1006848997">Spaceman-911（太空人）</a></p>
-<p><a target="_blank" rel="noopener" href="https://spaceman-911.gitee.io/">spaceman</a></p>
-<p><a target="_blank" rel="noopener" href="https://typ0typ0.github.io/">typotypo</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.xl-bit.cn/">bit</a></p>
-<p><a target="_blank" rel="noopener" href="https://typ0typ0.github.io/">typ0typ0(错错）</a></p>
-<p><a target="_blank" rel="noopener" href="https://so4ms.top/">so4ms</a></p>
-<p><a target="_blank" rel="noopener" href="https://yml-sec.top/">yemoli</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder">feng</a></p>
-<p><a target="_blank" rel="noopener" href="https://ctfking.com">Tajang（网址超中二）</a></p>
-<p><a target="_blank" rel="noopener" href="https://m4son.cn">Mason</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.yongsheng.site/">Y0ng(又一个中二网址）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/ZM_________J/posts">ZM.J（春哥）</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.zbc53.top/">striving</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/davidcheyenneone/CTF">废物</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/member/155655">一只狗</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-WICCTF2021-津门杯-web-power-cut" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/">WICCTF2021(津门杯)web_power_cut</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:47:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我因为这道题，学会了一个特别好用的“目录扫描”插件——dirsearch</p>
-<p>说题目：<br>首先，打开页面是一句话——</p>
-<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/1.PNG" class="" title="1.PNG">
-
-<p>然后用dirsearch扫描，发现swp备份文件</p>
-<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/2.PNG" class="" title="2.PNG">
-
-<p>文件直接打开是乱码<br>需要用linux恢复</p>
-<p>打开kali，<code>vim -r index.php.swp</code><br>再次打开，是php的代码</p>
-<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/3.PNG" class="" title="3.PNG">
-
-<p>代码主体：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">logger</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$logFile</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$initMsg</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$exitMsg</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$file</span></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// initialise variables</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;initMsg=<span class="string">&quot;#--session started--#\n&quot;</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;exitMsg=<span class="string">&quot;#--session end--#\n&quot;</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;logFile =  <span class="variable">$file</span>;</span><br><span class="line">        readfile(<span class="keyword">$this</span>-&gt;logFile);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$fd</span>=fopen(<span class="keyword">$this</span>-&gt;logFile,<span class="string">&quot;a+&quot;</span>);</span><br><span class="line">        fwrite(<span class="variable">$fd</span>,<span class="variable">$msg</span>.<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        fclose(<span class="variable">$fd</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;this is destruct&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">weblog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$weblogfile</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$flag</span>=<span class="string">&quot;system(&#x27;cat /flag&#x27;)&quot;</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$flag</span>&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// self::waf($this-&gt;filepath);</span></span><br><span class="line">        <span class="variable">$obj</span> = <span class="keyword">new</span> logger(<span class="keyword">$this</span>-&gt;weblogfile);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">waf</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$str</span>=preg_replace(<span class="string">&quot;/[&lt;&gt;*#&#x27;|?\n ]/&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$str</span>);</span><br><span class="line">        <span class="variable">$str</span>=str_replace(<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="variable">$str</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$str</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;this is destruct&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$log</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;log&#x27;</span>];</span><br><span class="line"><span class="variable">$log</span> = preg_replace(<span class="string">&quot;/[&lt;&gt;*#&#x27;|?\n ]/&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$log</span>);</span><br><span class="line"><span class="variable">$log</span> = str_replace(<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="variable">$log</span>);</span><br><span class="line"><span class="variable">$log_unser</span> = unserialize(<span class="variable">$log</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>读代码（抽时间补）</p>
-<p>最后payload：<br><code>log=O:6:&quot;weblog&quot;:1:&#123;s:10:&quot;weblogfile&quot;;s:5:&quot;/flflagag&quot;;&#125;</code><br>得到flag</p>
-<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-WICCTF2021-津门杯-web-hate-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">WICCTF2021(津门杯)web_hate_php</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:40:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hate_php<br>打开以后，是一段php代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]))&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="variable">$code</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">&quot;/[A-Za-z0-9_$@]+/&quot;</span>,<span class="variable">$code</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;fighting!&#x27;</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>开始解读：<br>GET方式接受code<br>若code非空，则<code>$code = $_GET[&#39;code&#39;];</code><br>preg_match(，)前一个参数是个正则表达式，后一个为要验证的字符串<br>正则表达式<code>&quot;/[A-Za-z0-9_$@]+/&quot;</code>的意思是：A到Z，a到z，0到9，加上”_””$””@”这几个字符。<br>凡是有这些字符的code直接die<br>然后才会php运行code（eval）</p>
-<p>如果没有后面那几个字符的限制，可以尝试“异或绕过”</p>
-
-<p>然后通过<code>$</code>拼接指令（比如上例的构造phpinfo())</p>
-<p>也可以尝试“取反绕过”<br>?code=$<em>=~%98%9A%8B%B9%93%9E%98;$</em>();<br>（上面的url都是一些不可见字符，但是取反（~）后却是：“getFlag”）</p>
-<p>所以这里只能用“通配符”<br>这里首先要说明，linux的所有指令都存储在文件夹里<br>比如常用的“cat”指令<br>也可以用/bin/cat来代替<br>然后就是linux的指令以及文件，可以用通配符*和？来代替<br>前者可代替不限字数的字符，后者代替一个字符<br>（但是代替有个前提，搜索结果唯一或可以同时操作）<br>所以/bin/cat 可以用/***/***代替<br>然后就是盲猜flag在/flag文件夹下<br>构造payload:<code>code=?&gt;&lt;?=`/???/??? /????`?&gt;</code>（就算不猜，也可以猜字符位数然后试？的个数，还有文件的层数）<br>搜索得到flag</p>
-<img src="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/1.PNG" class="" title="1.PNG">
-
-
-
-
-
-<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/v01cano/p/11736722.html">https://www.cnblogs.com/v01cano/p/11736722.html</a><br>还有这个大神：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html#glob</a><br>还有这个是整理的最全的，附带例题：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8107#toc-11">https://xz.aliyun.com/t/8107#toc-11</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"><a href="#dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法" class="headerlink" title="dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法"></a>dirsearch踩坑以及python-出现“Traceback-most-recent-call-last-……”错误的解决方法</h2><p>因为一些原因，我尝试在windows上安装dirsearch<br>网上的安装教程全都是一毛一样的，不知道是谁复制谁的。</p>
-<p>总的来说就是先从<br><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>上下载zip，解压<br>或者直接git clone <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
-<p>仅说了需要python3的环境<br>然后cd到dirsearch-master，输入python dirsearch.py -u &lt;网址&gt;<br>就行了，像这样</p>
-
-
-<p>而我的实际操作中，是这样的——</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.PNG" class="" title="2.PNG">
-
-<p>会报错“Traceback (most recent call last):……”</p>
-<p>然后我在网上找了好久，终于找到了一篇不一样的博客（CSDN是该管管了，垃圾指针无限递归问题）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.wap_blog_relevant_pic">https://blog.csdn.net/qq_29163073/article/details/112795375?utm_medium=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic&amp;depth_1-utm_source=distribute.wap_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.wap_blog_relevant_pic</a></p>
-<p>这个博客说需要用pip安装一些帮助文件</p>
-<p>然后我又搜到了这个————<br><a target="_blank" rel="noopener" href="https://pip-cn.readthedocs.io/en/latest/installing.html">https://pip-cn.readthedocs.io/en/latest/installing.html</a><br>结论：Python 2.5在 v1.3.1版本后, Python 2.4在v1.1版本后，安装python后会自动安装pip<br>所以pip本身的安装不用管了</p>
-<p>在尝试了pip install chardet &amp; pip install certifi后，发现还是和原来一样的报错</p>
-<p>然后搜到了这个——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43978056/article/details/105940157">https://blog.csdn.net/weixin_43978056/article/details/105940157</a></p>
-<p>再回去看报错，发现缺少的是“urllib3”</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/6.PNG" class="" title="6.PNG">
-<p>直接pip install urllib3</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.PNG" class="" title="3.PNG">
-
-<p>再尝试，发现这次缺的是cryptography</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/4.PNG" class="" title="4.PNG">
-<p>继续pip install cryptography</p>
-<p>再尝试，才成功开始扫目录</p>
-<img src="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/5.PNG" class="" title="5.PNG">
-
-<p>所以以后遇到“Traceback (most recent call last):……”的问题，都可以尝试这样解决</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web8/">bugku_web_web8</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web8/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:51:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>打开以后又是php代码</p>
-<img src="/2021/04/26/bugku-web-web8/web8.1.PNG" class="8.1.PNG">
-<img src="/2021/04/26/bugku-web-web8/web8.2.PNG" class="8.2.PNG">
-<p>解读一下：<br>包含flag.php文件<br>读入一个参数为hello的数据（REQUEST相当于get+post）<br>eval( “var_dump($a);”);————检测是否为php语句，若是则执行<br>show_source(__FILE__);————整个文件“高亮显示”（__FILE__是“整个文件”的意思，至于“高亮显示”，我的理解是把代码按照一定颜色规则排布在页面上）</p>
-<p>所以这道题涉及到了php语句的问题，那方法就会很多了</p>
-<p>我首先想到的是用shell（盲猜是linux系统）</p>
-<p>直接hello= `cat flag.php`(两边是用的“反引号”（键盘左上角那个），相当于把里面的内容当shell使用，自从有一次被限制字数后，就再也不用system（）了)</p>
-<p>虽然显示有103个字符，但是没法输出。</p>
-<img src="/2021/04/26/bugku-web-web8/web8.3.PNG" class="8.3.PNG">
-
-<p>然后用hello= `tac flag.php`，却能输出flag（相当于cat的“反序输出”，但只是“行之间反序”）</p>
-<img src="/2021/04/26/bugku-web-web8/web8.4.PNG" class="8.4.PNG">
-
-
-<p>为什么用tac而不是cat：因为那个php文件带有<?php和后面的?>，正序输出会被网页当做php代码运行（结果为空），但是<?php 和?>不在同一行，所以tac反序输出使其不闭合，才可以显示其字符串的形式</p>
-<p>这样就得到了flag</p>
-<p>当然还有一种注入的方法，通过闭合前面以及注释掉后面来输出flag</p>
-<img src="/2021/04/26/bugku-web-web8/web8.5.PNG" class="8.5.PNG">
-
-<p>当然还有一种思路是用?hello=get_file_contents(‘flag.php’)或者?hello=file(‘flag.php)，直接把文件内容写入hello，然后输出，但是这种方法被封了（似乎是权限给的不够，当然，如果权限够的话，甚至可以用cp指令，然后读文件，但是尝试后发现返回null说明不行）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web7/">bugku_web_web7</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web7/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h2><p>打开以后发现一直在刷新，提示是停到某个特殊网页（panda）就能拿到flag</p>
-<img src="/2021/04/26/bugku-web-web7/web7.1.PNG" class="7.1.PNG">
-<img src="/2021/04/26/bugku-web-web7/web7.2.PNG" class="7.2.PNG">
-
-<p>直接打开burpsuite，抓包后发给“重发器”（repeater），不断刷，直到刷出带flag的页面为止</p>
-<img src="/2021/04/26/bugku-web-web7/web7.3.PNG" class="7.3.PNG">
-
-<p>（其实我是直接发给了intruder，让它自动发送，然后通过回显的字数不同找到带flag的网页（字数最多））</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web6/">bugku_web_web6</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web6/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h2><p>打开以后除了弹窗什么都没有</p>
-<img src="/2021/04/26/bugku-web-web6/web6.1.PNG" class="6.1.PNG">
-<img src="/2021/04/26/bugku-web-web6/web6.2.PNG" class="6.2.PNG">
-<p>直接F12，拉到最底下发现注释看着比较像unicode的格式</p>
-<img src="/2021/04/26/bugku-web-web6/web6.3.PNG" class="6.3.PNG">
-
-
-<p>网上随便找一个解码器，得到flag</p>
-<img src="/2021/04/26/bugku-web-web6/web6.4.PNG" class="6.4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web5/">bugku_web_web5</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web5/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:30:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h2><p>题目提示“矛盾”<br>打开以后，还是几行代码</p>
-<img src="/2021/04/26/bugku-web-web5/web5.1.PNG" class="" title="web5.1.PNG">
-<img src="/2021/04/26/bugku-web-web5/web5.2.PNG" class="" title="web5.2.PNG">
-<p>解读一下：<br>is_number（）是判断变量是否为数字，前面加”!”则是“取非”<br>所以如果$num不是数字，则会运行下面的代码<br>然后输出$num<br>然后再验证如果$num等于1<br>则输出flag</p>
-<p>这代码似乎是矛盾的。<br>这里用到了php的弱类型特性<br>php中判断等于有”==”和”===”两种<br>前者只比较数值，而后者比较数值和类型</p>
-<p>而当字符串和数字做”==”比较时，是把字符串转换成数字，规则为（我的理解）：从第一个字符开始，逐个读入数字，直到碰到非数字字符为止，如果第一个字符非数字，则值为0</p>
-<p>所以只要在url后面加个/?num=1a，就可以的，得到flag</p>
-<img src="/2021/04/26/bugku-web-web5/web5.3.PNG" class="" title="web5.3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-web4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/26/bugku-web-web4/">bugku_web_web4</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/04/26/bugku-web-web4/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h2><p>和web3的代码很像，唯一的区别是把Get改成Post</p>
-<img src="/2021/04/26/bugku-web-web4/web4.1.PNG" class="" title="web4.1.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.2.PNG" class="" title="web4.2.PNG">
-
-<p>简单，打开hackbar，启用post，填上what=flag，得到flag</p>
-<img src="/2021/04/26/bugku-web-web4/web4.3.PNG" class="" title="web4.3.PNG">
-<img src="/2021/04/26/bugku-web-web4/web4.4.PNG" class="" title="web4.4.PNG">
-
-<p>如果没有hackbar，还可以用burpsuite抓包后在会后面加上一行：what=flag<br>效果是一样的。<br>其实这就是get和post的区别（原理）<br>一个是在url后面加参数（header里），一个是在数据包里加参数（params里）</p>
-<img src="/2021/04/26/bugku-web-web4/web4.5.PNG" class="" title="web4.5.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/26/bugku-web-web4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1241,8 +406,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

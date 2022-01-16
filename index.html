@@ -164,6 +164,121 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">java网络编程</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2022-01-16T10:21:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>javaweb 网页编程 B/S<br>网络编程 TCP/IP C/S</p>
+<p>网络通信协议<br>TCP/IP模型：<br>OSI七层架构：</p>
+
+
+<p>Fiddler，burpsuite是应用层：抓HTTP包<br>wireshark貌似是直接抓物理层，然后把每一层分出来。但是不能改包和发包</p>
+<p>ip<br>1.127.0.0.1（localhost）<br>2.分类：<br>    ip地址分类： ipv4/ipv6<br>        ipv4:四个字节组成，每个字节0~255，一共42亿（30亿都在北美，亚洲只有4亿，在2011年就用尽了）（说法：美国甚至能给饮水机分配ip）<br>        ipv6:128位。8个无符号整数。<br>    公网（互联网）/私网（局域网）：<br>        内网ip：192.168.xx.xx、172.16.xx.xx、10.xx.xx.xx</p>
+<pre><code>ABCD类地址
+域名：去搜www.a.com的域名，相似的价格都能到90多万（越短越贵，早些时候有抢注域名的，中文结尾的一般便宜）
+</code></pre>
+<p>java:查ip：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">InetAddress.getLOcalHost(); &#x2F;&#x2F;查本机ip及用户名</span><br><span class="line">InetAddress.getByName(&quot;www.baidu.com&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>端口：<br>0~65535<br>分为TCP和UDP端口（各有65536个，互相不影响）<br>分类：<br>    共有端口：0-1023（尽量不要用）<br>        21:ftp<br>        22:ssh<br>        23:Telent:远程监听<br>        80:http<br>        443:https<br>    程序注册端口：1024-49151，分配给用户或程序<br>        Tomcat：8080<br>        MYSQL：3306<br>        Oracle：1521<br>    动态、私有端口：49152-65535</p>
+<p>指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano #查询所有端口</span><br><span class="line">netstat -ano|findstr &quot;5900&quot; #查询所有5900端口</span><br><span class="line">tasklist|findstr &quot;8696&quot; #查看指定端口的进程</span><br></pre></td></tr></table></figure>
+<p>java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new InetSocketAddress(&quot;127.0.0.1&quot;,8080);</span><br></pre></td></tr></table></figure>
+
+<p>通信协议：<br>速率，传输码率，代码结构，传输控制……<br>TCP/IP协议簇<br>重要：<br>    TCP：用户传输协议（需要交互）<br>    UDP：用户数据报协议（不需要回包）</p>
+<p>出名协议：<br>    TCP<br>    IP：网络互连协议</p>
+<p>TCP/UDP<br>TCP：打电话<br>    连接、稳定<br>    三次握手（建立连接）（ABA），四次挥手（断开连接）（ABBA）<br>    客户端、服务端<br>    传输完成，释放连接，效率低<br>UDP：发短信<br>    不连接、不稳定<br>    客户端、服务端：没有明确界限<br>    不管有没有准备好，都可以发给对方<br>    DDOS攻击：向对方无限发包，造成端口堵塞（占据所有端口）</p>
+<p>TCP实现聊天（JVAV）<br>client：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;连接：</span><br><span class="line">            Socket socket &#x3D; new Socket(serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送消息，io流：</span><br><span class="line">            OutputStream os &#x3D; socket.getOutputStream();</span><br><span class="line">            os.write(&quot;你好&quot;.getBytes());</span><br><span class="line">        &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源：……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>server:(有用的代码只有中间带注释的几行)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ServerSocket serverSocket&#x3D;null;</span><br><span class="line">        Socket socket&#x3D;null;</span><br><span class="line">        InputStream is&#x3D;null;</span><br><span class="line">        ByteArrayOutputStream baos&#x3D;null;</span><br><span class="line">        try &#123;</span><br><span class="line">            serverSocket &#x3D; new ServerSocket(9999);</span><br><span class="line">            &#x2F;&#x2F;等待客户端连接过来</span><br><span class="line">            socket &#x3D; serverSocket.accept();</span><br><span class="line">            &#x2F;&#x2F;读取客户端的消息</span><br><span class="line">            is &#x3D; socket.getInputStream();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;管道流</span><br><span class="line">            baos&#x3D;new ByteArrayOutputStream();</span><br><span class="line">            byte[] buffer&#x3D;new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;is.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                baos.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(baos.toString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源（最好加if(baos&#x2F;is&#x2F;socket&#x2F;serverSocker!&#x3D;null))</span><br><span class="line">            try &#123;</span><br><span class="line">                baos.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                is.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                serverSocket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件上传：<br>client</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;连接：</span><br><span class="line">            Socket socket &#x3D; new Socket(serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送消息，io流：</span><br><span class="line">            OutputStream os &#x3D; socket.getOutputStream();</span><br><span class="line">            &#x2F;&#x2F;文件流</span><br><span class="line">            FileInputStream fis&#x3D;new FileInputStream(new File(&quot;scr&quot;));</span><br><span class="line">            &#x2F;&#x2F;写出文件</span><br><span class="line">            byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;fis.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                os.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源：……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.*;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ServerSocket serverSocket&#x3D;null;</span><br><span class="line">        Socket socket&#x3D;null;</span><br><span class="line">        InputStream is&#x3D;null;</span><br><span class="line">        try &#123;</span><br><span class="line">            serverSocket &#x3D; new ServerSocket(9999);</span><br><span class="line">            &#x2F;&#x2F;等待客户端连接过来</span><br><span class="line">            socket &#x3D; serverSocket.accept();</span><br><span class="line">            &#x2F;&#x2F;读取客户端的消息</span><br><span class="line">            is &#x3D; socket.getInputStream();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;文件输出</span><br><span class="line">            FileOutputStream fos&#x3D; new FileOutputStream(new File(&quot;receive&quot;));</span><br><span class="line">            byte[] buffer&#x3D;new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;is.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                fos.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源（最好加if(baos&#x2F;is&#x2F;socket&#x2F;serverSocker!&#x3D;null))</span><br><span class="line">            try &#123;</span><br><span class="line">                is.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/16/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-picoctf刷题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1245,124 +1360,6 @@ if &#39;flag&#123;&#39; in r.text:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/05/xxc/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-uploadlabs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
-  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44426869/article/details/104236854">https://blog.csdn.net/weixin_44426869/article/details/104236854</a><br>检测方法：<br>1.前端检测：一般用js。绕过方法：1.禁用js。2.直接改数据包<br>2.type检测：检测的是数据包中<code>Content-Type</code>的部分，是前端根据文件类型生成数据包时加的部分，并不会影响程序所以没什么用。绕过：在发包之前改成需要的就行。<br>3.文件后缀检测：获取文件名之后，通过字符串截取的方法来获取后缀来判断。<br>截取一般包含以下几部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]); &#x2F;&#x2F;收尾去空和部分不合法字符 &#x2F;&#x2F;(1)</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点 &#x2F;&#x2F;(2)</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;); &#x2F;&#x2F;截取包括点以后的字符串()</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写 &#x2F;&#x2F;(3)</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA &#x2F;&#x2F;(4)</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;首尾去空 &#x2F;&#x2F;(5)</span><br></pre></td></tr></table></figure>
-<pre><code>可以根据缺少哪一部分来判断怎么改：
-(1)在后面添空格
-(2)在文件名后面加点，在服务端再次生成文件的时候会自动删去
-(3)大小写绕过，随便改后缀的大小写
-    （大小写绕过原理：Windows系统下，对于文件名中的大小写不敏感。例如：test.php和TeSt.PHP是一样的。Linux系统下，对于文件名中的大小写敏感。例如：test.php和 TesT.php就是不一样的。）（还是那句话，前提是要开启这个功能，反正phpstudy没开）
-(4)方法1：```::$DATA```绕过：直接在文件名后面加```::$DATA```(注意：连接木马的时候不要把```::$DATA```复制到网址)
-   方法2：所有```str_ireplace()```函数都可以“双鞋绕过”，比如检查的是```::$DATA```，那就可以```::$D::$DATAATA```，如果检查的是```php```，那就可以```phphpp```
-(5)意义不明，不知道怎么绕
-(6)补充：原文件的后缀不是目的，让文件在服务器上的文件后缀可识别才是目的。比如Pass-10中，文件名是去除末尾的点之后的状态，所以可以用两点绕过：```hack.php. .```
-</code></pre>
-<p>一般用于对照的文件后缀有以下这些：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;,&quot;.user.ini&quot;</span><br></pre></td></tr></table></figure>
-<pre><code>可以根据缺少的过滤后缀来确定绕过方法
-(1) &quot;.php&quot;=&quot;.php5&quot;=&quot;.php4&quot;=&quot;.php3&quot;=&quot;.php2&quot;(前提：开)
-(2) .htaccess:
-    创建```1.htaccess```，并将其上传：
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;上传的图片马的文件名&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
-    再上传图片马即可。(前提：开)
-    补充：htaccess文件介绍：htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
-    其中.htaccess文件内容：
-    SetHandler application/x-httpd-php
-    设置当前目录所有文件都使用PHP解析，那么无论上传任何文件，只要文件内容符合PHP语言代码规范，就会被当作PHP执行。不符合则报错。
-(3) .user.ini:
-    这个题目的前提是，上传目录内本来就有一个php文件，假设文件名为：```readme.php```
-    先上传一个以auto_prepend_file=1.gif为内容的.user.ini文件，然后再上传一个内容为php的一句话的脚本，命名为1.gif，.user.ini文件里面的意思是：所有的php文件都自动包含1.gif文件。.user.ini相当于一个用户自定义的php.ini。
-    然后访问```readme.php```就可以了
-    (另：首先很多的php不一定支持自己写ini，其次有些老版的服务器不一定支持实时检测.user.ini所以实际操作不是很现实)
-</code></pre>
-<p>刷到：Pass-12</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/29/uploadlabs/">展开全文 >></a>
         </p>
       
 

@@ -164,6 +164,124 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-uploadlabs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
+  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44426869/article/details/104236854">https://blog.csdn.net/weixin_44426869/article/details/104236854</a><br>检测方法：<br>1.前端检测：一般用js。绕过方法：1.禁用js。2.直接改数据包<br>2.type检测：检测的是数据包中<code>Content-Type</code>的部分，是前端根据文件类型生成数据包时加的部分，并不会影响程序所以没什么用。绕过：在发包之前改成需要的就行。<br>3.文件后缀检测：获取文件名之后，通过字符串截取的方法来获取后缀来判断。<br>截取一般包含以下几部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]); &#x2F;&#x2F;收尾去空和部分不合法字符 &#x2F;&#x2F;(1)</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点 &#x2F;&#x2F;(2)</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;); &#x2F;&#x2F;截取包括点以后的字符串()</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写 &#x2F;&#x2F;(3)</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA &#x2F;&#x2F;(4)</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;首尾去空 &#x2F;&#x2F;(5)</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少哪一部分来判断怎么改：
+(1)在后面添空格
+(2)在文件名后面加点，在服务端再次生成文件的时候会自动删去
+(3)大小写绕过，随便改后缀的大小写
+    （大小写绕过原理：Windows系统下，对于文件名中的大小写不敏感。例如：test.php和TeSt.PHP是一样的。Linux系统下，对于文件名中的大小写敏感。例如：test.php和 TesT.php就是不一样的。）（还是那句话，前提是要开启这个功能，反正phpstudy没开）
+(4)方法1：```::$DATA```绕过：直接在文件名后面加```::$DATA```(注意：连接木马的时候不要把```::$DATA```复制到网址)
+   方法2：所有```str_ireplace()```函数都可以“双鞋绕过”，比如检查的是```::$DATA```，那就可以```::$D::$DATAATA```，如果检查的是```php```，那就可以```phphpp```
+(5)意义不明，不知道怎么绕
+(6)补充：原文件的后缀不是目的，让文件在服务器上的文件后缀可识别才是目的。比如Pass-10中，文件名是去除末尾的点之后的状态，所以可以用两点绕过：```hack.php. .```
+</code></pre>
+<p>一般用于对照的文件后缀有以下这些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;,&quot;.user.ini&quot;</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少的过滤后缀来确定绕过方法
+(1) &quot;.php&quot;=&quot;.php5&quot;=&quot;.php4&quot;=&quot;.php3&quot;=&quot;.php2&quot;(前提：开)
+(2) .htaccess:
+    创建```1.htaccess```，并将其上传：
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;上传的图片马的文件名&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+    再上传图片马即可。(前提：开)
+    补充：htaccess文件介绍：htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
+    其中.htaccess文件内容：
+    SetHandler application/x-httpd-php
+    设置当前目录所有文件都使用PHP解析，那么无论上传任何文件，只要文件内容符合PHP语言代码规范，就会被当作PHP执行。不符合则报错。
+(3) .user.ini:
+    这个题目的前提是，上传目录内本来就有一个php文件，假设文件名为：```readme.php```
+    先上传一个以auto_prepend_file=1.gif为内容的.user.ini文件，然后再上传一个内容为php的一句话的脚本，命名为1.gif，.user.ini文件里面的意思是：所有的php文件都自动包含1.gif文件。.user.ini相当于一个用户自定义的php.ini。
+    然后访问```readme.php```就可以了
+    (另：首先很多的php不一定支持自己写ini，其次有些老版的服务器不一定支持实时检测.user.ini所以实际操作不是很现实)
+</code></pre>
+<p>刷到：Pass-12</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/29/uploadlabs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-uploadlabs-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1318,113 +1436,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-闪电十六鞭" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">bugku-web-闪电十六鞭</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" class="archive-article-date">
-  	<time datetime="2021-08-12T06:00:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考这篇——<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fallingskies/p/14287103.html">https://www.cnblogs.com/fallingskies/p/14287103.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&#39;&#x2F;flag.php&#39;;</span><br><span class="line"></span><br><span class="line">    $exam &#x3D; &#39;return\&#39;&#39;.sha1(time()).&#39;\&#39;;&#39;;</span><br><span class="line"></span><br><span class="line">    if (!isset($_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;&lt;a href&#x3D;&quot;.&#x2F;?flag&#x3D;&#39;.$exam.&#39;&quot;&gt;Click here&lt;&#x2F;a&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (strlen($_GET[&#39;flag&#39;]) !&#x3D; strlen($exam)) &#123;</span><br><span class="line">        echo &#39;长度不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (preg_match(&#39;&#x2F;&#96;|&quot;|\.|\\\\|\(|\)|\[|\]|_|flag|echo|print|require|include|die|exit&#x2F;is&#39;, $_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;关键字不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (eval($_GET[&#39;flag&#39;]) &#x3D;&#x3D;&#x3D; sha1($flag)) &#123;</span><br><span class="line">        echo $flag;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo &#39;马老师发生甚么事了&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo &#39;&lt;hr&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
-<p>当没有用GET方法传入flag时，会显示Click here的链接。</p>
-<p>点击链接会用GET方法传入一串字符串$exam，后面是当前时间的一串sha1哈希值。</p>
-<p>判断传入的flag长度与$exam是否相同，不同则显示  长度不允许</p>
-<p>第二个判断过滤了一大堆</p>
-<p>第三个判断传入flag的值等于flag值的哈希值，正确就输出flag。用的是严格的三个等号的比较，我们flag都不知道，哈希值更不可能知道了，==</p>
-<p>但容易发现此处存在任意代码执行漏洞， </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_GET[&#39;flag&#39;])</span><br></pre></td></tr></table></figure>
-
-<p>尝试绕过过滤</p>
-<p>echo被过滤了，用php短标签进行输出</p>
-<p>flag被过滤了，用先赋其他值，再修改的方法绕过</p>
-<p>当php开启短标签后，</p>
-<p>能正常解析类似于这样形式的php文件： phpinfo() ?&gt;</p>
-<p>并且可以使用<?=$a?>的形式输出</p>
-<p>$exam字符串长度为49</p>
-<p>为了使payload长度与$exam长度相等，在代码间加入无意义的语句。</p>
-<p>构造payload：$a=blag;$a{0}=f;111111111111111111111;?&gt;<?=$$a;?></p>
-<p>成功得到flag</p>
-<img src="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">展开全文 >></a>
         </p>
       
 
