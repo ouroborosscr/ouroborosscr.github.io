@@ -164,6 +164,199 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-decrypt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/10/bugku-web-decrypt/">bugku-web-decrypt</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/10/bugku-web-decrypt/" class="archive-article-date">
+  	<time datetime="2021-08-10T14:42:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>提示是一串字符，base64解码发现解不出来东西</p>
+<img src="/2021/08/10/bugku-web-decrypt/1.PNG" class="" title="1.PNG">
+
+<p>下载附件发现是一个函数，貌似是base64产生的方法，所以只要逆序产出就行</p>
+<p>写一个python脚本就好(第一次做的时候写的脚本，直接贴上来了)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import hashlib</span><br><span class="line">test_str &#x3D; &#39;hello world!&#39;</span><br><span class="line"># 编码</span><br><span class="line">#encode_str &#x3D; base64.encodebytes(test_str.encode(&#39;utf8&#39;))  # b&#39;aGVsbG8gd29ybGQh\n&#39;</span><br><span class="line">#print(encode_str.decode())  # 默认以utf8解码，结果 aGVsbG8gd29ybGQh</span><br><span class="line"># 解码</span><br><span class="line">encode_str&#x3D;&#39;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA&#x3D;&#39;.encode(&#39;utf8&#39;)</span><br><span class="line">decode_str &#x3D; base64.decodebytes(encode_str)  # b&#39;hello world!&#39;</span><br><span class="line">print(decode_str.decode())  # 默认以utf8解码，结果 hello world!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a&#x3D;&#39;ISCC&#39;</span><br><span class="line">m &#x3D; hashlib.md5()</span><br><span class="line">m.update(a.encode(&#39;utf-8&#39;))</span><br><span class="line">print(m.hexdigest())</span><br><span class="line">len1&#x3D;len(decode_str.decode())</span><br><span class="line">print(len1)</span><br><span class="line">str10&#x3D;m.hexdigest()</span><br><span class="line">x&#x3D;0</span><br><span class="line">i&#x3D;1</span><br><span class="line">char1&#x3D;&#39;&#39;</span><br><span class="line">while(i&lt;&#x3D;32):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">i&#x3D;1</span><br><span class="line">x&#x3D;0</span><br><span class="line">while(i&lt;&#x3D;6):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">print(char1)</span><br><span class="line"></span><br><span class="line">str1&#x3D;decode_str.decode()</span><br><span class="line"></span><br><span class="line">a&#x3D;range(38)</span><br><span class="line"></span><br><span class="line">d&#x3D;&#39;&#39;</span><br><span class="line"></span><br><span class="line">for i in a:</span><br><span class="line">    b&#x3D;ord(str1[i])</span><br><span class="line">    c&#x3D;ord(char1[i])</span><br><span class="line">    if((b-c&gt;&#x3D;48 and b-c&lt;&#x3D;57) or (b-c&gt;&#x3D;97 and b-c&lt;&#x3D;122)):</span><br><span class="line">        e&#x3D;b-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line">    else:</span><br><span class="line">        e&#x3D;b+128-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line"></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#48-57</span><br><span class="line">#97-122</span><br></pre></td></tr></table></figure>
+
+<p>得到flag（我的脚本写的不太好，前面的Flag:会变形，自己换一下就行）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/10/bugku-web-decrypt/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-点login咋没反应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">bugku-web-点login咋没反应</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/" class="archive-article-date">
+  	<time datetime="2021-08-10T14:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查看源代码，发现admin.css有个提示</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/1.PNG" class="" title="1.PNG">
+
+<p>输入后发现源码</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/2.PNG" class="" title="2.PNG">
+
+
+
+<p>反序化验证，自己写个php：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$KEY&#x3D;&#39;ctf.bugku.com&#39;;</span><br><span class="line">echo serialize($KEY);</span><br></pre></td></tr></table></figure>
+<p>得到<code>s:13:&quot;ctf.bugku.com&quot;;</code><br>然后加到cookie里就行</p>
+<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-各种绕过哟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -862,194 +1055,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-速度要快" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">bugku-web-速度要快</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:59:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>直接开源码，提示OK ,now you have to post the margin what you find<br>意思是以post方式传一个margin</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/1.PNG" class="" title="1.PNG">
-<p>抓包发现一个base64，解码</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/2.PNG" class="" title="2.PNG">
-
-<p>提交的时候发现不行，结合题目，上脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import bs4,requests</span><br><span class="line"></span><br><span class="line">url&#x3D;&#39;http:&#x2F;&#x2F;114.67.246.176:19535&#x2F;&#39;#指定url</span><br><span class="line">req2&#x3D;requests.Session()#开启一个会话</span><br><span class="line">ht &#x3D; req2.get(url)</span><br><span class="line">temp &#x3D; base64.b64decode(ht.headers[&#39;flag&#39;]).decode()#base64解码请求头中的flag参数</span><br><span class="line">flag&#x3D;temp.replace(&quot;跑的还不错，给你flag吧: &quot;,&quot;&quot;)#把修饰语删除</span><br><span class="line">flag&#x3D;base64.b64decode(flag).decode()#竟然还要解码一次！！！不看wp真没想到ε&#x3D;(´ο｀*)))唉</span><br><span class="line">d&#x3D;&#123;&quot;margin&quot;:flag&#125;#构造post数据</span><br><span class="line">r &#x3D; req2.post(url, data&#x3D;d)#data属性提交post参数</span><br><span class="line">print(r.text)#打印</span><br></pre></td></tr></table></figure>
-<p>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-秋名山车神" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">bugku-web-秋名山车神</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后发现要几秒内算题</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/1.PNG" class="" title="1.PNG">
-
-<p>直接上python脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import requests #&#x2F;&#x2F;引入request库</span><br><span class="line">import re 		#&#x2F;&#x2F;引入re库</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;&#39;&#39;http:&#x2F;&#x2F;114.67.246.176:13403&#x2F;&#x2F;&#39;&#39;&#39;</span><br><span class="line">s &#x3D; requests.session()  #&#x2F;&#x2F;用session会话保持表达式是同一个</span><br><span class="line">retuen &#x3D; s.get(url)</span><br><span class="line">equation &#x3D; re.search(r&#39;(\d+[+\-*])+(\d+)&#39;, retuen.text).group()</span><br><span class="line"></span><br><span class="line">result &#x3D; eval(equation)	#&#x2F;&#x2F;eval() 函数用来执行一个字符串表达式，并返回表达式的值。</span><br><span class="line">key &#x3D; &#123;&#39;value&#39;:result&#125;</span><br><span class="line">print(s.post(url, data &#x3D; key).text)</span><br></pre></td></tr></table></figure>
-<p>（当时做的我是找不到了，现在是直接粘的网上的，实测可以，但是要多来几次）<br>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">展开全文 >></a>
         </p>
       
 

