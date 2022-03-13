@@ -164,6 +164,201 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-源代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">bugku-web-源代码</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2021-07-31T14:51:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开后提示“看看源代码？”<br>打开源代码后发现这个代码——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;%66%75%6e%63%74%69%6f%6e%20%63%68%65%63%6b%53%75%62%6d%69%74%28%29%7b%76%61%72%20%61%3d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%70%61%73%73%77%6f%72%64%22%29%3b%69%66%28%22%75%6e%64%65%66%69%6e%65%64%22%21%3d%74%79%70%65%6f%66%20%61%29%7b%69%66%28%22%36%37%64%37%30%39%62%32%62&#39;;</span><br><span class="line">var p2 &#x3D; &#39;%61%61%36%34%38%63%66%36%65%38%37%61%37%31%31%34%66%31%22%3d%3d%61%2e%76%61%6c%75%65%29%72%65%74%75%72%6e%21%30%3b%61%6c%65%72%74%28%22%45%72%72%6f%72%22%29%3b%61%2e%66%6f%63%75%73%28%29%3b%72%65%74%75%72%6e%21%31%7d%7d%64%6f%63%75%6d%65%6e%74%2e%67%65%74%45%6c%65%6d%65%6e%74%42%79%49%64%28%22%6c%65%76%65%6c%51%75%65%73%74%22%29%2e%6f%6e%73%75%62%6d%69%74%3d%63%68%65%63%6b%53%75%62%6d%69%74%3b&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;%35%34%61%61%32&#39; + p2));</span><br></pre></td></tr></table></figure>
+
+<p>url解码后为——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var p1 &#x3D; &#39;function checkSubmit()&#123;var a&#x3D;document.getElementById(&quot;password&quot;);if(&quot;undefined&quot;!&#x3D;typeof a)&#123;if(&quot;67d709b2b&#39;;</span><br><span class="line">var p2 &#x3D; &#39;aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)return!0;alert(&quot;Error&quot;);a.focus();return!1&#125;&#125;document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;&#39;;</span><br><span class="line">eval(unescape(p1) + unescape(&#39;54aa2&#39; + p2));</span><br></pre></td></tr></table></figure>
+<p>unescape()的作用是解码<br>拼接后就是——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">eval(</span><br><span class="line">function checkSubmit()</span><br><span class="line">&#123;</span><br><span class="line">	var a&#x3D;document.getElementById(&quot;password&quot;);</span><br><span class="line">	if(&quot;undefined&quot;!&#x3D;typeof a)</span><br><span class="line">	&#123;</span><br><span class="line">		if(&quot;67d709b2b54aa2aa648cf6e87a7114f1&quot;&#x3D;&#x3D;a.value)</span><br><span class="line">		return!0;</span><br><span class="line">		alert(&quot;Error&quot;);</span><br><span class="line">		a.focus();</span><br><span class="line">		return!1</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">document.getElementById(&quot;levelQuest&quot;).onsubmit&#x3D;checkSubmit;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>简单来说就是传值若等于67d709b2b54aa2aa648cf6e87a7114f1，就返回flag</p>
+<p>然后输进去就得到flag</p>
+<img src="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/1.PNG" class="" title="1.PNG">
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-社工-伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">bugku-web-社工-伪造</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/" class="archive-article-date">
+  	<time datetime="2021-07-31T14:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这道题虽然既没技术含量（玩家角度），又骗金币，不过还挺好玩的</p>
+<p>打开后让输入qq号</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/1.PNG" class="" title="1.PNG">
+<p>放心输入就行，这个的功能就是抓取你的qq头像和昵称</p>
+<p>进去后发现一个“人”在线，因为装了最基础的ai，所以可以和她聊天</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/2.PNG" class="" title="2.PNG">
+<p>问flag会告知只会发给“男朋友”<br>原题思路是：根据上面的qq号找到她的男朋友，换成她男朋友的头像和昵称，然后清除浏览器缓存（这步很重要），重新抓取自己的qq号（直接输那个男朋友的qq不行，不信可以试试），然后问flag就行。</p>
+<p>但是比较难受的就是，那个号主早就改名了，而这个ai认不出新名字（是的，她只认名字，为那些被坑去换头像的默哀）<br>所以现在还需要改成那个账号最早的名字“小bug”</p>
+<p>另外就是改完qq名字以后（特别是改完头像），qq自己会有一个审核过程，所以清缓存也抓取不到的不要着急。<br>如果你真的遇到当天qq在整顿，全网不允许改名那种极特殊情况，那么很遗憾，金币白花了。</p>
+<p>另外就是一个小彩蛋，输入的内容有字数限制——</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-头等舱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -896,212 +1091,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-Flask-FileUpload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Flask-FileUpload/">bugku-web-Flask_FileUpload</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/30/bugku-web-Flask-FileUpload/" class="archive-article-date">
-  	<time datetime="2021-07-30T03:29:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开页面后，发现一个文件上传的界面<br>点击选择文件后发现只能上传图片<br>查看源代码后发现提示，意思是上传的文件会以python的形式运行，并返回值</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/10.PNG" class="" title="10.PNG">
-
-<p>写一个简单的python脚本，作用是使用shell指令，改成图片上传，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.system(&#39;ls&#39;)</span><br></pre></td></tr></table></figure>
-
-<p>之后为了方便改代码，我用burpsuite抓包后进行的，发现即使是jpg文件，也可以被运行</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/8.PNG" class="" title="8.PNG">
-
-<p>这里我先把ls改成了cat app.py看了一下网页的脚本，发现只有jpg，png和py3可以通过（这也是大部分人抓包后改成py却被过滤的原因）</p>
-<p>之后我把文件后缀改成py3继续进行（其实不改也不影响）<br>直接在burp上改文件内容就行<br>把ls改成cat /flag,得到flag</p>
-<img src="/2021/07/30/bugku-web-Flask-FileUpload/7.PNG" class="" title="7.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Flask-FileUpload/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-Simple-SSTI-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/30/bugku-web-Simple-SSTI-2/">bugku-web-Simple-SSTI-2</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/30/bugku-web-Simple-SSTI-2/" class="archive-article-date">
-  	<time datetime="2021-07-30T02:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考ssti注入笔记——</p>
-<a href="/2021/07/30/ssti%E7%AC%94%E8%AE%B0/" title="ssti笔记">ssti笔记</a>
-<p>按套路，走流程，得答案<br>（因为笔记里已经写了，这里步骤完全一样，所以就不复述了）</p>
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/1.PNG" class="" title="1.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/2.PNG" class="" title="2.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/3.PNG" class="" title="3.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/4.PNG" class="" title="4.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/5.PNG" class="" title="5.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/6.PNG" class="" title="6.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/7.PNG" class="" title="7.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/8.PNG" class="" title="8.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/9.PNG" class="" title="9.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/10.PNG" class="" title="10.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/11.PNG" class="" title="11.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/12.PNG" class="" title="12.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/13.PNG" class="" title="13.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/14.PNG" class="" title="14.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/15.PNG" class="" title="15.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/16.PNG" class="" title="16.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/17.PNG" class="21.PNG">
-<img src="/2021/07/30/bugku-web-Simple-SSTI-2/18.PNG" class="21.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/30/bugku-web-Simple-SSTI-2/">展开全文 >></a>
         </p>
       
 

