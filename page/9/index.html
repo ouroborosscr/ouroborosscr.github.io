@@ -164,6 +164,128 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-社工-初步收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/">bugku-web-社工-初步收集</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/" class="archive-article-date">
+  	<time datetime="2021-07-31T09:02:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开后是一个外挂网站（如果报错就刷新一下）</p>
+<p>先用dirsearch扫一下目录，发现很多东西，一个个打开</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/6.PNG" class="" title="6.PNG">
+<p>发现/admin/login.php可以跳转到后台登录平台</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/15.PNG" class="" title="15.PNG">
+
+<p>看到有一个“下载辅助”的地方，点击后可以下载到东西</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/1.PNG" class="" title="1.PNG">
+
+<p>解压后是一个exe程序，打开</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/2.PNG" class="" title="2.PNG">
+<p>发现要输qq号和密码（随便输点什么，我这里输的123——123，千万别输个人信息！！）<br>提交后……</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/3.PNG" class="" title="3.PNG">
+
+<p>不着急，打开wireshark抓包，再发送一次，发现抓到的包里有user，password的信息<br>追踪tcp流，并用base64解码</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/4.PNG" class="" title="4.PNG">
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/5.PNG" class="" title="5.PNG">
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/16.PNG" class="" title="16.PNG">
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/7.PNG" class="" title="7.PNG">
+
+<p>把结果扔到一开始找到的登录页面，发现并不正确</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/8.PNG" class="" title="8.PNG">
+<p>尝试在“邮件”里登录，并登录成功</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/9.PNG" class="" title="9.PNG">
+<p>翻找后发现，自己刚刚发的信息已经被邮件记录（社工软件的本质）</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/10.PNG" class="" title="10.PNG">
+<p>在往下翻，看到一个名字和生日，盲猜是后台账号和密码</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/11.PNG" class="" title="11.PNG">
+<p>扔到后台登录，并成功</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/12.PNG" class="" title="12.PNG">
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/13.PNG" class="" title="13.PNG">
+<p>从后台找到flag</p>
+<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/14.PNG" class="" title="14.PNG">
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-Flask-FileUpload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1069,136 +1191,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-大佬的博客整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">大佬的博客整理</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-05-11T12:54:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为一些原因（如点击量不足），很多大佬的博客无法通过百度和谷歌的方法搜索得到，故在此整理我见过的一些大佬的博客主页，以便自己今后方便查阅</p>
-<p><a target="_blank" rel="noopener" href="http://www.snowywar.top/?author=1">马猴烧酒雪殇</a></p>
-<p><a href ="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NTA0MzgxNQ==&action=getalbum&album_id=1791837685947367425&scene=173&from_msgid=2247484330&from_itemidx=1&count=3&nolastread=1#wechat_redirect">宸极实验室</a></p>
-<p><a href ="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzIzMTc1MjExOQ==&action=getalbum&album_id=1345842232737316865&scene=173&from_msgid=2247494993&from_itemidx=1&count=3&nolastread=1#wechat_redirect">ChaMd5安全团队</a></p>
-<p><a target="_blank" rel="noopener" href="https://ha1c9on.top/">HA1C9ON</a></p>
-<p><a target="_blank" rel="noopener" href="http://oriole.fun/">Oriole</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51078229">huamanggg</a></p>
-<p><a target="_blank" rel="noopener" href="https://public.zsxq.com/groups/824215518412.html">Nu1L</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Anton__1">H3h3QAQ</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.gem-love.com/">颖奇L’Amore(Y1ng)</a></p>
-<p><a target="_blank" rel="noopener" href="https://npfs06.top/">npfs</a></p>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/mp/homepage?__biz=MzIxMDYyNTk3Nw==&hid=1&sn=64117416f2cf3add067dc892c079749c&scene=18#wechat_redirect">白帽100安全攻防实验室(他的wp有些没有放到主页里面，需要手机查看微信公众号的“消息”)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.wlhhlc.top/">南方先生（南神）</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42880719">mumuzi（ctfshow）套神</a><br>（下图左边这位名叫“套不起壳组不成队要被虐爆，惨惨”的大佬）（并不是）</p>
-<img src="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/1.jpeg" class="" title="1.jpeg">
-
-
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae">Amherstieae（贝塔）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.d1a0.cn/">大周</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/">yu22x（羽）</a></p>
-<p><a target="_blank" rel="noopener" href="https://lazzzaro.github.io/">Lazzaro（la）</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.frankli.site/">frank</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464">Firebasky</a></p>
-<p><a target="_blank" rel="noopener" href="https://hellohy.top/">浅浅淡淡（hellohy）</a></p>
-<p><a target="_blank" rel="noopener" href="https://y4tacker.blog.csdn.net/">Y4tacker</a></p>
-<p><a target="_blank" rel="noopener" href="http://blog.y4tacker.top/">Y4tacker（新）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/erR0Ratao/">atao</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/user-home-876323.htm">ScUpax0s</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/WFC1006848997">Spaceman-911（太空人）</a></p>
-<p><a target="_blank" rel="noopener" href="https://spaceman-911.gitee.io/">spaceman</a></p>
-<p><a target="_blank" rel="noopener" href="https://typ0typ0.github.io/">typotypo</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.xl-bit.cn/">bit</a></p>
-<p><a target="_blank" rel="noopener" href="https://typ0typ0.github.io/">typ0typ0(错错）</a></p>
-<p><a target="_blank" rel="noopener" href="https://so4ms.top/">so4ms</a></p>
-<p><a target="_blank" rel="noopener" href="https://yml-sec.top/">yemoli</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder">feng</a></p>
-<p><a target="_blank" rel="noopener" href="https://ctfking.com">Tajang（网址超中二）</a></p>
-<p><a target="_blank" rel="noopener" href="https://m4son.cn">Mason</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.yongsheng.site/">Y0ng(又一个中二网址）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/ZM_________J/posts">ZM.J（春哥）</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.zbc53.top/">striving</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/davidcheyenneone/CTF">废物</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/member/155655">一只狗</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/11/%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%95%B4%E7%90%86/">展开全文 >></a>
         </p>
       
 

