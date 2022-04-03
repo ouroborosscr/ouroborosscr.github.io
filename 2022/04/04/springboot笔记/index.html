@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>springboot笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/3/index.html">
+  <meta name="description" content="环境：jdk：1.8mavenspringbootidea 第一个springboot程序官方：提供了一个快速生成的网站idea：集成了这个网站 官网直接可以create一个生成好的文件，下载解压就创建好项目了（当然实际开发不用这个方式）实际：idea新建–选择“Spring Initializr”–选择依赖“Spring Web” xxxxApplication.java:程序主入口，不能改也不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot笔记">
+<meta property="og:url" content="http://example.com/2022/04/04/springboot%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="环境：jdk：1.8mavenspringbootidea 第一个springboot程序官方：提供了一个快速生成的网站idea：集成了这个网站 官网直接可以create一个生成好的文件，下载解压就创建好项目了（当然实际开发不用这个方式）实际：idea新建–选择“Spring Initializr”–选择依赖“Spring Web” xxxxApplication.java:程序主入口，不能改也不">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-03T17:11:05.000Z">
+<meta property="article:modified_time" content="2022-04-03T17:14:30.206Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,332 +166,214 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-springboot笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      springboot笔记
+    </h1>
+  
+
+        
+        
+
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+
+
+<a href="/2022/04/04/springboot%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-03T17:11:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>环境：<br>jdk：1.8<br>maven<br>springboot<br>idea</p>
+<p>第一个springboot程序<br>官方：提供了一个快速生成的网站<br>idea：集成了这个网站</p>
+<p>官网直接可以create一个生成好的文件，下载解压就创建好项目了（当然实际开发不用这个方式）<br>实际：<br>idea新建–选择“Spring Initializr”–选择依赖“Spring Web”</p>
+<p>xxxxApplication.java:程序主入口，不能改也不能删<br>application.properities：核心配置文件<br>xxxxApplicationTest.java：单元测试</p>
+<p>在xxxxApplication.java的同级目录下建文件包controller，dao，pojo，service<br>在controller下的HelloController.java：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.helloworld.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">    @RequestMapping(&quot;&#x2F;hello&quot;)</span><br><span class="line">    public String hello()&#123;</span><br><span class="line">        return &quot;hello,World!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后就可以直接运行访问localhost:8080/hello就行了</p>
+<p>打jar包：maven里选“生命周期”，然后双击“package”</p>
+<p>改端口号：<br>在application.properities里加：<br>server.port=8081</p>
+<p>改上面的springboot的图标（logo）：<br>生成网站：<a target="_blank" rel="noopener" href="https://www.bootschool.net/ascii">https://www.bootschool.net/ascii</a><br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                          _ooOoo_                               &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                         o8888888o                              &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                         88&quot; . &quot;88                              &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                         (| ^_^ |)                              &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                         O\  &#x3D;  &#x2F;O                              &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                      ____&#x2F;&#96;---&#39;\____                           &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                    .&#39;  \\|     |&#x2F;&#x2F;  &#96;.                         &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                   &#x2F;  \\|||  :  |||&#x2F;&#x2F;  \                        &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                  &#x2F;  _||||| -:- |||||-  \                       &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                  |   | \\\  -  &#x2F;&#x2F;&#x2F; |   |                       &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                  | \_|  &#39;&#39;\---&#x2F;&#39;&#39;  |   |                       &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                  \  .-\__  &#96;-&#96;  ___&#x2F;-. &#x2F;                       &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                ___&#96;. .&#39;  &#x2F;--.--\  &#96;. . ___                     &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;              .&quot;&quot; &#39;&lt;  &#96;.___\_&lt;|&gt;_&#x2F;___.&#39;  &gt;&#39;&quot;&quot;.                  &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;            | | :  &#96;- \&#96;.;&#96;\ _ &#x2F;&#96;;.&#96;&#x2F; - &#96; : | |                 &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;            \  \ &#96;-.   \_ __\ &#x2F;__ _&#x2F;   .-&#96; &#x2F;  &#x2F;                 &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;      &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#96;-.____&#96;-.___\_____&#x2F;___.-&#96;____.-&#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;         &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;                           &#96;&#x3D;---&#x3D;&#39;                              &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;            佛祖保佑       永不宕机     永无BUG                    &#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;</span><br></pre></td></tr></table></figure>
+<p>在resources文件下创一个banner.txt，然后复制进去就行了</p>
+<p>pom.xml:<br>父依赖<br>其中它主要是依赖一个父项目，主要是管理项目的资源过滤及插件！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;relativePath&#x2F;&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">&lt;&#x2F;parent&gt;</span><br></pre></td></tr></table></figure>
+<p>点进去，发现还有一个父依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;relativePath&gt;..&#x2F;..&#x2F;spring-boot-dependencies&lt;&#x2F;relativePath&gt;</span><br><span class="line">&lt;&#x2F;parent&gt;</span><br></pre></td></tr></table></figure>
+<p>这里才是真正管理SpringBoot应用里面所有依赖版本的地方，SpringBoot的版本控制中心；</p>
+<p>以后我们导入依赖默认是不需要写版本；但是如果导入的包没有在依赖中管理着就需要手动配置版本了；<br>启动器 spring-boot-starter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>springboot-boot-starter-xxx：就是spring-boot的场景启动器</p>
+<p>spring-boot-starter-web：帮我们导入了web模块正常运行所依赖的组件；</p>
+<p>SpringBoot将所有的功能场景都抽取出来，做成一个个的starter （启动器），只需要在项目中引入这些starter即可，所有相关的依赖都会导入进来 ， 我们要用什么功能就导入什么样的场景启动器即可 ；我们未来也可以自己自定义 starter；</p>
+<p>yaml语法<br>删掉application.properties<br>创建application.ymal（语法结构 ：key：空格 value）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server：</span><br><span class="line">  prot: 8080</span><br><span class="line"></span><br><span class="line">#行内写法</span><br><span class="line">student: &#123;name: qinjiang,age: 3&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#数组（ List、set ）</span><br><span class="line">#用 - 值表示数组中的一个元素,比如：</span><br><span class="line">pets:</span><br><span class="line"> - cat</span><br><span class="line"> - dog</span><br><span class="line"> - pig</span><br><span class="line"></span><br><span class="line">#行内写法</span><br><span class="line">pets: [cat,dog,pig]</span><br></pre></td></tr></table></figure>
+
+
+<p>JSR303数据校验</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@NotNull(message&#x3D;&quot;名字不能为空&quot;)</span><br><span class="line">private String userName;</span><br><span class="line">@Max(value&#x3D;120,message&#x3D;&quot;年龄最大不能查过120&quot;)</span><br><span class="line">private int age;</span><br><span class="line">@Email(message&#x3D;&quot;邮箱格式错误&quot;)</span><br><span class="line">private String email;</span><br><span class="line"></span><br><span class="line">空检查</span><br><span class="line">@Null       验证对象是否为null</span><br><span class="line">@NotNull    验证对象是否不为null, 无法查检长度为0的字符串</span><br><span class="line">@NotBlank   检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.</span><br><span class="line">@NotEmpty   检查约束元素是否为NULL或者是EMPTY.</span><br><span class="line">    </span><br><span class="line">Booelan检查</span><br><span class="line">@AssertTrue     验证 Boolean 对象是否为 true  </span><br><span class="line">@AssertFalse    验证 Boolean 对象是否为 false  </span><br><span class="line">    </span><br><span class="line">长度检查</span><br><span class="line">@Size(min&#x3D;, max&#x3D;) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内  </span><br><span class="line">@Length(min&#x3D;, max&#x3D;) string is between min and max included.</span><br><span class="line"></span><br><span class="line">日期检查</span><br><span class="line">@Past       验证 Date 和 Calendar 对象是否在当前时间之前  </span><br><span class="line">@Future     验证 Date 和 Calendar 对象是否在当前时间之后  </span><br><span class="line">@Pattern    验证 String 对象是否符合正则表达式的规则</span><br><span class="line"></span><br><span class="line">.......等等</span><br><span class="line">除此以外，我们还可以自定义一些数据校验规则</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">Java笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/04/springboot%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
 
-<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
-  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<a href="/2021/10/07/ctfmanage/" class="archive-article-date">
-  	<time datetime="2021-10-07T14:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-07</time>
-</a>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/07/ctfmanage/">ctfmanage</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+        
+    </div>
+</aside>
 
 
-<a href="/2021/10/05/xxc/" class="archive-article-date">
-  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/05/xxc/">xxc</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
-  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/28/uploadlabs-4/" class="archive-article-date">
-  	<time datetime="2021-09-28T13:10:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/28/uploadlabs-4/">uploadlabs-4</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/28/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2021-09-28T11:13:24.621Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/27/sqli-labs/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:38:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/27/sqli-labs/">sqli-labs</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/27/uploadlabs-3/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:23:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/27/uploadlabs-3/">uploadlabs-3</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/26/uploadlabs-2/" class="archive-article-date">
-  	<time datetime="2021-09-26T14:47:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/26/uploadlabs-2/">uploadlabs-2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/4/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
           </div>
         </div>
       </div>
@@ -520,8 +406,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

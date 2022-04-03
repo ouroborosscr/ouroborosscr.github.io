@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>vue笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/3/index.html">
+  <meta name="description" content="vue的作者是中国人（尤雨溪），梗“尤雨溪懂个毛线的vue”的出处  感觉相当于js的一个外置包 1.演示：data相当于是默认的值，后面跟的东西会被解析成字符串 12345678910111213141516171819202122232425262728&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue笔记">
+<meta property="og:url" content="http://example.com/2022/04/04/vue%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="vue的作者是中国人（尤雨溪），梗“尤雨溪懂个毛线的vue”的出处  感觉相当于js的一个外置包 1.演示：data相当于是默认的值，后面跟的东西会被解析成字符串 12345678910111213141516171819202122232425262728&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/04/vue%E7%AC%94%E8%AE%B0/vue.png">
+<meta property="article:published_time" content="2022-04-03T17:10:57.000Z">
+<meta property="article:modified_time" content="2022-04-03T17:13:20.318Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/04/vue%E7%AC%94%E8%AE%B0/vue.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -162,332 +168,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-vue笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue笔记
+    </h1>
+  
+
+        
+        
+
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+
+
+<a href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-03T17:10:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vue的作者是中国人（尤雨溪），梗“尤雨溪懂个毛线的vue”的出处</p>
+<img src="/2022/04/04/vue%E7%AC%94%E8%AE%B0/vue.png" class="" title="vue.png">
+<p>感觉相当于js的一个外置包</p>
+<p>1.演示：<br>data相当于是默认的值，后面跟的东西会被解析成字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--view层 模板--&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &#123;&#123;message&#125;&#125;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--1.导入vue.js--&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue@2&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var vm&#x3D;new Vue(&#123;</span><br><span class="line">        el:&quot;#app&quot;,</span><br><span class="line">        &#x2F;&#x2F;Model:数据</span><br><span class="line">        data:&#123;</span><br><span class="line">           message:&quot;hello,vue!&quot;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;Vue 测试实例 - 菜鸟教程(runoob.com)&lt;&#x2F;title&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.staticfile.org&#x2F;vue&#x2F;2.2.2&#x2F;vue.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">	&#123;&#123;5+5&#125;&#125;&lt;br&gt;</span><br><span class="line">	&#123;&#123; ok ? &#39;YES&#39; : &#39;NO&#39; &#125;&#125;&lt;br&gt;</span><br><span class="line">	&#123;&#123; message.split(&#39;&#39;).reverse().join(&#39;&#39;) &#125;&#125;</span><br><span class="line">	&lt;div v-bind:id&#x3D;&quot;&#39;list-&#39; + id&quot;&gt;菜鸟教程&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">	</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">	ok: true,</span><br><span class="line">    message: &#39;RUNOOB&#39;,</span><br><span class="line">	id : 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>会输出：<br>10<br>YES<br>BOONUR<br>菜鸟教程</p>
+<p>2.条件语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;div v-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;A&#39;&quot;&gt;</span><br><span class="line">      A</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;B&#39;&quot;&gt;</span><br><span class="line">      B</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;C&#39;&quot;&gt;</span><br><span class="line">      C</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      Not A&#x2F;B&#x2F;C</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    type: &#39;C&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.循环：<br>根据数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ol&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;site in sites&quot;&gt;</span><br><span class="line">      &#123;&#123; site.name &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ol&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    sites: [</span><br><span class="line">      &#123; name: &#39;Runoob&#39; &#125;,</span><br><span class="line">      &#123; name: &#39;Google&#39; &#125;,</span><br><span class="line">      &#123; name: &#39;Taobao&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>根据对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;value in object&quot;&gt;</span><br><span class="line">    &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    object: &#123;</span><br><span class="line">      name: &#39;菜鸟教程&#39;,</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;www.runoob.com&#39;,</span><br><span class="line">      slogan: &#39;学的不仅是技术，更是梦想！&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>获取多个值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">     &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125; : &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>根据整数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">     &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125; : &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>4.计算(computed关键词)<br>用了这个就可以使用function ()来创建函数了<br>以下代码的作用是将字符串倒叙输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;p&gt;原始字符串: &#123;&#123; message &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;计算后反转字符串: &#123;&#123; reversedMessage &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">var vm &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &#39;Runoob!&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    &#x2F;&#x2F; 计算属性的 getter</span><br><span class="line">    reversedMessage: function () &#123;</span><br><span class="line">      &#x2F;&#x2F; &#96;this&#96; 指向 vm 实例</span><br><span class="line">      return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5.监听（watch属性）<br>在这个中的属性一般也在data中定义，然后在watch中再次定义，并可以使用function(val)，其中val就是传参（可以修改为别的值）<br>以v-model的表单的方式打印，修改的时候会自动运行函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Vue 测试实例 - 菜鸟教程(runoob.com)&lt;&#x2F;title&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.staticfile.org&#x2F;vue&#x2F;2.4.2&#x2F;vue.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">   &lt;body&gt;</span><br><span class="line">      &lt;div id &#x3D; &quot;computed_props&quot;&gt;</span><br><span class="line">         千米 : &#123;&#123;kilometers&#125;&#125;&lt;!--&lt;input type &#x3D; &quot;text&quot; v-model &#x3D; &quot;kilometers&quot;&gt;--&gt;</span><br><span class="line">         米 : &lt;input type &#x3D; &quot;text&quot; v-model &#x3D; &quot;meters&quot;&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">	   &lt;p id&#x3D;&quot;info&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;script type &#x3D; &quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">         var vm &#x3D; new Vue(&#123;</span><br><span class="line">            el: &#39;#computed_props&#39;,</span><br><span class="line">            data: &#123;</span><br><span class="line">               kilometers : 0,</span><br><span class="line">               meters:0</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">            &#125;,</span><br><span class="line">            computed :&#123;</span><br><span class="line">            &#125;,</span><br><span class="line">            watch : &#123;</span><br><span class="line">               kilometers:function(val) &#123;</span><br><span class="line">                  this.kilometers &#x3D; val;</span><br><span class="line">                  this.meters &#x3D; this.kilometers * 1000</span><br><span class="line">               &#125;,</span><br><span class="line">               meters : function (val) &#123;</span><br><span class="line">                  this.kilometers &#x3D; val&#x2F; 1000;</span><br><span class="line">                  this.meters &#x3D; val;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">         &#x2F;&#x2F; $watch 是一个实例方法</span><br><span class="line">		vm.$watch(&#39;kilometers&#39;, function (newValue, oldValue) &#123;</span><br><span class="line">			&#x2F;&#x2F; 这个回调将在 vm.kilometers 改变后调用</span><br><span class="line">		    document.getElementById (&quot;info&quot;).innerHTML &#x3D; &quot;修改前值为: &quot; + oldValue + &quot;，修改后值为: &quot; + newValue;</span><br><span class="line">		&#125;)</span><br><span class="line">      &lt;&#x2F;script&gt;</span><br><span class="line">   &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-10T05:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">Java笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/04/vue%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
 
-<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
-  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+<nav id="article-nav">
+  
+    <a href="/2022/04/04/springboot%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          springboot笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php反序化（重复利用同一个类）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<a href="/2021/10/07/ctfmanage/" class="archive-article-date">
-  	<time datetime="2021-10-07T14:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-07</time>
-</a>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/07/ctfmanage/">ctfmanage</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+        
+        
+    </div>
+</aside>
 
 
-<a href="/2021/10/05/xxc/" class="archive-article-date">
-  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/05/xxc/">xxc</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
-  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/28/uploadlabs-4/" class="archive-article-date">
-  	<time datetime="2021-09-28T13:10:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/28/uploadlabs-4/">uploadlabs-4</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/28/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2021-09-28T11:13:24.621Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/27/sqli-labs/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:38:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/27/sqli-labs/">sqli-labs</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/27/uploadlabs-3/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:23:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/27/uploadlabs-3/">uploadlabs-3</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-
-<a href="/2021/09/26/uploadlabs-2/" class="archive-article-date">
-  	<time datetime="2021-09-26T14:47:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/26/uploadlabs-2/">uploadlabs-2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/4/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
           </div>
         </div>
       </div>
@@ -520,8 +416,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
