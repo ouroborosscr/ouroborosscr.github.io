@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>android笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/12/index.html">
+  <meta name="description" content="1.目录结构 idea可以直接创建android项目app目录内容：app &gt; src &gt; main &gt; java &gt; com.example.myfirstapp &gt; MainActivity这是主 activity。它是应用的入口点。当您构建和运行应用时，系统会启动此 Activity 的实例并加载其布局。app &gt; src &gt; main &gt; j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android笔记">
+<meta property="og:url" content="http://example.com/2022/04/10/android%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.目录结构 idea可以直接创建android项目app目录内容：app &gt; src &gt; main &gt; java &gt; com.example.myfirstapp &gt; MainActivity这是主 activity。它是应用的入口点。当您构建和运行应用时，系统会启动此 Activity 的实例并加载其布局。app &gt; src &gt; main &gt; j">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-10T12:39:56.000Z">
+<meta property="article:modified_time" content="2022-04-10T12:44:34.454Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,69 +166,156 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-涅普冬令营web篇little-trick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-android笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">涅普冬令营web篇little_trick</a>
+    <h1 class="article-title" itemprop="name">
+      android笔记
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" class="archive-article-date">
-  	<time datetime="2021-03-22T11:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
+
+
+<a href="/2022/04/10/android%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-10T12:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>little_trick<br>web的第一道题<br>打开以后是php的代码</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.PNG" class="" title="nep2.PNG">
-<p>解读一下这段代码<br>1.先用GET接收两个变量，变量名为nep，len<br>2.判断这两个变量，若判断为真，则执行eval（）函数，否则，输出too long 结束<br>3.总之就是不能让它输出too long呗<br>所以先分析一下这里涉及的四个函数intval（）、strlen（）、eval（）、substr（）</p>
-<p>intval（$len）：这个函数的意思是取$len的十进制数值（比如十六进制、八进制变成十进制，10abc——&gt;10，abc10——&gt;0），intval（$len）&lt;8我们暂时可以直接当成$len&lt;8。</p>
-<p>strlen（）：相当于c++的strlen，就是计算字符长度</p>
-<p>eval（）：把括号里的文字作为php代码运行</p>
-<p>substr（$nep,0,$len）:就是从$nep中截取字符段，第二个数字表示从第几位开始截取，0的意思是从第一个字开始，后面的$len意思是截取多少个字符（但是这个量分正负，正数就是从正向开始截取几个字符，负数就是从最后数少截取几个字符）</p>
-<p>所以通篇读下来就是$len&lt;=7,字符串$nep长度&lt;=12<br>然后从$nep中截取$len个字符并运行。<br>那么似乎只能截取7个字符，那$nep再长没用<br>没什么思路，所以从绕过两个字数限制开始吧。</p>
-<p>首先搜了一下绕过intval（）的<br>发现了这篇文章<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43536759/article/details/106785184">https://blog.csdn.net/weixin_43536759/article/details/106785184</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep8.PNG" class="" title="nep8.PNG">
-<p>其中列出了溢出和一个“var_dump(intval(‘0xa’+1)) //int(11)数值形式输入(此漏洞php7被修复)”这样的漏洞<br>试验了一下，都没用</p>
-<p>但是，我前面说过，$len在substr（$nep,0,$len）函数中是可以取负值的。<br>所以我试了一下传入len=-1，因为这样会舍弃$nep的最后一个字符，所以我需要在nep最后加一个“废字符”（这里用a）<br>所以最后的传值就是len=-1&amp;nep=phpinfo();a（顺便看一下php的配置）<br>效果如下：</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.5.PNG" class="" title="nep2.5.PNG">
+        <p>1.目录结构</p>
+<p>idea可以直接创建android项目<br>app目录内容：<br>app &gt; src &gt; main &gt; java &gt; com.example.myfirstapp &gt; MainActivity<br>这是主 activity。它是应用的入口点。当您构建和运行应用时，系统会启动此 Activity 的实例并加载其布局。<br>app &gt; src &gt; main &gt; java &gt; androidTest<br>编写安卓测试<br>app &gt; src &gt; main &gt; res &gt; layout &gt; activity_main.xml<br>此 XML 文件定义了 activity 界面 (UI) 的布局。它包含一个 TextView 元素，其中具有“Hello, World!”文本<br>app &gt; manifests &gt; AndroidManifest.xml<br>清单文件描述了应用的基本特性并定义了每个应用组件。<br>app &gt; lib<br>导入外部jar包的目录<br>app &gt; res<br>资源文件<br>drawable一般是放图片的<br>layout一般放布局文件<br>mipmap一般放图标<br>values：颜色，风格等<br>app &gt; test<br>单元测试</p>
+<p>gradle（构建器）目录：<br>wrapper下的内容是gradle的jar包</p>
+<p>app &gt; build.gradle(app的gradle构建脚本)<br>build.gradle（全局的gradle构建脚本）：<br>有两个使用此名称的文件：一个针对项目“Project: My First App”，另一个针对应用模块“Module: My_First_App.app”。每个模块均有自己的 build.gradle 文件，但此项目当前仅有一个模块。使用每个模块的 build.gradle 文件控制 Gradle 插件构建应用的方式。如需详细了解此文件，请参阅配置 build。</p>
+<p>gradle.properties：gradle配置文件</p>
+<p>gradlew：运行的指令</p>
+<p>local.properties:sdk路径</p>
+<p>setting.gradle</p>
+<p>2.控件<br>2.1 TestView（文字控件）（作用是打印文字）</p>
+<p>MainActivity.java的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>R.layout.activity_main指向的是res &gt; layout &gt; activity_main.xml<br>修改这里就可以做到修改app的布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其中LinearLayout是容器，TextView是控件<br>先从控件开始<br>全部属性：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xxlyzgt/article/details/80596980">https://blog.csdn.net/xxlyzgt/article/details/80596980</a><br>其中比较重要的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">android:id</span><br><span class="line">为控件指定相应的id</span><br><span class="line">android:text</span><br><span class="line">指定控件当中显示的文字，需要注意的是，这里尽量使用strings.xml文件当中的字符串</span><br><span class="line">android:gravity</span><br><span class="line">指定view组件的对齐方式，比如说居中，居右等位置 这里指的是控件中的文本位置并不是控件本身</span><br><span class="line">android:layout_gravity</span><br><span class="line">指定container组件的对齐方式．比如一个button 在linearlayout里，你想把该button放在靠左、靠右等位置就可以通过该属性设置．以button为 例，android:layout_gravity&#x3D;”right”则button靠右</span><br><span class="line">android:textsize</span><br><span class="line">指定控件当中字体的大小</span><br><span class="line">android:background</span><br><span class="line">指定该控件所使用的背景色，rgb命名法</span><br><span class="line">android:width</span><br><span class="line">指定控件的宽度</span><br><span class="line">android:height</span><br><span class="line">指定控件的高度</span><br><span class="line">android:layout_width</span><br><span class="line">指定container组件的宽度</span><br><span class="line">android:layout_height</span><br><span class="line">指定container组件的高度</span><br><span class="line">android:layout_weight</span><br><span class="line">view中很重要的属性，按比例划分空间</span><br></pre></td></tr></table></figure>
 
-<p>这之后发现php版本大于7，怪不得前面那个漏洞用不了。</p>
-<p>到这，对len的绕过算是结束了，可运行php代码的数量扩充到了12（但是要补一个废字符a，所以相当于11）<br>strlen（）我是实在没找到能绕过的地方，就此作罢。</p>
-<p>之后，就没思路了……</p>
-<p>还好这时这道题突然崩了，然后看见群里有人反馈他做完题后不小心rm -rf / *<br>了一下,把一开始的静态环境弄炸了(夺笋呐)</p>
-<p>等恢复（换成靶机）的这段时间里想到了用shell<br>（刚刚的phpinfo（）顺便得到了是linux系统）<br>然后就搜了一下让php实现shell的方法<br>最常见的是以下三种函数：<br>1.system<br>2.exec<br>3.passthru<br>但都太长了，根本不可能使用（因为还要加上;a)(其实后来想想，exec或许可以)</p>
-<p>之后我找到了一种最简便的方法——``(用反引号括起来)<br>然后我尝试了len=-1&amp;nep=echo `ls`;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep3.PNG" class="" title="nep3.PNG">
 
-<p>回显显示了一个文件nepctf.php<br>先尝试打开它</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep7.PNG" class="" title="nep7.PNG">
-<p>发现是个空白页<br>那么flag很有可能在这个文件里</p>
-<h2 id="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"><a href="#为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）" class="headerlink" title="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"></a>为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）</h2><p>首先想到的是限制字符的shell<br>因此搜到了这个————<br><a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3316599.html">http://www.bubuko.com/infodetail-3316599.html</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep9.PNG" class="" title="nep9.PNG">
-<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补` `;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量)<br>这都有13个字符了，直接超标<br>所以实际上我只能用4字符的方法<br>而四字符的方法，是通过\号实现shell转译，来实现多行的输入<br>再通过&gt; v，以及*v来倒叙读取这些代码来运行<br>但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的<br>但我不会python，所以只能用burpsuite实现一次性输入<br>事实上，因为我看不到回显的缘故，我甚至不知道每次的``是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
-<hr>
-<h2 id="正确方法！！！"><a href="#正确方法！！！" class="headerlink" title="正确方法！！！"></a>正确方法！！！</h2><p>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo `cat n*`;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=`cp 1 n*`;a(相当于把n*文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep4.PNG" class="" title="nep4.PNG">
-<p>然后ls一下，看见1文件已被创立</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep5.PNG" class="" title="nep5.PNG">
-<p>然后访问1文件，得到flag</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep6.PNG" class="" title="nep6.PNG">
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep1.PNG" class="" title="nep1.PNG">
+
+<p>android:layout_width和android:layout_height控制的是控件的大小，可用参数：<br>1.fill_parent(弃用)<br>2.match_parent（value=-1）：根据容器（LinearLayout）的宽（长）度来取宽（长）度<br>3.wrap_content（value=-2）<br>4.准确大小，例：200dp</p>
+<p>android:id<br>让java代码可以获取控件<br>如设置<code>android:id=&quot;@+id/tv_one&quot;</code><br>那么MainActivity.java获取这个控件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        TextView tv_one &#x3D; findViewById(R.id.tv_one);&#x2F;&#x2F;获取控件</span><br><span class="line">        tv_one.setText(&quot;scr&quot;);&#x2F;&#x2F;设置初始值</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>android:text=””：设置文本内容（和setText的功能差不多）<br>运行时会先打印android:text，然后setText会将其覆盖<br>可以直接写内容，比如<code>android:text=&quot;123&quot;</code><br>或者写路径<code>android:text=&quot;@string/tv_one&quot;</code>,然后在values下的strings.xml中写<code>&lt;string name=&quot;app_name&quot;&gt;123&lt;/string&gt;</code></p>
+<p>android:textColor:设置颜色<br>例：<code>android:textColor=#FF000000</code><br>一共八位<br>FF：透明度（00是全透明，FF是不透明）<br>后面三位分别是rbg三色</p>
+<p>android:textStyle：设置字体</p>
+<p>android:textSize：设置字体大小</p>
+<p>android:background：设置北京，可以是颜色或图片路径</p>
+<p>android:grivity：设置放在整个app的哪里（中间：center，右：right，底：bottom等）</p>
+<p>2.2 button控件（按钮）</p>
+<p>Button常用属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">android:drawable 		&#x2F;&#x2F;放一个drawable资源</span><br><span class="line">android:drawableTop		&#x2F;&#x2F;可拉伸要绘制的文本的上面</span><br><span class="line">android:drawableBottom	&#x2F;&#x2F;可拉伸要绘制的文本的下面</span><br><span class="line">android:drawableLeft 	&#x2F;&#x2F;可拉伸要绘制的文本的左侧</span><br><span class="line">android:drawableRight	&#x2F;&#x2F;可拉伸要绘制的文本的右侧</span><br><span class="line">android:text  			&#x2F;&#x2F;设置显示的文本</span><br><span class="line">android:textColor		&#x2F;&#x2F;设置显示文本的颜色</span><br><span class="line">android:textSize		&#x2F;&#x2F;设置显示文本字体大小</span><br><span class="line">android:background 		&#x2F;&#x2F;可拉伸使用的背景</span><br><span class="line">android:onClick			&#x2F;&#x2F;设置点击事件（直接会调用对应的方法）（但是不被建议使用，因为“该方法脆弱的（中间层）并限制字节码优化器，比如R8，建议使用View.setOnClickListener替代）</span><br></pre></td></tr></table></figure>
+
+<p>Button的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">android:state_pressed  &#x2F;&#x2F;是否按下，如一个按钮触摸或者点击。</span><br><span class="line">android:state_focused  &#x2F;&#x2F;是否取得焦点，比如用户选择了一个文本框。</span><br><span class="line">android:state_hovered  &#x2F;&#x2F;光标是否悬停，通常与focused state相同，它是4.0的新特性</span><br><span class="line">android:state_selected &#x2F;&#x2F;被选中状态</span><br><span class="line">android:state_checkable &#x2F;&#x2F;组件是否能被check。如：RadioButton是可以被check的。</span><br><span class="line">android:state_checked   &#x2F;&#x2F;被checked了，如：一个RadioButton可以被check了。</span><br><span class="line">android:state_enabled 	&#x2F;&#x2F;能够接受触摸或者点击事件</span><br><span class="line">android:state_activated &#x2F;&#x2F;被激活</span><br><span class="line">android:state_window_focused &#x2F;&#x2F;应用程序是否在前台，当有通知栏被拉下来或者一个对话框弹出的时候应用程序就不在前台了</span><br></pre></td></tr></table></figure>
+
+<p>在res &gt; drawable下new一个btn_select.xml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;selector xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;item android:drawable&#x3D;&quot;@drawable&#x2F;ic_android_black_24dp&quot; android:state_pressed&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">    &lt;item android:drawable&#x3D;&quot;@drawable&#x2F;ic_android_black_24dp1&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;selector&gt;</span><br></pre></td></tr></table></figure>
+<p>按下是ic_android_black_24dp文件，松开是ic_android_black_24dp1文件<br>activity_main.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;Button android:text&#x3D;&quot;我是按钮&quot;</span><br><span class="line">            android:background&#x3D;&quot;@drawable&#x2F;btn_selector&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;200dp&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;100dp&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>事件处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn&quot;</span><br><span class="line">            android:text&#x3D;&quot;我是按钮&quot;</span><br><span class="line">            android:background&#x3D;&quot;@drawable&#x2F;btn_selector&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;200dp&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;100dp&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.view.MotionEvent;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        Button btn &#x3D; findViewById(R.id.btn);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;点击事件</span><br><span class="line">        btn.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v)&#123;</span><br><span class="line">                System.out.println(1);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;长按事件</span><br><span class="line">        btn.setOnLongClickListener(new View.OnLongClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean onLongClick(View v)&#123;</span><br><span class="line">                System.out.println(2);</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;触摸事件</span><br><span class="line">        btn.setOnTouchListener(new View.OnTouchListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean onTouch(View v, MotionEvent event) &#123;</span><br><span class="line">                System.out.println(3);</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按下事件是“松开”<br>长按就是“长按”<br>触摸事件包括鼠标“按下”，“移动”，“松开”</p>
+<p>相当于是onClick()调用onLongClick()调用onTouch()<br>每次鼠标进行一个操作（“按下”，“移动”，“松开”），先判断是否执行onTouch()，若返回值为false则判断是否执行onLongClick()，返回值为true则onLongClick()直接不执行返回true，onLongClick()返回值为false则判断是否执行onTouch()，onLongClick()返回值为true则直接不执行onTouch()</p>
+<p>2.3 EditText（输入框）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:hint 输入提示</span><br><span class="line">android:inputType 输入类型（可省略，写上则会对数据进行校验，如输入phone会校验电话的格式）</span><br></pre></td></tr></table></figure>
+<p>结合按钮进行输入读取：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;EditText android:id&#x3D;&quot;@+id&#x2F;et&quot;</span><br><span class="line">            android:hint&#x3D;&quot;请输入用户名&quot;</span><br><span class="line">            android:textColorHint&#x3D;&quot;#95a1aa&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;200dp&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;100dp&quot;&#x2F;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn&quot;</span><br><span class="line">            android:background&#x3D;&quot;@color&#x2F;black&quot;</span><br><span class="line">            android:gravity&#x3D;&quot;bottom&quot;</span><br><span class="line">            android:text&#x3D;&quot;获取用户名&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;200dp&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;100dp&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.view.MotionEvent;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        Button btn &#x3D; findViewById(R.id.btn);</span><br><span class="line">        TextView et &#x3D; findViewById(R.id.et);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;点击事件</span><br><span class="line">        btn.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v)&#123;</span><br><span class="line">                System.out.println(1);</span><br><span class="line">                System.out.println(et.getText().toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.4 ImageView(图片)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">android:src 设置图片资源</span><br><span class="line">android:scaleType 设置图片缩放类型</span><br><span class="line">android:maxHeight 最大高度</span><br><span class="line">android:maxWidth 最大宽度</span><br><span class="line">android:adjustViewBounds 调整View的界限</span><br></pre></td></tr></table></figure>
+<p>在res &gt; drawable创建scr.jpg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;ImageView android:layout_height&#x3D;&quot;200dp&quot;</span><br><span class="line">               android:layout_width&#x3D;&quot;200dp&quot;</span><br><span class="line">               android:src&#x3D;&quot;@drawable&#x2F;scr&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.5 ProgressBar(进度条)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">android:max 显示进度条最大值</span><br><span class="line">android:progress 显示进度条已完成度</span><br><span class="line">android:indeterm 如果设置成true，则进度条不精确显示进度</span><br><span class="line">style&#x3D;&quot;?android:attr&#x2F;progressBarStyleHorizontal&quot; 使用安卓给的一些进度条（水平进度条）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;ProgressBar android:id&#x3D;&quot;@+id&#x2F;pb&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;&#x2F;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn&quot;</span><br><span class="line">            android:text&#x3D;&quot;显示隐藏进度条&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.view.MotionEvent;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.ProgressBar;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        Button btn &#x3D; findViewById(R.id.btn);</span><br><span class="line">        ProgressBar pb &#x3D; findViewById(R.id.pb);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;点击事件</span><br><span class="line">        btn.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v)&#123;</span><br><span class="line">                System.out.println(1);</span><br><span class="line">                if(pb.getVisibility()&#x3D;&#x3D;View.GONE)&#123;</span><br><span class="line">                    &#x2F;&#x2F;如果是隐藏的，就显示</span><br><span class="line">                    pb.setVisibility(View.VISIBLE);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    &#x2F;&#x2F;否则就隐藏</span><br><span class="line">                    pb.setVisibility(View.GONE);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>水平进度条：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;ProgressBar android:id&#x3D;&quot;@+id&#x2F;pb&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;&#x2F;&gt;</span><br><span class="line">    &lt;ProgressBar android:id&#x3D;&quot;@+id&#x2F;pb1&quot;</span><br><span class="line">                 style&#x3D;&quot;?android:attr&#x2F;progressBarStyleHorizontal&quot;</span><br><span class="line">                 android:max&#x3D;&quot;100&quot;</span><br><span class="line">                 android:layout_width&#x3D;&quot;300dp&quot;</span><br><span class="line">                 android:layout_height&#x3D;&quot;wrap_content&quot;&#x2F;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn&quot;</span><br><span class="line">            android:text&#x3D;&quot;显示隐藏进度条&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn1&quot;</span><br><span class="line">            android:text&#x3D;&quot;模拟下载进度条增加&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.view.MotionEvent;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.ProgressBar;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        Button btn &#x3D; findViewById(R.id.btn);</span><br><span class="line">        ProgressBar pb &#x3D; findViewById(R.id.pb);</span><br><span class="line">        Button btn1 &#x3D; findViewById(R.id.btn1);</span><br><span class="line">        ProgressBar pb1 &#x3D; findViewById(R.id.pb1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;点击事件</span><br><span class="line">        btn.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v)&#123;</span><br><span class="line">                System.out.println(1);</span><br><span class="line">                if(pb.getVisibility()&#x3D;&#x3D;View.GONE)&#123;</span><br><span class="line">                    &#x2F;&#x2F;如果是隐藏的，就显示</span><br><span class="line">                    pb.setVisibility(View.VISIBLE);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    &#x2F;&#x2F;否则就隐藏</span><br><span class="line">                    pb.setVisibility(View.GONE);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;点击事件</span><br><span class="line">        btn1.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v)&#123;</span><br><span class="line">                System.out.println(2);</span><br><span class="line">                int progress &#x3D; pb1.getProgress();</span><br><span class="line">                progress+&#x3D;10;</span><br><span class="line">                pb1.setProgress(progress);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>事实证明那些进度条可能真的只是动画，前面慢放，检测到完成后直接改成100</p>
+<p>2.6 Notification(通知)(相当于手机顶上的弹窗和提示)<br>channelID：android8.0引入的通知渠道，其允许为要显示的每种通知类型创建用户可自定义的渠道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">   &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn&quot;</span><br><span class="line">            android:text&#x3D;&quot;发出通知&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">           android:onClick&#x3D;&quot;sendNotification&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">    &lt;Button android:id&#x3D;&quot;@+id&#x2F;btn1&quot;</span><br><span class="line">            android:text&#x3D;&quot;取消通知&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:onClick&#x3D;&quot;cacelNotification&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.app.Notification;</span><br><span class="line">import android.app.NotificationChannel;</span><br><span class="line">import android.app.NotificationManager;</span><br><span class="line">import android.os.Build;</span><br><span class="line">import android.view.MotionEvent;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.ProgressBar;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import androidx.core.app.NotificationCompat;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private NotificationManager manager;</span><br><span class="line">    private Notification notification;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;创建一个NotificationManager</span><br><span class="line">        manager &#x3D; (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;若android版本大于8.0，才创建</span><br><span class="line">        if(Build.VERSION.SDK_INT&gt;&#x3D;Build.VERSION_CODES.O)&#123;</span><br><span class="line">            NotificationChannel channel &#x3D; new NotificationChannel(&quot;scr&quot;, &quot;测试通知&quot;, NotificationManager.IMPORTANCE_HIGH);&#x2F;&#x2F;参数分别为id，通知名，和重要程度（是否弹窗，是否有提示音）</span><br><span class="line">            manager.createNotificationChannel(channel);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;channelID：android8.0引入的通知渠道，其允许为要显示的每种通知类型创建用户可自定义的渠道</span><br><span class="line">        &#x2F;&#x2F;基础格式：notification &#x3D; new NotificationCompat.Builder(this,&quot;scr&quot;).build();</span><br><span class="line">        &#x2F;&#x2F;如果要设置标题，文本内容，小图标等，可以直接在中间添加set开头的方法</span><br><span class="line">        &#x2F;&#x2F;如：</span><br><span class="line">         notification &#x3D; new NotificationCompat.Builder(this,&quot;scr&quot;)</span><br><span class="line">         .setContentTitle(&quot;官方通知&quot;)&#x2F;&#x2F;设置标题</span><br><span class="line">         .setContentText(&quot;世界&quot;)&#x2F;&#x2F;设置文本内容</span><br><span class="line">         .setSmallIcon(R.drawable.ic_android_black_24dp)&#x2F;&#x2F;设置小图标为drawable下的pic.jpg文件，图片只能用alpha图层，不能用rgb图层（图片不能带颜色）</span><br><span class="line">         .build();</span><br><span class="line">    &#125;</span><br><span class="line">    public void sendNotification(View view)&#123;</span><br><span class="line">        manager.notify(1,notification);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void cacelNotification(View view)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.7 Toolbar<br>原来的values &gt; themes.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;resources xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;&gt;</span><br><span class="line">    &lt;!-- Base application theme. --&gt;</span><br><span class="line">    &lt;style name&#x3D;&quot;Theme.MyApplication2&quot; parent&#x3D;&quot;Theme.MaterialComponents.DayNight.DarkActionBar.Bridge&quot;&gt;</span><br><span class="line">        &lt;!-- Primary brand color. --&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorPrimary&quot;&gt;@color&#x2F;purple_500&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorPrimaryVariant&quot;&gt;@color&#x2F;purple_700&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorOnPrimary&quot;&gt;@color&#x2F;white&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;!-- Secondary brand color. --&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorSecondary&quot;&gt;@color&#x2F;teal_200&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorSecondaryVariant&quot;&gt;@color&#x2F;teal_700&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;colorOnSecondary&quot;&gt;@color&#x2F;black&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;!-- Status bar color. --&gt;</span><br><span class="line">        &lt;item name&#x3D;&quot;android:statusBarColor&quot; tools:targetApi&#x3D;&quot;l&quot;&gt;?attr&#x2F;colorPrimaryVariant&lt;&#x2F;item&gt;</span><br><span class="line">        &lt;!-- Customize your theme here. --&gt;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;resources&gt;</span><br></pre></td></tr></table></figure>
+<p>这种情况app上面会有一个名称栏<br>把<code>parent=&quot;Theme.MaterialComponents.DayNight.DarkActionBar.Bridge&quot;</code>改成<code>parent=&quot;Theme.MaterialComponents.DayNight.NoActionBar&quot;</code>之后就没有了<br>然后可以用Toolbar自己设置一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;androidx.appcompat.widget.Toolbar</span><br><span class="line">            android:background&#x3D;&quot;#ffff00&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;?attr&#x2F;actionBarSize&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.8 AlertDialog(相当于app内的弹窗功能)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">              android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">              xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button android:text&#x3D;&quot;显示对话框&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:onClick&#x3D;&quot;scrclick&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myapplication2;</span><br><span class="line"></span><br><span class="line">import android.app.AlertDialog;</span><br><span class="line">import android.app.Notification;</span><br><span class="line">import android.app.NotificationChannel;</span><br><span class="line">import android.app.NotificationManager;</span><br><span class="line">import android.os.Build;</span><br><span class="line">import android.view.View;</span><br><span class="line">import androidx.appcompat.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import androidx.core.app.NotificationCompat;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void scrclick(View view)&#123;</span><br><span class="line">        AlertDialog.Builder builder &#x3D; new AlertDialog.Builder(this);</span><br><span class="line">        builder.setIcon(R.drawable.ic_android_black_24dp)&#x2F;&#x2F;创建图标</span><br><span class="line">                .setTitle(&quot;我是对话框&quot;)&#x2F;&#x2F;设置标题</span><br><span class="line">                .setMessage(&quot;今天天气怎么样？&quot;)&#x2F;&#x2F;设置消息</span><br><span class="line">&#x2F;&#x2F;                .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() &#123;</span><br><span class="line">&#x2F;&#x2F;                    @Override</span><br><span class="line">&#x2F;&#x2F;                    public void onClick(DialogInterface dialog, int which) &#123;</span><br><span class="line">&#x2F;&#x2F;                        </span><br><span class="line">&#x2F;&#x2F;                    &#125;</span><br><span class="line">&#x2F;&#x2F;                &#125;)&#x2F;&#x2F;创建确定按钮，并写功能，同样也可以用setNegativeButton设置取消按钮，用.setNeutralButton设置中间按钮</span><br><span class="line">                .create()&#x2F;&#x2F;创建dialog</span><br><span class="line">                .show();&#x2F;&#x2F;显示dialog</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.9 PopupWindow</p>
+<p>数据存储：<br>1.内部存储和外部存储<br>（1）内部存储<br>路径：data &gt; data下会生成一个包名（比如我的是com.example.myapplication2)<br>这个包就是这个应用的内部存储<br>相当于这个app本身<br>分为SP，SQLIte，Room<br>SP：配置信息<br>SQLIte，Room：数据库<br>（2）外部存储<br>路径：storage &gt; emulated &gt; 0 &gt; Android &gt; data &gt; com.example.myapplication2</p>
+<p>文件操作，例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">优先外部存贮</span><br><span class="line">public static String getFilePath(Context context, String dir) &#123;</span><br><span class="line">    String directoryPath&#x3D;&quot;&quot;;</span><br><span class="line">    if (MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ) &#123;&#x2F;&#x2F;判断外部存储是否可用</span><br><span class="line">        directoryPath &#x3D;context.getExternalFilesDir(dir).getAbsolutePath();</span><br><span class="line">    &#125;else&#123;&#x2F;&#x2F;没外部存储就使用内部存储</span><br><span class="line">        directoryPath&#x3D;context.getFilesDir()+ File.separator+dir;</span><br><span class="line">    &#125;</span><br><span class="line">    File file &#x3D; new File(directoryPath);</span><br><span class="line">    if(!file.exists())&#123;&#x2F;&#x2F;判断文件目录是否存在</span><br><span class="line">        file.mkdirs();</span><br><span class="line">    &#125;</span><br><span class="line">    return directoryPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>android：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;外部：</span><br><span class="line">getExternalFilesDir()&#x2F;&#x2F;storage&#x2F;0&#x2F;emulated&#x2F;Android&#x2F;data&#x2F;包名&#x2F;files&#x2F;</span><br><span class="line">getExternalStorageDirectory()&#x2F;&#x2F;storage&#x2F;</span><br><span class="line">getExternalStoragePublicDirectory()</span><br><span class="line">getExternalCacheDir()&#x2F;&#x2F;storage&#x2F;0&#x2F;emulated&#x2F;Android&#x2F;data&#x2F;包名&#x2F;caches&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;内部：当前文件所在目录（或资源目录）&#x2F;data&#x2F;data&#x2F;包名&#x2F;</span><br><span class="line">getDataDirectory()</span><br><span class="line">getFilesDir()</span><br><span class="line">getCacheDir()</span><br><span class="line">getDir()</span><br><span class="line">getAsset()&#x2F;&#x2F;data&#x2F;data&#x2F;包名&#x2F;assets</span><br></pre></td></tr></table></figure>
+
+<p>unity:(抽时间验证一下)<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ynnmnm/article/details/52253674">https://blog.csdn.net/ynnmnm/article/details/52253674</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Application.dataPath            &#x2F;data&#x2F;app&#x2F;package name-1&#x2F;base.apk</span><br><span class="line">Application.streamingAssetsPath jar:file:&#x2F;&#x2F;&#x2F;data&#x2F;app&#x2F;package name-1&#x2F;base.apk!&#x2F;assets</span><br><span class="line">Application.temporaryCachePath &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Android&#x2F;data&#x2F;package name&#x2F;cache</span><br><span class="line">Application.persistentDataPath   &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Android&#x2F;data&#x2F;package name&#x2F;files</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>安卓解包：<br>1.纯android开发/unity导出包后由android进行整合<br>可以用jeb直接拆包，找到mainactivity.java（不一定叫这个名，看设置），然后主界面布局在layout下的xml文件，一般会被mainactivity.java引用<br>2.unity开发/android导出包由unity整合（后者不常见）<br>拆出来的java文件都是配置文件，看了没意义（放木马之类的时候有意义）<br>特点是（以下其中之一）<br>（1）assets文件下的bin文件下有Assembly-CSharp.dll文件，就是程序的主函数<br>（2）lib文件下有il2cpp.so和global-metadata.dat文件</p>
+<p>如果是（2），就用il2cppdumper导出Assembly-CSharp.dll，然后用ILSky打开(或者直接用sublime开dump.cs，我更喜欢这种方法），但是这里的文件只有函数名和对应的地址，并没有函数的内容，所以用ida导入il2cpp.so，从ILSky上复制地址在ida里看内容</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -233,16 +324,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/10/android%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/10/nginx%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nginx笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -261,6 +411,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -285,903 +445,6 @@
 
     </section>
   
-  
-    <article id="post-攻防世界web新手区simple-js" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>十二题 考js</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js1.PNG" class="" title="simple_js1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js2.PNG" class="" title="simple_js2.PNG">
-<p>一打开，只有一个输password的地方<br>随便输一下<br>显示：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>查看页面源代码，发现有一个JavaScript</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js3.PNG" class="" title="simple_js3.PNG">
-<p>走一遍程序，发现……<br>他喵的不管怎么走都只会输出：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>至于后面的\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30根本没有用</p>
-<p>然后去手工把这一串十六进制码先ascii转码，再Unicode转码，得出一段乱码，根据一开始题目提示Flag格式为 Cyberpeace{xxxxxxxxx}，加上前后<br>验证……<br>成功了……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区command-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">攻防世界web新手区command_execution</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十一题 题目提示ping功能没写waf<br>百度了一下，waf是WEB应用安全防火墙，防各种渗透的，并没有什么有用的提示<br>先看题</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution1.PNG" class="" title="command_execution1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution2.PNG" class="" title="command_execution2.PNG">
-<p>题目是一个ping功能<br>随便打个127.0.0.1，发现竟然有回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution8.PNG" class="" title="command_execution8.PNG">
-<p>尝试运用指令拼接（一行运行多条指令，可以用&amp;或;）<br>输入127.0.0.1；ls<br>发现回显多了一个index.php，说明可以拼接</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution9.PNG" class="" title="command_execution9.PNG">
-<p>补充知识：cd ..可以返回上级目录<br>不断增加cd ..;的数量直到根目录</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution3.PNG" class="" title="command_execution3.PNG">
-<p>直接用find指令，搜文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution4.PNG" class="" title="command_execution4.PNG">
-<p>出来一大堆文件，页面搜索flag.</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution5.PNG" class="" title="command_execution5.PNG">
-<p>看见flag.txt的位置，然后直接cat获取文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution6.PNG" class="" title="command_execution6.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution7.PNG" class="" title="command_execution7.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">攻防世界web新手区webshell</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:37:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十题 webshell</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell1.PNG" class="" title="webshell1">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell2.PNG" class="" title="webshell2">
-<p>一开始告知电脑里有一个php是这样的：《?php @eval($_POST[‘shell’])》（防止php运行所以改成了中文符号）</p>
-<p>查了一下，感觉这个解释最好：</p>
-<p>这是一个典型的后门程序，首先我解释一下eval函数的作用，</p>
-<p>//eval — 把字符串作为PHP代码执行<br>eval(‘echo 123;’);//输出123<br>也就是说，所有的字符串放入到eval当中，eval会把字符串解析为php代码来进行执行，那么结合$_POST[‘shell’]的话，只要使用post传输时在name为posha的值中写入任何字符串，都可以当做php代码来执行，这个时候就有点可怕了，比如写入一段循环删除整站代码等等。</p>
-<p>所以意思就是在url上加/?shell=xxxx(指令)就可以执行</p>
-<p>所以直接打开中国蚁剑<br>复制网址<br>链接密码写shell（相当于传值时的形参）</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell3.PNG" class="" title="webshell3">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell4.PNG" class="" title="webshell4">
-<p>发现flag.txt文件，打开，得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell5.PNG" class="" title="webshell5">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区xff-referer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">攻防世界web新手区xff_referer</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:49:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第九题，考xff和referer</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer1.PNG" class="" title="xff_referer1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer2.PNG" class="" title="xff_referer2.PNG">
-<p>百度了一下</p>
-<p>XFF是header请求头中的一个参数<br>是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>代表了HTTP的请求端真实的IP。</p>
-<p>其形式为X-Forwarded-For: client1, proxy1, proxy2, proxy3（一定要加:后的空格）//浏览器IP，第一个代理服务器，第二个三个四个等等</p>
-<p>下面这个博客对各种xff进行了补充：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43221560/article/details/108019509">https://blog.csdn.net/weixin_43221560/article/details/108019509</a></p>
-<p>Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
-<p>其形式为referer: xxxx.xxxx(url)</p>
-<p>然后开始做题<br>题木说要来自123.123.123.123<br>所以抓包<br>加一行X-Forwarded-For: 123.123.123.123</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer3.PNG" class="" title="xff_referer3.PNG">
-<p>显示要来自谷歌<br>所以加一行referer:<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com</a><br>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer4.PNG" class="" title="xff_referer4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区get-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">攻防世界web新手区get_post</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第八题 考get和post两种提交形式</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG" class="" title="get_post1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG" class="" title="get_post2.PNG">
-
-<p>先在地址栏传a=1，这是get提交<br>显示要在get传a=1的基础上用post传b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG" class="" title="get_post3.PNG">
-
-<p>法一：<br>开heakbar，打开post，url复制到上面，在下面传b=2<br>法二：<br>burpsuite或者抓包，在所有请求后面写b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG" class="" title="get_post4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG" class="" title="get_post5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区simple-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">攻防世界web新手区simple_php</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:55:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第六题，考php</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG" class="" title="simple_php1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php2.PNG" class="" title="simple_php2.PNG">
-<p>首先，读php。<br>读取a和b两个数据，</p>
-<p>先说a：<br>方法一<br>如果a的值等于0，且a不为0<br>（这里要用到php的弱语言属性）<br>值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等<br>尝试一下，可以得到一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php3.PNG" class="" title="simple_php3.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php4.PNG" class="" title="simple_php4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php5.PNG" class="" title="simple_php5.PNG">
-<p>方法二<br>让a等于一个并未赋值的c<br>c为空，所以在比较时数值为0，但是c存在，所以自己后面也是true</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php7.PNG" class="" title="simple_php7.PNG">
-
-<p>然后再说b：<br>is_numeric()的意思是判断是否为数字，是为true<br>所以后面的代码先判断b是否为数字，是的话则跳出程序<br>之后的if($b&gt;1234)再判断是否大于1234<br>还是考的弱语言<br>让b=2222a<br>读入的时候自动存为字符串，但是进行比较时会自动转成数字并消去后面的a（比较时根据最左边的数据来判断转成什么类型，所以a2222就不行，会转成字符串然后转成0）<br>得到后面的一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php6.PNG" class="" title="simple_php6.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区weak-auth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">攻防世界web新手区weak_auth</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第六题，弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG" class="" title="weak_auth1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth2.PNG" class="" title="weak_auth2.PNG">
-<p>直接burpsuite抓包，发现密码并没有加密</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth3.PNG" class="" title="weak_auth3.PNG">
-<p>直接发到intruder，导入弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth4.PNG" class="" title="weak_auth4.PNG">
-<p>因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth5.PNG" class="" title="weak_auth5.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth6.PNG" class="" title="weak_auth6.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区disabled-button" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">攻防世界web新手区disabled_button</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第五题，题目提示按键不能用</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG" class="" title="disabled_button1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button2.PNG" class="" title="disabled_button2.PNG">
-<p>F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button3.PNG" class="" title="disabled_button3.PNG">
-<p>删除disabled，按钮就可以按了</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button4.PNG" class="" title="disabled_button4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button5.PNG" class="" title="disabled_button5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区cookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">攻防世界web新手区cookie</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第四题，考cookie，http中很熟悉的东西</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie1.PNG" class="" title="cookie1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie2.PNG" class="" title="cookie2.PNG">
-
-<p>burpsuit抓包，发现cookie下有一个cookie.php</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie3.PNG" class="" title="cookie3.PNG">
-
-<p>加在url上，显示要看回显，继续burpsuite</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie4.PNG" class="" title="cookie4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie5.PNG" class="" title="cookie5.PNG">
-
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1213,8 +476,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

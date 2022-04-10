@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>redis笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/12/index.html">
+  <meta name="description" content="Redis（Remote Dictionary Server )，即远程字典服务key-value存储系统 安装1.下载安装包：https:&#x2F;&#x2F;redis.io&#x2F;download&#x2F;2.解压redis的安装包3.进入解压后的文件4.基本环境安装yum install gcc-c++make5.默认安装路径：&#x2F;usr&#x2F;local&#x2F;bin&#x2F;6.将redis配置文件复制到我们当前目录下7.redis默认不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis笔记">
+<meta property="og:url" content="http://example.com/2022/04/10/redis%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Redis（Remote Dictionary Server )，即远程字典服务key-value存储系统 安装1.下载安装包：https:&#x2F;&#x2F;redis.io&#x2F;download&#x2F;2.解压redis的安装包3.进入解压后的文件4.基本环境安装yum install gcc-c++make5.默认安装路径：&#x2F;usr&#x2F;local&#x2F;bin&#x2F;6.将redis配置文件复制到我们当前目录下7.redis默认不">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-10T12:39:37.000Z">
+<meta property="article:modified_time" content="2022-04-10T12:42:26.754Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,69 +166,110 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-涅普冬令营web篇little-trick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-redis笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">涅普冬令营web篇little_trick</a>
+    <h1 class="article-title" itemprop="name">
+      redis笔记
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/" class="archive-article-date">
-  	<time datetime="2021-03-22T11:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
+
+
+<a href="/2022/04/10/redis%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-10T12:39:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>little_trick<br>web的第一道题<br>打开以后是php的代码</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.PNG" class="" title="nep2.PNG">
-<p>解读一下这段代码<br>1.先用GET接收两个变量，变量名为nep，len<br>2.判断这两个变量，若判断为真，则执行eval（）函数，否则，输出too long 结束<br>3.总之就是不能让它输出too long呗<br>所以先分析一下这里涉及的四个函数intval（）、strlen（）、eval（）、substr（）</p>
-<p>intval（$len）：这个函数的意思是取$len的十进制数值（比如十六进制、八进制变成十进制，10abc——&gt;10，abc10——&gt;0），intval（$len）&lt;8我们暂时可以直接当成$len&lt;8。</p>
-<p>strlen（）：相当于c++的strlen，就是计算字符长度</p>
-<p>eval（）：把括号里的文字作为php代码运行</p>
-<p>substr（$nep,0,$len）:就是从$nep中截取字符段，第二个数字表示从第几位开始截取，0的意思是从第一个字开始，后面的$len意思是截取多少个字符（但是这个量分正负，正数就是从正向开始截取几个字符，负数就是从最后数少截取几个字符）</p>
-<p>所以通篇读下来就是$len&lt;=7,字符串$nep长度&lt;=12<br>然后从$nep中截取$len个字符并运行。<br>那么似乎只能截取7个字符，那$nep再长没用<br>没什么思路，所以从绕过两个字数限制开始吧。</p>
-<p>首先搜了一下绕过intval（）的<br>发现了这篇文章<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43536759/article/details/106785184">https://blog.csdn.net/weixin_43536759/article/details/106785184</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep8.PNG" class="" title="nep8.PNG">
-<p>其中列出了溢出和一个“var_dump(intval(‘0xa’+1)) //int(11)数值形式输入(此漏洞php7被修复)”这样的漏洞<br>试验了一下，都没用</p>
-<p>但是，我前面说过，$len在substr（$nep,0,$len）函数中是可以取负值的。<br>所以我试了一下传入len=-1，因为这样会舍弃$nep的最后一个字符，所以我需要在nep最后加一个“废字符”（这里用a）<br>所以最后的传值就是len=-1&amp;nep=phpinfo();a（顺便看一下php的配置）<br>效果如下：</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep2.5.PNG" class="" title="nep2.5.PNG">
+        <p>Redis（Remote Dictionary Server )，即远程字典服务<br>key-value存储系统</p>
+<p>安装<br>1.下载安装包：<a target="_blank" rel="noopener" href="https://redis.io/download/">https://redis.io/download/</a><br>2.解压redis的安装包<br>3.进入解压后的文件<br>4.基本环境安装<br><code>yum install gcc-c++</code><br><code>make</code><br>5.默认安装路径：<code>/usr/local/bin/</code><br>6.将redis配置文件复制到我们当前目录下<br>7.redis默认不是后台启动的，所以要修改后台文件<br><code>daemonize no</code>改为<code>daemonize yes</code><br>8.启动redis服务<br><code>redis-server kconfig/redis.conf</code><br>9.测试：<br>连接默认端口：<code>redis-cli -p 6379</code>(是手机按键MERZ对应的号码，意大利女歌手的名字，作者当时在追星)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt; set name scr</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get name</span><br><span class="line">&quot;scr&quot;</span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) &quot;name&quot;</span><br></pre></td></tr></table></figure>
+<p>10.查看redis进程是否开启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep redis</span><br></pre></td></tr></table></figure>
+<p>11.如何关闭服务<br><code>shutdown</code><br>退出连接：<br><code>exit</code></p>
+<p>12.性能测试：<code>redis-benchmark</code><br><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-benchmarks.html">https://www.runoob.com/redis/redis-benchmarks.html</a></p>
+<p>基础知识：<br>redis默认有16个数据库<br>默认使用的是第0个数据库<br>可以用select进行数据库切换<br>如：<code>select 3</code></p>
+<p>打印数据库大小：<code>DBSIZE</code><br>清空当前数据库：<code>flushdb</code><br>清空全部数据库：<code>FLASHALL</code><br>查看当前数据库所有的key：<code>key *</code><br>获取对应key的内容:<code>get [key]</code><br>判断某个key是否存在：<code>EXISTS [key]</code><br>设置key为n秒过期:<code>EXPIRE [key] n</code>,如：<code>EXPIRE name 10</code>，然后用<code>ttl name</code>查询还剩多久过期（以此来实现某些数据的限时缓存）</p>
+<p>redis是单线程<br>redis是很快的，官方表示，redis是基于内存操作的，CPU不是redis的性能瓶颈，所以redis的瓶颈是根据及其的内存和网络带宽，既然不依赖cpu线程，就是用单线程了</p>
+<p>字符串操作：<br>追加字符串:<code>APPEND [key] &quot;hello&quot;</code><br>字符串长度：<code>STRLEN [key]</code><br>后面的大部分字符串操作都和java差不错，要用的时候现查就行：<a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-strings.html">https://www.runoob.com/redis/redis-strings.html</a></p>
+<p>List类型操作：<br>在redis里实现栈、队列、阻塞队列<br>所有的list命令都是l开头的<br>插入数据<code>LPUSH list one</code><br><code>LPUSH list two</code><br>查询数据<code>LRANGE list 0 -1</code>(获取全部值)</p>
+<figure class="highlight plain"><figcaption><span>list 0 1```(获取从0到1的值)（倒着数，因为是出栈）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;LRANGE list 1 1&#96;&#96;&#96;(获取第二个值)</span><br><span class="line">操作指令：https:&#x2F;&#x2F;www.runoob.com&#x2F;redis&#x2F;redis-lists.html</span><br><span class="line"></span><br><span class="line">set类型：</span><br><span class="line">set中的值是不能重复的</span><br><span class="line">都是s开头的</span><br><span class="line">添加值&#96;&#96;&#96;sadd myset &quot;hello&quot;&#96;&#96;&#96;</span><br><span class="line">&#96;&#96;&#96;sadd myset &quot;scr&quot;&#96;&#96;&#96;</span><br><span class="line">打印：&#96;&#96;&#96;SMEMBERS myset&#96;&#96;&#96;</span><br><span class="line">查询某个值是否在set中：&#96;&#96;&#96;SISMEMBER myset hello&#96;&#96;&#96;</span><br><span class="line">获取set集合中元素的个数：&#96;&#96;&#96;scard myset&#96;&#96;&#96;</span><br><span class="line">移除指定元素:&#96;&#96;&#96;srem myset hello&#96;&#96;&#96;</span><br><span class="line">操作指令：https:&#x2F;&#x2F;www.runoob.com&#x2F;redis&#x2F;redis-sets.html</span><br><span class="line"></span><br><span class="line">hash类型：</span><br><span class="line">Map集合，key-map</span><br><span class="line">插入数据：&#96;&#96;&#96;hset myhash field1 scr&#96;&#96;&#96;</span><br><span class="line">获取值：&#96;&#96;&#96;hget myhash field1&#96;&#96;&#96;</span><br><span class="line">同时设置多个值：</span><br><span class="line">&#96;&#96;&#96;hmset&#96;&#96;&#96;</span><br><span class="line">&#96;&#96;&#96;hmget&#96;&#96;&#96;</span><br><span class="line">删除：</span><br><span class="line">&#96;&#96;&#96;hdel&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">有序集合：</span><br><span class="line">添加数据：&#96;&#96;&#96;ZADD runoobkey 1 redis&#96;&#96;&#96;</span><br><span class="line">查询数据：&#96;&#96;&#96;ZADD runoobkey 1 redis&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">三种特殊数据类型：</span><br><span class="line">geospatial：地理位置</span><br></pre></td></tr></table></figure>
+<p>geoadd 添加数据</p>
+<p>geodist 返回两个给定位置之间的距离</p>
+<p>geohash 返回geohash对位置进行的编码，用于内部调试，一般用不到</p>
+<p>geopos 返回指定member的经纬度信息</p>
+<p>georadius ： 根据半径查找，需要给定中心点数据</p>
+<p>georadiusbymember ： 也是根据半径查找，但是中心点是已经存在的member</p>
+<p>zrange 遍历member</p>
+<p>zrem 移除member</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HyperLogLog：概率数据结构</span><br></pre></td></tr></table></figure>
+<p>pfadd 添加<br>pfcount 计数<br>pfmarge 合并 //合并到第一个key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Bitmaps：统计用户信息，活跃与不活跃，登录未登录只有两种状态的数据，可以使用BitMaps</span><br></pre></td></tr></table></figure>
+<p>setbit 中的offset是偏移量，可以看作下标，value只能是0或1</p>
+<p>getbit</p>
+<p>bitcount 统计key offset 为1的个数</p>
+<p>bitpos 查看 key offset 为0或1的位置，并且可以设置range</p>
+<p>```</p>
+<p>事务操作：<br>（相当于先统一接收数据，然后统一执行，而不是接收一条执行一条）<br>Redis事务的本质是一组命令的集合，一次执行多个指令，事务中所有命令都被序列化，其他客户端提交的命令请求不会插入到事务执行命令序列中</p>
+<p>顺序、排他、一次性</p>
+<p>单条命令是原子性执行的，但事务不保证原子性，且没有回滚，事务中任意命令执行失败，其余命令仍会被执行</p>
+<p>开启事务（multi）<br>命令入队（。。。）<br>执行事务（exec）<br>取消事务（discard）<br>监视、加锁（watch）<br>取消监视、解锁（unwatch）</p>
+<p>锁<br>乐观锁应该适用于读多写少的情况，悲观锁应该适用于写多读少的情况</p>
+<p>悲观锁<br>为了避免其他人同时修改，直接对数据进行加锁以防止并发，修改数据前锁定，修改的方式被称为悲观并发控制 Pessimistic Concurrency Control 悲观、并发、控制<br>独占性、排他性</p>
+<p>在整个数据处理过程中，数据处于锁定状态<br>线程操作数据，对数据添加排他锁<br>假设最坏的情况，每次都默认其他线程更改数据<br>传统数据库使用的几种加锁机制，都是在操作之前上锁<br>行锁<br>表锁<br>读锁<br>写锁<br>在Java中同步用synchronized关键字实现<br>悲观锁住要分共享锁和排他锁<br>共享锁 shared locks<br>读锁、S锁，多个事务对同一个数据可以共享一把锁，都能访问数据，只能读不能修改<br>排他锁 exclusive locks<br>写锁、X锁、不能与其他锁并存，一个事务获取了数据行的排他锁，其他事物就不能再获得该行的其他锁，获取排他锁的事物可以对数据行读取和修改<br>悲观并发控制 先取锁再访问 的保守策略，开销大，还增加死锁的概率，降低并发性，其他事务必须等待<br>乐观锁<br>假设数据一般情况不会造成冲突，在数据提交更新时正式对数据的冲突与否进行检测，发现了冲突，发出错误信息，让用户决定如何处理，适用于读操作多的场景，可以提高程序的吞吐量<br>为了避免数据库的幻读，业务处理时间过长，乐观锁不会刻意使用数据库本身的锁机制，而是一句数据本身来保证数据的正确性</p>
+<p>实现方法<br>CAS实现：java.util.concurrent.atomic 包下的原子变量<br>版本号控制，在数据表添加爱version字段，数据被修改时，version值+1，线程更新数据，同时读取version值，提交更新时，读取到的version值与当前数据库中的version值相等才更新，否则重试，直到更新成功</p>
+<p>Redis缓存穿透、击穿、雪崩<br>都是服务的三高问题</p>
+<p>高并发<br>高可用<br>高性能<br>面试高频，工作常用</p>
+<p>redis缓存的使用极大的提升了应用程序的性能和效率，特别是数据查询方面，但同时，它也带来了一些问题，数据一致性问题，严格意义上来讲，问题无解，对一致性要求极高，不推荐使用缓存</p>
+<p>布隆过滤器、缓存空对象</p>
+<p>缓存穿透<br>用户查询一个数据，redis数据库中没有，也就是缓存没命中，于是向持久层数据库查询，发现也没有，于是查询失败，用户很多的时候，缓存都没有命中，都请求持久层数据库，给持久层数据库造成巨大压力，称为缓存穿透</p>
+<p>在直达持久层的路径上加上过滤器、或者缓存中专门增加一个为空的请求</p>
+<p>布隆过滤器<br>布隆过滤器是一种数据结构，对所有可能的查询参数以hash形式存储，在控制层进行校验，不符合则丢弃，从而避免了对底层存储系统查询压力</p>
+<p>缓存空对象<br>当持久化层不命中后，将返回的空对象存储起来，同时设置一个过期时间，之后再访问这个数据就从缓存中获取，保护持久层数据源</p>
+<p>需要面临的问题<br>存储空的key也需要空间<br>对空值设置了过期时间，还会存在缓存层和存储层的数据有一段时间窗口不一致，对于需要保持一致性的业务会有影响<br>缓存击穿<br>例子微博服务器热搜，巨大访问量访问同一个key</p>
+<p>一个key非常热点，不停扛着大并发，集中对一个点进行访问，当个key失效的瞬间，持续大并发导致穿破缓存，直接请求数据库</p>
+<p>某个key在过期的瞬间，大量的访问会同时访问数据库来查询最新的数据，并且回写缓存，导致数据库瞬间压力过大</p>
+<p>解决方案<br>设置热点数据不过期<br>一直缓存也会浪费空间<br>加互斥锁<br>分布式锁：使用分布式锁，保证对于每个key同时只有一个线程查询后端服务，其他线程没有获得分布式锁的权限，只需要等待即可，这种方式将高并发的压力转移到了分布式锁，因此对分布式锁的考验很大<br>缓存雪崩<br>在某一个时间段，缓存集中过期失效，redis宕机</p>
+<p>产生雪崩的原因之一，设置缓存的存活时间较短，大并发访问时刚好都过期，直接访问了数据库，对数据库而言，会产生周期性压力波峰，暴增时数据库可能会宕机</p>
+<p>双十一时会停掉一些服务，保证主要的一些服务可用，springcloud中说明过</p>
+<p>解决方案：<br>增加集群中服务器数量<br>异地多活<br>限流降级<br>缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量，对某个key只允许一个线程查询数据和写缓存，其他线程等待<br>数据预热<br>正式部署之前，把可能的数据提前访问一遍，可能大量访问的数据就会加载到缓存中，加载不同的key，设置不同的过期时间，让缓存时间尽量均匀</p>
 
-<p>这之后发现php版本大于7，怪不得前面那个漏洞用不了。</p>
-<p>到这，对len的绕过算是结束了，可运行php代码的数量扩充到了12（但是要补一个废字符a，所以相当于11）<br>strlen（）我是实在没找到能绕过的地方，就此作罢。</p>
-<p>之后，就没思路了……</p>
-<p>还好这时这道题突然崩了，然后看见群里有人反馈他做完题后不小心rm -rf / *<br>了一下,把一开始的静态环境弄炸了(夺笋呐)</p>
-<p>等恢复（换成靶机）的这段时间里想到了用shell<br>（刚刚的phpinfo（）顺便得到了是linux系统）<br>然后就搜了一下让php实现shell的方法<br>最常见的是以下三种函数：<br>1.system<br>2.exec<br>3.passthru<br>但都太长了，根本不可能使用（因为还要加上;a)(其实后来想想，exec或许可以)</p>
-<p>之后我找到了一种最简便的方法——``(用反引号括起来)<br>然后我尝试了len=-1&amp;nep=echo `ls`;a(echo相当于输出shell的回显)<br>发现真的有回显</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep3.PNG" class="" title="nep3.PNG">
-
-<p>回显显示了一个文件nepctf.php<br>先尝试打开它</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep7.PNG" class="" title="nep7.PNG">
-<p>发现是个空白页<br>那么flag很有可能在这个文件里</p>
-<h2 id="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"><a href="#为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）" class="headerlink" title="为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）"></a>为了读这个文件，我尝试了很多方法（以下为试错笔记，以此来记录一些好方法，只想看这道题的可以直接跳到下面的“正确方法”）</h2><p>首先想到的是限制字符的shell<br>因此搜到了这个————<br><a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-3316599.html">http://www.bubuko.com/infodetail-3316599.html</a></p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep9.PNG" class="" title="nep9.PNG">
-<p>乍一看我这个是12字符，完全可以用7字符的方法，建一个a文件<br>然后通过”echo （字符） &gt;&gt;a”的方式来完成，然后通过sh a来运行shell，甚至可以写木马了<br>但事实上无论是哪种数量，都是在直接写shell的情况下计算的<br>如果补` `;a的话，就变成了`echo n&gt;&gt;a`;a(假设向a文件里输入n，也就是最小的输入量)<br>这都有13个字符了，直接超标<br>所以实际上我只能用4字符的方法<br>而四字符的方法，是通过\号实现shell转译，来实现多行的输入<br>再通过&gt; v，以及*v来倒叙读取这些代码来运行<br>但是这就要保证代码的完整性的同时还要兼顾“反序”，网上有写脚本来输入验证完整性的<br>但我不会python，所以只能用burpsuite实现一次性输入<br>事实上，因为我看不到回显的缘故，我甚至不知道每次的``是否在同一个命令框，还是打开了一个新的命令框<br>最后反正是失败了</p>
-<hr>
-<h2 id="正确方法！！！"><a href="#正确方法！！！" class="headerlink" title="正确方法！！！"></a>正确方法！！！</h2><p>简化代码，想到linux下文件可以用<em>简化<br>比如nepctf.php 可以直接简化为n</em><br>但是无论如何echo `cat n*`;a是字数超标的<br>所以想到：nepctf.php之所以是空白面，是因为电脑用php来读取它，所以没有回显<br>那么，把它的内容转移到没有后缀的新文件是不是就可以看到了呢<br>所以用参数len=-1&amp;nep=`cp 1 n*`;a(相当于把n*文件（这里也就是nepctf.php)的内容写入文件名为1的文件中，如果没有就创一个）</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep4.PNG" class="" title="nep4.PNG">
-<p>然后ls一下，看见1文件已被创立</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep5.PNG" class="" title="nep5.PNG">
-<p>然后访问1文件，得到flag</p>
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep6.PNG" class="" title="nep6.PNG">
-<img src="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/nep1.PNG" class="" title="nep1.PNG">
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -233,16 +278,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/22/%E6%B6%85%E6%99%AE%E5%86%AC%E4%BB%A4%E8%90%A5web%E7%AF%87little-trick/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/10/redis%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/04/10/nginx%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          nginx笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/04/springboot%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">springboot笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -261,6 +374,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -285,903 +408,6 @@
 
     </section>
   
-  
-    <article id="post-攻防世界web新手区simple-js" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">攻防世界web新手区simple_js</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/" class="archive-article-date">
-  	<time datetime="2021-03-14T14:13:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>十二题 考js</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js1.PNG" class="" title="simple_js1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js2.PNG" class="" title="simple_js2.PNG">
-<p>一打开，只有一个输password的地方<br>随便输一下<br>显示：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>查看页面源代码，发现有一个JavaScript</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js3.PNG" class="" title="simple_js3.PNG">
-<p>走一遍程序，发现……<br>他喵的不管怎么走都只会输出：</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/simple_js4.PNG" class="" title="simple_js4.PNG">
-<p>至于后面的\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30根本没有用</p>
-<p>然后去手工把这一串十六进制码先ascii转码，再Unicode转码，得出一段乱码，根据一开始题目提示Flag格式为 Cyberpeace{xxxxxxxxx}，加上前后<br>验证……<br>成功了……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-js/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区command-execution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">攻防世界web新手区command_execution</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十一题 题目提示ping功能没写waf<br>百度了一下，waf是WEB应用安全防火墙，防各种渗透的，并没有什么有用的提示<br>先看题</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution1.PNG" class="" title="command_execution1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution2.PNG" class="" title="command_execution2.PNG">
-<p>题目是一个ping功能<br>随便打个127.0.0.1，发现竟然有回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution8.PNG" class="" title="command_execution8.PNG">
-<p>尝试运用指令拼接（一行运行多条指令，可以用&amp;或;）<br>输入127.0.0.1；ls<br>发现回显多了一个index.php，说明可以拼接</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution9.PNG" class="" title="command_execution9.PNG">
-<p>补充知识：cd ..可以返回上级目录<br>不断增加cd ..;的数量直到根目录</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution3.PNG" class="" title="command_execution3.PNG">
-<p>直接用find指令，搜文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution4.PNG" class="" title="command_execution4.PNG">
-<p>出来一大堆文件，页面搜索flag.</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution5.PNG" class="" title="command_execution5.PNG">
-<p>看见flag.txt的位置，然后直接cat获取文件</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution6.PNG" class="" title="command_execution6.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/command_execution7.PNG" class="" title="command_execution7.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcommand-execution/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">攻防世界web新手区webshell</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/" class="archive-article-date">
-  	<time datetime="2021-03-14T13:37:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第十题 webshell</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell1.PNG" class="" title="webshell1">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell2.PNG" class="" title="webshell2">
-<p>一开始告知电脑里有一个php是这样的：《?php @eval($_POST[‘shell’])》（防止php运行所以改成了中文符号）</p>
-<p>查了一下，感觉这个解释最好：</p>
-<p>这是一个典型的后门程序，首先我解释一下eval函数的作用，</p>
-<p>//eval — 把字符串作为PHP代码执行<br>eval(‘echo 123;’);//输出123<br>也就是说，所有的字符串放入到eval当中，eval会把字符串解析为php代码来进行执行，那么结合$_POST[‘shell’]的话，只要使用post传输时在name为posha的值中写入任何字符串，都可以当做php代码来执行，这个时候就有点可怕了，比如写入一段循环删除整站代码等等。</p>
-<p>所以意思就是在url上加/?shell=xxxx(指令)就可以执行</p>
-<p>所以直接打开中国蚁剑<br>复制网址<br>链接密码写shell（相当于传值时的形参）</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell3.PNG" class="" title="webshell3">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell4.PNG" class="" title="webshell4">
-<p>发现flag.txt文件，打开，得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/webshell5.PNG" class="" title="webshell5">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAwebshell/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区xff-referer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">攻防世界web新手区xff_referer</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:49:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第九题，考xff和referer</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer1.PNG" class="" title="xff_referer1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer2.PNG" class="" title="xff_referer2.PNG">
-<p>百度了一下</p>
-<p>XFF是header请求头中的一个参数<br>是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>代表了HTTP的请求端真实的IP。</p>
-<p>其形式为X-Forwarded-For: client1, proxy1, proxy2, proxy3（一定要加:后的空格）//浏览器IP，第一个代理服务器，第二个三个四个等等</p>
-<p>下面这个博客对各种xff进行了补充：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43221560/article/details/108019509">https://blog.csdn.net/weixin_43221560/article/details/108019509</a></p>
-<p>Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。</p>
-<p>其形式为referer: xxxx.xxxx(url)</p>
-<p>然后开始做题<br>题木说要来自123.123.123.123<br>所以抓包<br>加一行X-Forwarded-For: 123.123.123.123</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer3.PNG" class="" title="xff_referer3.PNG">
-<p>显示要来自谷歌<br>所以加一行referer:<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com</a><br>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/xff_referer4.PNG" class="" title="xff_referer4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAxff-referer/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区get-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">攻防世界web新手区get_post</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/" class="archive-article-date">
-  	<time datetime="2021-03-14T12:25:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第八题 考get和post两种提交形式</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post1.PNG" class="" title="get_post1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post2.PNG" class="" title="get_post2.PNG">
-
-<p>先在地址栏传a=1，这是get提交<br>显示要在get传a=1的基础上用post传b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post3.PNG" class="" title="get_post3.PNG">
-
-<p>法一：<br>开heakbar，打开post，url复制到上面，在下面传b=2<br>法二：<br>burpsuite或者抓包，在所有请求后面写b=2</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post4.PNG" class="" title="get_post4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/get_post5.PNG" class="" title="get_post5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAget-post/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区simple-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">攻防世界web新手区simple_php</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:55:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第六题，考php</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php1.PNG" class="" title="simple_php1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php2.PNG" class="" title="simple_php2.PNG">
-<p>首先，读php。<br>读取a和b两个数据，</p>
-<p>先说a：<br>方法一<br>如果a的值等于0，且a不为0<br>（这里要用到php的弱语言属性）<br>值等于0，但本身不等于0的有false、”0”(字符串)、’0’（字符）等<br>尝试一下，可以得到一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php3.PNG" class="" title="simple_php3.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php4.PNG" class="" title="simple_php4.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php5.PNG" class="" title="simple_php5.PNG">
-<p>方法二<br>让a等于一个并未赋值的c<br>c为空，所以在比较时数值为0，但是c存在，所以自己后面也是true</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php7.PNG" class="" title="simple_php7.PNG">
-
-<p>然后再说b：<br>is_numeric()的意思是判断是否为数字，是为true<br>所以后面的代码先判断b是否为数字，是的话则跳出程序<br>之后的if($b&gt;1234)再判断是否大于1234<br>还是考的弱语言<br>让b=2222a<br>读入的时候自动存为字符串，但是进行比较时会自动转成数字并消去后面的a（比较时根据最左边的数据来判断转成什么类型，所以a2222就不行，会转成字符串然后转成0）<br>得到后面的一半flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/simple_php6.PNG" class="" title="simple_php6.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAsimple-php/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区weak-auth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">攻防世界web新手区weak_auth</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/" class="archive-article-date">
-  	<time datetime="2021-03-14T11:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第六题，弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth1.PNG" class="" title="weak_auth1.PNG">
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth2.PNG" class="" title="weak_auth2.PNG">
-<p>直接burpsuite抓包，发现密码并没有加密</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth3.PNG" class="" title="weak_auth3.PNG">
-<p>直接发到intruder，导入弱密码</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth4.PNG" class="" title="weak_auth4.PNG">
-<p>因为这道题所有回显都是200（ok），所以可以用回显的长度来区分是否有flag，分别选择正序和逆序即可，找到不同的回显</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth5.PNG" class="" title="weak_auth5.PNG">
-<p>得到flag</p>
-<img src="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/weak_auth6.PNG" class="" title="weak_auth6.PNG">
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/14/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAweak-auth/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区disabled-button" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">攻防世界web新手区disabled_button</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第五题，题目提示按键不能用</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button1.PNG" class="" title="disabled_button1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button2.PNG" class="" title="disabled_button2.PNG">
-<p>F12打开元素，找到按钮的那一个（或者直接对着按钮右键——检查），发现一个 disabled</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button3.PNG" class="" title="disabled_button3.PNG">
-<p>删除disabled，按钮就可以按了</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button4.PNG" class="" title="disabled_button4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/disabled_button5.PNG" class="" title="disabled_button5.PNG">
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAdisabled-button/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-攻防世界web新手区cookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">攻防世界web新手区cookie</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/" class="archive-article-date">
-  	<time datetime="2021-03-13T14:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第四题，考cookie，http中很熟悉的东西</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie1.PNG" class="" title="cookie1.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie2.PNG" class="" title="cookie2.PNG">
-
-<p>burpsuit抓包，发现cookie下有一个cookie.php</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie3.PNG" class="" title="cookie3.PNG">
-
-<p>加在url上，显示要看回显，继续burpsuite</p>
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie4.PNG" class="" title="cookie4.PNG">
-<img src="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/cookie5.PNG" class="" title="cookie5.PNG">
-
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E5%8C%BAcookie/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1213,8 +439,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
