@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>nodejs笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/6/index.html">
+  <meta name="description" content="nodejs：在后端使用js的工具，使其作用类似php，python 1.安装：https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;download&#x2F; 安装好后node -v测试是否安装成功 nodejs的文件以.js结尾 test.js 1console.log(&quot;hello world!&quot;) 运行：node test.js效果为打印hello world! 2.第一个nodejs程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs笔记">
+<meta property="og:url" content="http://example.com/2022/04/17/nodejs%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="nodejs：在后端使用js的工具，使其作用类似php，python 1.安装：https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;download&#x2F; 安装好后node -v测试是否安装成功 nodejs的文件以.js结尾 test.js 1console.log(&quot;hello world!&quot;) 运行：node test.js效果为打印hello world! 2.第一个nodejs程">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-17T15:39:40.000Z">
+<meta property="article:modified_time" content="2022-04-17T15:41:47.631Z">
 <meta property="article:author" content="ouroborosscr">
 <meta name="twitter:card" content="summary">
   
@@ -162,42 +166,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-bugku-web-需要管理员" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-nodejs笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/">bugku-web-需要管理员</a>
+    <h1 class="article-title" itemprop="name">
+      nodejs笔记
     </h1>
   
 
         
         
 
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-<a href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/" class="archive-article-date">
-  	<time datetime="2021-08-11T05:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
+
+
+<a href="/2022/04/17/nodejs%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-17T15:39:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>文字游戏题，没什么意思，评论区大佬说的很有道理：就考了一个目录扫描</p>
-<p>扫描出<code>/robots.txt</code></p>
-<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/1.PNG" class="" title="1.PNG">
+        <p>nodejs：在后端使用js的工具，使其作用类似php，python</p>
+<p>1.安装：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a></p>
+<p>安装好后<code>node -v</code>测试是否安装成功</p>
+<p>nodejs的文件以<code>.js</code>结尾</p>
+<p>test.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;hello world!&quot;)</span><br></pre></td></tr></table></figure>
+<p>运行：<code>node test.js</code><br>效果为打印<code>hello world!</code></p>
+<p>2.第一个nodejs程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var http &#x3D; require(&#39;http&#39;); &#x2F;&#x2F;引入http模块，相当于python的import</span><br><span class="line"></span><br><span class="line">http.createServer(function (request, response) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 发送 HTTP 头部 </span><br><span class="line">    &#x2F;&#x2F; HTTP 状态值: 200 : OK</span><br><span class="line">    &#x2F;&#x2F; 内容类型: text&#x2F;plain</span><br><span class="line">    response.writeHead(200, &#123;&#39;Content-Type&#39;: &#39;text&#x2F;plain&#39;&#125;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 发送响应数据 &quot;Hello World&quot;</span><br><span class="line">    response.end(&#39;Hello World\n&#39;);</span><br><span class="line">&#125;).listen(8888);&#x2F;&#x2F;监听8888端口</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 终端打印如下信息</span><br><span class="line">console.log(&#39;Server running at http:&#x2F;&#x2F;127.0.0.1:8888&#x2F;&#39;);</span><br></pre></td></tr></table></figure>
+<p>运行然后访问<code>http://127.0.0.1:8888/</code>,效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+<p>几乎能实现php的功能</p>
+<p>3.npm<br>npm是包管理工具，相当于python的pip<br>检验是否安装<code>npm -v</code></p>
+<p>安装模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;Module Name&gt;</span><br></pre></td></tr></table></figure>
+<p>如：<code>npm install express</code>，然后在程序中<code>var express = require(&#39;express&#39;);</code></p>
+<p>4.REPL<br>类似python直接在命令行输入<code>python</code>的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;node</span><br><span class="line">Welcome to Node.js v16.14.2.</span><br><span class="line">Type &quot;.help&quot; for more information.</span><br><span class="line">&gt; 1+1</span><br><span class="line">2</span><br><span class="line">&gt; 2+2</span><br><span class="line">4</span><br><span class="line">&gt; .exit</span><br></pre></td></tr></table></figure>
+<p>退出为<code>.exit</code></p>
 
-<p>打开发现<code>/resusl.php</code></p>
-<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/2.PNG" class="" title="2.PNG">
-<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/3.PNG" class="" title="3.PNG">
-<p>说什么我的ip被记录都是吓人的，其实根本不需要改xff<br>然后就是根据标题的“管理员”猜出password是admin，然后x=admin出答案，没意思</p>
-<img src="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/4.PNG" class="" title="4.PNG">
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -206,16 +245,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/11/bugku-web-%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E5%91%98/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/17/nodejs%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/17/c-%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">c#笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -234,6 +332,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
@@ -258,856 +366,6 @@
 
     </section>
   
-  
-    <article id="post-bugku-web-文件包含-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/">bugku-web-文件包含</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/" class="archive-article-date">
-  	<time datetime="2021-08-11T05:07:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不知道出题人是不是来搞笑的，直接file=/flag就出来了</p>
-<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-文件上传" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">bugku-web-文件上传</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="archive-article-date">
-  	<time datetime="2021-08-11T03:28:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这道题只能靠猜，因为只有长传木马成功才能看到源码</p>
-<p>源码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">global_filter();</span><br><span class="line">if ((stripos($_FILES[&quot;file&quot;][&quot;type&quot;],&#39;image&#39;)!&#x3D;&#x3D; False) &amp;&amp; ($_FILES[&quot;file&quot;][&quot;size&quot;] &lt; 10*1024*1024))&#123;</span><br><span class="line">	if ($_FILES[&quot;file&quot;][&quot;error&quot;] &#x3D;&#x3D; 0)&#123;</span><br><span class="line">		$file_ext &#x3D;  substr($_FILES[&quot;file&quot;][&quot;name&quot;], strrpos($_FILES[&quot;file&quot;][&quot;name&quot;], &#39;.&#39;)+1);</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext);</span><br><span class="line">        $allowexts &#x3D; array(&#39;jpg&#39;,&#39;gif&#39;,&#39;jpeg&#39;,&#39;bmp&#39;,&#39;php4&#39;);</span><br><span class="line">        if(!in_array($file_ext,$allowexts))&#123;</span><br><span class="line">            die(&quot;give me a image file not a php&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">		$_FILES[&quot;file&quot;][&quot;name&quot;]&#x3D;&quot;bugku&quot;.date(&#39;dHis&#39;).&quot;_&quot;.rand(1000,9999).&quot;.&quot;.$file_ext;</span><br><span class="line"></span><br><span class="line">	    if (file_exists(&quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]))&#123;</span><br><span class="line">	    	echo $_FILES[&quot;file&quot;][&quot;name&quot;] . &quot; already exists. &lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	    &#125;</span><br><span class="line">	    else&#123;</span><br><span class="line">	    	if (!file_exists(&#39;.&#x2F;upload&#x2F;&#39;))&#123;</span><br><span class="line">	    		mkdir (&quot;.&#x2F;upload&#x2F;&quot;);</span><br><span class="line">                system(&quot;chmod 777 &#x2F;var&#x2F;www&#x2F;html&#x2F;upload&quot;);</span><br><span class="line">	    	&#125;</span><br><span class="line">	    	move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]);</span><br><span class="line">                echo &quot;Upload Success&lt;br&gt;&quot;;</span><br><span class="line">                $filepath &#x3D; &quot;upload&#x2F;&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">	      	echo &quot;Stored in: &quot; .&quot;&lt;a href&#x3D;&#39;&quot; . $filepath . &quot;&#39; target&#x3D;&#39;_blank&#39;&gt;&quot; . $filepath . &quot;&lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">	if($_FILES[&quot;file&quot;][&quot;size&quot;] &gt; 0)&#123;</span><br><span class="line">		echo &quot;You was catched! :) &lt;br &#x2F;&gt;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-
-<p>因此使用burp抓包后的改动为：<br>Content-Type: multipart/form-data;<br>multipart中的部分字母改成大写的。</p>
-<p>文件的的Content-Type: application/octet-stream，改成image/jpeg</p>
-<p>文件后缀名改成php4</p>
-<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/2.PNG" class="" title="2.PNG">
-
-<p>连上蚁剑，得到flag</p>
-<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/3.PNG" class="" title="3.PNG">
-<img src="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/11/bugku-web-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-decrypt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-decrypt/">bugku-web-decrypt</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-decrypt/" class="archive-article-date">
-  	<time datetime="2021-08-10T14:42:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>提示是一串字符，base64解码发现解不出来东西</p>
-<img src="/2021/08/10/bugku-web-decrypt/1.PNG" class="" title="1.PNG">
-
-<p>下载附件发现是一个函数，貌似是base64产生的方法，所以只要逆序产出就行</p>
-<p>写一个python脚本就好(第一次做的时候写的脚本，直接贴上来了)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import hashlib</span><br><span class="line">test_str &#x3D; &#39;hello world!&#39;</span><br><span class="line"># 编码</span><br><span class="line">#encode_str &#x3D; base64.encodebytes(test_str.encode(&#39;utf8&#39;))  # b&#39;aGVsbG8gd29ybGQh\n&#39;</span><br><span class="line">#print(encode_str.decode())  # 默认以utf8解码，结果 aGVsbG8gd29ybGQh</span><br><span class="line"># 解码</span><br><span class="line">encode_str&#x3D;&#39;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA&#x3D;&#39;.encode(&#39;utf8&#39;)</span><br><span class="line">decode_str &#x3D; base64.decodebytes(encode_str)  # b&#39;hello world!&#39;</span><br><span class="line">print(decode_str.decode())  # 默认以utf8解码，结果 hello world!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a&#x3D;&#39;ISCC&#39;</span><br><span class="line">m &#x3D; hashlib.md5()</span><br><span class="line">m.update(a.encode(&#39;utf-8&#39;))</span><br><span class="line">print(m.hexdigest())</span><br><span class="line">len1&#x3D;len(decode_str.decode())</span><br><span class="line">print(len1)</span><br><span class="line">str10&#x3D;m.hexdigest()</span><br><span class="line">x&#x3D;0</span><br><span class="line">i&#x3D;1</span><br><span class="line">char1&#x3D;&#39;&#39;</span><br><span class="line">while(i&lt;&#x3D;32):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">i&#x3D;1</span><br><span class="line">x&#x3D;0</span><br><span class="line">while(i&lt;&#x3D;6):</span><br><span class="line">    if x&#x3D;&#x3D;len:</span><br><span class="line">        x&#x3D;0</span><br><span class="line">    char1+&#x3D;str10[x]</span><br><span class="line">    x+&#x3D;1</span><br><span class="line">    i+&#x3D;1</span><br><span class="line">print(char1)</span><br><span class="line"></span><br><span class="line">str1&#x3D;decode_str.decode()</span><br><span class="line"></span><br><span class="line">a&#x3D;range(38)</span><br><span class="line"></span><br><span class="line">d&#x3D;&#39;&#39;</span><br><span class="line"></span><br><span class="line">for i in a:</span><br><span class="line">    b&#x3D;ord(str1[i])</span><br><span class="line">    c&#x3D;ord(char1[i])</span><br><span class="line">    if((b-c&gt;&#x3D;48 and b-c&lt;&#x3D;57) or (b-c&gt;&#x3D;97 and b-c&lt;&#x3D;122)):</span><br><span class="line">        e&#x3D;b-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line">    else:</span><br><span class="line">        e&#x3D;b+128-c</span><br><span class="line">        d+&#x3D;chr(e)</span><br><span class="line"></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#48-57</span><br><span class="line">#97-122</span><br></pre></td></tr></table></figure>
-
-<p>得到flag（我的脚本写的不太好，前面的Flag:会变形，自己换一下就行）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-decrypt/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-点login咋没反应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">bugku-web-点login咋没反应</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/" class="archive-article-date">
-  	<time datetime="2021-08-10T14:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看源代码，发现admin.css有个提示</p>
-<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/1.PNG" class="" title="1.PNG">
-
-<p>输入后发现源码</p>
-<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/2.PNG" class="" title="2.PNG">
-
-
-
-<p>反序化验证，自己写个php：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$KEY&#x3D;&#39;ctf.bugku.com&#39;;</span><br><span class="line">echo serialize($KEY);</span><br></pre></td></tr></table></figure>
-<p>得到<code>s:13:&quot;ctf.bugku.com&quot;;</code><br>然后加到cookie里就行</p>
-<img src="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/3.PNG" class="" title="3.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E7%82%B9login%E5%92%8B%E6%B2%A1%E5%8F%8D%E5%BA%94/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-各种绕过哟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/">bugku-web-各种绕过哟</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/" class="archive-article-date">
-  	<time datetime="2021-08-10T13:24:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开以后是php代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(&#39;flag.php&#39;);</span><br><span class="line">$_GET[&#39;id&#39;] &#x3D; urldecode($_GET[&#39;id&#39;]);</span><br><span class="line">$flag &#x3D; &#39;flag&#123;xxxxxxxxxxxxxxxxxx&#125;&#39;;</span><br><span class="line">if (isset($_GET[&#39;uname&#39;]) and isset($_POST[&#39;passwd&#39;])) &#123;</span><br><span class="line">    if ($_GET[&#39;uname&#39;] &#x3D;&#x3D; $_POST[&#39;passwd&#39;])</span><br><span class="line"></span><br><span class="line">        print &#39;passwd can not be uname.&#39;;</span><br><span class="line"></span><br><span class="line">    else if (sha1($_GET[&#39;uname&#39;]) &#x3D;&#x3D;&#x3D; sha1($_POST[&#39;passwd&#39;])&amp;($_GET[&#39;id&#39;]&#x3D;&#x3D;&#39;margin&#39;))</span><br><span class="line"></span><br><span class="line">        die(&#39;Flag: &#39;.$flag);</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">        print &#39;sorry!&#39;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>参考前面的md5撞库——<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" title="前女友（web24）">前女友（web24）</a></p>
-<p>这里也可以用数组绕过：?uname[]=1&amp;id=margin<br>post：passwd[]=2<br>得到flag</p>
-<img src="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/1.PNG" class="" title="1.PNG">
-
-<p>我一开始也想尝试sha1撞库，虽然有是有，但是hash能达到撞库级别的都是非常庞大的数据，没法通过url来传，所以只能用数组了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E5%90%84%E7%A7%8D%E7%BB%95%E8%BF%87%E5%93%9F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-程序员本地网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/">bugku-web-程序员本地网站</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>xff，和前面的referer一样，应该放在最前面，没什么技术含量</p>
-<p>就是在头部加一个<code>X-Forwarded-For:127.0.0.1</code></p>
-<p>得到flag</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E7%A8%8B%E5%BA%8F%E5%91%98%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%AB%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-md5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-md5/">bugku-web-md5</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-md5/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:14:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>评论区：凑数题，没意思，这题不给源代码，md5碰撞就好好出碰撞的题阿，整个0e的真的小儿科了，硬猜是有多无聊</p>
-<p>前面的<a href="/2021/08/10/bugku-web-%E5%89%8D%E5%A5%B3%E5%8F%8B/" title="前女友（web24）">前女友（web24）</a><br>讲的很清楚<br>随便找一个0e的md5碰撞就行<br>浪费金币</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-md5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-你从哪里来" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">bugku-web-你从哪里来</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:10:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>没什么意思<br>bp抓包，在头部加一个<code>referer:https://www.google.com/</code></p>
-<img src="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/1.PNG" class="" title="1.PNG">
-
-<p>说实话这道题有点太靠后了，应该放到最前面</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-login1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-login1/">bugku-web-login1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-login1/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开以后是一个登录系统</p>
-<p>用admin试一试，发现不行</p>
-<p>根据题目提示：SQL约束攻击<br>比如想这道题，我们在创建sql表的时候，都会固定每个表中元素的最大长度，一般编写php也会配合这一长度进行长度过滤，而未过滤的话就会存在sql约束漏洞的攻击<br>可以传入远超sql长度的字符，而sql会自动截取自身的最大字符，从而实现重复注册</p>
-<p>比如我输入admin，会显示“已注册”</p>
-<img src="/2021/08/10/bugku-web-login1/2.PNG" class="" title="2.PNG">
-
-<p>但是输入admin后面加很多空格，则会注入成功</p>
-<img src="/2021/08/10/bugku-web-login1/3.PNG" class="" title="3.PNG">
-
-<p>然后再在登录界面输入注册的用户名和密码就好</p>
-<img src="/2021/08/10/bugku-web-login1/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-login1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
-
-
           </div>
         </div>
       </div>
@@ -1139,8 +397,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

