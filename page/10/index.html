@@ -164,6 +164,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-本地管理员" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/">bugku-web-本地管理员</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/" class="archive-article-date">
+  	<time datetime="2021-07-31T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主要考的ip伪造</p>
+<p>打开页面，随便输密码，发现ip被记录(再次输入就没用了)</p>
+<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/4.PNG" class="" title="4.PNG">
+
+<p>不着急，先打开源码，发现最后面跟了一个注释，base64解码，应该就是登录密码</p>
+<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/1.PNG" class="" title="1.PNG">
+<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/2.PNG" class="" title="2.PNG">
+
+<p>盲猜登录用户名为admin<br>抓包后改成admin和密码test123</p>
+<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/3.PNG" class="" title="3.PNG">
+<p>但是现在ip被记录，无法识别<br>在数据包的头部添加xff参数，随便输一个ip(不能是以前用过的ip，我这里直接用127.0.0.1了)<br>得到flag</p>
+<img src="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/5.PNG" class="" title="5.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/31/bugku-web-%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-网站被黑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1084,94 +1182,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8B%86%E5%8C%85fhx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-rad" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/17/rad/">rad</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/07/17/rad/" class="archive-article-date">
-  	<time datetime="2021-07-17T05:10:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="/download/rad.zip">点击下载</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/17/rad/">展开全文 >></a>
         </p>
       
 
