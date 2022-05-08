@@ -164,6 +164,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/">vue笔记</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-04-03T17:10:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vue的作者是中国人（尤雨溪），梗“尤雨溪懂个毛线的vue”的出处</p>
+<img src="/2022/04/04/vue%E7%AC%94%E8%AE%B0/vue.png" class="" title="vue.png">
+<p>感觉相当于js的一个外置包</p>
+<p>1.演示：<br>data相当于是默认的值，后面跟的东西会被解析成字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--view层 模板--&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &#123;&#123;message&#125;&#125;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--1.导入vue.js--&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue@2&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var vm&#x3D;new Vue(&#123;</span><br><span class="line">        el:&quot;#app&quot;,</span><br><span class="line">        &#x2F;&#x2F;Model:数据</span><br><span class="line">        data:&#123;</span><br><span class="line">           message:&quot;hello,vue!&quot;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;Vue 测试实例 - 菜鸟教程(runoob.com)&lt;&#x2F;title&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.staticfile.org&#x2F;vue&#x2F;2.2.2&#x2F;vue.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">	&#123;&#123;5+5&#125;&#125;&lt;br&gt;</span><br><span class="line">	&#123;&#123; ok ? &#39;YES&#39; : &#39;NO&#39; &#125;&#125;&lt;br&gt;</span><br><span class="line">	&#123;&#123; message.split(&#39;&#39;).reverse().join(&#39;&#39;) &#125;&#125;</span><br><span class="line">	&lt;div v-bind:id&#x3D;&quot;&#39;list-&#39; + id&quot;&gt;菜鸟教程&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">	</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">	ok: true,</span><br><span class="line">    message: &#39;RUNOOB&#39;,</span><br><span class="line">	id : 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>会输出：<br>10<br>YES<br>BOONUR<br>菜鸟教程</p>
+<p>2.条件语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;div v-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;A&#39;&quot;&gt;</span><br><span class="line">      A</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;B&#39;&quot;&gt;</span><br><span class="line">      B</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else-if&#x3D;&quot;type &#x3D;&#x3D;&#x3D; &#39;C&#39;&quot;&gt;</span><br><span class="line">      C</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      Not A&#x2F;B&#x2F;C</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    type: &#39;C&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.循环：<br>根据数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ol&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;site in sites&quot;&gt;</span><br><span class="line">      &#123;&#123; site.name &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ol&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    sites: [</span><br><span class="line">      &#123; name: &#39;Runoob&#39; &#125;,</span><br><span class="line">      &#123; name: &#39;Google&#39; &#125;,</span><br><span class="line">      &#123; name: &#39;Taobao&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>根据对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;value in object&quot;&gt;</span><br><span class="line">    &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    object: &#123;</span><br><span class="line">      name: &#39;菜鸟教程&#39;,</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;www.runoob.com&#39;,</span><br><span class="line">      slogan: &#39;学的不仅是技术，更是梦想！&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>获取多个值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">     &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125; : &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>根据整数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for&#x3D;&quot;(value, key, index) in object&quot;&gt;</span><br><span class="line">     &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125; : &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>4.计算(computed关键词)<br>用了这个就可以使用function ()来创建函数了<br>以下代码的作用是将字符串倒叙输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;p&gt;原始字符串: &#123;&#123; message &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;计算后反转字符串: &#123;&#123; reversedMessage &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">var vm &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &#39;Runoob!&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    &#x2F;&#x2F; 计算属性的 getter</span><br><span class="line">    reversedMessage: function () &#123;</span><br><span class="line">      &#x2F;&#x2F; &#96;this&#96; 指向 vm 实例</span><br><span class="line">      return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5.监听（watch属性）<br>在这个中的属性一般也在data中定义，然后在watch中再次定义，并可以使用function(val)，其中val就是传参（可以修改为别的值）<br>以v-model的表单的方式打印，修改的时候会自动运行函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Vue 测试实例 - 菜鸟教程(runoob.com)&lt;&#x2F;title&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.staticfile.org&#x2F;vue&#x2F;2.4.2&#x2F;vue.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">   &lt;body&gt;</span><br><span class="line">      &lt;div id &#x3D; &quot;computed_props&quot;&gt;</span><br><span class="line">         千米 : &#123;&#123;kilometers&#125;&#125;&lt;!--&lt;input type &#x3D; &quot;text&quot; v-model &#x3D; &quot;kilometers&quot;&gt;--&gt;</span><br><span class="line">         米 : &lt;input type &#x3D; &quot;text&quot; v-model &#x3D; &quot;meters&quot;&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">	   &lt;p id&#x3D;&quot;info&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;script type &#x3D; &quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">         var vm &#x3D; new Vue(&#123;</span><br><span class="line">            el: &#39;#computed_props&#39;,</span><br><span class="line">            data: &#123;</span><br><span class="line">               kilometers : 0,</span><br><span class="line">               meters:0</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">            &#125;,</span><br><span class="line">            computed :&#123;</span><br><span class="line">            &#125;,</span><br><span class="line">            watch : &#123;</span><br><span class="line">               kilometers:function(val) &#123;</span><br><span class="line">                  this.kilometers &#x3D; val;</span><br><span class="line">                  this.meters &#x3D; this.kilometers * 1000</span><br><span class="line">               &#125;,</span><br><span class="line">               meters : function (val) &#123;</span><br><span class="line">                  this.kilometers &#x3D; val&#x2F; 1000;</span><br><span class="line">                  this.meters &#x3D; val;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">         &#x2F;&#x2F; $watch 是一个实例方法</span><br><span class="line">		vm.$watch(&#39;kilometers&#39;, function (newValue, oldValue) &#123;</span><br><span class="line">			&#x2F;&#x2F; 这个回调将在 vm.kilometers 改变后调用</span><br><span class="line">		    document.getElementById (&quot;info&quot;).innerHTML &#x3D; &quot;修改前值为: &quot; + oldValue + &quot;，修改后值为: &quot; + newValue;</span><br><span class="line">		&#125;)</span><br><span class="line">      &lt;&#x2F;script&gt;</span><br><span class="line">   &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/04/vue%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-php反序化（重复利用同一个类）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1859,107 +1972,6 @@ log4j.rootLogger=DEBUG,console,file
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/21/JavaWeb%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-二进制-汇编笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">二进制/汇编笔记</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-01-19T08:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看课程可能是最简单的组成原理知识，可能对pwn帮助不大，权当复习吧</p>
-<p>加 INC -编译器-&gt; 0100 0000<br>减 DEC            0100 0100<br>乘 MUL            0100 1000 0100 1000<br>除 DIV             0100 1000 1100 1000</p>
-<p>想法：运用自己的进制写编译器，来进行从根源加密</p>
-<p>位运算加减乘除</p>
-<p>用或与非异或实现加法<br>1.异或运算（如果不考虑进位，异或可以直接出结果）<br>2.与运算（用于判断进位，若结果为0（即所有数都为0），则没有进位）<br>3.将与运算的结果左移一位<br>4.第三步的结果和第一步的结果异或<br>5.确认结果，将第四步的两个数与运算，判断是否有0（判断是否有进位）<br>（步骤：<br>1.A xor B -&gt; C<br>2.A and B -&gt; D<br>3.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>4.C xor D -&gt; C<br>5.C and D -&gt; D<br>6.if(D==0) print(C)<br>else D&lt;&lt;(D左移一位)<br>……</p>
-<p>减法（转负数相加后走上面的步骤）</p>
-<p>乘除就是按照组原的补码移位那一套使用加法就好了</p>
-<p>汇编<br>1.最好从vc6开始学各种东西来了解底层<br>2.ollydbg</p>
-<p>通用寄存器：<br>32位的通用寄存器只有8个<br>EAX<br>ECX<br>EDX<br>EBX<br>ESP<br>EBP<br>ESI<br>EDI<br>存值范围0-FFFFFFFF</p>
-<p>16位：FFFF<br>AX<br>CX<br>DX<br>BX<br>SP<br>BP<br>SI<br>DI</p>
-<p>8位：FF<br>AL<br>CL<br>DL<br>BL<br>AH<br>CH<br>DH<br>BH<br>8位：L低八位，H高八位</p>
-<p>指令：<br>MOV：<br>    mov 目的地址，立即数<br>    mov 目的地址，取数地址</p>
-<p>内存：<br>每个应用程序都有4GB的内存空间（可以理解为虚拟机的预设磁盘大小？虽然预设40G，但是虚拟机本身往往都没有40G）</p>
-<p>说是二进制，但是对于内存，寄存器还有汇编的知识都不是很具体（不过比我的组原老师讲的好太多了）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/19/%E4%BA%8C%E8%BF%9B%E5%88%B6-%E6%B1%87%E7%BC%96%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 

